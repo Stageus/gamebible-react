@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
-import { flexStyle } from "./FlexStyle";
+import { setFlex } from "./SetStyle";
 
 const baseStyles = css`
-  ${(props) => flexStyle(props.$flex)};
+  ${(props) => setFlex(props.$flex || "h_start_start")};
   box-sizing: ${(props) => props.$boxSizing || "border-box"};
   width: ${(props) => props.$width || "fit-content"};
   height: ${(props) => props.$height || "fit-content"};
@@ -42,5 +42,3 @@ export const Footer = styled.footer`
 export const Aside = styled.aside`
   ${baseStyles}
 `;
-
-//3월 11일 월요일 test push
