@@ -5,10 +5,10 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-          <Route path="/" />
+        <Route path="/" element={<TestPage />} />
       </Routes>
     </BrowserRouter>
-  )
-}
+  );
+};
 
 export default App;
