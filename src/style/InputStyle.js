@@ -1,39 +1,9 @@
 import { styled } from "styled-components";
+import { setColor, setSize, setWeight } from "./setStyle";
 import FlexStyle from "./FlexStyle";
 
-const setColor = (value) => {
-    const template = {
-        "major": "#617092",
-        "minorLight": "#91A8C9",
-        "minorDark": "#3B4B6D",
-        "black": "#2B2B2B",
-        "white": "#FFFFFF",
-        "lightGray": "#E2E2E2",
-        "orange": "#FFA500",
-    }
-    return template[value]
-}
-
-const setSize = (value) => {
-    const template = {
-        "small": "12px",
-        "medium": "16px",
-        "large": "24px"
-    }
-    return template[value]
-}
-
-const setWeight = (value) => {
-    const template = {
-        "light": "200",
-        "normal": "400",
-        "bold": "600"
-    }
-    return template[value]
-}
-
 const setType = (type) => {
-    if (type === "text" || "password") {
+    if (type === "text" || type === "password") {
         return `
             border: 1px solid black
         `
@@ -41,7 +11,6 @@ const setType = (type) => {
     else if (type === "button") {
         return `
             borer: none
-            ${FlexStyle("h_center_center")}
         `
     }
 }
@@ -58,4 +27,6 @@ export const Input = styled.input`
     font-weight: ${props => setWeight(props.$fontWeight || "normal")}
     padding: ${props => props.$padding || "5px"}
     margin: ${props => props.$margin || "0"}
+    ${props => FlexStyle(props.$flex || "h_center_center")}
+
 `
