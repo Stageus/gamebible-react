@@ -1,14 +1,14 @@
 import styled, { css } from "styled-components";
-import { setFlex } from "./SetStyle";
+import { setColor, setFlex } from "./SetStyle";
 
 const baseStyles = css`
+  box-sizing: border-box;
   ${(props) => setFlex(props.$flex || "h_start_start")};
-  box-sizing: ${(props) => props.$boxSizing || "border-box"};
   width: ${(props) => props.$width || "fit-content"};
   height: ${(props) => props.$height || "fit-content"};
   padding: ${(props) => props.$padding || "0"};
   margin: ${(props) => props.$margin || "0"};
-  background-color: ${(props) => props.$backgourndColor || "initial"};
+  background-color: ${(props) => setColor(props.$backgroundColor || "white")};
 `;
 
 export const Header = styled.header`
