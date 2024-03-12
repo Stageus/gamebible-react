@@ -3,7 +3,6 @@ import { setColor, setSize, setWeight, setFlex } from "./SetStyle";
 
 export const Input = styled.input`
   box-sizing: border-box;
-  cursor: pointer;
   ${(props) => setFlex(props.$flex || "h_start_start")};
   width: ${(props) => props.$width || "fit-content"};
   height: ${(props) => props.$height || "fit-content"};
