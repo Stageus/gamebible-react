@@ -1,7 +1,12 @@
 import React from "react";
+import HeaderItem from "../component/HeaderItem";
 
 const TestPage = () => {
-  return;
+  return (
+    <>
+      <HeaderItem></HeaderItem>
+    </>
+  );
 };
 
 export default TestPage;

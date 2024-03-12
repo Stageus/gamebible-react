@@ -8,7 +8,7 @@ const baseStyles = css`
   height: ${(props) => props.$height || "fit-content"};
   padding: ${(props) => props.$padding || "0"};
   margin: ${(props) => props.$margin || "0"};
-  background-color: ${(props) => setColor(props.$backgroundColor || "white")};
+  background-color: ${(props) => setColor(props.$backgroundColor || "none")};
 `;
 
 export const Header = styled.header`
