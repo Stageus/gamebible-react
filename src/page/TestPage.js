@@ -1,10 +1,10 @@
 import React from "react";
-import HeaderItem from "../component/HeaderItem";
+import SwitchTabItem from "../component/SwitchTabItem";
 
 const TestPage = () => {
   return (
     <>
-      <HeaderItem></HeaderItem>
+      <SwitchTabItem></SwitchTabItem>
     </>
   );
 };
