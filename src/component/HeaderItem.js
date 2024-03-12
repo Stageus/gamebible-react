@@ -1,5 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
+import { navToggleAtom } from "../recoil/navToggleAtom";
+import { useRecoilState } from "recoil";
 import HeaderLogo from "../img/HeaderLogo.svg";
 import SearchIcon from "../img/searchIcon.svg";
 import MenuIcon from "../img/menuIcon.svg";
@@ -51,16 +53,23 @@ const MenuNullUrl = [
 ];
 
 const user = {
-  id: null,
+  id: "123",
 };
 
 const HeaderItem = () => {
   const location = useLocation();
+  const [navToggle, setNavToggle] = useRecoilState(navToggleAtom);
+  const menuIconClickEvent = () => {
+    setNavToggle(!navToggle);
+    console.log(navToggle);
+  };
   return (
     <FixedHeader $width="100%" $flex="h_between_center" $padding="15px 5%">
       <Div $width="30%" $height="40px" $flex="h_start_center">
         <CusorPointerDiv $height="30px" $margin="0 5% 0 0">
-          {MenuNullUrl.includes(location.pathname) ? null : <Img src={MenuIcon} alt="MenuIcon" />}
+          {MenuNullUrl.includes(location.pathname) ? null : (
+            <Img src={MenuIcon} alt="MenuIcon" onClick={menuIconClickEvent} />
+          )}
         </CusorPointerDiv>
         <CusorPointerDiv $height="35px">
           <Img src={HeaderLogo} alt="HeaderLogo" />
