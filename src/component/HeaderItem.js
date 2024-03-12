@@ -3,6 +3,8 @@ import { useLocation } from "react-router-dom";
 import HeaderLogo from "../img/HeaderLogo.svg";
 import SearchIcon from "../img/searchIcon.svg";
 import MenuIcon from "../img/menuIcon.svg";
+import NotiIcon from "../img/notiIcon.svg";
+import UserIcon from "../img/userIcon.svg";
 
 import { Header, Div } from "../style/LayoutStyle";
 import { Img } from "../style/ImgStyle";
@@ -47,6 +49,11 @@ const MenuNullUrl = [
   "/PersonalInfoPage",
   "/EditPersonalInfoPage",
 ];
+
+const user = {
+  id: null,
+};
+
 const HeaderItem = () => {
   const location = useLocation();
   return (
@@ -55,14 +62,14 @@ const HeaderItem = () => {
         <CusorPointerDiv $height="30px" $margin="0 5% 0 0">
           {MenuNullUrl.includes(location.pathname) ? null : <Img src={MenuIcon} alt="MenuIcon" />}
         </CusorPointerDiv>
-        <CusorPointerDiv $height="40px">
+        <CusorPointerDiv $height="35px">
           <Img src={HeaderLogo} alt="HeaderLogo" />
         </CusorPointerDiv>
       </Div>
       <CenterDiv $width="40%">
         <CenterInput
           $width="100%"
-          $height="40px"
+          $height="35px"
           $backgroundColor="lightGray"
           $fontSize="small"
           $padding="0 2%"
@@ -70,16 +77,27 @@ const HeaderItem = () => {
         <SearchIconImg src={SearchIcon} alt="SearchIcon" $height="60%" />
       </CenterDiv>
       <Div $width="30%" $flex="h_end_center">
-        <SignBtn
-          $padding="0 15px"
-          $height="40px"
-          $flex="h_center_center"
-          $color="white"
-          $margin="0 10% 0 0"
-        >
-          로그인
-        </SignBtn>
-        <SignBtn $padding="0 15px" $height="40px" $flex="h_center_center" $color="white">
+        {user.id === null ? (
+          <SignBtn
+            $padding="0 10px"
+            $height="35px"
+            $flex="h_center_center"
+            $color="white"
+            $margin="0 10% 0 0"
+          >
+            로그인
+          </SignBtn>
+        ) : (
+          <>
+            <CusorPointerDiv $height="30px" $margin="0 10% 0 0">
+              <Img src={NotiIcon} alt="NotiIcon" />
+            </CusorPointerDiv>
+            <CusorPointerDiv $height="30px" $margin="0 10% 0 0">
+              <Img src={UserIcon} alt="UserIcon" />
+            </CusorPointerDiv>
+          </>
+        )}
+        <SignBtn $padding="0 10px" $height="35px" $flex="h_center_center" $color="white">
           로그아웃
         </SignBtn>
       </Div>
