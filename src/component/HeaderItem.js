@@ -23,7 +23,7 @@ const SignBtn = styled(Button)`
   border-radius: 15px;
 `;
 
-const CusorPointerDiv = styled(Div)`
+const CursorPointerDiv = styled(Div)`
   cursor: pointer;
 `;
 
@@ -66,14 +66,14 @@ const HeaderItem = () => {
   return (
     <FixedHeader $width="100%" $flex="h_between_center" $padding="15px 5%">
       <Div $width="30%" $height="40px" $flex="h_start_center">
-        <CusorPointerDiv $height="30px" $margin="0 5% 0 0">
+        <CursorPointerDiv $height="30px" $margin="0 5% 0 0">
           {MenuNullUrl.includes(location.pathname) ? null : (
             <Img src={MenuIcon} alt="MenuIcon" onClick={menuIconClickEvent} />
           )}
-        </CusorPointerDiv>
-        <CusorPointerDiv $height="35px">
+        </CursorPointerDiv>
+        <CursorPointerDiv $height="35px">
           <Img src={HeaderLogo} alt="HeaderLogo" />
-        </CusorPointerDiv>
+        </CursorPointerDiv>
       </Div>
       <CenterDiv $width="40%">
         <CenterInput
@@ -98,12 +98,12 @@ const HeaderItem = () => {
           </SignBtn>
         ) : (
           <>
-            <CusorPointerDiv $height="30px" $margin="0 10% 0 0">
+            <CursorPointerDiv $height="30px" $margin="0 10% 0 0">
               <Img src={NotiIcon} alt="NotiIcon" />
-            </CusorPointerDiv>
-            <CusorPointerDiv $height="30px" $margin="0 10% 0 0">
+            </CursorPointerDiv>
+            <CursorPointerDiv $height="30px" $margin="0 10% 0 0">
               <Img src={UserIcon} alt="UserIcon" />
-            </CusorPointerDiv>
+            </CursorPointerDiv>
           </>
         )}
         <SignBtn $padding="0 10px" $height="35px" $flex="h_center_center" $color="white">
