@@ -15,24 +15,24 @@ const baseStyles = css`
 `;
 
 export const P = styled.p`
-  ${(props) => baseStyles(props)};
+  ${baseStyles}
 `;
 export const A = styled.a`
-  ${(props) => baseStyles(props)};
+  ${baseStyles}
   cursor: pointer;
 `;
 export const Span = styled.span`
-  ${(props) => baseStyles(props)};
+  ${baseStyles}
 `;
 export const H1 = styled.h1`
-  ${(props) => baseStyles(props)};
+  ${baseStyles}
 `;
 export const H2 = styled.h2`
-  ${(props) => baseStyles(props)};
+  ${baseStyles}
 `;
 export const H3 = styled.h3`
-  ${(props) => baseStyles(props)};
+  ${baseStyles}
 `;
 export const H4 = styled.h4`
-  ${(props) => baseStyles(props)};
+  ${baseStyles}
 `;
