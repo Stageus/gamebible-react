@@ -41,50 +41,12 @@ const Label = styled.label`
 `;
 
 const InputItem = (props) => {
+  const { ...dummyData } = props;
   const [toggle, setToggle] = useState(false);
   const toggleClickEvent = () => {
     setToggle(!toggle);
   };
-  const dummyData = {
-    id: {
-      key: "id",
-      label: "아이디",
-      placeholder: "4 ~ 20글자 제한",
-      button: "중복확인",
-    },
-    id2: {
-      key: "id2",
-      placeholder: "아이디",
-    },
-    pw: {
-      key: "pw",
-      type: "pw",
-      label: "비밀번호",
-      placeholder: "비밀번호",
-    },
-    pw2: {
-      key: "pw2",
-      type: "pw",
-      label: "비밀번호",
-      placeholder: "8 ~ 20글자 제한",
-    },
-    nickName: {
-      key: "nickName",
-      label: "닉네임",
-      placeholder: "2 ~ 20글자 제한",
-      button: "중복확인",
-    },
-    email: {
-      key: "email",
-      label: "이메일",
-      button: "인증전송",
-    },
-    verificationCode: {
-      key: "verificationCode",
-      label: "인증번호",
-      button: "인증확인",
-    },
-  };
+
   return (
     <>
       {Object.values(dummyData).map((data) => (
