@@ -43,7 +43,6 @@ const Label = styled.label`
 const InputItem = (props) => {
   const [toggle, setToggle] = useState(false);
   const toggleClickEvent = () => {
-    console.log(toggle);
     setToggle(!toggle);
   };
   const dummyData = {
@@ -90,7 +89,9 @@ const InputItem = (props) => {
     <>
       {Object.values(dummyData).map((data) => (
         <Div key={data.key} $flex="v_start_start" $margin="0 0 20px 0">
+          {/* 라벨 유무에 따라 출력 결정 */}
           {data.label && <Label htmlFor={data.key}>{data.label}</Label>}
+          {/* /라벨 유무에 따라 출력 결정 */}
           <RelativeDiv>
             <RelativeDiv>
               <BorderStyleInput
@@ -101,12 +102,15 @@ const InputItem = (props) => {
                 type={data.type === "pw" && !toggle ? "password" : "text"}
                 placeholder={data.placeholder}
               />
+              {/* 버튼 유무에 따라 출력 결정 */}
               {data.button && (
                 <AbsoluteBtn $color="white" $fontSize="smail" $padding="6px 8px">
                   {data.button}
                 </AbsoluteBtn>
               )}
+              {/* /버튼 유무에 따라 출력 결정 */}
             </RelativeDiv>
+            {/* 타입 pw일 때 eye 아이콘 출력 */}
             {data.type === "pw" && (
               <EyeIconBtn onClick={toggleClickEvent}>
                 <Div $height="24px">
@@ -114,6 +118,7 @@ const InputItem = (props) => {
                 </Div>
               </EyeIconBtn>
             )}
+            {/* /타입 pw일 때 eye 아이콘 출력 */}
           </RelativeDiv>
         </Div>
       ))}
