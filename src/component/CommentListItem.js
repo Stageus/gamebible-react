@@ -12,29 +12,15 @@ const CommentListItemLayout = styled(Article)`
   border-radius: 5px;
   cursor: pointer;
 `;
-const CommentContents = styled(Div)`
-  border: 1px solid red;
-`;
-const CommentTitle = styled(Div)`
-  border: 1px solid blue;
-`;
-const CommentNickname = styled(Div)`
-  border: 1px solid blue;
-`;
-const CommentCreatedAt = styled(Div)`
-  border: 1px solid blue;
-`;
-const CommentDelete = styled(Div)`
-  border: 1px solid blue;
-`;
+const CommentContents = styled(Div)``;
+const CommentTitle = styled(Div)``;
+const CommentNickname = styled(Div)``;
+const CommentCreatedAt = styled(Div)``;
+const CommentDelete = styled(Div)``;
 
 const users = {
   id: ["admin", "작성자닉네임_2"],
 };
-
-if (users.id.includes("admin") || users.id.includes("작성자닉네임_2")) {
-  console.log("댓글 삭제 가능함");
-}
 
 const CommentListItem = (props) => {
   const { title, nickname, createdAt } = props.data;
