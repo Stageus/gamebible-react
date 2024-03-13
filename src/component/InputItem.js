@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+
 import styled from "styled-components";
+import { setColor } from "../style/SetStyle";
 
 import UnVisibleIcon from "../img/unVisibleIcon.svg";
 import VisibleIcon from "../img/visibleIcon.svg";
@@ -22,6 +24,7 @@ const AbsoluteBtn = styled(Button)`
 `;
 const BorderStyleInput = styled(Input)`
   border-radius: 4px;
+  border: 1px solid ${setColor("black")};
 `;
 
 const EyeIconBtn = styled(Button)`
@@ -56,11 +59,13 @@ const InputItem = (props) => {
     },
     pw: {
       key: "pw",
+      type: "pw",
       label: "비밀번호",
       placeholder: "비밀번호",
     },
     pw2: {
       key: "pw2",
+      type: "pw",
       label: "비밀번호",
       placeholder: "8 ~ 20글자 제한",
     },
@@ -93,7 +98,7 @@ const InputItem = (props) => {
                 $width="350px"
                 $height="50px"
                 $padding="0 3%"
-                type={data.key === "pw" ? "password" : "text"}
+                type={data.type === "pw" && !toggle ? "password" : "text"}
                 placeholder={data.placeholder}
               />
               {data.button && (
@@ -102,7 +107,7 @@ const InputItem = (props) => {
                 </AbsoluteBtn>
               )}
             </RelativeDiv>
-            {data.key === "pw" && (
+            {data.type === "pw" && (
               <EyeIconBtn onClick={toggleClickEvent}>
                 <Div $height="24px">
                   {!toggle ? <Img src={VisibleIcon} /> : <Img src={UnVisibleIcon} />}
