@@ -1,18 +1,16 @@
-import { styled } from "styled-components";
+import styled, { css } from "styled-components";
 import { setColor, setSize, setWeight, setFlex } from "./SetStyle";
 
-const template = (props) => {
-  return `
-    ${setFlex(props.$flex || "h_start_start")};
-    width: ${props.$width || "fit-content"};
-    height: ${props.$height || "fit-content"};
-    padding: ${props.$padding || "0"};
-    margin: ${props.$margin || "0"};
-    color: ${setColor(props.$color || "black")};
-    font-size: ${(props) => setSize(props.$fontSize || "medium")};
-    font-weight: ${setWeight(props.$fontWeight || "normal")};
-  `;
-};
+const template = (props) => css`
+  ${setFlex(props.$flex || "h_start_start")};
+  width: ${props.$width || "fit-content"};
+  height: ${props.$height || "fit-content"};
+  padding: ${props.$padding || "0"};
+  margin: ${props.$margin || "0"};
+  color: ${setColor(props.$color || "black")};
+  font-size: ${(props) => setSize(props.$fontSize || "medium")};
+  font-weight: ${(props) => setWeight(props.$fontWeight || "normal")};
+`;
 
 export const P = styled.p`
   ${(props) => template(props)};

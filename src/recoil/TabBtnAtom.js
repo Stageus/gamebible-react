@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-export const TabBtnAton = atom({
-  key: "TabBtnAton",
+export const TabBtnAtom = atom({
+  key: "TabBtnAtom",
   default: null,
 });
