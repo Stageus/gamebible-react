@@ -9,7 +9,7 @@ const template = (props) => {
     padding: ${props.$padding || "0"};
     margin: ${props.$margin || "0"};
     color: ${setColor(props.$color || "black")};
-    font-size: ${(props) => setSize(props.$fontSize || "medium")};
+    font-size: ${setSize(props.$fontSize || "medium")};
     font-weight: ${setWeight(props.$fontWeight || "normal")};
   `;
 };

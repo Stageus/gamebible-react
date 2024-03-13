@@ -1,12 +1,8 @@
 import React from "react";
+import AddPhotoBtnItem from "../component/AddPhotoBtnItem";
 
 const TestPage = () => {
-  return (
-    <>
-      <>테스트 페이지 입니다.</>
-      <>해당 양식을 따르세요.</>
-    </>
-  );
+  return <AddPhotoBtnItem />;
 };
 
 export default TestPage;
