@@ -1,10 +1,10 @@
 import React from "react";
-import SwitchTabItem from "../component/SwitchTabItem";
+import InputItem from "../component/InputItem";
 
 const TestPage = () => {
   return (
     <>
-      <SwitchTabItem></SwitchTabItem>
+      <InputItem></InputItem>
     </>
   );
 };
