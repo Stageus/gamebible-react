@@ -1,9 +1,6 @@
 import React from "react";
-import { styled } from "styled-components";
 import PostListItem from "../component/PostListItem";
 import { Section } from "../style/LayoutStyle";
-
-const PostListLayout = styled(Section)``;
 
 const PostListContainer = () => {
   const PostListData = [
@@ -44,11 +41,11 @@ const PostListContainer = () => {
     },
   ];
   return (
-    <PostListLayout $flex="v_center_center">
+    <Section $flex="v_center_center">
       {PostListData.map((elem) => {
         return <PostListItem key={elem.id} data={elem} />;
       })}
-    </PostListLayout>
+    </Section>
   );
 };
 
