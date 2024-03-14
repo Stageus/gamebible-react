@@ -1,12 +1,8 @@
 import React from "react";
+import CommentListContainer from "../container/CommentListContainer";
 
 const TestPage = () => {
-  return (
-    <>
-      <>테스트 페이지 입니다.</>
-      <>해당 양식을 따르세요.</>
-    </>
-  );
+  return <CommentListContainer />;
 };
 
 export default TestPage;
