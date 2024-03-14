@@ -1,10 +1,10 @@
 import React from "react";
-import PostListContainer from "../container/PostListContainer";
 
 const TestPage = () => {
   return (
     <>
-      <PostListContainer />
+      <>테스트 페이지 입니다.</>
+      <>해당 양식을 따르세요.</>
     </>
   );
 };
