@@ -6,9 +6,7 @@ import { setColor } from "../style/SetStyle";
 import useHover from "../hook/useHover";
 
 const GameListItemContainer = styled(Div)`
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-bottom-color: ${setColor("major")};
+  border: 1px solid ${setColor("major")};
   cursor: pointer;
 `;
 const GameListItemName = styled(P)`
@@ -33,7 +31,7 @@ const GameListItem = (props) => {
   return (
     <GameListItemContainer
       $flex="h_center_center"
-      $width="250px"
+      $width="100%"
       $height="66px"
       $padding="10px"
       onMouseOver={gameBtnHoverEvent}

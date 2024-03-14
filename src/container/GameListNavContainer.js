@@ -1,15 +1,19 @@
 import React from "react";
 import { styled } from "styled-components";
-import GameListItem from "../component/GameListItem";
 import { Nav } from "../style/LayoutStyle";
+import GameListItem from "../component/GameListItem";
+import { useRecoilValue } from "recoil";
+import GameListItemAtom from "../recoil/GameListItemAtom";
 
 const GameListNav = styled(Nav)`
-  position: fixed;
   z-index: 100;
+  position: fixed;
   overflow: scroll;
 `;
 
 const GameListNavContainer = () => {
+  const GameListItemOpen = useRecoilValue(GameListItemAtom);
+
   const GameListData = [
     {
       id: "Game_1",
@@ -91,14 +95,38 @@ const GameListNavContainer = () => {
       id: "Game_20",
       name: "Game_20",
     },
+    {
+      id: "Game_21",
+      name: "Game_16",
+    },
+    {
+      id: "Game_22",
+      name: "Game_17",
+    },
+    {
+      id: "Game_23",
+      name: "Game_18",
+    },
+    {
+      id: "Game_24",
+      name: "Game_19",
+    },
+    {
+      id: "Game_25",
+      name: "Game_20",
+    },
   ];
 
   return (
-    <GameListNav $flex="v_center_center">
-      {GameListData.map((elem) => {
-        return <GameListItem key={elem.id} data={elem} />;
-      })}
-    </GameListNav>
+    GameListItemOpen && (
+      <GameListNav $flex="v_center_center" $width="250px" $height="100vh" $backgroundColor="white">
+        <section>
+          {GameListData.map((elem) => {
+            return <GameListItem key={elem.id} data={elem} />;
+          })}
+        </section>
+      </GameListNav>
+    )
   );
 };
 
