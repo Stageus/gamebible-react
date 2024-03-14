@@ -4,7 +4,8 @@ import FooterItem from "../component/FooterItem";
 const TestPage = () => {
   return (
     <>
-      <FooterItem />
+      <>테스트 페이지 입니다.</>
+      <>해당 양식을 따르세요.</>
     </>
   );
 };
