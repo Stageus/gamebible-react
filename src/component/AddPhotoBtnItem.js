@@ -30,7 +30,10 @@ const AddPhotoBtnItem = () => {
     const file = e.target.files[0];
     console.log(file, "💥💥💥파일명💥💥💥");
     if (file) {
-      setImage((prevImages) => [...prevImages, URL.createObjectURL(file)]);
+      const uniqueId = Date.now();
+      console.log("업로드시점", uniqueId);
+      const imageURL = URL.createObjectURL(file);
+      setImage((prevImages) => [...prevImages, { file, imageURL, id: uniqueId }]);
     }
   };
 
@@ -60,8 +63,14 @@ const AddPhotoBtnItem = () => {
       </AddPhotoBtnItemLayout>
 
       <ShowPhotosLayout $flex="v_center_center" $width="1136px" $padding="50px">
-        {image.map((image, index) => (
-          <Img key={index} src={image} $height="300px" $margin="10px" />
+        {image.map((imageData) => (
+          <Img
+            key={imageData.id}
+            src={imageData.imageURL}
+            $height="300px"
+            $margin="10px"
+            alt={imageData.file.name}
+          />
         ))}
       </ShowPhotosLayout>
     </>
