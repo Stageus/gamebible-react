@@ -8,7 +8,12 @@ import GameListItemAtom from "../recoil/GameListItemAtom";
 const GameListNav = styled(Nav)`
   z-index: 100;
   position: fixed;
-  overflow: scroll;
+  top: 0;
+`;
+
+const NavSection = styled.section`
+  overflow: auto;
+  width: 100%;
 `;
 
 const GameListNavContainer = () => {
@@ -17,7 +22,7 @@ const GameListNavContainer = () => {
   const GameListData = [
     {
       id: "Game_1",
-      name: "리그오브레전드(League of Legends)",
+      name: "리그오브레전드(League of Legends)ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ",
     },
     {
       id: "Game_2",
@@ -120,11 +125,11 @@ const GameListNavContainer = () => {
   return (
     GameListItemOpen && (
       <GameListNav $flex="v_center_center" $width="250px" $height="100vh" $backgroundColor="white">
-        <section>
+        <NavSection>
           {GameListData.map((elem) => {
             return <GameListItem key={elem.id} data={elem} />;
           })}
-        </section>
+        </NavSection>
       </GameListNav>
     )
   );

@@ -1,12 +1,12 @@
 import React from "react";
 import { styled } from "styled-components";
-import { Div } from "../style/LayoutStyle";
+import { Button } from "../style/ButtonStyle";
 import { P } from "../style/TextStyle";
 import { setColor } from "../style/SetStyle";
 import useHover from "../hook/useHover";
 
-const GameListItemContainer = styled(Div)`
-  border: 1px solid ${setColor("major")};
+const GameListItemContainer = styled(Button)`
+  border-bottom: 1px solid ${setColor("major")};
   cursor: pointer;
 `;
 const GameListItemName = styled(P)`
@@ -33,7 +33,7 @@ const GameListItem = (props) => {
       $flex="h_center_center"
       $width="100%"
       $height="66px"
-      $padding="10px"
+      $padding="0 20px"
       onMouseOver={gameBtnHoverEvent}
       onMouseOut={gameBtnHoverOutEvent}
       style={btnStyle}
