@@ -6,17 +6,10 @@ import deleteImg from "../img/deleteImg.svg";
 
 const CommentListItemLayout = styled(Article)`
   background-color: ${setColor("white")};
-  border-width: 1px;
-  border-style: solid;
-  border-color: ${setColor("black")};
+  border: 1px solid ${setColor("black")};
   border-radius: 5px;
   cursor: pointer;
 `;
-const CommentContents = styled(Div)``;
-const CommentTitle = styled(Div)``;
-const CommentNickname = styled(Div)``;
-const CommentCreatedAt = styled(Div)``;
-const CommentDelete = styled(Div)``;
 
 const users = {
   id: ["admin", "작성자닉네임_2"],
@@ -33,20 +26,20 @@ const CommentListItem = (props) => {
       $padding="10px 40px 10px 40px"
       $margin="0 0 20px 0"
     >
-      <CommentContents $flex="h_between_center" $width="100%">
-        <CommentTitle $flex="h_start_center" $width="550px">
+      <Div $flex="h_between_center" $width="100%">
+        <Div $flex="h_start_center" $width="550px">
           {title}
-        </CommentTitle>
-        <CommentNickname $flex="h_center_center" $width="200px">
+        </Div>
+        <Div $flex="h_center_center" $width="200px">
           {nickname}
-        </CommentNickname>
-        <CommentCreatedAt $flex="h_center_center" $width="100px">
+        </Div>
+        <Div $flex="h_center_center" $width="100px">
           {createdAt}
-        </CommentCreatedAt>
-        <CommentDelete $flex="h_center_center" $width="30px" $height="30px">
+        </Div>
+        <Div $flex="h_center_center" $width="30px" $height="30px">
           {users.id.includes(nickname) && <img src={deleteImg} alt="댓글 삭제하기" />}
-        </CommentDelete>
-      </CommentContents>
+        </Div>
+      </Div>
     </CommentListItemLayout>
   );
 };
