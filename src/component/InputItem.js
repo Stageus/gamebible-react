@@ -41,7 +41,27 @@ const Label = styled.label`
 `;
 
 const InputItem = (props) => {
-  const { ...dummyData } = props;
+  // const { ...dummyData } = props;
+  const dummyData = {
+    id: {
+      key: "id",
+      label: "아이디",
+      button: "중복확인",
+      placeholder: "4 ~ 20글자 제한",
+    },
+    pw: {
+      key: "pw",
+      type: "pw",
+      label: "비밀번호",
+      placeholder: "8 ~ 20글자 제한",
+    },
+    email: {
+      key: "email",
+      label: "이메일",
+      button: "인증전송",
+      placeholder: "1234@email.com",
+    },
+  };
   const [toggle, setToggle] = useState(false);
   const toggleClickEvent = () => {
     setToggle(!toggle);
