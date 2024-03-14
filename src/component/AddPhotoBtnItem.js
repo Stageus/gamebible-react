@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { styled } from "styled-components";
 import { setColor } from "../style/SetStyle";
 import { Button } from "../style/ButtonStyle";
@@ -11,35 +11,31 @@ const AddPhotoBtnItemLayout = styled(Button)`
   border: 1px solid ${setColor("black")};
   border-radius: 20px;
 `;
+const ShowPhotosLayout = styled(Div)`
+  border: 1px solid ${setColor("black")};
+  border-radius: 10px;
+`;
 
 const AddPhotoBtnItem = () => {
+  const [image, setImage] = useState([]);
   const fileInput = React.useRef(null);
-  console.log(fileInput);
+  console.log(fileInput, "💥💥💥파일 선택창(input) 클릭💥💥💥");
 
-  const handleButtonClick = () => {
+  const handleBtnClick = () => {
     fileInput.current.click();
+    console.log("💥💥💥파일 선택창(input) 클릭될 때 사용자 버튼 클릭💥💥💥");
   };
 
   const handleChange = (e) => {
-    console.log(e.target.files[0]);
+    const file = e.target.files[0];
+    console.log(file, "💥💥💥파일명💥💥💥");
+    if (file) {
+      setImage((prevImages) => [...prevImages, URL.createObjectURL(file)]);
+    }
   };
 
   return (
     <>
-      <AddPhotoBtnItemLayout
-        $flex="h_center_center"
-        $backgroundColor="initial"
-        $color="black"
-        $padding="12px 20px"
-        $fontWeight="bold"
-        onClick={handleButtonClick}
-      >
-        <Div $margin="0 10px 0 0" $height="24px">
-          <Img src={addPhotoImg} alt="사진 업로드하기" />
-        </Div>
-        PHOTO
-      </AddPhotoBtnItemLayout>
-
       <Input
         type="file"
         accept="image/*"
@@ -47,6 +43,27 @@ const AddPhotoBtnItem = () => {
         ref={fileInput}
         onChange={handleChange}
       />
+
+      <AddPhotoBtnItemLayout
+        $flex="h_center_center"
+        $backgroundColor="initial"
+        $color="black"
+        $padding="12px 20px"
+        $margin="20px"
+        $fontWeight="bold"
+        onClick={handleBtnClick}
+      >
+        <Div $margin="0 10px 0 0" $height="24px">
+          <Img src={addPhotoImg} alt="사진 업로드하기" />
+        </Div>
+        PHOTO
+      </AddPhotoBtnItemLayout>
+
+      <ShowPhotosLayout $flex="v_center_center" $width="1136px" $padding="50px">
+        {image.map((image, index) => (
+          <Img key={index} src={image} $height="300px" $margin="10px" />
+        ))}
+      </ShowPhotosLayout>
     </>
   );
 };
