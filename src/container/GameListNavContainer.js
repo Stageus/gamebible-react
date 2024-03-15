@@ -1,6 +1,6 @@
 import React from "react";
 import { styled } from "styled-components";
-import { Nav } from "../style/LayoutStyle";
+import { Nav, Section } from "../style/LayoutStyle";
 import GameListItem from "../component/GameListItem";
 import { useRecoilValue } from "recoil";
 import GameListItemAtom from "../recoil/GameListItemAtom";
@@ -11,9 +11,8 @@ const GameListNav = styled(Nav)`
   top: 0;
 `;
 
-const NavSection = styled.section`
+const NavSection = styled(Section)`
   overflow: auto;
-  width: 100%;
 `;
 
 const GameListNavContainer = () => {
@@ -125,7 +124,7 @@ const GameListNavContainer = () => {
   return (
     GameListItemOpen && (
       <GameListNav $flex="v_center_center" $width="250px" $height="100vh" $backgroundColor="white">
-        <NavSection>
+        <NavSection $width="100%">
           {GameListData.map((elem) => {
             return <GameListItem key={elem.id} data={elem} />;
           })}

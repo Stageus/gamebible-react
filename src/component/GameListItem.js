@@ -6,9 +6,13 @@ import { setColor } from "../style/SetStyle";
 import useHover from "../hook/useHover";
 
 const GameListItemContainer = styled(Button)`
-  border-bottom: 1px solid ${setColor("major")};
+  border: 1px solid ${setColor("major")};
   cursor: pointer;
+  &:hover {
+    border: none;
+  }
 `;
+
 const GameListItemName = styled(P)`
   white-space: nowrap;
   overflow: hidden;
@@ -21,11 +25,11 @@ const GameListItem = (props) => {
   // ------------------- 호버 이벤트 -------------------
   const [isHovered, gameBtnHoverEvent, gameBtnHoverOutEvent] = useHover(false);
 
-  const btnStyle = {
-    backgroundColor: isHovered ? `${setColor("minorLight")}` : "transparent",
+  const btnHoverStyle = {
+    backgroundColor: isHovered && `${setColor("minorLight")}`,
   };
-  const nameStyle = {
-    color: isHovered ? `${setColor("white")}` : "black",
+  const nameHoverStyle = {
+    color: isHovered && `${setColor("white")}`,
   };
 
   return (
@@ -34,9 +38,10 @@ const GameListItem = (props) => {
       $width="100%"
       $height="66px"
       $padding="0 20px"
+      $backgroundColor="white"
       onMouseOver={gameBtnHoverEvent}
       onMouseOut={gameBtnHoverOutEvent}
-      style={btnStyle}
+      style={btnHoverStyle}
     >
       <GameListItemName
         $flex="h_start_center"
@@ -44,7 +49,7 @@ const GameListItem = (props) => {
         $height="100%"
         onMouseOver={gameBtnHoverEvent}
         onMouseOut={gameBtnHoverOutEvent}
-        style={nameStyle}
+        style={nameHoverStyle}
       >
         {name}
       </GameListItemName>
