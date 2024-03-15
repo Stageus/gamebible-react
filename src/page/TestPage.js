@@ -1,5 +1,8 @@
 import React from "react";
+import ThumnailItem from "../component/ThumbnailItem";
 
-const TestPage = () => {};
+const TestPage = () => {
+  return <ThumnailItem />;
+};
 
 export default TestPage;
