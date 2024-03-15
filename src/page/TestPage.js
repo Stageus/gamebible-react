@@ -1,12 +1,8 @@
 import React from "react";
-import HeaderItem from "../component/HeaderItem";
+import ThumnailItem from "../component/ThumbnailItem";
 
 const TestPage = () => {
-  return (
-    <>
-      <HeaderItem></HeaderItem>
-    </>
-  );
+  return <ThumnailItem />;
 };
 
 export default TestPage;
