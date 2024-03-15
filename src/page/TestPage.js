@@ -1,8 +1,8 @@
 import React from "react";
-import CommentListContainer from "../container/CommentListContainer";
+import ThumnailItem from "../component/ThumbnailItem";
 
 const TestPage = () => {
-  return <CommentListContainer />;
+  return <ThumnailItem />;
 };
 
 export default TestPage;
