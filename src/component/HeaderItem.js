@@ -16,6 +16,7 @@ import styled from "styled-components";
 
 const FixedHeader = styled(Header)`
   position: fixed;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
 `;
 
 const SignBtn = styled(Button)`
@@ -52,11 +53,8 @@ const MenuNullUrl = [
   "/EditPersonalInfoPage",
 ];
 
-const user = {
-  id: "123",
-};
-
-const HeaderItem = () => {
+const HeaderItem = (props) => {
+  const { userIdx } = props;
   const location = useLocation();
   const [navToggle, setNavToggle] = useRecoilState(navToggleAtom);
   const menuIconClickEvent = () => {
@@ -86,7 +84,7 @@ const HeaderItem = () => {
         <SearchIconImg src={SearchIcon} alt="SearchIcon" $height="60%" />
       </CenterDiv>
       <Div $width="30%" $flex="h_end_center">
-        {user.id === null ? (
+        {userIdx === "null" || " " ? (
           <SignBtn
             $padding="0 10px"
             $height="35px"
