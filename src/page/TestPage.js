@@ -1,8 +1,12 @@
 import React from "react";
-import ThumnailItem from "../component/ThumbnailItem";
+import { Link } from "react-router-dom";
 
 const TestPage = () => {
-  return <ThumnailItem />;
+  return (
+    <>
+      <Link to="/SignUpPage">회원가입</Link>
+    </>
+  );
 };
 
 export default TestPage;
