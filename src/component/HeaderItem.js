@@ -13,10 +13,13 @@ import { Img } from "../style/ImgStyle";
 import { Input } from "../style/InputStyle";
 import { Button } from "../style/ButtonStyle";
 import styled from "styled-components";
+import { setColor } from "../style/SetStyle";
 
 const FixedHeader = styled(Header)`
   position: fixed;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+  background-color: ${setColor("white")};
+  z-index: 1;
 `;
 
 const SignBtn = styled(Button)`
