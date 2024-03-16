@@ -14,11 +14,13 @@ const BorderBtn = styled(Button)`
   border-style: none;
 `;
 
-const dummyInputData = {
+const dummyIdData = {
   id: {
     key: "id",
     placeholder: "아이디",
   },
+};
+const dummyPWData = {
   pw: {
     key: "pw",
     type: "pw",
@@ -30,7 +32,8 @@ const SignInContainer = () => {
   return (
     <Section $flex="v_center_center">
       <Img src={HeaderLogo} alt="HeaderLogo" />
-      <InputItem {...{ dummyInputData }}></InputItem>
+      <InputItem {...{ dummyInputData: dummyIdData }}></InputItem>
+      <InputItem {...{ dummyInputData: dummyPWData }}></InputItem>
       <BorderBtn
         $flex="h_center_center"
         $width="100%"
