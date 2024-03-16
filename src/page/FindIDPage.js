@@ -22,8 +22,6 @@ const dummyEmailData = {
   },
 };
 
-const InputSection = styled(Section)``;
-
 const PositionDiv = styled(Div)`
   position: relative;
   top: 70px;
@@ -35,7 +33,7 @@ const FindIDPage = () => {
       <HeaderItem {...{ dummyData }}></HeaderItem>
       <Section $width="100vw" $height="90vh" $flex="h_center_center">
         <PositionDiv $flex="v_center_center" $width="350px">
-          <Img src={MainLogo} alt="MainLogo" />
+          <Img $margin="0 0 20px 0" src={MainLogo} alt="MainLogo" />
           <InputItem {...{ dummyInputData: dummyEmailData }}></InputItem>
           <Button
             $flex="h_center_center"
