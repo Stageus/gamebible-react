@@ -3,7 +3,7 @@ import TestPage from "./page/TestPage";
 import GlobalStyle from "./style/GlobalStyle";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { RecoilRoot } from "recoil";
-import SignUpPage from "./page/SignUpPage";
+import FindIDPage from "./page/FindIDPage";
 
 const App = () => {
   return (
@@ -13,7 +13,7 @@ const App = () => {
           <GlobalStyle />
           <Routes>
             <Route path="/" element={<TestPage />} />
-            <Route path="/SignUpPage" element={<SignUpPage />} />
+            <Route path="/FindIDPage" element={<FindIDPage />} />
           </Routes>
         </BrowserRouter>
       </RecoilRoot>
