@@ -9,16 +9,22 @@ import styled from "styled-components";
 import { Button } from "../style/ButtonStyle";
 import { Div, Section } from "../style/LayoutStyle";
 import { Img } from "../style/ImgStyle";
+import { Link } from "react-router-dom";
 
 const dummyData = {
-  userIdx: null,
+  userIdx: "1234",
 };
 
 const dummyEmailData = {
-  pw: {
+  email: {
     key: "email",
     label: "이메일",
-    placeholder: "가입된 이메일 주소 입력",
+    placeholder: "qwer@email.com",
+  },
+  nickName: {
+    key: "nickName",
+    label: "닉네임",
+    placeholder: "홍길동",
   },
 };
 
@@ -27,7 +33,11 @@ const PositionDiv = styled(Div)`
   top: 70px;
 `;
 
-const FindIDPage = () => {
+const FullWideLink = styled(Link)`
+  width: 100%;
+`;
+
+const EditPersonalInfoPage = () => {
   return (
     <>
       <HeaderItem {...{ dummyData }}></HeaderItem>
@@ -41,9 +51,21 @@ const FindIDPage = () => {
             $color="white"
             $height="50px"
             $borderRadius="4px"
+            $margin="0 0 20px 0"
           >
-            이메일 전송
+            저장하기
           </Button>
+          <FullWideLink to="/PersonalInfoPage">
+            <Button
+              $flex="h_center_center"
+              $width="100%"
+              $color="white"
+              $height="50px"
+              $borderRadius="4px"
+            >
+              취소하기
+            </Button>
+          </FullWideLink>
         </PositionDiv>
       </Section>
       <FooterItem></FooterItem>
@@ -51,4 +73,4 @@ const FindIDPage = () => {
   );
 };
 
-export default FindIDPage;
+export default EditPersonalInfoPage;
