@@ -16,9 +16,10 @@ const dummyData = {
 
 const dummyEmailData = {
   pw: {
-    key: "email",
-    label: "이메일",
-    placeholder: "가입된 이메일 주소 입력",
+    key: "pw",
+    type: "pw",
+    label: "비밀번호",
+    placeholder: "8 ~ 20글자 제한",
   },
 };
 
@@ -27,7 +28,7 @@ const PositionDiv = styled(Div)`
   top: 70px;
 `;
 
-const FindIDPage = () => {
+const ChangePWPage = () => {
   return (
     <>
       <HeaderItem {...{ dummyData }}></HeaderItem>
@@ -42,7 +43,7 @@ const FindIDPage = () => {
             $height="50px"
             $borderRadius="4px"
           >
-            아이디 찾기
+            비밀번호 변경하기
           </Button>
         </PositionDiv>
       </Section>
@@ -51,4 +52,4 @@ const FindIDPage = () => {
   );
 };
 
-export default FindIDPage;
+export default ChangePWPage;
