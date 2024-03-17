@@ -87,7 +87,7 @@ const HeaderItem = (props) => {
         <SearchIconImg src={SearchIcon} alt="SearchIcon" $height="60%" />
       </CenterDiv>
       <Div $width="30%" $flex="h_end_center">
-        {userIdx === "null" || " " ? (
+        {userIdx === "null" || userIdx === " " ? (
           <SignBtn
             $padding="0 10px"
             $height="35px"
