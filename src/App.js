@@ -3,7 +3,7 @@ import TestPage from "./page/TestPage";
 import GlobalStyle from "./style/GlobalStyle";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { RecoilRoot } from "recoil";
-import ChangePWPage from "./page/ChangePWPage";
+import PersonalInfoPage from "./page/PersonalInfoPage";
 
 const App = () => {
   return (
@@ -13,7 +13,7 @@ const App = () => {
           <GlobalStyle />
           <Routes>
             <Route path="/" element={<TestPage />} />
-            <Route path="/ChangePWPage" element={<ChangePWPage />} />
+            <Route path="/PersonalInfoPage" element={<PersonalInfoPage />} />
           </Routes>
         </BrowserRouter>
       </RecoilRoot>
