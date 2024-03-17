@@ -17,6 +17,7 @@ import { setColor } from "../style/SetStyle";
 
 const FixedHeader = styled(Header)`
   position: fixed;
+  top: 0;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
   background-color: ${setColor("white")};
   z-index: 1;
