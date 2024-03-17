@@ -17,6 +17,7 @@ import { setColor } from "../style/SetStyle";
 
 const FixedHeader = styled(Header)`
   position: fixed;
+  top: 0;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
   background-color: ${setColor("white")};
   z-index: 1;
@@ -87,7 +88,7 @@ const HeaderItem = (props) => {
         <SearchIconImg src={SearchIcon} alt="SearchIcon" $height="60%" />
       </CenterDiv>
       <Div $width="30%" $flex="h_end_center">
-        {userIdx === "null" || userIdx === " " ? (
+        {userIdx === "null" || " " ? (
           <SignBtn
             $padding="0 10px"
             $height="35px"
