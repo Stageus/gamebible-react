@@ -6,6 +6,7 @@ import GameListItem from "../component/GameListItem";
 import { useRecoilValue } from "recoil";
 import navToggleAtom from "../recoil/navToggleAtom";
 import { Link } from "react-router-dom";
+// import { useState } from "react";
 
 const GameListContainer = styled(Aside)`
   z-index: 100;
@@ -22,6 +23,11 @@ const NavSection = styled(Section)`
 
 const GameListNavContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
+
+  // const [clicked, setClicked] = useState(false);
+  // const handleClickEvent = () => {
+  //   setClicked(!clicked);
+  // };
 
   const GameListData = [
     {

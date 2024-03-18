@@ -66,14 +66,14 @@ const HeaderItem = (props) => {
     console.log(navToggle);
   };
   return (
-    <FixedHeader $width="100%" $flex="h_between_center" $padding="15px 5%" $margin="0 0 30px 0">
+    <FixedHeader $width="100%" $flex="h_between_center" $padding="15px 30px" $margin="0 0 30px 0">
       <Div $width="30%" $height="40px" $flex="h_start_center">
         <CursorPointerDiv $height="30px" $margin="0 5% 0 0">
           {MenuNullUrl.includes(location.pathname) ? null : (
             <Img src={MenuIcon} alt="MenuIcon" onClick={menuIconClickEvent} />
           )}
         </CursorPointerDiv>
-        <CursorPointerDiv $height="35px">
+        <CursorPointerDiv $height="50px">
           <Img src={HeaderLogo} alt="HeaderLogo" />
         </CursorPointerDiv>
       </Div>
