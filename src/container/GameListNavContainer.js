@@ -4,6 +4,7 @@ import { Nav, Section } from "../style/LayoutStyle";
 import GameListItem from "../component/GameListItem";
 import { useRecoilValue } from "recoil";
 import GameListItemAtom from "../recoil/GameListItemAtom";
+import { Link } from "react-router-dom";
 
 const GameListNav = styled(Nav)`
   z-index: 100;
@@ -126,7 +127,11 @@ const GameListNavContainer = () => {
       <GameListNav $flex="v_center_center" $width="250px" $height="100vh" $backgroundColor="white">
         <NavSection $width="100%">
           {GameListData.map((elem) => {
-            return <GameListItem key={elem.id} data={elem} />;
+            return (
+              <Link to={`/${elem.id}`}>
+                <GameListItem key={elem.id} data={elem} />
+              </Link>
+            );
           })}
         </NavSection>
       </GameListNav>
