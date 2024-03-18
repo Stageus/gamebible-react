@@ -3,7 +3,7 @@ import { setColor, setFlex } from "./SetStyle";
 
 const baseStyles = css`
   box-sizing: border-box;
-  ${(props) => setFlex(props.$flex || "h_start_start")};
+  ${(props) => setFlex(props.$flex || "none")};
   width: ${(props) => props.$width || "fit-content"};
   height: ${(props) => props.$height || "fit-content"};
   padding: ${(props) => props.$padding || "0"};
