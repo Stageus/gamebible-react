@@ -1,17 +1,21 @@
 import React from "react";
 import { styled } from "styled-components";
-import { Nav, Section } from "../style/LayoutStyle";
+import { H1 } from "../style/TextStyle";
+import { Aside, Div, Nav, Section } from "../style/LayoutStyle";
 import GameListItem from "../component/GameListItem";
 import { useRecoilValue } from "recoil";
 import GameListItemAtom from "../recoil/GameListItemAtom";
 import { Link } from "react-router-dom";
 
-const GameListNav = styled(Nav)`
+const GameListContainer = styled(Aside)`
   z-index: 100;
-  position: fixed;
-  top: 0;
+  position: absolute;
+  left: 30px;
+  top: 100px;
 `;
-
+const GameListNav = styled(Nav)`
+  height: calc(100vh - 160px);
+`;
 const NavSection = styled(Section)`
   overflow: auto;
 `;
@@ -102,39 +106,46 @@ const GameListNavContainer = () => {
     },
     {
       id: "Game_21",
-      name: "Game_16",
+      name: "Game_21",
     },
     {
       id: "Game_22",
-      name: "Game_17",
+      name: "Game_22",
     },
     {
       id: "Game_23",
-      name: "Game_18",
+      name: "Game_23",
     },
     {
       id: "Game_24",
-      name: "Game_19",
+      name: "Game_24",
     },
     {
       id: "Game_25",
-      name: "Game_20",
+      name: "Game_25",
     },
   ];
 
   return (
     GameListItemOpen && (
-      <GameListNav $flex="v_center_center" $width="250px" $height="100vh" $backgroundColor="white">
-        <NavSection $width="100%">
-          {GameListData.map((elem) => {
-            return (
-              <Link to={`/${elem.id}`}>
-                <GameListItem key={elem.id} data={elem} />
-              </Link>
-            );
-          })}
-        </NavSection>
-      </GameListNav>
+      <GameListContainer $width="250px">
+        <Div $flex="v_start_center" $padding="0 0 30px 0">
+          <H1 $fontSize="large" $fontWeight="bold">
+            게임 목록
+          </H1>
+        </Div>
+        <GameListNav $flex="v_center_center" $width="100%" $backgroundColor="white">
+          <NavSection $width="100%">
+            {GameListData.map((elem) => {
+              return (
+                <Link key={`${elem.id}`} to={`/${elem.id}`}>
+                  <GameListItem key={elem.id} data={elem} />
+                </Link>
+              );
+            })}
+          </NavSection>
+        </GameListNav>
+      </GameListContainer>
     )
   );
 };

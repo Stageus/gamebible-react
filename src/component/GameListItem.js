@@ -1,19 +1,19 @@
 import React from "react";
 import { styled } from "styled-components";
 import { Button } from "../style/ButtonStyle";
-import { P } from "../style/TextStyle";
 import { setColor } from "../style/SetStyle";
 import useHover from "../hook/useHover";
 
 const GameListItemContainer = styled(Button)`
-  border: 1px solid ${setColor("major")};
+  border: none;
+  border-bottom: 1px solid ${setColor("major")};
   cursor: pointer;
   &:hover {
     border: none;
   }
 `;
 
-const GameListItemName = styled(P)`
+const GameListItemName = styled.p`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
