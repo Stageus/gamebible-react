@@ -6,13 +6,12 @@ import GameListItem from "../component/GameListItem";
 import { useRecoilValue } from "recoil";
 import navToggleAtom from "../recoil/navToggleAtom";
 import { Link } from "react-router-dom";
-// import { useState } from "react";
 
 const GameListContainer = styled(Aside)`
   z-index: 100;
   position: absolute;
   left: 30px;
-  top: 100px;
+  top: 0;
 `;
 const GameListNav = styled(Nav)`
   height: calc(100vh - 160px);
@@ -23,11 +22,6 @@ const NavSection = styled(Section)`
 
 const GameListNavContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
-
-  // const [clicked, setClicked] = useState(false);
-  // const handleClickEvent = () => {
-  //   setClicked(!clicked);
-  // };
 
   const GameListData = [
     {
@@ -134,7 +128,7 @@ const GameListNavContainer = () => {
 
   return (
     navToggle && (
-      <GameListContainer $width="250px">
+      <GameListContainer $width="250px" $backgroundColor="white">
         <Div $flex="v_start_center" $padding="0 0 30px 0">
           <H1 $fontSize="large" $fontWeight="bold">
             게임 목록
