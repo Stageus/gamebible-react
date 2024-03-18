@@ -22,7 +22,7 @@ const GameListNavContainer = () => {
   const GameListData = [
     {
       id: "Game_1",
-      name: "리그오브레전드(League of Legends)ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ",
+      name: "리그오브레전드(League of Legends)",
     },
     {
       id: "Game_2",

@@ -34,7 +34,7 @@ const GameListItem = (props) => {
 
   return (
     <GameListItemContainer
-      $flex="h_center_center"
+      $flex="h_start_center"
       $width="100%"
       $height="66px"
       $padding="0 20px"
@@ -42,11 +42,9 @@ const GameListItem = (props) => {
       onMouseOver={gameBtnHoverEvent}
       onMouseOut={gameBtnHoverOutEvent}
       style={btnHoverStyle}
+      title={name}
     >
       <GameListItemName
-        $flex="h_start_center"
-        $width="100%"
-        $height="100%"
         onMouseOver={gameBtnHoverEvent}
         onMouseOut={gameBtnHoverOutEvent}
         style={nameHoverStyle}
