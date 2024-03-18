@@ -12,19 +12,16 @@ const BorderStyleArticle = styled(Article)`
   border-radius: 5px;
 `;
 
-const NotificationListItem = () => {
+const NotificationListItem = (props) => {
   const BtnColor = "major";
   const BtnText = "DELETE";
 
-  const dummyData = {
-    date: "2024.02.29. 11:01",
-    content: "사용자의 게시글에 새로운 댓글이 달렸습니다. 어서 확인해보세요~!",
-    admin: [true, false],
-  };
+  const { date, content } = props.data;
+  const { isAdmin } = props;
 
   return (
-    <Div $flex="v_start_start" $width="100%" $margin="5% 0 0 0">
-      <Span $margin="0 0 10px 0">{dummyData.date}</Span>
+    <Div $flex="v_start_start" $width="100%" $margin="70px 0 0 0">
+      <Span $margin="0 0 10px 0">{date}</Span>
       <BorderStyleArticle
         $flex="h_between_center"
         $width="100%"
@@ -33,10 +30,10 @@ const NotificationListItem = () => {
         $padding="0 3%"
       >
         <Div>
-          <Span $fontWeight="bold">{dummyData.content}</Span>
+          <Span $fontWeight="bold">{content}</Span>
         </Div>
-        <Div $width="25%" $flex={dummyData.admin[0] ? "h_between_center" : "h_end_center"}>
-          {dummyData.admin[0] ? (
+        <Div $width="25%" $flex={isAdmin ? "h_between_center" : "h_end_center"}>
+          {isAdmin ? (
             <>
               <ImgTextBtnUtil key="Reject" img={RejectIcon} text={"REJECT"} color={BtnColor} />
               <ImgTextBtnUtil key="Approve" img={ApproveIcon} text={"APPROVE"} color={BtnColor} />
