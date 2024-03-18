@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { navToggleAtom } from "../recoil/navToggleAtom";
+import navToggleAtom from "../recoil/navToggleAtom";
 import { useRecoilState } from "recoil";
 import HeaderLogo from "../img/HeaderLogo.svg";
 import SearchIcon from "../img/searchIcon.svg";
@@ -20,7 +20,7 @@ const FixedHeader = styled(Header)`
   top: 0;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
   background-color: ${setColor("white")};
-  z-index: 1;
+  z-index: 1000;
 `;
 
 const SignBtn = styled(Button)`
@@ -66,14 +66,14 @@ const HeaderItem = (props) => {
     console.log(navToggle);
   };
   return (
-    <FixedHeader $width="100%" $flex="h_between_center" $padding="15px 5%">
+    <FixedHeader $width="100%" $flex="h_between_center" $padding="15px 30px" $margin="0 0 30px 0">
       <Div $width="30%" $height="40px" $flex="h_start_center">
         <CursorPointerDiv $height="30px" $margin="0 5% 0 0">
           {MenuNullUrl.includes(location.pathname) ? null : (
             <Img src={MenuIcon} alt="MenuIcon" onClick={menuIconClickEvent} />
           )}
         </CursorPointerDiv>
-        <CursorPointerDiv $height="35px">
+        <CursorPointerDiv $height="50px">
           <Img src={HeaderLogo} alt="HeaderLogo" />
         </CursorPointerDiv>
       </Div>
