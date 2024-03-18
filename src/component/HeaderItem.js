@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { navToggleAtom } from "../recoil/navToggleAtom";
+import navToggleAtom from "../recoil/navToggleAtom";
 import { useRecoilState } from "recoil";
 import HeaderLogo from "../img/HeaderLogo.svg";
 import SearchIcon from "../img/searchIcon.svg";

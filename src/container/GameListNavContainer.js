@@ -4,7 +4,7 @@ import { H1 } from "../style/TextStyle";
 import { Aside, Div, Nav, Section } from "../style/LayoutStyle";
 import GameListItem from "../component/GameListItem";
 import { useRecoilValue } from "recoil";
-import GameListItemAtom from "../recoil/GameListItemAtom";
+import navToggleAtom from "../recoil/navToggleAtom";
 import { Link } from "react-router-dom";
 
 const GameListContainer = styled(Aside)`
@@ -21,7 +21,7 @@ const NavSection = styled(Section)`
 `;
 
 const GameListNavContainer = () => {
-  const GameListItemOpen = useRecoilValue(GameListItemAtom);
+  const navToggle = useRecoilValue(navToggleAtom);
 
   const GameListData = [
     {
@@ -127,7 +127,7 @@ const GameListNavContainer = () => {
   ];
 
   return (
-    GameListItemOpen && (
+    navToggle && (
       <GameListContainer $width="250px">
         <Div $flex="v_start_center" $padding="0 0 30px 0">
           <H1 $fontSize="large" $fontWeight="bold">
