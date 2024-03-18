@@ -5,6 +5,7 @@ import { Button } from "../style/ButtonStyle";
 import { Input } from "../style/InputStyle";
 import { Div } from "../style/LayoutStyle";
 import { Img } from "../style/ImgStyle";
+import ImgTextBtnUtil from "../util/ImgTextBtnUtil";
 import addPhotoImg from "../img/addPhotoImg.svg";
 
 const AddPhotoBtnItemLayout = styled(Button)`
@@ -12,7 +13,7 @@ const AddPhotoBtnItemLayout = styled(Button)`
   border-radius: 20px;
 `;
 const ShowPhotosLayout = styled(Div)`
-  border: 1px solid ${setColor("black")};
+  // border: 1px solid ${setColor("black")};
   border-radius: 10px;
 `;
 
