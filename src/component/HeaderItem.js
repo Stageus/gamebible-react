@@ -20,7 +20,7 @@ const FixedHeader = styled(Header)`
   top: 0;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
   background-color: ${setColor("white")};
-  z-index: 1;
+  z-index: 1000;
 `;
 
 const SignBtn = styled(Button)`
@@ -66,11 +66,11 @@ const HeaderItem = (props) => {
     console.log(navToggle);
   };
   return (
-    <FixedHeader $width="100%" $flex="h_between_center" $padding="15px 5%">
+    <FixedHeader $width="100%" $flex="h_between_center" $padding="15px 30px">
       <Div $width="30%" $height="40px" $flex="h_start_center">
-        <CursorPointerDiv $height="30px" $margin="0 5% 0 0">
+        <CursorPointerDiv $height="30px">
           {MenuNullUrl.includes(location.pathname) ? null : (
-            <Img src={MenuIcon} alt="MenuIcon" onClick={menuIconClickEvent} />
+            <Img src={MenuIcon} alt="MenuIcon" onClick={menuIconClickEvent} $margin="0 5% 0 0" />
           )}
         </CursorPointerDiv>
         <CursorPointerDiv $height="35px">
