@@ -87,19 +87,16 @@ const HeaderItem = (props) => {
         <SearchIconImg src={SearchIcon} alt="SearchIcon" $height="60%" />
       </CenterDiv>
       <Div $width="30%" $flex="h_end_center">
-        {userIdx === "null" || " " ? (
-          <BtnLayout $flex="h_between_center" $width="210px">
-            <Link to="/SignInPage">
-              <SignBtn $padding="10px" $flex="h_center_center" $color="white" $width="100%">
-                로그인
-              </SignBtn>
-            </Link>
-            <Link to="/SignUpPage">
-              <SignBtn $padding="10px" $flex="h_center_center" $color="white" $width="100%">
-                회원가입
-              </SignBtn>
-            </Link>
-          </BtnLayout>
+        {userIdx === "null" || userIdx === " " ? (
+          <SignBtn
+            $padding="0 10px"
+            $height="35px"
+            $flex="h_center_center"
+            $color="white"
+            $margin="0 10% 0 0"
+          >
+            로그인
+          </SignBtn>
         ) : (
           <BtnLayout $flex="h_between_center" $width="210px">
             <CursorPointerDiv $height="30px">

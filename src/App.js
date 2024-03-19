@@ -3,6 +3,7 @@ import TestPage from "./page/TestPage";
 import GlobalStyle from "./style/GlobalStyle";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { RecoilRoot } from "recoil";
+import EditPersonalInfoPage from "./page/EditPersonalInfoPage";
 import ResetPWPage from "./page/ResetPWPage";
 import ChangePWPage from "./page/ChangePWPage";
 import FindIDPage from "./page/FindIDPage";
@@ -17,6 +18,7 @@ const App = () => {
           <GlobalStyle />
           <Routes>
             <Route path="/" element={<TestPage />} />
+            <Route path="/EditPersonalInfoPage" element={<EditPersonalInfoPage />} />
             <Route path="/ResetPWPage" element={<ResetPWPage />} />
             <Route path="/ChangePWPage" element={<ChangePWPage />} />
             <Route path="/FindIDPage" element={<FindIDPage />} />
