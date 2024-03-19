@@ -80,11 +80,7 @@ const WikiHistoryListContainer = () => {
         </FirstRow>
         <HistoryContentLayout $flex="v_center_start" $width="100%">
           {WikiHistoryListDummyData.map((elem) => {
-            return (
-              <Link key={`${elem.id}`} to={`./${elem.id}`}>
-                <li>{`${elem.content}`}</li>
-              </Link>
-            );
+            return <li>{`${elem.content}`}</li>;
           })}
         </HistoryContentLayout>
       </InnerContentsLayout>

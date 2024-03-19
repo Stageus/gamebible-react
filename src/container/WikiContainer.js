@@ -34,7 +34,7 @@ const ImgDiv = styled(Div)`
 const ImgByUser = styled(Img)`
   width: 100%;
 `;
-const WikiContainer = () => {
+const WikiContainer = (props) => {
   return (
     <WikiContainerLayout $backgroundColor="white" $width="100%" $height="80%" $padding="40px">
       <InnerContentsLayout $width="100%">

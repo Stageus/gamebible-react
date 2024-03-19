@@ -11,6 +11,8 @@ import bannerImg from "../img/bannerImg.svg";
 import SwitchTabItem from "../component/SwitchTabItem";
 import CommunityContainer from "../container/CommunityContainer";
 import WikiContainer from "../container/WikiContainer";
+import WikiHistoryListContainer from "../container/WikiHistoryListContainer";
+import WikiEditContainer from "../container/WikiEditContainer";
 
 const GameContentLayout = styled(Section)`
   width: calc(100vw - 120px);
@@ -21,7 +23,7 @@ const BannerImg = styled(Img)`
 `;
 
 const GameContentContainer = () => {
-  const BtnText = ["커뮤니티", "위키"];
+  const BtnText = ["커뮤니티", "위키", "history", "edit"];
   const navToggle = useRecoilValue(navToggleAtom);
 
   const [tabBtnValue, setTabBtnValue] = useState(BtnText[0]);
@@ -29,6 +31,12 @@ const GameContentContainer = () => {
   const switchTabEvent = (btnText) => {
     setTabBtnValue(btnText);
   };
+
+  // const [historyBtn, setHistoryBtn] = useState(false);
+
+  // const clickHistoryBtnEvent = () => {
+  //   setHistoryBtn();
+  // };
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
@@ -44,8 +52,8 @@ const GameContentContainer = () => {
       <Article $flex="h_center_center" $backgroundColor="major" $width="100%" $padding="50px">
         {tabBtnValue == "커뮤니티" && <CommunityContainer />}
         {tabBtnValue == "위키" && <WikiContainer tab={tabBtnValue} setTab={setTabBtnValue} />}
-        {/* {tabBtnValue == "history" && < />} */}
-        {/* {tabBtnValue == "edit" && < />} */}
+        {tabBtnValue == "history" && <WikiHistoryListContainer />}
+        {tabBtnValue == "edit" && <WikiEditContainer />}
       </Article>
     </GameContentLayout>
   );

@@ -20,7 +20,9 @@ const HistoryContentLayout = styled(P)`
 `;
 
 const WikiHistoryListContainer = () => {
-  const WikiHistoryDummyData = [];
+  const WikiHistoryDummyData = [
+    "리그 오브 레전드에서는 1년이 1시즌이다. 이는 다른 게임들과 비교하면 긴 기간이다. 배치를 받은 후 시즌이 끝날 때까지 랭크를 올리는 것이 랭크 게임의 주 플레이 목적으로, 시즌 종료후 다음 시즌이 시작되면 다시 배치 게임을 치러야 한다.",
+  ];
 
   return (
     <WikiContainerLayout $backgroundColor="white" $width="100%" $height="80%" $padding="40px">
@@ -35,11 +37,7 @@ const WikiHistoryListContainer = () => {
         </FirstRow>
         <HistoryContentLayout $flex="v_center_start" $width="100%">
           {WikiHistoryDummyData.map((elem) => {
-            return (
-              <Link key={`${elem.id}`} to={`./${elem.id}`}>
-                <li>{`${elem.content}`}</li>
-              </Link>
-            );
+            return <li>{`${elem.content}`}</li>;
           })}
         </HistoryContentLayout>
       </InnerContentsLayout>
