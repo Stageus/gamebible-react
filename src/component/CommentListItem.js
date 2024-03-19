@@ -8,6 +8,9 @@ const CommentListItemLayout = styled(Article)`
   background-color: ${setColor("white")};
   border: 1px solid ${setColor("black")};
   border-radius: 5px;
+`;
+
+const CursorDiv = styled(Div)`
   cursor: pointer;
 `;
 
@@ -36,9 +39,9 @@ const CommentListItem = (props) => {
         <Div $flex="h_center_center" $width="100px">
           {createdAt}
         </Div>
-        <Div $flex="h_center_center" $width="30px" $height="30px">
+        <CursorDiv $flex="h_center_center" $width="30px" $height="30px">
           {users.id.includes(nickname) && <img src={deleteImg} alt="댓글 삭제하기" />}
-        </Div>
+        </CursorDiv>
       </Div>
     </CommentListItemLayout>
   );

@@ -11,13 +11,7 @@ const TabBtn = styled(Button)`
 `;
 
 const SwitchTabItem = (props) => {
-  const { BtnText } = props;
-
-  const [tabBtnValue, setTabBtnValue] = useState(BtnText[0]);
-
-  const BtnClickEvent = (btnText) => {
-    setTabBtnValue(btnText);
-  };
+  const { BtnText, tabBtnValue, BtnClickEvent } = props;
 
   return (
     <Div $width="100%" $flex="h_start_start">

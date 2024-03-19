@@ -1,6 +1,7 @@
 import React from "react";
 import HeaderItem from "../component/HeaderItem";
 import JunContentContainer from "../container/JunContentContainer";
+import FooterItem from "../component/FooterItem";
 
 import BannerImg from "../img/bannerImg.svg";
 import { Img } from "../style/ImgStyle";
@@ -21,6 +22,7 @@ const ReadPostPage = () => {
         <WideImg src={BannerImg} />
       </Div>
       <JunContentContainer />
+      <FooterItem />
     </>
   );
 };
