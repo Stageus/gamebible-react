@@ -9,20 +9,19 @@ import { Span } from "../style/TextStyle";
 const TabBtn = styled(Button)`
   border: 1px solid ${setColor("major")};
 `;
-const BtnTextTest = ["연관 게임", "연관 게시글", "커뮤니티", "위키"];
 
 const SwitchTabItem = (props) => {
-  // const { BtnText } = props;
+  const { BtnText } = props;
 
-  const [tabBtnValue, setTabBtnValue] = useState(BtnTextTest[0]);
+  const [tabBtnValue, setTabBtnValue] = useState(BtnText[0]);
 
   const BtnClickEvent = (btnText) => {
     setTabBtnValue(btnText);
   };
 
   return (
-    <Div $width="100%">
-      {BtnTextTest.map((Btn) => (
+    <Div $width="100%" $flex="h_start_start">
+      {BtnText.map((Btn) => (
         <TabBtn
           $width="150px"
           $height="50px"

@@ -16,12 +16,12 @@ const users = {
 };
 
 const CommentListItem = (props) => {
-  const { title, nickname, createdAt } = props.data;
+  const { title, nickname, createdAt } = props;
 
   return (
     <CommentListItemLayout
       $flex="h_center_center"
-      $width="1100px"
+      $width="100%"
       $height="40px"
       $padding="10px 40px 10px 40px"
       $margin="0 0 20px 0"
