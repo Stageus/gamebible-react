@@ -4,6 +4,13 @@ import SignInPage from "./page/SignInPage";
 import GlobalStyle from "./style/GlobalStyle";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { RecoilRoot } from "recoil";
+import PersonalInfoPage from "./page/PersonalInfoPage";
+import EditPersonalInfoPage from "./page/EditPersonalInfoPage";
+import ResetPWPage from "./page/ResetPWPage";
+import ChangePWPage from "./page/ChangePWPage";
+import FindIDPage from "./page/FindIDPage";
+import WikiPage from "./page/WikiPage";
+import NotificationPage from "./page/NotificationPage";
 
 const App = () => {
   return (
@@ -14,6 +21,13 @@ const App = () => {
           <Routes>
             <Route path="/" element={<TestPage />} />
             <Route path="/SignInPage" element={<SignInPage />} />
+            <Route path="/PersonalInfoPage" element={<PersonalInfoPage />} />
+            <Route path="/EditPersonalInfoPage" element={<EditPersonalInfoPage />} />
+            <Route path="/ResetPWPage" element={<ResetPWPage />} />
+            <Route path="/ChangePWPage" element={<ChangePWPage />} />
+            <Route path="/FindIDPage" element={<FindIDPage />} />
+            <Route path="/wiki" element={<WikiPage />} />
+            <Route path="/alarm" element={<NotificationPage />} />
           </Routes>
         </BrowserRouter>
       </RecoilRoot>
