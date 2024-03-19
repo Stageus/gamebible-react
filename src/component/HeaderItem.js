@@ -1,6 +1,6 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
-import { navToggleAtom } from "../recoil/navToggleAtom";
+import { Link, useLocation } from "react-router-dom";
+import navToggleAtom from "../recoil/navToggleAtom";
 import { useRecoilState } from "recoil";
 import HeaderLogo from "../img/HeaderLogo.svg";
 import SearchIcon from "../img/searchIcon.svg";
@@ -8,23 +8,24 @@ import MenuIcon from "../img/menuIcon.svg";
 import NotiIcon from "../img/notiIcon.svg";
 import UserIcon from "../img/userIcon.svg";
 
+import styled from "styled-components";
 import { Header, Div } from "../style/LayoutStyle";
 import { Img } from "../style/ImgStyle";
 import { Input } from "../style/InputStyle";
 import { Button } from "../style/ButtonStyle";
-import styled from "styled-components";
 import { setColor } from "../style/SetStyle";
 
 const FixedHeader = styled(Header)`
   position: fixed;
+  top: 0;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
   background-color: ${setColor("white")};
-  z-index: 1;
+  z-index: 1000;
 `;
-
+const BtnLayout = styled(Div)``;
 const SignBtn = styled(Button)`
   border-style: none;
-  border-radius: 15px;
+  border-radius: 5px;
 `;
 
 const CursorPointerDiv = styled(Div)`
@@ -62,17 +63,16 @@ const HeaderItem = (props) => {
   const [navToggle, setNavToggle] = useRecoilState(navToggleAtom);
   const menuIconClickEvent = () => {
     setNavToggle(!navToggle);
-    console.log(navToggle);
   };
   return (
-    <FixedHeader $width="100%" $flex="h_between_center" $padding="15px 5%">
+    <FixedHeader $width="100%" $flex="h_between_center" $padding="15px 30px" $margin="0 0 30px 0">
       <Div $width="30%" $height="40px" $flex="h_start_center">
         <CursorPointerDiv $height="30px" $margin="0 5% 0 0">
           {MenuNullUrl.includes(location.pathname) ? null : (
             <Img src={MenuIcon} alt="MenuIcon" onClick={menuIconClickEvent} />
           )}
         </CursorPointerDiv>
-        <CursorPointerDiv $height="35px">
+        <CursorPointerDiv $height="50px">
           <Img src={HeaderLogo} alt="HeaderLogo" />
         </CursorPointerDiv>
       </Div>
@@ -87,7 +87,7 @@ const HeaderItem = (props) => {
         <SearchIconImg src={SearchIcon} alt="SearchIcon" $height="60%" />
       </CenterDiv>
       <Div $width="30%" $flex="h_end_center">
-        {userIdx === "null" || " " ? (
+        {userIdx === "null" || userIdx === " " ? (
           <SignBtn
             $padding="0 10px"
             $height="35px"
@@ -98,18 +98,18 @@ const HeaderItem = (props) => {
             로그인
           </SignBtn>
         ) : (
-          <>
-            <CursorPointerDiv $height="30px" $margin="0 10% 0 0">
+          <BtnLayout $flex="h_between_center" $width="210px">
+            <CursorPointerDiv $height="30px">
               <Img src={NotiIcon} alt="NotiIcon" />
             </CursorPointerDiv>
-            <CursorPointerDiv $height="30px" $margin="0 10% 0 0">
+            <CursorPointerDiv $height="30px">
               <Img src={UserIcon} alt="UserIcon" />
             </CursorPointerDiv>
-          </>
+            <SignBtn $padding="10px" $flex="h_center_center" $color="white">
+              로그아웃
+            </SignBtn>
+          </BtnLayout>
         )}
-        <SignBtn $padding="0 10px" $height="35px" $flex="h_center_center" $color="white">
-          로그아웃
-        </SignBtn>
       </Div>
     </FixedHeader>
   );
