@@ -4,6 +4,8 @@ import GlobalStyle from "./style/GlobalStyle";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import FindIDPage from "./page/FindIDPage";
+import WikiPage from "./page/WikiPage";
+import NotificationPage from "./page/NotificationPage";
 
 const App = () => {
   return (
@@ -14,6 +16,8 @@ const App = () => {
           <Routes>
             <Route path="/" element={<TestPage />} />
             <Route path="/FindIDPage" element={<FindIDPage />} />
+            <Route path="/wiki" element={<WikiPage />} />
+            <Route path="/alarm" element={<NotificationPage />} />
           </Routes>
         </BrowserRouter>
       </RecoilRoot>
