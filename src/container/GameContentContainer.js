@@ -3,31 +3,20 @@ import { styled } from "styled-components";
 import { Img } from "../style/ImgStyle";
 import { setColor } from "../style/SetStyle";
 import { Div, Article, Section } from "../style/LayoutStyle";
-import bannerImg from "../img/bannerImg.svg";
-import SwitchTabItem from "../component/SwitchTabItem";
+
 import { useRecoilValue } from "recoil";
 import navToggleAtom from "../recoil/navToggleAtom";
+
+import bannerImg from "../img/bannerImg.svg";
+import SwitchTabItem from "../component/SwitchTabItem";
+import WikiContainer from "../container/WikiContainer";
 
 const GameContentLayout = styled(Section)`
   width: calc(100vw - 120px);
   transition: padding 0.1s ease;
 `;
-const ImgLayout = styled(Div)`
-  width: 100%;
-`;
 const BannerImg = styled(Img)`
   width: 100%;
-  height: auto;
-`;
-const ContentLayout = styled(Article)`
-  background-color: ${setColor("major")};
-  width: 100%;
-  height: 500px;
-`;
-const MainLayout = styled(Article)`
-  background-color: ${setColor("white")};
-  width: 90%;
-  height: 80%;
 `;
 
 const GameContentContainer = () => {
@@ -36,13 +25,13 @@ const GameContentContainer = () => {
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
-      <ImgLayout>
+      <Div $width="100%">
         <BannerImg src={bannerImg} />
-      </ImgLayout>
+      </Div>
       <SwitchTabItem {...{ BtnText }} />
-      <ContentLayout $flex="h_center_center">
-        <MainLayout></MainLayout>
-      </ContentLayout>
+      <Article $flex="h_center_center" $backgroundColor="major" $width="100%" $padding="50px">
+        <WikiContainer />
+      </Article>
     </GameContentLayout>
   );
 };
