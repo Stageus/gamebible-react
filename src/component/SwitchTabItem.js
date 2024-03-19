@@ -7,7 +7,10 @@ import { Button } from "../style/ButtonStyle";
 import { Span } from "../style/TextStyle";
 
 const TabBtn = styled(Button)`
-  border: 1px solid ${setColor("major")};
+  // border: 1px solid ${setColor("major")};
+  border: none;
+  border-right: 1px solid ${setColor("major")};
+  border-left: 1px solid ${setColor("major")};
 `;
 // const BtnTextTest = ["연관 게임", "연관 게시글", "커뮤니티", "위키"];
 

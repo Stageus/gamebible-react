@@ -11,10 +11,9 @@ const PageWrapper = styled(Div)`
   position: relative;
 `;
 const GameContentContainerWrapper = styled(Section)`
-  margin: 100px 30px 0 300px;
-  flex-grow: 1;
-  border: 3px solid blue;
-  width: calc(100% - 330px); /* 추가 */
+  margin: 100px 0 0 0;
+  padding: 0 60px 0 60px;
+  width: 100vw;
 `;
 const FooterWrapper = styled(Div)`
   position: absolute;
@@ -26,7 +25,7 @@ const WikiPage = () => {
     <PageWrapper>
       <HeaderItem />
       <GameListContainer />
-      <GameContentContainerWrapper>
+      <GameContentContainerWrapper $flex="v_center_center">
         <GameContentContainer />
       </GameContentContainerWrapper>
       <FooterWrapper>

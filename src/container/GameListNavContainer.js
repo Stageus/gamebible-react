@@ -128,7 +128,7 @@ const GameListNavContainer = () => {
 
   return (
     navToggle && (
-      <GameListContainer $width="250px" $backgroundColor="white">
+      <GameListContainer $width={navToggle ? "250px" : 0} $backgroundColor="white">
         <Div $flex="v_start_center" $padding="0 0 30px 0">
           <H1 $fontSize="large" $fontWeight="bold">
             게임 목록
