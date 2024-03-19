@@ -14,6 +14,13 @@ const BorderBtn = styled(Button)`
   border-style: none;
 `;
 
+const BorderStyleNoneBtn = styled(Button)`
+  border-style: none;
+  border-radius: 4px;
+`;
+const KakaoLoginStyleBtn = styled(Img)`
+  width: 100%;
+`;
 const dummyIdData = {
   id: {
     key: "id",
@@ -30,7 +37,7 @@ const dummyPWData = {
 
 const SignInContainer = () => {
   return (
-    <Section $flex="v_center_center">
+    <Section $flex="v_center_center" $width="350px">
       <Img src={HeaderLogo} alt="HeaderLogo" />
       <InputItem {...{ dummyInputData: dummyIdData }}></InputItem>
       <InputItem {...{ dummyInputData: dummyPWData }}></InputItem>
@@ -50,7 +57,9 @@ const SignInContainer = () => {
           <Link>비밀번호 찾기</Link>
         </Div>
       </Div>
-      <Img src={KakaoLoginBtn} />
+      <BorderStyleNoneBtn $width="100%">
+        <KakaoLoginStyleBtn src={KakaoLoginBtn} />
+      </BorderStyleNoneBtn>
     </Section>
   );
 };

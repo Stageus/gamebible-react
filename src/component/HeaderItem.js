@@ -69,7 +69,7 @@ const HeaderItem = (props) => {
       <Div $width="30%" $height="40px" $flex="h_start_center">
         <CursorPointerDiv $height="30px">
           {MenuNullUrl.includes(location.pathname) ? null : (
-            <Img src={MenuIcon} alt="MenuIcon" onClick={menuIconClickEvent} $margin="0 5% 0 0" />
+            <Img src={MenuIcon} alt="MenuIcon" onClick={menuIconClickEvent} $margin="0 30px 0 0" />
           )}
         </CursorPointerDiv>
         <CursorPointerDiv $height="50px">
