@@ -1,4 +1,5 @@
 import React from "react";
+
 import { styled } from "styled-components";
 import { Article, Section, Div } from "../style/LayoutStyle";
 import { H1, P } from "../style/TextStyle";
@@ -10,30 +11,28 @@ import historyImg from "../img/historyImg.svg";
 import editImg from "../img/editImg.svg";
 
 const WikiContainerLayout = styled(Section)``;
-const InnerContentsLayout = styled(Div)`
-  //   border: 1px solid red;
-`;
+const InnerContentsLayout = styled(Div)``;
 const FirstRow = styled(Article)``;
 const TitleLayout = styled(H1)`
   font-size: 45px;
-  //   border: 3px solid red;
 `;
-const BtnsLayout = styled(Div)`
-  //   border: 3px solid blue;
-`;
+const BtnsLayout = styled(Div)``;
 const MainContentLayout = styled(P)`
-  //   border: 3px solid purple;
   line-height: 30px;
 `;
 const TextDiv = styled(Div)`
-  //   border: 2px solid green;
   width: 100%;
   margin: 10px 0;
 `;
 const ImgDiv = styled(Div)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   margin: 10px 0;
-  //   border: 3px solid green;
+`;
+const ImgByUser = styled(Img)`
+  width: 100%;
 `;
 const WikiContainer = () => {
   return (
@@ -41,7 +40,7 @@ const WikiContainer = () => {
       <InnerContentsLayout $width="100%">
         <FirstRow $flex="h_between_start" $width="100%" $margin="0 0 20px 0">
           <TitleLayout $width="60%" $fontWeight="bold">
-            리그오브레전드 (LEAGUE of LEGENDS)
+            리그오브레전드(League of legends)
           </TitleLayout>
           <BtnsLayout $flex="h_between_start" $width="30%">
             <ImgTextBtnUtil img={historyImg} text={"HISTORY"} color={"major"} />
@@ -54,8 +53,8 @@ const WikiContainer = () => {
             파괴하는 MOBA 장르의 게임. 게임 명칭의 앞 철자들을 따서 LoL(롤), 영어권에서는 League
             등의 약칭으로도 불린다.
           </TextDiv>
-          <ImgDiv $flex="h_center_center">
-            <Img src={putByUserImg} />
+          <ImgDiv>
+            <ImgByUser src={putByUserImg} />
           </ImgDiv>
           <TextDiv>
             소환사들의 티어 변동에 영향을 주는 게임으로, 2018 시즌까지는

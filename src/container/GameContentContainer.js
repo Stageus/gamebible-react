@@ -1,7 +1,7 @@
-import React from "react";
+import { React, useState } from "react";
+
 import { styled } from "styled-components";
 import { Img } from "../style/ImgStyle";
-import { setColor } from "../style/SetStyle";
 import { Div, Article, Section } from "../style/LayoutStyle";
 
 import { useRecoilValue } from "recoil";
@@ -9,6 +9,7 @@ import navToggleAtom from "../recoil/navToggleAtom";
 
 import bannerImg from "../img/bannerImg.svg";
 import SwitchTabItem from "../component/SwitchTabItem";
+import CommunityContainer from "../container/CommunityContainer";
 import WikiContainer from "../container/WikiContainer";
 
 const GameContentLayout = styled(Section)`
@@ -23,14 +24,28 @@ const GameContentContainer = () => {
   const BtnText = ["커뮤니티", "위키"];
   const navToggle = useRecoilValue(navToggleAtom);
 
+  const [tabBtnValue, setTabBtnValue] = useState(BtnText[0]);
+
+  const switchTabEvent = (btnText) => {
+    setTabBtnValue(btnText);
+  };
+
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
       <Div $width="100%">
         <BannerImg src={bannerImg} />
       </Div>
-      <SwitchTabItem {...{ BtnText }} />
+      <SwitchTabItem
+        {...{ BtnText }}
+        tab={tabBtnValue}
+        setTab={setTabBtnValue}
+        onClick={(tab) => switchTabEvent(tab)}
+      />
       <Article $flex="h_center_center" $backgroundColor="major" $width="100%" $padding="50px">
-        <WikiContainer />
+        {tabBtnValue == "커뮤니티" && <CommunityContainer />}
+        {tabBtnValue == "위키" && <WikiContainer tab={tabBtnValue} setTab={setTabBtnValue} />}
+        {/* {tabBtnValue == "history" && < />} */}
+        {/* {tabBtnValue == "edit" && < />} */}
       </Article>
     </GameContentLayout>
   );

@@ -3,7 +3,7 @@ import TestPage from "./page/TestPage";
 import GlobalStyle from "./style/GlobalStyle";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { RecoilRoot } from "recoil";
-import WikiPage from "./page/WikiPage";
+import GamePage from "./page/GamePage";
 import NotificationPage from "./page/NotificationPage";
 
 const App = () => {
@@ -14,7 +14,7 @@ const App = () => {
           <GlobalStyle />
           <Routes>
             <Route path="/" element={<TestPage />} />
-            <Route path="/wiki" element={<WikiPage />} />
+            <Route path="/game/:idx" element={<GamePage />} />
             <Route path="/alarm" element={<NotificationPage />} />
           </Routes>
         </BrowserRouter>
