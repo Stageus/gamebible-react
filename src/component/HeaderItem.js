@@ -13,7 +13,6 @@ import { Header, Div } from "../style/LayoutStyle";
 import { Img } from "../style/ImgStyle";
 import { Input } from "../style/InputStyle";
 import { Button } from "../style/ButtonStyle";
-import styled from "styled-components";
 import { setColor } from "../style/SetStyle";
 
 const FixedHeader = styled(Header)`

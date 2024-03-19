@@ -41,14 +41,14 @@ const TermsServiceContainer = () => {
 
   return (
     <>
-      <Div $width="100%" $margin="0 0 10px 0">
+      <Div $flex="h_start_center" $width="100%" $margin="0 0 10px 0">
         <Input type="checkbox" onChange={allCheckedEvent} checked={isAllChecked}></Input>
         <P $fontSize="small" $margin="0 0 0 10px" onClick={allCheckedEvent}>
           전체 동의
         </P>
       </Div>
       <Div $width="100%" $flex="h_between_center" $margin="0 0 10px 0">
-        <Div>
+        <Div $flex="h_start_center">
           <Input
             type="checkbox"
             onChange={termsServiceCheckedEvent}
@@ -71,7 +71,7 @@ const TermsServiceContainer = () => {
         </BorderStyleBtn>
       </Div>
       <Div $width="100%" $flex="h_between_center" $margin="0 0 10px 0">
-        <Div>
+        <Div $flex="h_start_center">
           <Input
             type="checkbox"
             onChange={privacyPolicyCheckedEvent}
