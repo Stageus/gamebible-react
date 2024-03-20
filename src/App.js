@@ -1,18 +1,22 @@
 import React from "react";
-import TestPage from "./page/TestPage";
-import SignInPage from "./page/SignInPage";
-import GlobalStyle from "./style/GlobalStyle";
+
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { RecoilRoot } from "recoil";
+
+import GlobalStyle from "./style/GlobalStyle";
+
+import TestPage from "./page/TestPage";
+import WikiPage from "./page/WikiPage";
+import SignInPage from "./page/SignInPage";
 import SignUpPage from "./page/SignUpPage";
-import PersonalInfoPage from "./page/PersonalInfoPage";
-import EditPersonalInfoPage from "./page/EditPersonalInfoPage";
+import FindIDPage from "./page/FindIDPage";
 import ResetPWPage from "./page/ResetPWPage";
 import ChangePWPage from "./page/ChangePWPage";
-import FindIDPage from "./page/FindIDPage";
-import WikiPage from "./page/WikiPage";
-import NotificationPage from "./page/NotificationPage";
 import ReadPostPage from "./page/ReadPostPage";
+import CommunityPage from "./page/CommunityPage";
+import NotificationPage from "./page/NotificationPage";
+import PersonalInfoPage from "./page/PersonalInfoPage";
+import EditPersonalInfoPage from "./page/EditPersonalInfoPage";
 
 const App = () => {
   return (
@@ -31,6 +35,7 @@ const App = () => {
             <Route path="/ChangePWPage" element={<ChangePWPage />} />
             <Route path="/wiki" element={<WikiPage />} />
             <Route path="/alarm" element={<NotificationPage />} />
+            <Route path="/CommunityPage/:pageIdx" element={<CommunityPage />} />
             <Route path="/ReadPostPage" element={<ReadPostPage />} />
           </Routes>
         </BrowserRouter>
