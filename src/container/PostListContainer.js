@@ -1,15 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import PostListItem from "../component/PostListItem";
 import PaginationContainer from "../container/PaginationContainer";
 
 import { Span } from "../style/TextStyle";
 import { Section, Div } from "../style/LayoutStyle";
-import { Button } from "../style/ButtonStyle";
-import { Img } from "../style/ImgStyle";
-
-import ArrowRight from "../img/arrowRight.svg";
-import ArrowLeft from "../img/arrowLeft.svg";
 
 const postListData = [
   {
