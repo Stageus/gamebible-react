@@ -12,6 +12,7 @@ import ChangePWPage from "./page/ChangePWPage";
 import FindIDPage from "./page/FindIDPage";
 import WikiPage from "./page/WikiPage";
 import NotificationPage from "./page/NotificationPage";
+import ReadPostPage from "./page/ReadPostPage";
 
 const App = () => {
   return (
@@ -25,11 +26,12 @@ const App = () => {
             <Route path="/SignInPage" element={<SignInPage />} />
             <Route path="/PersonalInfoPage" element={<PersonalInfoPage />} />
             <Route path="/EditPersonalInfoPage" element={<EditPersonalInfoPage />} />
+            <Route path="/FindIDPage" element={<FindIDPage />} />
             <Route path="/ResetPWPage" element={<ResetPWPage />} />
             <Route path="/ChangePWPage" element={<ChangePWPage />} />
-            <Route path="/FindIDPage" element={<FindIDPage />} />
             <Route path="/wiki" element={<WikiPage />} />
             <Route path="/alarm" element={<NotificationPage />} />
+            <Route path="/ReadPostPage" element={<ReadPostPage />} />
           </Routes>
         </BrowserRouter>
       </RecoilRoot>

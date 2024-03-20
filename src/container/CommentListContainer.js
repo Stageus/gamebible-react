@@ -40,7 +40,7 @@ const CommentListContainer = () => {
   ];
 
   return (
-    <CommentListLayout $flex="v_center_center">
+    <CommentListLayout $flex="v_center_center" ㅋ>
       {CommentListData.map((elem) => {
         return <CommentListItem key={elem.id} data={elem} />;
       })}
