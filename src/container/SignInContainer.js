@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import InputItem from "../component/InputItem";
 import HeaderLogo from "../img/HeaderLogo.svg";
 
@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { Img } from "../style/ImgStyle";
 import { Div, Section } from "../style/LayoutStyle";
 import { Button } from "../style/ButtonStyle";
+import { idValueValidation, pwValueValidation } from "../util/ValidationUtil";
 import KakaoLoginBtn from "../img/kakaoLoginMediumWide.svg";
 
 const BorderBtn = styled(Button)`
@@ -36,17 +37,35 @@ const dummyPWData = {
 };
 
 const SignInContainer = () => {
+  const [idValue, setIdValue] = useState("");
+  const [pwValue, setPwValue] = useState("");
+
+  const signInClickEvent = () => {
+    if (!idValueValidation(idValue)) {
+      return;
+    }
+    if (!pwValueValidation(pwValue)) {
+      return;
+    }
+    console.log("로그인 성공!");
+  };
   return (
     <Section $flex="v_center_center" $width="350px">
       <Img src={HeaderLogo} alt="HeaderLogo" />
-      <InputItem {...{ dummyInputData: dummyIdData }}></InputItem>
-      <InputItem {...{ dummyInputData: dummyPWData }}></InputItem>
+      <InputItem
+        {...{
+          dummyInputData: dummyIdData,
+          inputValue: setIdValue,
+        }}
+      ></InputItem>
+      <InputItem {...{ dummyInputData: dummyPWData, inputValue: setPwValue }}></InputItem>
       <BorderBtn
         $flex="h_center_center"
         $width="100%"
         $height="50px"
         $color="white"
         $margin="0 0 20px 0"
+        onClick={signInClickEvent}
       >
         로그인
       </BorderBtn>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import styled from "styled-components";
 import { Div } from "../style/LayoutStyle";
@@ -10,6 +10,12 @@ import InputItem from "../component/InputItem";
 import MainLogo from "../img/HeaderLogo.svg";
 import KakaoLoginBtn from "../img/kakaoLoginMediumWide.svg";
 
+import {
+  idValueValidation,
+  pwValueValidation,
+  emailValueValidation,
+  nicknameValueValidation,
+} from "../util/ValidationUtil";
 import TermsServiceContainer from "./TermsServiceContainer";
 
 const dummyIdData = {
@@ -65,16 +71,85 @@ const KakaoLoginStyleBtn = styled(Img)`
 `;
 
 const SignUpContainer = () => {
+  const [idValue, setIdValue] = useState("");
+  const [idCheck, setIdCheck] = useState(false);
+
+  const [emailValue, setEmailValue] = useState("");
+  const [emailCheck, setEmailCheck] = useState(false);
+
+  const [pwValue, setPwValue] = useState("");
+
+  const [verificationValue, setVerificationValue] = useState("");
+  const [verificationCheck, setVerificationCheck] = useState(false);
+
+  const [nicknameValue, setNicknameValue] = useState("");
+  const [nicknameCheck, setNicknameCheck] = useState(false);
+
+  const SignUpClickEvent = () => {
+    if (!idCheck) {
+      return alert("아이디 중복 인증을 확인해주세요.");
+    }
+    if (!emailCheck) {
+      return alert("이메일 인증을 확인해주세요");
+    }
+    if (!verificationCheck) {
+      return alert("이메일 인증을 확인해주세요");
+    }
+    if (!pwValueValidation(pwValue)) {
+      return;
+    }
+    if (!nicknameValueValidation(nicknameValue)) {
+      return;
+    }
+
+    console.log("회원가입 성공!");
+  };
+
+  const emailVerificationCheck = (value) => {
+    return value === "1234";
+  };
+
   return (
     <>
       <Section $padding="50px 0" $margin="70px 0 0 0" $width="100vw" $flex="h_center_center">
         <Div $flex="v_center_center" $width="350px">
           <Img src={MainLogo} alt="MainLogo" />
-          <InputItem {...{ dummyInputData: dummyIdData }}></InputItem>
-          <InputItem {...{ dummyInputData: dummyEmailData }}></InputItem>
-          <InputItem {...{ dummyInputData: dummyVerificationData }}></InputItem>
-          <InputItem {...{ dummyInputData: dummyNameData }}></InputItem>
-          <InputItem {...{ dummyInputData: dummyPWData }}></InputItem>
+          <InputItem
+            {...{
+              dummyInputData: dummyIdData,
+              inputValue: setIdValue,
+              validationCheck: setIdCheck,
+              validationFcn: idValueValidation,
+            }}
+          ></InputItem>
+          <InputItem
+            {...{
+              dummyInputData: dummyEmailData,
+              inputValue: setEmailValue,
+              validationCheck: setEmailCheck,
+              validationFcn: emailValueValidation,
+            }}
+          ></InputItem>
+          <InputItem
+            {...{
+              dummyInputData: dummyVerificationData,
+              inputValue: setVerificationValue,
+              validationCheck: setVerificationCheck,
+              validationFcn: emailVerificationCheck,
+            }}
+          ></InputItem>
+          <InputItem
+            {...{
+              dummyInputData: dummyNameData,
+              inputValue: setNicknameValue,
+            }}
+          ></InputItem>
+          <InputItem
+            {...{
+              dummyInputData: dummyPWData,
+              inputValue: setPwValue,
+            }}
+          ></InputItem>
           <Div $width="100%" $flex="v_start_start">
             <TermsServiceContainer />
             <BorderStyleNoneBtn
@@ -83,6 +158,7 @@ const SignUpContainer = () => {
               $flex="h_center_center"
               $color="white"
               $margin="0 0 20px 0"
+              onClick={SignUpClickEvent}
             >
               회원가입
             </BorderStyleNoneBtn>
