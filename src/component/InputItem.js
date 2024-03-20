@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import styled from "styled-components";
 import { setColor } from "../style/SetStyle";
@@ -41,10 +41,25 @@ const Label = styled.label`
 `;
 
 const InputItem = (props) => {
-  const { dummyInputData } = props;
+  const { dummyInputData, inputValue, validationCheck, validationFcn } = props;
+  const [absoluteValue, setAbsoluteValue] = useState(false);
+  const [currentValue, setCurrentValue] = useState("");
   const [toggle, setToggle] = useState(false);
+
   const toggleClickEvent = () => {
     setToggle(!toggle);
+  };
+
+  const inputChangeEvent = (event) => {
+    inputValue(event.target.value);
+    setCurrentValue(event.target.value);
+  };
+
+  const absoluteBtnClickEvent = () => {
+    if (validationFcn(currentValue)) {
+      setAbsoluteValue(true);
+      validationCheck(true);
+    }
   };
 
   return (
@@ -61,12 +76,20 @@ const InputItem = (props) => {
                 $width="100%"
                 $height="50px"
                 $padding="0 3%"
+                onChange={inputChangeEvent}
                 type={data.type === "pw" && !toggle ? "password" : "text"}
+                $backgroundColor={absoluteValue ? "lightGray" : "white"}
+                disabled={absoluteValue}
                 placeholder={data.placeholder}
               />
               {/* 버튼 유무에 따라 출력 결정 */}
               {data.button && (
-                <AbsoluteBtn $color="white" $fontSize="smail" $padding="6px 8px">
+                <AbsoluteBtn
+                  onClick={absoluteBtnClickEvent}
+                  $color="white"
+                  $fontSize="smail"
+                  $padding="6px 8px"
+                >
                   {data.button}
                 </AbsoluteBtn>
               )}

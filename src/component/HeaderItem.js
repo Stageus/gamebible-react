@@ -48,6 +48,10 @@ const SearchIconImg = styled(Img)`
   right: 0;
 `;
 
+const WhiteColorLink = styled(Link)`
+  color: white;
+`;
+
 const MenuNullUrl = [
   "/SignInPage",
   "/SignUpPage",
@@ -88,15 +92,27 @@ const HeaderItem = (props) => {
       </CenterDiv>
       <Div $width="30%" $flex="h_end_center">
         {userIdx === "null" || userIdx === " " ? (
-          <SignBtn
-            $padding="0 10px"
-            $height="35px"
-            $flex="h_center_center"
-            $color="white"
-            $margin="0 10% 0 0"
-          >
-            로그인
-          </SignBtn>
+          <>
+            {" "}
+            <SignBtn
+              $padding="0 10px"
+              $height="35px"
+              $flex="h_center_center"
+              $color="white"
+              $margin="0 10% 0 0"
+            >
+              <WhiteColorLink to="/SignInPage">로그인</WhiteColorLink>
+            </SignBtn>
+            <SignBtn
+              $padding="0 10px"
+              $height="35px"
+              $flex="h_center_center"
+              $color="white"
+              $margin="0 10% 0 0"
+            >
+              <WhiteColorLink to="/SignUpPage">회원가입</WhiteColorLink>
+            </SignBtn>
+          </>
         ) : (
           <BtnLayout $flex="h_between_center" $width="210px">
             <CursorPointerDiv $height="30px">

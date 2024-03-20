@@ -12,10 +12,6 @@ import { Img } from "../style/ImgStyle";
 
 import { Link } from "react-router-dom";
 
-const dummyData = {
-  userIdx: null,
-};
-
 const duumyUserData = {
   id: {
     key: "id",
@@ -27,8 +23,8 @@ const duumyUserData = {
     label: "이메일",
     text: "qwer@email.com",
   },
-  nickName: {
-    key: "nickName",
+  nickname: {
+    key: "nickname",
     label: "닉네임",
     text: "홍길동",
   },
@@ -41,12 +37,22 @@ const PositionDiv = styled(Div)`
 
 const FullWideLink = styled(Link)`
   width: 100%;
+  color: white;
 `;
+
+const DeleteClickEvent = () => {
+  const result = window.confirm("정말로 탈퇴하시겠습니까?");
+  if (result) {
+    console.log("탈퇴 API 호출");
+  } else {
+    return;
+  }
+};
 
 const ChangePWPage = () => {
   return (
     <>
-      <HeaderItem {...{ dummyData }}></HeaderItem>
+      <HeaderItem {...{ userIdx: duumyUserData.nickname.text }}></HeaderItem>
       <Section $width="100vw" $height="90vh" $flex="h_center_center">
         <PositionDiv $flex="v_center_center" $width="350px">
           <Img $margin="0 0 20px 0" src={MainLogo} alt="MainLogo" />
@@ -70,6 +76,7 @@ const ChangePWPage = () => {
             $color="white"
             $borderRadius="4px"
             $margin="0 0 20px 0"
+            onClick={DeleteClickEvent}
           >
             탈퇴하기
           </Button>

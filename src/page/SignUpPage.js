@@ -3,14 +3,12 @@ import HeaderItem from "../component/HeaderItem";
 import SignUpContainer from "../container/SignUpContainer";
 import FooterItem from "../component/FooterItem";
 
-const dummyData = {
-  userIdx: null,
-};
+const userIdx = "null";
 
 const SignUpPage = () => {
   return (
     <>
-      <HeaderItem {...{ dummyData }}></HeaderItem>
+      <HeaderItem {...{ userIdx }}></HeaderItem>
       <SignUpContainer></SignUpContainer>
       <FooterItem></FooterItem>
     </>
