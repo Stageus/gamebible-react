@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 
 import styled from "styled-components";
-import { Input } from "../style/InputStyle";
-import { H1, P, Span } from "../style/TextStyle";
+import {} from "../style/InputStyle";
+import { H1, P } from "../style/TextStyle";
 import { Div } from "../style/LayoutStyle";
-import { Button } from "../style/ButtonStyle";
 import { Section } from "../style/LayoutStyle";
+
 import CommentContainer from "./ComentContainer";
 
 const dummyData = {

@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import HeaderItem from "../component/HeaderItem";
-import JunContentContainer from "../container/JunContentContainer";
 import FooterItem from "../component/FooterItem";
+import ReadPostContainer from "../container/ReadPostContainer";
+
+import styled from "styled-components";
+import { Div } from "../style/LayoutStyle";
+import { Img } from "../style/ImgStyle";
 
 import BannerImg from "../img/bannerImg.svg";
-import { Img } from "../style/ImgStyle";
-import { Div } from "../style/LayoutStyle";
-import styled from "styled-components";
 
 const dummyData = {
   userIdx: "1234",
@@ -14,14 +15,15 @@ const dummyData = {
 const WideImg = styled(Img)`
   width: 100%;
 `;
+
 const ReadPostPage = () => {
   return (
     <>
       <HeaderItem {...{ dummyData }} />
-      <Div $padding="0 30px">
+      <Div $padding="0 30px" $width="100%" $margin="70px 0 0 0">
         <WideImg src={BannerImg} />
       </Div>
-      <JunContentContainer />
+      <ReadPostContainer />
       <FooterItem />
     </>
   );

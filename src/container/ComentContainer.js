@@ -1,12 +1,10 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import styled from "styled-components";
 import { Input } from "../style/InputStyle";
-import { H1, P, Span } from "../style/TextStyle";
+import { Span } from "../style/TextStyle";
 import { Div } from "../style/LayoutStyle";
 import { Button } from "../style/ButtonStyle";
-import { Section } from "../style/LayoutStyle";
-
 import CommentListItem from "../component/CommentListItem";
 
 const CommentInput = styled(Input)`
@@ -26,125 +24,95 @@ const OverFlowDiv = styled(Div)`
   overflow: auto;
 `;
 
-const dummyCommentData = [
-  {
-    title: "댓글 좋아요",
-    nickname: "민수",
-    createdAt: "23/04/12",
-  },
-  {
-    title: "안녕하세요",
-    nickname: "용수",
-    createdAt: "23/04/12",
-  },
-  {
-    title: "세 번째 댓글입니다",
-    nickname: "용광",
-    createdAt: "23/04/12",
-  },
-  {
-    title: "자신 댓글입니다",
-    nickname: "작성자닉네임_2",
-    createdAt: "23/04/12",
-  },
-  {
-    title: "댓글 좋아요",
-    nickname: "민수",
-    createdAt: "23/04/12",
-  },
-  {
-    title: "안녕하세요",
-    nickname: "용수",
-    createdAt: "23/04/12",
-  },
-  {
-    title: "세 번째 댓글입니다",
-    nickname: "용광",
-    createdAt: "23/04/12",
-  },
-  {
-    title: "자신 댓글입니다",
-    nickname: "작성자닉네임_2",
-    createdAt: "23/04/12",
-  },
-  {
-    title: "댓글 좋아요",
-    nickname: "민수",
-    createdAt: "23/04/12",
-  },
-  {
-    title: "안녕하세요",
-    nickname: "용수",
-    createdAt: "23/04/12",
-  },
-  {
-    title: "세 번째 댓글입니다",
-    nickname: "용광",
-    createdAt: "23/04/12",
-  },
-  {
-    title: "자신 댓글입니다",
-    nickname: "작성자닉네임_2",
-    createdAt: "23/04/12",
-  },
-  {
-    title: "댓글 좋아요",
-    nickname: "민수",
-    createdAt: "23/04/12",
-  },
-  {
-    title: "안녕하세요",
-    nickname: "용수",
-    createdAt: "23/04/12",
-  },
-  {
-    title: "세 번째 댓글입니다",
-    nickname: "용광",
-    createdAt: "23/04/12",
-  },
-  {
-    title: "자신 댓글입니다",
-    nickname: "작성자닉네임_2",
-    createdAt: "23/04/12",
-  },
-  {
-    title: "댓글 좋아요",
-    nickname: "민수",
-    createdAt: "23/04/12",
-  },
-  {
-    title: "안녕하세요",
-    nickname: "용수",
-    createdAt: "23/04/12",
-  },
-  {
-    title: "세 번째 댓글입니다",
-    nickname: "용광",
-    createdAt: "23/04/12",
-  },
-  {
-    title: "자신 댓글입니다",
-    nickname: "작성자닉네임_2",
-    createdAt: "23/04/12",
-  },
-];
-
 const dummyUserData = { userName: "홍길금" };
 
 const CommentContainer = () => {
   const commentRef = useRef(null);
+  const [commentListData, setCommentListData] = useState([]);
+
+  useEffect(() => {
+    setCommentListData([
+      {
+        id: "Comment_1",
+        title: "댓글제목_1",
+        nickname: "작성자닉네임_1",
+        createdAt: "작성일_1",
+      },
+      {
+        id: "Comment_7",
+        title: "댓글제목_7",
+        nickname: "작성자닉네임_7",
+        createdAt: "작성일_7",
+      },
+      {
+        id: "Comment_3",
+        title: "댓글제목_3",
+        nickname: "작성자닉네임_3",
+        createdAt: "작성일_3",
+      },
+      {
+        id: "Comment_4",
+        title: "댓글제목_4",
+        nickname: "작성자닉네임_4",
+        createdAt: "작성일_4",
+      },
+      {
+        id: "Comment_5",
+        title: "댓글제목_5",
+        nickname: "작성자닉네임_5",
+        createdAt: "작성일_5",
+      },
+    ]);
+  }, []);
 
   const test1 = () => {
     const { scrollTop, clientHeight, scrollHeight } = commentRef.current;
     if (scrollTop + clientHeight >= scrollHeight) {
-      console.log("백엔드 소통");
+      addDummyData();
     }
+  };
+
+  const addDummyData = () => {
+    const newData = [
+      {
+        id: "Comment_6",
+        title: "댓글제목_6",
+        nickname: "작성자닉네임_6",
+        createdAt: "작성일_6",
+      },
+      {
+        id: "Comment_7",
+        title: "댓글제목_7",
+        nickname: "작성자닉네임_7",
+        createdAt: "작성일_7",
+      },
+      {
+        id: "Comment_8",
+        title: "댓글제목_8",
+        nickname: "작성자닉네임_8",
+        createdAt: "작성일_8",
+      },
+      {
+        id: "Comment_9",
+        title: "댓글제목_9",
+        nickname: "작성자닉네임_9",
+        createdAt: "작성일_9",
+      },
+      {
+        id: "Comment_10",
+        title: "댓글제목_10",
+        nickname: "작성자닉네임_10",
+        createdAt: "작성일_10",
+      },
+    ];
+
+    setCommentListData((prevData) => [...prevData, ...newData]);
   };
   return (
     <Div $width="85%" $height="400px">
       <Div>
         <Span $fontSize="large" $color="white">
-          댓글: {dummyCommentData.length}개
+          댓글: {commentListData.length}개
         </Span>
       </Div>
       <Div $flex="h_center_center" $width="100%">
@@ -170,13 +138,8 @@ const CommentContainer = () => {
         </StyleBtn>
       </Div>
       <OverFlowDiv ref={commentRef} onScroll={test1} $width="100%" $height="240px">
-        {dummyCommentData.map((elem, idx) => {
-          return (
-            <CommentListItem
-              key={elem.nickname + idx}
-              {...{ title: elem.title, nickname: elem.nickname, createdAt: elem.createdAt }}
-            />
-          );
+        {commentListData.map((elem, idx) => {
+          return <CommentListItem key={elem.id + idx} data={elem} />;
         })}
       </OverFlowDiv>
     </Div>

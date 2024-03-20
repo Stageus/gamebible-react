@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+
 import SwitchTabItem from "../component/SwitchTabItem";
 import PostDetailViewContainer from "../container/PostDetailViewContainer";
+
 import { Div } from "../style/LayoutStyle";
 
-const JunContentContainer = () => {
+const ReadPostContainer = () => {
   const BtnText = ["커뮤니티", "위키"];
 
   const [tabBtnValue, setTabBtnValue] = useState(BtnText[0]);
@@ -21,4 +23,4 @@ const JunContentContainer = () => {
   );
 };
 
-export default JunContentContainer;
+export default ReadPostContainer;
