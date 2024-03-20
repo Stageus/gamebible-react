@@ -4,9 +4,7 @@ import SignInContainer from "../container/SignInContainer";
 import FooterItem from "../component/FooterItem";
 import { Div } from "../style/LayoutStyle";
 import styled from "styled-components";
-const dummyData = {
-  userIdx: "null",
-};
+const userIdx = "null";
 
 const CenterDiv = styled(Div)`
   position: relative;
@@ -16,7 +14,7 @@ const CenterDiv = styled(Div)`
 const SignInPage = () => {
   return (
     <>
-      <HeaderItem {...{ dummyData }}></HeaderItem>
+      <HeaderItem {...{ userIdx }}></HeaderItem>
       <CenterDiv $width="100vw" $height="100vh" $flex="h_center_center">
         <SignInContainer></SignInContainer>
       </CenterDiv>

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import HeaderItem from "../component/HeaderItem";
 import InputItem from "../component/InputItem";
 import FooterItem from "../component/FooterItem";
+import { emailValueValidation } from "../util/ValidationUtil";
 
 import MainLogo from "../img/HeaderLogo.svg";
 
@@ -10,9 +11,7 @@ import { Button } from "../style/ButtonStyle";
 import { Div, Section } from "../style/LayoutStyle";
 import { Img } from "../style/ImgStyle";
 
-const dummyData = {
-  userIdx: null,
-};
+const userIdx = "null";
 
 const dummyEmailData = {
   pw: {
@@ -28,19 +27,27 @@ const PositionDiv = styled(Div)`
 `;
 
 const FindIDPage = () => {
+  const [emailValue, setEmailValue] = useState("");
+  const findIdClickEvent = () => {
+    if (!emailValueValidation(emailValue)) {
+      return;
+    }
+    console.log("아이디 찾기 API 호출");
+  };
   return (
     <>
-      <HeaderItem {...{ dummyData }}></HeaderItem>
+      <HeaderItem {...{ userIdx }}></HeaderItem>
       <Section $width="100vw" $height="90vh" $flex="h_center_center">
         <PositionDiv $flex="v_center_center" $width="350px">
           <Img $margin="0 0 20px 0" src={MainLogo} alt="MainLogo" />
-          <InputItem {...{ dummyInputData: dummyEmailData }}></InputItem>
+          <InputItem {...{ dummyInputData: dummyEmailData, inputValue: setEmailValue }}></InputItem>
           <Button
             $flex="h_center_center"
             $width="100%"
             $color="white"
             $height="50px"
             $borderRadius="4px"
+            onClick={findIdClickEvent}
           >
             아이디 찾기
           </Button>

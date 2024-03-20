@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Div } from "../style/LayoutStyle";
-import { Button } from "../style/ButtonStyle";
 import { Span } from "../style/TextStyle";
 import { Img } from "../style/ImgStyle";
 import { Link } from "react-router-dom";

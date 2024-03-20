@@ -83,7 +83,8 @@ const SignUpContainer = () => {
   const [verificationCheck, setVerificationCheck] = useState(false);
 
   const [nicknameValue, setNicknameValue] = useState("");
-  const [nicknameCheck, setNicknameCheck] = useState(false);
+
+  console.log(idValue, emailValue, verificationValue);
 
   const SignUpClickEvent = () => {
     if (!idCheck) {
