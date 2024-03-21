@@ -1,18 +1,18 @@
 import { React, useState } from "react";
 
 import { styled } from "styled-components";
-import { Img } from "../style/ImgStyle";
-import { Div, Article, Section } from "../style/LayoutStyle";
+import { Img } from "../../style/ImgStyle";
+import { Div, Article, Section } from "../../style/LayoutStyle";
 
 import { useRecoilValue } from "recoil";
-import navToggleAtom from "../recoil/navToggleAtom";
+import navToggleAtom from "../../recoil/navToggleAtom";
 
-import bannerImg from "../img/bannerImg.svg";
-import SwitchTabItem from "../component/SwitchTabItem";
-import CommunityContainer from "../container/CommunityContainer";
-import WikiContainer from "../container/WikiContainer";
-import WikiHistoryListContainer from "../container/WikiHistoryListContainer";
-import WikiEditContainer from "../container/WikiEditContainer";
+import bannerImg from "../../img/bannerImg.svg";
+import SwitchTabItem from "../../component/SwitchTabItem";
+import CommunityContainer from "../inCommunityPage/CommunityContainer";
+import WikiContainer from "../inWikiComponent/WikiContainer";
+import WikiHistoryListContainer from "../inWikiComponent/WikiHistoryListContainer";
+import WikiEditContainer from "../WikiEditContainer";
 
 const GameContentLayout = styled(Section)`
   width: calc(100vw - 120px);

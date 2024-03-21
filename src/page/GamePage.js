@@ -1,10 +1,12 @@
 import React from "react";
+
 import { styled } from "styled-components";
+import { Div, Section } from "../style/LayoutStyle";
+
 import HeaderItem from "../component/HeaderItem";
 import GameListContainer from "../container/GameListNavContainer";
 import FooterItem from "../component/FooterItem";
-import { Div, Section } from "../style/LayoutStyle";
-import GameContentContainer from "../container/GameContentContainer";
+import GameContentContainer from "../container/inGamePage/GameContentContainer";
 
 const PageWrapper = styled(Div)`
   min-height: 100vh;
@@ -20,7 +22,7 @@ const FooterWrapper = styled(Div)`
   bottom: 0;
 `;
 
-const WikiPage = () => {
+const GamePage = () => {
   return (
     <PageWrapper>
       <HeaderItem />
@@ -35,4 +37,4 @@ const WikiPage = () => {
   );
 };
 
-export default WikiPage;
+export default GamePage;

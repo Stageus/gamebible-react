@@ -1,8 +1,8 @@
 import React from "react";
 import { styled } from "styled-components";
-import { Div, Section } from "../style/LayoutStyle";
-import { H1 } from "../style/TextStyle";
-import NotificationListItem from "../component/NotificationListItem";
+import { Div, Section } from "../../style/LayoutStyle";
+import { H1 } from "../../style/TextStyle";
+import NotificationListItem from "../../component/NotificationListItem";
 
 const NotificationListLayout = styled(Section)`
   margin: 100px 0 0 0;

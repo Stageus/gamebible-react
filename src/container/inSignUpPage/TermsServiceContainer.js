@@ -3,13 +3,13 @@ import TermsDetailViewContainer from "./TermsDetailViewContainer";
 import PrivacyDetailViewContainer from "./PrivacyDetailViewContainer";
 
 import styled from "styled-components";
-import { setColor } from "../style/SetStyle";
-import { Div } from "../style/LayoutStyle";
-import { Input } from "../style/InputStyle";
-import { Button } from "../style/ButtonStyle";
-import { P } from "../style/TextStyle";
+import { setColor } from "../../style/SetStyle";
+import { Div } from "../../style/LayoutStyle";
+import { Input } from "../../style/InputStyle";
+import { Button } from "../../style/ButtonStyle";
+import { P } from "../../style/TextStyle";
 
-import { useClick } from "../hook/useClick";
+import { useClick } from "../../hook/useClick";
 
 const BorderStyleBtn = styled(Button)`
   border: 1px solid ${setColor("black")};

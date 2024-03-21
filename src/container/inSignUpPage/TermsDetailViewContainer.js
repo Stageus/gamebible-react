@@ -1,14 +1,14 @@
 import React from "react";
 
-import MainLogo from "../img/HeaderLogo.svg";
+import MainLogo from "../../img/HeaderLogo.svg";
 
 import styled from "styled-components";
-import { Img } from "../style/ImgStyle";
-import { P } from "../style/TextStyle";
-import { Div } from "../style/LayoutStyle";
-import { setColor } from "../style/SetStyle";
-import { Button } from "../style/ButtonStyle";
-import { Section } from "../style/LayoutStyle";
+import { Img } from "../../style/ImgStyle";
+import { P } from "../../style/TextStyle";
+import { Div } from "../../style/LayoutStyle";
+import { setColor } from "../../style/SetStyle";
+import { Button } from "../../style/ButtonStyle";
+import { Section } from "../../style/LayoutStyle";
 
 const RelativeDiv = styled(Div)`
   position: relative;
@@ -41,8 +41,8 @@ const RightButton = styled(Button)`
   top: 10px;
   border: 1px solid ${setColor("black")};
 `;
-const PrivacyDetailViewContainer = (props) => {
-  const { privacyReadMoreEvent } = props;
+const TermsServiceContainer = (props) => {
+  const { termsReadMoreEvent } = props;
   return (
     <RelativeSection $width="100vw" $height="100vh" $flex="h_center_center">
       <RelativeDiv $flex="v_start_center">
@@ -51,7 +51,7 @@ const PrivacyDetailViewContainer = (props) => {
           $height="30px"
           $flex="h_center_center"
           $backgroundColor="none"
-          onClick={privacyReadMoreEvent}
+          onClick={termsReadMoreEvent}
         >
           ❌
         </RightButton>
@@ -122,4 +122,4 @@ const PrivacyDetailViewContainer = (props) => {
   );
 };
 
-export default PrivacyDetailViewContainer;
+export default TermsServiceContainer;

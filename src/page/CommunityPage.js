@@ -2,7 +2,7 @@ import React from "react";
 
 import HeaderItem from "../component/HeaderItem";
 import FooterItem from "../component/FooterItem";
-import CommunityContainer from "../container/CommunityContainer";
+import CommunityContainer from "../container/inCommunityPage/CommunityContainer";
 
 import BannerImg from "../img/bannerImg.svg";
 

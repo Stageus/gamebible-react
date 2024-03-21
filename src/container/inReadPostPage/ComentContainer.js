@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import styled from "styled-components";
-import { Input } from "../style/InputStyle";
-import { Span } from "../style/TextStyle";
-import { Div } from "../style/LayoutStyle";
-import { Button } from "../style/ButtonStyle";
-import CommentListItem from "../component/CommentListItem";
+import { Input } from "../../style/InputStyle";
+import { Span } from "../../style/TextStyle";
+import { Div } from "../../style/LayoutStyle";
+import { Button } from "../../style/ButtonStyle";
+import CommentListItem from "../../component/CommentListItem";
 
 const CommentInput = styled(Input)`
   &:focus {
@@ -27,7 +27,6 @@ const OverFlowDiv = styled(Div)`
 const dummyUserData = { userName: "홍길금" };
 
 const CommentContainer = () => {
-  const commentRef = useRef(null);
   const [commentListData, setCommentListData] = useState([]);
 
   useEffect(() => {
@@ -65,12 +64,18 @@ const CommentContainer = () => {
     ]);
   }, []);
 
-  const test1 = () => {
-    const { scrollTop, clientHeight, scrollHeight } = commentRef.current;
-    if (scrollTop + clientHeight >= scrollHeight) {
-      addDummyData();
-    }
-  };
+  useEffect(() => {
+    const scrollDownEvent = () => {
+      const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+      if (scrollTop + clientHeight >= scrollHeight) {
+        addDummyData();
+      }
+    };
+    window.addEventListener("scroll", scrollDownEvent);
+    return () => {
+      window.removeEventListener("scroll", scrollDownEvent);
+    };
+  }, [commentListData]);
 
   const addDummyData = () => {
     const newData = [
@@ -109,7 +114,7 @@ const CommentContainer = () => {
     setCommentListData((prevData) => [...prevData, ...newData]);
   };
   return (
-    <Div $width="85%" $height="400px">
+    <Div $width="85%" $height="100%">
       <Div>
         <Span $fontSize="large" $color="white">
           댓글: {commentListData.length}개
@@ -137,7 +142,7 @@ const CommentContainer = () => {
           댓글 추가
         </StyleBtn>
       </Div>
-      <OverFlowDiv ref={commentRef} onScroll={test1} $width="100%" $height="240px">
+      <OverFlowDiv $width="100%" $height="100%">
         {commentListData.map((elem, idx) => {
           return <CommentListItem key={elem.id + idx} data={elem} />;
         })}

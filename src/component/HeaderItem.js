@@ -59,6 +59,7 @@ const MenuNullUrl = [
   "/ChangePWPage",
   "/PersonalInfoPage",
   "/EditPersonalInfoPage",
+  "/alarm",
 ];
 
 const HeaderItem = (props) => {
@@ -77,7 +78,9 @@ const HeaderItem = (props) => {
           )}
         </CursorPointerDiv>
         <CursorPointerDiv $height="50px">
-          <Img src={HeaderLogo} alt="HeaderLogo" />
+          <Link to="/">
+            <Img src={HeaderLogo} alt="HeaderLogo" />
+          </Link>
         </CursorPointerDiv>
       </Div>
       <CenterDiv $width="40%">
@@ -88,7 +91,9 @@ const HeaderItem = (props) => {
           $fontSize="small"
           $padding="0 2%"
         />
-        <SearchIconImg src={SearchIcon} alt="SearchIcon" $height="60%" />
+        <CursorPointerDiv>
+          <SearchIconImg src={SearchIcon} alt="SearchIcon" $height="60%" />
+        </CursorPointerDiv>
       </CenterDiv>
       <Div $width="30%" $flex="h_end_center">
         {userIdx === "null" || userIdx === " " ? (
@@ -115,12 +120,16 @@ const HeaderItem = (props) => {
           </>
         ) : (
           <BtnLayout $flex="h_between_center" $width="210px">
-            <CursorPointerDiv $height="30px">
-              <Img src={NotiIcon} alt="NotiIcon" />
-            </CursorPointerDiv>
-            <CursorPointerDiv $height="30px">
-              <Img src={UserIcon} alt="UserIcon" />
-            </CursorPointerDiv>
+            <Link to="/alarm">
+              <CursorPointerDiv $height="30px">
+                <Img src={NotiIcon} alt="NotiIcon" />
+              </CursorPointerDiv>
+            </Link>
+            <Link to="/PersonalInfoPage">
+              <CursorPointerDiv $height="30px">
+                <Img src={UserIcon} alt="UserIcon" />
+              </CursorPointerDiv>
+            </Link>
             <SignBtn $padding="10px" $flex="h_center_center" $color="white">
               로그아웃
             </SignBtn>

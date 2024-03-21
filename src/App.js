@@ -5,20 +5,17 @@ import { RecoilRoot } from "recoil";
 
 import GlobalStyle from "./style/GlobalStyle";
 
-import TestPage from "./page/TestPage";
-import WikiPage from "./page/WikiPage";
 import SignInPage from "./page/SignInPage";
 import SignUpPage from "./page/SignUpPage";
 import FindIDPage from "./page/FindIDPage";
 import ResetPWPage from "./page/ResetPWPage";
 import ChangePWPage from "./page/ChangePWPage";
 import ReadPostPage from "./page/ReadPostPage";
-import CommunityPage from "./page/CommunityPage";
 import GamePage from "./page/GamePage";
-
 import NotificationPage from "./page/NotificationPage";
 import PersonalInfoPage from "./page/PersonalInfoPage";
 import EditPersonalInfoPage from "./page/EditPersonalInfoPage";
+import SearchResultsPage from "./page/SearchResultsPage";
 
 const App = () => {
   return (
@@ -27,7 +24,6 @@ const App = () => {
         <BrowserRouter>
           <GlobalStyle />
           <Routes>
-            <Route path="/" element={<TestPage />} />
             <Route path="/SignUpPage" element={<SignUpPage />} />
             <Route path="/SignInPage" element={<SignInPage />} />
             <Route path="/PersonalInfoPage" element={<PersonalInfoPage />} />
@@ -37,8 +33,8 @@ const App = () => {
             <Route path="/ChangePWPage" element={<ChangePWPage />} />
             <Route path="/game/:idx" element={<GamePage />} />
             <Route path="/alarm" element={<NotificationPage />} />
-            <Route path="/CommunityPage/:pageIdx" element={<CommunityPage />} />
             <Route path="/ReadPostPage" element={<ReadPostPage />} />
+            <Route path="/SearchResultsPage" element={<SearchResultsPage />} />
           </Routes>
         </BrowserRouter>
       </RecoilRoot>

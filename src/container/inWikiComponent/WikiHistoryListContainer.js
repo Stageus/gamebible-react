@@ -1,10 +1,10 @@
 import React from "react";
 import { styled } from "styled-components";
-import { Article, Section, Div } from "../style/LayoutStyle";
-import { H1, P } from "../style/TextStyle";
+import { Article, Section, Div } from "../../style/LayoutStyle";
+import { H1, P } from "../../style/TextStyle";
 
-import backImg from "../img/backImg.svg";
-import ImgTextBtnUtil from "../util/ImgTextBtnUtil";
+import backImg from "../../img/backImg.svg";
+import ImgTextBtnUtil from "../../util/ImgTextBtnUtil";
 
 const WikiContainerLayout = styled(Section)``;
 const InnerContentsLayout = styled(Div)``;
@@ -81,6 +81,7 @@ const WikiHistoryListContainer = ({ backToWikiBtn, setBackToWikiBtn }) => {
               img={backImg}
               text={"BACK"}
               color={"major"}
+              backgroundColor={"white"}
               backToWikiBtn={backToWikiBtn}
               setBackToWikiBtn={setBackToWikiBtn}
               onClick={clickBackToWikiBtn}
