@@ -23,7 +23,7 @@ const BannerImg = styled(Img)`
 `;
 
 const GameContentContainer = () => {
-  const BtnText = ["커뮤니티", "위키", "history", "edit"];
+  const BtnText = ["커뮤니티", "위키"];
   const navToggle = useRecoilValue(navToggleAtom);
 
   const [tabBtnValue, setTabBtnValue] = useState(BtnText[0]);
@@ -32,11 +32,10 @@ const GameContentContainer = () => {
     setTabBtnValue(btnText);
   };
 
-  // const [historyBtn, setHistoryBtn] = useState(false);
+  const [historyBtn, setHistoryBtn] = useState(false);
+  console.log(historyBtn);
 
-  // const clickHistoryBtnEvent = () => {
-  //   setHistoryBtn();
-  // };
+  const [editBtn, setEditBtn] = useState(false);
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
@@ -50,10 +49,17 @@ const GameContentContainer = () => {
         onClick={(tab) => switchTabEvent(tab)}
       />
       <Article $flex="h_center_center" $backgroundColor="major" $width="100%" $padding="50px">
-        {tabBtnValue == "커뮤니티" && <CommunityContainer />}
-        {tabBtnValue == "위키" && <WikiContainer tab={tabBtnValue} setTab={setTabBtnValue} />}
-        {tabBtnValue == "history" && <WikiHistoryListContainer />}
-        {tabBtnValue == "edit" && <WikiEditContainer />}
+        {tabBtnValue === "커뮤니티" && !historyBtn && !editBtn && <CommunityContainer />}
+        {tabBtnValue === "위키" && !historyBtn && !editBtn && (
+          <WikiContainer
+            historyBtn={historyBtn}
+            setHistoryBtn={setHistoryBtn}
+            editBtn={editBtn}
+            setEditBtn={setEditBtn}
+          />
+        )}
+        {historyBtn && !editBtn && <WikiHistoryListContainer />}
+        {editBtn && !historyBtn && <WikiEditContainer />}
       </Article>
     </GameContentLayout>
   );

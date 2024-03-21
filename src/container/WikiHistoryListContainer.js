@@ -1,6 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
-
 import { styled } from "styled-components";
 import { Article, Section, Div } from "../style/LayoutStyle";
 import { H1, P } from "../style/TextStyle";

@@ -17,10 +17,10 @@ const TitleLayout = styled(H1)`
   font-size: 45px;
 `;
 const BtnsLayout = styled(Div)``;
-const MainContentLayout = styled(P)`
+const MainContentLayout = styled(Div)`
   line-height: 30px;
 `;
-const TextDiv = styled(Div)`
+const TextDiv = styled(P)`
   width: 100%;
   margin: 10px 0;
 `;
@@ -34,7 +34,17 @@ const ImgDiv = styled(Div)`
 const ImgByUser = styled(Img)`
   width: 100%;
 `;
-const WikiContainer = (props) => {
+
+const WikiContainer = ({ historyBtn, setHistoryBtn, editBtn, setEditBtn }) => {
+  const clickHistoryBtnEvent = () => {
+    setHistoryBtn(!historyBtn);
+    console.log("클릭이 되긴 하니?");
+    console.log(historyBtn);
+  };
+  const clickEditBtnEvent = () => {
+    setHistoryBtn(!editBtn);
+  };
+
   return (
     <WikiContainerLayout $backgroundColor="white" $width="100%" $height="80%" $padding="40px">
       <InnerContentsLayout $width="100%">
@@ -43,8 +53,22 @@ const WikiContainer = (props) => {
             리그오브레전드(League of legends)
           </TitleLayout>
           <BtnsLayout $flex="h_between_start" $width="30%">
-            <ImgTextBtnUtil img={historyImg} text={"HISTORY"} color={"major"} />
-            <ImgTextBtnUtil img={editImg} text={"EDIT"} color={"major"} />
+            <ImgTextBtnUtil
+              img={historyImg}
+              text={"HISTORY"}
+              color={"major"}
+              historyBtn={historyBtn}
+              setHistoryBtn={setHistoryBtn}
+              onClick={clickHistoryBtnEvent}
+            />
+            <ImgTextBtnUtil
+              img={editImg}
+              text={"EDIT"}
+              color={"major"}
+              editBtn={editBtn}
+              setEditBtn={setEditBtn}
+              onClick={clickEditBtnEvent}
+            />
           </BtnsLayout>
         </FirstRow>
         <MainContentLayout $flex="v_start_center" $width="100%" $margin="20px 0 0 0">
