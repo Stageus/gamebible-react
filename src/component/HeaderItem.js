@@ -91,7 +91,9 @@ const HeaderItem = (props) => {
           $fontSize="small"
           $padding="0 2%"
         />
-        <SearchIconImg src={SearchIcon} alt="SearchIcon" $height="60%" />
+        <CursorPointerDiv>
+          <SearchIconImg src={SearchIcon} alt="SearchIcon" $height="60%" />
+        </CursorPointerDiv>
       </CenterDiv>
       <Div $width="30%" $flex="h_end_center">
         {userIdx === "null" || userIdx === " " ? (

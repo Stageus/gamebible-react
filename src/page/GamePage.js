@@ -1,9 +1,11 @@
 import React from "react";
+
 import { styled } from "styled-components";
+import { Div, Section } from "../style/LayoutStyle";
+
 import HeaderItem from "../component/HeaderItem";
 import GameListContainer from "../container/GameListNavContainer";
 import FooterItem from "../component/FooterItem";
-import { Div, Section } from "../style/LayoutStyle";
 import GameContentContainer from "../container/GameContentContainer";
 
 const PageWrapper = styled(Div)`

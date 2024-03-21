@@ -16,6 +16,7 @@ import GamePage from "./page/GamePage";
 import NotificationPage from "./page/NotificationPage";
 import PersonalInfoPage from "./page/PersonalInfoPage";
 import EditPersonalInfoPage from "./page/EditPersonalInfoPage";
+import SearchResultsPage from "./page/SearchResultsPage";
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
             <Route path="/game/:idx" element={<GamePage />} />
             <Route path="/alarm" element={<NotificationPage />} />
             <Route path="/ReadPostPage" element={<ReadPostPage />} />
+            <Route path="/SearchResultsPage" element={<SearchResultsPage />} />
           </Routes>
         </BrowserRouter>
       </RecoilRoot>

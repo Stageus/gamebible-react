@@ -10,12 +10,12 @@ const AddPhotoBtnItemLayout = styled(Button)`
   border-radius: 20px;
 `;
 
-const ImgTextBtnUtil = ({ img, text, color, onClick }) => {
+const ImgTextBtnUtil = ({ img, text, color, backgroundColor, onClick }) => {
   const ImgTextBtn = () => {
     return (
       <AddPhotoBtnItemLayout
         $flex="h_center_center"
-        $backgroundColor="initial"
+        $backgroundColor={backgroundColor}
         $color={color}
         $padding="12px 20px"
         $fontWeight="bold"
