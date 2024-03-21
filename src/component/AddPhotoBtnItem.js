@@ -5,17 +5,16 @@ import { Button } from "../style/ButtonStyle";
 import { Input } from "../style/InputStyle";
 import { Div } from "../style/LayoutStyle";
 import { Img } from "../style/ImgStyle";
-import ImgTextBtnUtil from "../util/ImgTextBtnUtil";
 import addPhotoImg from "../img/addPhotoImg.svg";
 
 const AddPhotoBtnItemLayout = styled(Button)`
   border: 1px solid ${setColor("black")};
   border-radius: 20px;
 `;
-const ShowPhotosLayout = styled(Div)`
-  // border: 1px solid ${setColor("black")};
-  border-radius: 10px;
-`;
+// const ShowPhotosLayout = styled(Div)`
+//   // border: 1px solid ${setColor("black")};
+//   border-radius: 10px;
+// `;
 
 const AddPhotoBtnItem = () => {
   const [image, setImage] = useState([]);
@@ -63,7 +62,7 @@ const AddPhotoBtnItem = () => {
         PHOTO
       </AddPhotoBtnItemLayout>
 
-      <ShowPhotosLayout $flex="v_center_center" $width="1136px" $padding="50px">
+      {/* <ShowPhotosLayout $flex="v_center_center" $width="1136px" $padding="50px">
         {image.map((imageData) => (
           <Img
             key={imageData.id}
@@ -73,7 +72,7 @@ const AddPhotoBtnItem = () => {
             alt={imageData.file.name}
           />
         ))}
-      </ShowPhotosLayout>
+      </ShowPhotosLayout> */}
     </>
   );
 };

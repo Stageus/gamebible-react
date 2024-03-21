@@ -1,9 +1,8 @@
 import React from "react";
-// import AddPhotoBtnItem from "../component/WriteItem";
-import WriteItem from "../component/WriteItem";
+import AddPhotoBtnItem from "../component/AddPhotoBtnItem";
 
 const TestPage = () => {
-  return <WriteItem />;
+  return <AddPhotoBtnItem />;
 };
 
 export default TestPage;
