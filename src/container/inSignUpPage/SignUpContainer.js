@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 
 import styled from "styled-components";
-import { Div } from "../style/LayoutStyle";
-import { Button } from "../style/ButtonStyle";
-import { Img } from "../style/ImgStyle";
-import { Section } from "../style/LayoutStyle";
+import { Div } from "../../style/LayoutStyle";
+import { Button } from "../../style/ButtonStyle";
+import { Img } from "../../style/ImgStyle";
+import { Section } from "../../style/LayoutStyle";
 
-import InputItem from "../component/InputItem";
-import MainLogo from "../img/HeaderLogo.svg";
-import KakaoLoginBtn from "../img/kakaoLoginMediumWide.svg";
+import InputItem from "../../component/InputItem";
+import MainLogo from "../../img/HeaderLogo.svg";
+import KakaoLoginBtn from "../../img/kakaoLoginMediumWide.svg";
 
 import {
   idValueValidation,
   pwValueValidation,
   emailValueValidation,
   nicknameValueValidation,
-} from "../util/ValidationUtil";
+} from "../../util/ValidationUtil";
 import TermsServiceContainer from "./TermsServiceContainer";
 
 const dummyIdData = {

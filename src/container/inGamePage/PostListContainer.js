@@ -1,10 +1,10 @@
 import React from "react";
 
 import { useParams } from "react-router-dom";
-import PostListItem from "../component/PostListItem";
-import PaginationContainer from "../container/PaginationContainer";
+import PostListItem from "../../component/PostListItem";
+import PaginationContainer from "./PaginationContainer";
 
-import { Section, Div } from "../style/LayoutStyle";
+import { Section, Div } from "../../style/LayoutStyle";
 
 const postListData = [
   {

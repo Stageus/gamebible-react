@@ -1,31 +1,31 @@
 import React from "react";
+
+import { styled } from "styled-components";
+import { Div, Section } from "../style/LayoutStyle";
+
 import HeaderItem from "../component/HeaderItem";
-import FooterItem from "../component/FooterItem";
-import ReadPostContainer from "../container/ReadPostContainer";
+import GameListContainer from "../container/GameListNavContainer";
+import ReadPostContainer from "../container/inReadPostPage/ReadPostContainer";
 
-import styled from "styled-components";
-import { Div } from "../style/LayoutStyle";
-import { Img } from "../style/ImgStyle";
-
-import BannerImg from "../img/bannerImg.svg";
-
-const dummyData = {
-  userIdx: "1234",
-};
-const WideImg = styled(Img)`
-  width: 100%;
+const PageWrapper = styled(Div)`
+  min-height: 100vh;
+  position: relative;
+`;
+const GameContentContainerWrapper = styled(Section)`
+  margin: 100px 0 0 0;
+  padding: 0 60px 0 60px;
+  width: 100vw;
 `;
 
 const ReadPostPage = () => {
   return (
-    <>
-      {/* <HeaderItem {...{ dummyData }} /> */}
-      {/* <Div $padding="0 30px" $width="100%" $margin="70px 0 0 0">
-        <WideImg src={BannerImg} />
-      </Div> */}
-      <ReadPostContainer />
-      {/* <FooterItem /> */}
-    </>
+    <PageWrapper>
+      <HeaderItem />
+      <GameListContainer />
+      <GameContentContainerWrapper $flex="v_center_center">
+        <ReadPostContainer />
+      </GameContentContainerWrapper>
+    </PageWrapper>
   );
 };
 

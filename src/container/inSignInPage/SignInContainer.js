@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import InputItem from "../component/InputItem";
-import HeaderLogo from "../img/HeaderLogo.svg";
+import InputItem from "../../component/InputItem";
+import HeaderLogo from "../../img/HeaderLogo.svg";
 
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Img } from "../style/ImgStyle";
-import { Div, Section } from "../style/LayoutStyle";
-import { Button } from "../style/ButtonStyle";
-import { idValueValidation, pwValueValidation } from "../util/ValidationUtil";
-import KakaoLoginBtn from "../img/kakaoLoginMediumWide.svg";
+import { Img } from "../../style/ImgStyle";
+import { Div, Section } from "../../style/LayoutStyle";
+import { Button } from "../../style/ButtonStyle";
+import { idValueValidation, pwValueValidation } from "../../util/ValidationUtil";
+import KakaoLoginBtn from "../../img/kakaoLoginMediumWide.svg";
 
 const BorderBtn = styled(Button)`
   border-radius: 4px;

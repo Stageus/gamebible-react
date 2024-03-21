@@ -1,10 +1,10 @@
 import React from "react";
 
 import styled from "styled-components";
-import {} from "../style/InputStyle";
-import { H1, P } from "../style/TextStyle";
-import { Div } from "../style/LayoutStyle";
-import { Section } from "../style/LayoutStyle";
+import {} from "../../style/InputStyle";
+import { H1, P } from "../../style/TextStyle";
+import { Div } from "../../style/LayoutStyle";
+import { Section } from "../../style/LayoutStyle";
 
 import CommentContainer from "./ComentContainer";
 

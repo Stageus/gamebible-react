@@ -1,9 +1,9 @@
 import React from "react";
-import PostListContainer from "../container/PostListContainer";
+import PostListContainer from "../inGamePage/PostListContainer";
 import { styled } from "styled-components";
-import { Section, Div } from "../style/LayoutStyle";
-import { Span } from "../style/TextStyle";
-import { setColor } from "../style/SetStyle";
+import { Section, Div } from "../../style/LayoutStyle";
+import { Span } from "../../style/TextStyle";
+import { setColor } from "../../style/SetStyle";
 
 const CommunityTitleContainer = styled(Div)`
   border: none;

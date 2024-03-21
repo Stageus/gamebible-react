@@ -5,7 +5,7 @@ import { Div } from "../style/LayoutStyle";
 import HeaderItem from "../component/HeaderItem";
 import GameListContainer from "../container/GameListNavContainer";
 import FooterItem from "../component/FooterItem";
-import NotificationListContainer from "../container/NotificationListContainer";
+import NotificationListContainer from "../container/inNotificationPage/NotificationListContainer";
 
 const PageWrapper = styled(Div)`
   min-height: 100vh;

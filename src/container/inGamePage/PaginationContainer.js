@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Div } from "../style/LayoutStyle";
-import { Span } from "../style/TextStyle";
-import { Img } from "../style/ImgStyle";
+import { Div } from "../../style/LayoutStyle";
+import { Span } from "../../style/TextStyle";
+import { Img } from "../../style/ImgStyle";
 import { Link } from "react-router-dom";
 
-import ArrowRight from "../img/arrowRight.svg";
-import ArrowLeft from "../img/arrowLeft.svg";
+import ArrowRight from "../../img/arrowRight.svg";
+import ArrowLeft from "../../img/arrowLeft.svg";
 
 const PaginationContainer = (props) => {
   const { totalItems, itemCountPerPage, pageCount, currentPage } = props;

@@ -1,14 +1,14 @@
 import React from "react";
 
 import { styled } from "styled-components";
-import { Article, Section, Div } from "../style/LayoutStyle";
-import { H1, P } from "../style/TextStyle";
-import { Img } from "../style/ImgStyle";
+import { Article, Section, Div } from "../../style/LayoutStyle";
+import { H1, P } from "../../style/TextStyle";
+import { Img } from "../../style/ImgStyle";
 
-import ImgTextBtnUtil from "../util/ImgTextBtnUtil";
-import putByUserImg from "../img/putByUserImg.svg";
-import historyImg from "../img/historyImg.svg";
-import editImg from "../img/editImg.svg";
+import ImgTextBtnUtil from "../../util/ImgTextBtnUtil";
+import putByUserImg from "../../img/putByUserImg.svg";
+import historyImg from "../../img/historyImg.svg";
+import editImg from "../../img/editImg.svg";
 
 const InnerContentsLayout = styled(Div)``;
 const FirstRow = styled(Article)``;

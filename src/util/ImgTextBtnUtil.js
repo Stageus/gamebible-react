@@ -1,6 +1,4 @@
 import React from "react";
-import styled from "styled-components";
-import { setColor } from "../style/SetStyle";
 import { Button } from "../style/ButtonStyle";
 import { Div } from "../style/LayoutStyle";
 import { Img } from "../style/ImgStyle";

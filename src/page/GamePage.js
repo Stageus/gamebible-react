@@ -6,7 +6,7 @@ import { Div, Section } from "../style/LayoutStyle";
 import HeaderItem from "../component/HeaderItem";
 import GameListContainer from "../container/GameListNavContainer";
 import FooterItem from "../component/FooterItem";
-import GameContentContainer from "../container/GameContentContainer";
+import GameContentContainer from "../container/inGamePage/GameContentContainer";
 
 const PageWrapper = styled(Div)`
   min-height: 100vh;
