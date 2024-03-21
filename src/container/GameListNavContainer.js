@@ -25,95 +25,95 @@ const GameListNavContainer = () => {
 
   const GameListData = [
     {
-      id: "Game_1",
+      id: "1",
       name: "리그오브레전드(League of Legends)",
     },
     {
-      id: "Game_2",
+      id: "2",
       name: "피파 온라인(FIFA online)",
     },
     {
-      id: "Game_3",
+      id: "3",
       name: "오버워치(Overwatch)",
     },
     {
-      id: "Game_4",
+      id: "4",
       name: "Game_4",
     },
     {
-      id: "Game_5",
+      id: "5",
       name: "Game_5",
     },
     {
-      id: "Game_6",
+      id: "6",
       name: "Game_6",
     },
     {
-      id: "Game_7",
+      id: "7",
       name: "Game_7",
     },
     {
-      id: "Game_8",
+      id: "8",
       name: "Game_8",
     },
     {
-      id: "Game_9",
+      id: "9",
       name: "Game_9",
     },
     {
-      id: "Game_10",
+      id: "10",
       name: "Game_10",
     },
     {
-      id: "Game_11",
+      id: "11",
       name: "Game_11",
     },
     {
-      id: "Game_12",
+      id: "12",
       name: "Game_12",
     },
     {
-      id: "Game_13",
+      id: "13",
       name: "Game_13",
     },
     {
-      id: "Game_14",
+      id: "14",
       name: "Game_14",
     },
     {
-      id: "Game_15",
+      id: "15",
       name: "Game_15",
     },
     {
-      id: "Game_16",
+      id: "16",
       name: "Game_16",
     },
     {
-      id: "Game_17",
+      id: "17",
       name: "Game_17",
     },
     {
-      id: "Game_18",
+      id: "18",
       name: "Game_18",
     },
     {
-      id: "Game_19",
+      id: "19",
       name: "Game_19",
     },
     {
-      id: "Game_20",
+      id: "20",
       name: "Game_20",
     },
     {
-      id: "Game_21",
+      id: "21",
       name: "Game_21",
     },
     {
-      id: "Game_22",
+      id: "22",
       name: "Game_22",
     },
     {
-      id: "Game_23",
+      id: "23",
       name: "Game_23",
     },
     {
@@ -128,7 +128,7 @@ const GameListNavContainer = () => {
 
   return (
     navToggle && (
-      <GameListContainer $width="250px" $backgroundColor="white">
+      <GameListContainer $width={navToggle ? "250px" : 0} $backgroundColor="white">
         <Div $flex="v_start_center" $padding="0 0 30px 0">
           <H1 $fontSize="large" $fontWeight="bold">
             게임 목록
@@ -138,7 +138,7 @@ const GameListNavContainer = () => {
           <NavSection $width="100%">
             {GameListData.map((elem) => {
               return (
-                <Link key={`${elem.id}`} to={`/${elem.id}`}>
+                <Link key={`${elem.id}`} to={`/game/${elem.id}`}>
                   <GameListItem key={elem.id} data={elem} />
                 </Link>
               );

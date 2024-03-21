@@ -14,6 +14,8 @@ import ResetPWPage from "./page/ResetPWPage";
 import ChangePWPage from "./page/ChangePWPage";
 import ReadPostPage from "./page/ReadPostPage";
 import CommunityPage from "./page/CommunityPage";
+import GamePage from "./page/GamePage";
+
 import NotificationPage from "./page/NotificationPage";
 import PersonalInfoPage from "./page/PersonalInfoPage";
 import EditPersonalInfoPage from "./page/EditPersonalInfoPage";
@@ -33,7 +35,7 @@ const App = () => {
             <Route path="/FindIDPage" element={<FindIDPage />} />
             <Route path="/ResetPWPage" element={<ResetPWPage />} />
             <Route path="/ChangePWPage" element={<ChangePWPage />} />
-            <Route path="/wiki" element={<WikiPage />} />
+            <Route path="/game/:idx" element={<GamePage />} />
             <Route path="/alarm" element={<NotificationPage />} />
             <Route path="/CommunityPage/:pageIdx" element={<CommunityPage />} />
             <Route path="/ReadPostPage" element={<ReadPostPage />} />
