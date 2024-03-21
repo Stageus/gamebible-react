@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 import { setColor } from "../style/SetStyle";
 import { Article, Div } from "../style/LayoutStyle";
@@ -9,6 +10,9 @@ const PostListItemLayout = styled(Article)`
   border-radius: 5px;
   cursor: pointer;
 `;
+const FullWideLink = styled(Link)`
+  width: 100%;
+`;
 
 const PostListItem = (props) => {
   const { title, nickname, view, createdAt } = props.data;
@@ -16,25 +20,29 @@ const PostListItem = (props) => {
   return (
     <PostListItemLayout
       $flex="h_center_center"
-      $width="1100px"
+      $width="100%"
       $height="40px"
       $padding="10px 40px 10px 40px"
       $margin="0 0 20px 0"
     >
-      <Div $flex="h_between_center" $width="100%">
-        <Div $flex="h_start_center" $width="550px">
-          {title}
+      <FullWideLink to="/ReadPostPage">
+        <Div $flex="h_between_center" $width="100%">
+          <Div $flex="h_start_center" $width="50%">
+            {title}
+          </Div>
+          <Div $flex="h_end_center" $width="50%">
+            <Div $flex="h_center_center" $width="33.33%">
+              {nickname}
+            </Div>
+            <Div $flex="h_center_center" $width="33.33%">
+              {view}
+            </Div>
+            <Div $flex="h_center_center" $width="33.33%">
+              {createdAt}
+            </Div>
+          </Div>
         </Div>
-        <Div $flex="h_center_center" $width="200px">
-          {nickname}
-        </Div>
-        <Div $flex="h_center_center" $width="100px">
-          {view}
-        </Div>
-        <Div $flex="h_center_center" $width="100px">
-          {createdAt}
-        </Div>
-      </Div>
+      </FullWideLink>
     </PostListItemLayout>
   );
 };
