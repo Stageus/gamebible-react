@@ -22,7 +22,7 @@ const FooterWrapper = styled(Div)`
   bottom: 0;
 `;
 
-const WikiPage = () => {
+const GamePage = () => {
   return (
     <PageWrapper>
       <HeaderItem />
@@ -37,4 +37,4 @@ const WikiPage = () => {
   );
 };
 
-export default WikiPage;
+export default GamePage;

@@ -54,6 +54,7 @@ const WikiContainer = ({ historyBtn, setHistoryBtn, editBtn, setEditBtn }) => {
               img={historyImg}
               text={"HISTORY"}
               color={"major"}
+              backgroundColor={"white"}
               historyBtn={historyBtn}
               setHistoryBtn={setHistoryBtn}
               onClick={clickHistoryBtnEvent}
@@ -62,6 +63,7 @@ const WikiContainer = ({ historyBtn, setHistoryBtn, editBtn, setEditBtn }) => {
               img={editImg}
               text={"EDIT"}
               color={"major"}
+              backgroundColor={"white"}
               editBtn={editBtn}
               setEditBtn={setEditBtn}
               onClick={clickEditBtnEvent}

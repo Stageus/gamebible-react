@@ -13,9 +13,6 @@ const BorderStyleArticle = styled(Article)`
 `;
 
 const NotificationListItem = (props) => {
-  const BtnColor = "major";
-  const BtnText = "DELETE";
-
   const { date, content } = props.data;
   const { isAdmin } = props;
 
@@ -35,11 +32,23 @@ const NotificationListItem = (props) => {
         <Div $width="25%" $flex={isAdmin ? "h_between_center" : "h_end_center"}>
           {isAdmin ? (
             <>
-              <ImgTextBtnUtil key="Reject" img={RejectIcon} text={"REJECT"} color={BtnColor} />
-              <ImgTextBtnUtil key="Approve" img={ApproveIcon} text={"APPROVE"} color={BtnColor} />
+              <ImgTextBtnUtil
+                key="Reject"
+                img={RejectIcon}
+                text="REJECT"
+                color="major"
+                backgroundColor="white"
+              />
+              <ImgTextBtnUtil
+                key="Approve"
+                img={ApproveIcon}
+                text="APPROVE"
+                color="major"
+                backgroundColor="white"
+              />
             </>
           ) : (
-            <ImgTextBtnUtil img={DeleteIcon} text={BtnText} color={BtnColor} />
+            <ImgTextBtnUtil img={DeleteIcon} text="DELETE" color="white" />
           )}
         </Div>
       </BorderStyleArticle>

@@ -81,6 +81,7 @@ const WikiHistoryListContainer = ({ backToWikiBtn, setBackToWikiBtn }) => {
               img={backImg}
               text={"BACK"}
               color={"major"}
+              backgroundColor={"white"}
               backToWikiBtn={backToWikiBtn}
               setBackToWikiBtn={setBackToWikiBtn}
               onClick={clickBackToWikiBtn}
