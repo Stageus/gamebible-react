@@ -19,12 +19,12 @@ const WideImg = styled(Img)`
 const ReadPostPage = () => {
   return (
     <>
-      <HeaderItem {...{ dummyData }} />
-      <Div $padding="0 30px" $width="100%" $margin="70px 0 0 0">
+      {/* <HeaderItem {...{ dummyData }} /> */}
+      {/* <Div $padding="0 30px" $width="100%" $margin="70px 0 0 0">
         <WideImg src={BannerImg} />
-      </Div>
+      </Div> */}
       <ReadPostContainer />
-      <FooterItem />
+      {/* <FooterItem /> */}
     </>
   );
 };

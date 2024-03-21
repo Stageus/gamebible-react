@@ -59,6 +59,7 @@ const MenuNullUrl = [
   "/ChangePWPage",
   "/PersonalInfoPage",
   "/EditPersonalInfoPage",
+  "/alarm",
 ];
 
 const HeaderItem = (props) => {
@@ -117,12 +118,16 @@ const HeaderItem = (props) => {
           </>
         ) : (
           <BtnLayout $flex="h_between_center" $width="210px">
-            <CursorPointerDiv $height="30px">
-              <Img src={NotiIcon} alt="NotiIcon" />
-            </CursorPointerDiv>
-            <CursorPointerDiv $height="30px">
-              <Img src={UserIcon} alt="UserIcon" />
-            </CursorPointerDiv>
+            <Link to="/alarm">
+              <CursorPointerDiv $height="30px">
+                <Img src={NotiIcon} alt="NotiIcon" />
+              </CursorPointerDiv>
+            </Link>
+            <Link to="/PersonalInfoPage">
+              <CursorPointerDiv $height="30px">
+                <Img src={UserIcon} alt="UserIcon" />
+              </CursorPointerDiv>
+            </Link>
             <SignBtn $padding="10px" $flex="h_center_center" $color="white">
               로그아웃
             </SignBtn>
