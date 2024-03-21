@@ -17,7 +17,7 @@ const HistoryContentLayout = styled(P)`
   line-height: 30px;
 `;
 
-const WikiHistoryListContainer = () => {
+const WikiHistoryListContainer = ({ backToWikiBtn, setBackToWikiBtn }) => {
   const WikiHistoryListDummyData = [
     {
       id: "history_11",
@@ -64,6 +64,10 @@ const WikiHistoryListContainer = () => {
       content: "2024-02-24 09:28:30 뱅준연",
     },
   ];
+  const clickBackToWikiBtn = () => {
+    setBackToWikiBtn(!backToWikiBtn);
+  };
+  console.log(backToWikiBtn);
 
   return (
     <WikiContainerLayout $backgroundColor="white" $width="100%" $height="80%" $padding="40px">
@@ -73,7 +77,14 @@ const WikiHistoryListContainer = () => {
             리그오브레전드(LEAGUE of LEGENDS)
           </TitleLayout>
           <BtnsLayout $flex="h_end_start" $width="30%">
-            <ImgTextBtnUtil img={backImg} text={"BACK"} color={"major"} />
+            <ImgTextBtnUtil
+              img={backImg}
+              text={"BACK"}
+              color={"major"}
+              backToWikiBtn={backToWikiBtn}
+              setBackToWikiBtn={setBackToWikiBtn}
+              onClick={clickBackToWikiBtn}
+            />
           </BtnsLayout>
         </FirstRow>
         <HistoryContentLayout $flex="v_center_start" $width="100%">

@@ -38,8 +38,6 @@ const ImgByUser = styled(Img)`
 const WikiContainer = ({ historyBtn, setHistoryBtn, editBtn, setEditBtn }) => {
   const clickHistoryBtnEvent = () => {
     setHistoryBtn(!historyBtn);
-    console.log("클릭이 되긴 하니?");
-    console.log(historyBtn);
   };
   const clickEditBtnEvent = () => {
     setHistoryBtn(!editBtn);
