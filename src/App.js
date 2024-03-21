@@ -6,7 +6,6 @@ import { RecoilRoot } from "recoil";
 import GlobalStyle from "./style/GlobalStyle";
 
 import TestPage from "./page/TestPage";
-import WikiPage from "./page/WikiPage";
 import SignInPage from "./page/SignInPage";
 import SignUpPage from "./page/SignUpPage";
 import FindIDPage from "./page/FindIDPage";

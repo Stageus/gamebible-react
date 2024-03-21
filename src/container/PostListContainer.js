@@ -1,9 +1,9 @@
 import React from "react";
+
 import { useParams } from "react-router-dom";
 import PostListItem from "../component/PostListItem";
 import PaginationContainer from "../container/PaginationContainer";
 
-import { Span } from "../style/TextStyle";
 import { Section, Div } from "../style/LayoutStyle";
 
 const postListData = [
@@ -90,31 +90,6 @@ const PostListContainer = (props) => {
   };
   return (
     <Section $width="100%">
-      <Div
-        $width="100%"
-        $height="80px"
-        $flex="h_center_center"
-        $padding="0 30px"
-        $margin="0 0 1px 0"
-        $backgroundColor="major"
-      >
-        <Div $flex="h_between_center" $width="100%" $height="40px" $padding="10px 40px 10px 40px">
-          <Span $fontSize="large" $width="50%" $color="white">
-            제목
-          </Span>
-          <Div $flex="h_end_center" $width="50%">
-            <Span $fontSize="large" $flex="h_center_center" $color="white" $width="33.33%">
-              작성자
-            </Span>
-            <Span $fontSize="large" $flex="h_center_center" $color="white" $width="33.33%">
-              조회
-            </Span>
-            <Span $fontSize="large" $flex="h_center_center" $color="white" $width="33.33%">
-              작성일
-            </Span>
-          </Div>
-        </Div>
-      </Div>
       <Div $backgroundColor="major" $width="100%" $padding="30px">
         {postListData.map((elem, idx) => {
           return <PostListItem key={`${idx + elem}`} data={elem} />;

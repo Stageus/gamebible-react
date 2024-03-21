@@ -77,7 +77,9 @@ const HeaderItem = (props) => {
           )}
         </CursorPointerDiv>
         <CursorPointerDiv $height="50px">
-          <Img src={HeaderLogo} alt="HeaderLogo" />
+          <Link to="/">
+            <Img src={HeaderLogo} alt="HeaderLogo" />
+          </Link>
         </CursorPointerDiv>
       </Div>
       <CenterDiv $width="40%">

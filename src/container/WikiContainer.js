@@ -10,7 +10,6 @@ import putByUserImg from "../img/putByUserImg.svg";
 import historyImg from "../img/historyImg.svg";
 import editImg from "../img/editImg.svg";
 
-const WikiContainerLayout = styled(Section)``;
 const InnerContentsLayout = styled(Div)``;
 const FirstRow = styled(Article)``;
 const TitleLayout = styled(H1)`
@@ -44,7 +43,7 @@ const WikiContainer = ({ historyBtn, setHistoryBtn, editBtn, setEditBtn }) => {
   };
 
   return (
-    <WikiContainerLayout $backgroundColor="white" $width="100%" $height="80%" $padding="40px">
+    <Section $backgroundColor="white" $width="100%" $height="80%" $padding="40px">
       <InnerContentsLayout $width="100%">
         <FirstRow $flex="h_between_start" $width="100%" $margin="0 0 20px 0">
           <TitleLayout $width="60%" $fontWeight="bold">
@@ -100,7 +99,7 @@ const WikiContainer = ({ historyBtn, setHistoryBtn, editBtn, setEditBtn }) => {
           </TextDiv>
         </MainContentLayout>
       </InnerContentsLayout>
-    </WikiContainerLayout>
+    </Section>
   );
 };
 
