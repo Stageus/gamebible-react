@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import TermsDetailViewContainer from "./TermsDetailViewContainer";
 import PrivacyDetailViewContainer from "./PrivacyDetailViewContainer";
 
-import styled from "styled-components";
-import { setColor } from "../../style/SetStyle";
 import { Div } from "../../style/LayoutStyle";
 import { Input } from "../../style/InputStyle";
 import { Button } from "../../style/ButtonStyle";
@@ -11,10 +9,6 @@ import { P } from "../../style/TextStyle";
 
 import { useClick } from "../../hook/useClick";
 
-const BorderStyleBtn = styled(Button)`
-  border: 1px solid ${setColor("black")};
-  border-radius: 4px;
-`;
 const TermsServiceContainer = () => {
   const {
     click: termsServiceChecked,
@@ -40,7 +34,7 @@ const TermsServiceContainer = () => {
   };
 
   return (
-    <>
+    <Div $flex="v_between_start" $width="100%" $margin="0 0 20px 0">
       <Div $flex="h_start_center" $width="100%" $margin="0 0 10px 0">
         <Input type="checkbox" onChange={allCheckedEvent} checked={isAllChecked}></Input>
         <P $fontSize="small" $margin="0 0 0 10px" onClick={allCheckedEvent}>
@@ -58,17 +52,16 @@ const TermsServiceContainer = () => {
             이용약관 (필수)
           </P>
         </Div>
-        <BorderStyleBtn
+        <Button
           $flex="h_cetner_center"
           $backgroundColor="white"
           $color="black"
           $fontSize="small"
           $width="60px"
-          $height="30px"
           onClick={termsReadMoreEvent}
         >
           전문보기
-        </BorderStyleBtn>
+        </Button>
       </Div>
       <Div $width="100%" $flex="h_between_center" $margin="0 0 10px 0">
         <Div $flex="h_start_center">
@@ -81,21 +74,20 @@ const TermsServiceContainer = () => {
             개인정보 (필수)
           </P>
         </Div>
-        <BorderStyleBtn
+        <Button
           $flex="h_cetner_center"
           $backgroundColor="white"
           $color="black"
           $fontSize="small"
           $width="60px"
-          $height="30px"
           onClick={privacyReadMoreEvent}
         >
           전문보기
-        </BorderStyleBtn>
+        </Button>
       </Div>
       {termsReadMore && <TermsDetailViewContainer {...{ termsReadMoreEvent }} />}
       {privacyReadMore && <PrivacyDetailViewContainer {...{ privacyReadMoreEvent }} />}
-    </>
+    </Div>
   );
 };
 

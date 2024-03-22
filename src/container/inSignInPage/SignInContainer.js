@@ -10,15 +10,6 @@ import { Button } from "../../style/ButtonStyle";
 import { idValueValidation, pwValueValidation } from "../../util/ValidationUtil";
 import KakaoLoginBtn from "../../img/kakaoLoginMediumWide.svg";
 
-const BorderBtn = styled(Button)`
-  border-radius: 4px;
-  border-style: none;
-`;
-
-const BorderStyleNoneBtn = styled(Button)`
-  border-style: none;
-  border-radius: 4px;
-`;
 const KakaoLoginStyleBtn = styled(Img)`
   width: 100%;
 `;
@@ -59,16 +50,17 @@ const SignInContainer = () => {
         }}
       ></InputItem>
       <InputItem {...{ dummyInputData: dummyPWData, inputValue: setPwValue }}></InputItem>
-      <BorderBtn
+      <Button
         $flex="h_center_center"
         $width="100%"
         $height="50px"
         $color="white"
         $margin="0 0 20px 0"
+        $borderRadius="4px"
         onClick={signInClickEvent}
       >
         로그인
-      </BorderBtn>
+      </Button>
       <Div $width="100%" $flex="h_between_center" $margin="0 0 20px 0">
         <Link to="/SignUpPage">계정이 없으세요? 회원가입</Link>
         <Div>
@@ -76,9 +68,9 @@ const SignInContainer = () => {
           <Link to="/ResetPWPage">비밀번호 찾기</Link>
         </Div>
       </Div>
-      <BorderStyleNoneBtn $width="100%">
+      <Button $width="100%" $borderRadius="4px">
         <KakaoLoginStyleBtn src={KakaoLoginBtn} />
-      </BorderStyleNoneBtn>
+      </Button>
     </Section>
   );
 };

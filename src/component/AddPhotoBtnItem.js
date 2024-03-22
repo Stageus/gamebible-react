@@ -7,10 +7,6 @@ import { Div } from "../style/LayoutStyle";
 import { Img } from "../style/ImgStyle";
 import addPhotoImg from "../img/addPhotoImg.svg";
 
-const AddPhotoBtnItemLayout = styled(Button)`
-  border: 1px solid ${setColor("black")};
-  border-radius: 20px;
-`;
 // const ShowPhotosLayout = styled(Div)`
 //   // border: 1px solid ${setColor("black")};
 //   border-radius: 10px;
@@ -47,20 +43,22 @@ const AddPhotoBtnItem = () => {
         onChange={handleChange}
       />
 
-      <AddPhotoBtnItemLayout
+      <Button
         $flex="h_center_center"
         $backgroundColor="initial"
         $color="black"
         $padding="12px 20px"
         $margin="20px"
         $fontWeight="bold"
+        $borderStyle={`1px solid ${setColor("black")}`}
+        $borderRadius="20px"
         onClick={handleBtnClick}
       >
         <Div $margin="0 10px 0 0" $height="24px">
           <Img src={addPhotoImg} alt="사진 업로드하기" />
         </Div>
         PHOTO
-      </AddPhotoBtnItemLayout>
+      </Button>
 
       {/* <ShowPhotosLayout $flex="v_center_center" $width="1136px" $padding="50px">
         {image.map((imageData) => (

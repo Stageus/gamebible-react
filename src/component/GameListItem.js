@@ -5,9 +5,7 @@ import { setColor } from "../style/SetStyle";
 import useHover from "../hook/useHover";
 
 const GameListItemContainer = styled(Button)`
-  border: none;
   border-bottom: 1px solid ${setColor("major")};
-  cursor: pointer;
   &:hover {
     border: none;
   }

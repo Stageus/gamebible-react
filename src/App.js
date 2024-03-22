@@ -5,6 +5,7 @@ import { RecoilRoot } from "recoil";
 
 import GlobalStyle from "./style/GlobalStyle";
 
+import MainPage from "./page/MainPage";
 import SignInPage from "./page/SignInPage";
 import SignUpPage from "./page/SignUpPage";
 import FindIDPage from "./page/FindIDPage";
@@ -24,6 +25,7 @@ const App = () => {
         <BrowserRouter>
           <GlobalStyle />
           <Routes>
+            <Route path="/" element={<MainPage />} />
             <Route path="/SignUpPage" element={<SignUpPage />} />
             <Route path="/SignInPage" element={<SignInPage />} />
             <Route path="/PersonalInfoPage" element={<PersonalInfoPage />} />

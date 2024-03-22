@@ -1,16 +1,7 @@
 import React from "react";
-import { styled } from "styled-components";
 import { Div, Section } from "../../style/LayoutStyle";
 import { H1 } from "../../style/TextStyle";
 import NotificationListItem from "../../component/NotificationListItem";
-
-const NotificationListLayout = styled(Section)`
-  margin: 100px 0 0 0;
-  width: 100vw;
-`;
-const PageTitleLayout = styled(Div)`
-  width: 100%;
-`;
 
 const NotificationListContainer = (props) => {
   const { isAdmin } = props;
@@ -93,31 +84,31 @@ const NotificationListContainer = (props) => {
   ];
 
   return (
-    <NotificationListLayout $flex="v_start_center">
+    <Section $flex="v_start_center" $margin="100px 0 0 0" $width="100vw">
       {isAdmin ? (
         <Div $flex="v_start_center" $width="1320px">
-          <PageTitleLayout $flex="h_start_center">
+          <Div $flex="h_start_center" $width="100%">
             <H1 $fontSize="large" $fontWeight="bold">
               관리자 알림함
             </H1>
-          </PageTitleLayout>
+          </Div>
           {AdminNotificationListData.map((elem) => {
             return <NotificationListItem key={elem.id} data={elem} isAdmin />;
           })}
         </Div>
       ) : (
         <Div $flex="v_start_center" $width="1320px">
-          <PageTitleLayout $flex="h_start_center">
+          <Div $flex="h_start_center" $width="100%">
             <H1 $fontSize="large" $fontWeight="bold">
               알림함
             </H1>
-          </PageTitleLayout>
+          </Div>
           {NotificationListData.map((elem) => {
             return <NotificationListItem key={elem.id} data={elem} />;
           })}
         </Div>
       )}
-    </NotificationListLayout>
+    </Section>
   );
 };
 

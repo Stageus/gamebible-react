@@ -12,9 +12,6 @@ import { Section } from "../../style/LayoutStyle";
 
 const RelativeDiv = styled(Div)`
   position: relative;
-  background-color: ${setColor("white")};
-  width: 500px;
-  height: 600px;
 `;
 
 const RelativeSection = styled(Section)`
@@ -28,29 +25,27 @@ const RelativeSection = styled(Section)`
 const OverFlowAutoSection = styled(Section)`
   overflow: auto;
 `;
-
 const Ol = styled.ol``;
-
 const Li = styled.li`
   margin: 20px 0;
 `;
-
 const RightButton = styled(Button)`
   position: absolute;
   right: 20px;
   top: 10px;
-  border: 1px solid ${setColor("black")};
 `;
+
 const TermsServiceContainer = (props) => {
   const { termsReadMoreEvent } = props;
   return (
-    <RelativeSection $width="100vw" $height="100vh" $flex="h_center_center">
-      <RelativeDiv $flex="v_start_center">
+    <RelativeSection $flex="h_center_center" $width="100vw" $height="100vh">
+      <RelativeDiv $flex="v_start_center" $width="500px" $height="600px" $backgroundColor="white">
         <RightButton
           $width="30px"
           $height="30px"
           $flex="h_center_center"
           $backgroundColor="none"
+          $borderStyle={`1px solid ${setColor("black")}`}
           onClick={termsReadMoreEvent}
         >
           ❌

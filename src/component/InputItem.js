@@ -19,23 +19,18 @@ const AbsoluteBtn = styled(Button)`
   right: 3%;
   top: 50%;
   transform: translate(0, -50%);
-  border-style: none;
-  border-radius: 8px;
 `;
 const BorderStyleInput = styled(Input)`
   border-radius: 4px;
   border: 1px solid ${setColor("black")};
 `;
-
 const EyeIconBtn = styled(Button)`
   position: absolute;
   right: 3%;
   top: 50%;
   transform: translate(0, -50%);
-  border-style: none;
   background: none;
 `;
-
 const Label = styled.label`
   margin: 0 0 10px 0;
 `;
@@ -89,6 +84,7 @@ const InputItem = (props) => {
                   $color="white"
                   $fontSize="smail"
                   $padding="6px 8px"
+                  $borderRadius="8px"
                 >
                   {data.button}
                 </AbsoluteBtn>

@@ -8,9 +8,9 @@ const userIdx = "null";
 const SignUpPage = () => {
   return (
     <>
-      <HeaderItem {...{ userIdx }}></HeaderItem>
-      <SignUpContainer></SignUpContainer>
-      <FooterItem></FooterItem>
+      <HeaderItem {...{ userIdx }} />
+      <SignUpContainer />
+      <FooterItem />
     </>
   );
 };

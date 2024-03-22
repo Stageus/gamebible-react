@@ -10,12 +10,6 @@ import putByUserImg from "../../img/putByUserImg.svg";
 import historyImg from "../../img/historyImg.svg";
 import editImg from "../../img/editImg.svg";
 
-const InnerContentsLayout = styled(Div)``;
-const FirstRow = styled(Article)``;
-const TitleLayout = styled(H1)`
-  font-size: 45px;
-`;
-const BtnsLayout = styled(Div)``;
 const MainContentLayout = styled(Div)`
   line-height: 30px;
 `;
@@ -44,12 +38,12 @@ const WikiContainer = ({ historyBtn, setHistoryBtn, editBtn, setEditBtn }) => {
 
   return (
     <Section $backgroundColor="white" $width="100%" $height="80%" $padding="40px">
-      <InnerContentsLayout $width="100%">
-        <FirstRow $flex="h_between_start" $width="100%" $margin="0 0 20px 0">
-          <TitleLayout $width="60%" $fontWeight="bold">
+      <Article $width="100%">
+        <Div $flex="h_between_start" $width="100%" $margin="0 0 20px 0">
+          <H1 $width="60%" $fontWeight="bold" $fontSize="45px">
             리그오브레전드(League of legends)
-          </TitleLayout>
-          <BtnsLayout $flex="h_between_start" $width="30%">
+          </H1>
+          <Div $flex="h_between_start" $width="30%">
             <ImgTextBtnUtil
               img={historyImg}
               text={"HISTORY"}
@@ -68,8 +62,8 @@ const WikiContainer = ({ historyBtn, setHistoryBtn, editBtn, setEditBtn }) => {
               setEditBtn={setEditBtn}
               onClick={clickEditBtnEvent}
             />
-          </BtnsLayout>
-        </FirstRow>
+          </Div>
+        </Div>
         <MainContentLayout $flex="v_start_center" $width="100%" $margin="20px 0 0 0">
           <TextDiv>
             5명의 플레이어가 각자 다른 포지션에서 성장을 통해 아이템과 레벨을 올려 상대의 기지를
@@ -100,7 +94,7 @@ const WikiContainer = ({ historyBtn, setHistoryBtn, editBtn, setEditBtn }) => {
             강등되지 않는다.
           </TextDiv>
         </MainContentLayout>
-      </InnerContentsLayout>
+      </Article>
     </Section>
   );
 };

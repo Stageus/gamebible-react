@@ -36,11 +36,11 @@ const FindIDPage = () => {
   };
   return (
     <>
-      <HeaderItem {...{ userIdx }}></HeaderItem>
+      <HeaderItem {...{ userIdx }} />
       <Section $width="100vw" $height="90vh" $flex="h_center_center">
         <PositionDiv $flex="v_center_center" $width="350px">
           <Img $margin="0 0 20px 0" src={MainLogo} alt="MainLogo" />
-          <InputItem {...{ dummyInputData: dummyEmailData, inputValue: setEmailValue }}></InputItem>
+          <InputItem {...{ dummyInputData: dummyEmailData, inputValue: setEmailValue }} />
           <Button
             $flex="h_center_center"
             $width="100%"
@@ -53,7 +53,7 @@ const FindIDPage = () => {
           </Button>
         </PositionDiv>
       </Section>
-      <FooterItem></FooterItem>
+      <FooterItem />
     </>
   );
 };

@@ -40,11 +40,11 @@ const FullWideLink = styled(Link)`
 const EditPersonalInfoPage = () => {
   return (
     <>
-      <HeaderItem {...{ dummyData }}></HeaderItem>
+      <HeaderItem {...{ dummyData }} />
       <Section $width="100vw" $height="90vh" $flex="h_center_center">
         <PositionDiv $flex="v_center_center" $width="350px">
           <Img $margin="0 0 20px 0" src={MainLogo} alt="MainLogo" />
-          <InputItem {...{ dummyInputData: dummyEmailData }}></InputItem>
+          <InputItem {...{ dummyInputData: dummyEmailData }} />
           <Button
             $flex="h_center_center"
             $width="100%"
@@ -68,7 +68,7 @@ const EditPersonalInfoPage = () => {
           </FullWideLink>
         </PositionDiv>
       </Section>
-      <FooterItem></FooterItem>
+      <FooterItem />
     </>
   );
 };

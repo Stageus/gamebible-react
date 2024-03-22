@@ -54,13 +54,12 @@ const dummyData = {
 </Div>`,
 };
 
-const CommentSection = styled(Section)``;
-
 const TitleDiv = styled(Div)`
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
 `;
+
 const PostDetailViewContainer = (props) => {
   return (
     <>
@@ -98,14 +97,14 @@ const PostDetailViewContainer = (props) => {
       >
         <Div $padding="5%" dangerouslySetInnerHTML={{ __html: dummyData.htmlContent }}></Div>
       </Section>
-      <CommentSection
+      <Section
         $width="100%"
         $padding="5% 30px"
         $backgroundColor="minorDark"
         $flex="v_center_center"
       >
         <CommentContainer />
-      </CommentSection>
+      </Section>
     </>
   );
 };

@@ -14,18 +14,6 @@ const PageWrapper = styled(Div)`
   min-height: 100vh;
   position: relative;
 `;
-const SearchContainerWrapper = styled(Section)`
-  margin: 100px 0;
-  padding: 0 60px 0 60px;
-  width: 100vw;
-  box-sizing: border-box;
-`;
-const NoResultWrapper = styled(Article)`
-  margin: 300px 0;
-`;
-const BtnWrapper = styled(Div)`
-  padding: 30px 0;
-`;
 const FooterWrapper = styled(Div)`
   position: absolute;
   bottom: 0;
@@ -36,19 +24,19 @@ const SearchResultsPage = () => {
     <PageWrapper>
       <HeaderItem />
       <GameListContainer />
-      <SearchContainerWrapper $flex="v_center_center">
-        <NoResultWrapper $flex="v_center_center">
+      <Section $flex="v_center_center" $margin="100px 0" $padding="0 60px" $width="100vw">
+        <Article $flex="v_center_center" $margin="300px 0">
           <img src={noResultImg} alt="검색결과가 없습니다" />
-          <BtnWrapper>
+          <Div $padding="30px 0">
             <ImgTextBtnUtil
               img={addGameImg}
               text="새로운 게임 요청하기"
               color="white"
               backgroundColor="major"
             />
-          </BtnWrapper>
-        </NoResultWrapper>
-      </SearchContainerWrapper>
+          </Div>
+        </Article>
+      </Section>
       <FooterWrapper>
         <FooterItem />
       </FooterWrapper>

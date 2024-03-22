@@ -61,11 +61,6 @@ const dummyPWData = {
   },
 };
 
-const BorderStyleNoneBtn = styled(Button)`
-  border-style: none;
-  border-radius: 4px;
-`;
-
 const KakaoLoginStyleBtn = styled(Img)`
   width: 100%;
 `;
@@ -153,19 +148,20 @@ const SignUpContainer = () => {
           ></InputItem>
           <Div $width="100%" $flex="v_start_start">
             <TermsServiceContainer />
-            <BorderStyleNoneBtn
+            <Button
               $width="100%"
               $height="50px"
               $flex="h_center_center"
               $color="white"
               $margin="0 0 20px 0"
+              $borderRadius="4px"
               onClick={SignUpClickEvent}
             >
               회원가입
-            </BorderStyleNoneBtn>
-            <BorderStyleNoneBtn $width="100%">
+            </Button>
+            <Button $width="100%" $borderRadius="4px">
               <KakaoLoginStyleBtn src={KakaoLoginBtn} />
-            </BorderStyleNoneBtn>
+            </Button>
           </Div>
         </Div>
       </Section>
