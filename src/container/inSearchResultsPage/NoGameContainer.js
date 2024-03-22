@@ -1,10 +1,10 @@
-import React from "react";
+// import React from "react";
 
-import noGameImg from "../../img/noGameImg";
-import { Img } from "../../style/ImgStyle";
+// import noGameImg from "../../img/noGameImg";
+// import { Img } from "../../style/ImgStyle";
 
-const NoGameContainer = () => {
-  return <Img src={noGameImg} />;
-};
+// const NoGameContainer = () => {
+//   return <Img src={noGameImg} />;
+// };
 
-export default NoGameContainer;
+// export default NoGameContainer;
