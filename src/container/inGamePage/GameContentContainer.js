@@ -10,8 +10,8 @@ import navToggleAtom from "../../recoil/navToggleAtom";
 import bannerImg from "../../img/bannerImg.svg";
 import SwitchTabItem from "../../component/SwitchTabItem";
 import CommunityContainer from "../inCommunityPage/CommunityContainer";
-import WikiContainer from "../inWikiComponent/WikiContainer";
-import WikiHistoryListContainer from "../inWikiComponent/WikiHistoryListContainer";
+import WikiContainer from "../inWikiPage/WikiContainer";
+import WikiHistoryListContainer from "../inWikiPage/WikiHistoryListContainer";
 import WikiEditContainer from "../WikiEditContainer";
 
 const GameContentLayout = styled(Section)`

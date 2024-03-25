@@ -1,12 +1,17 @@
 import React from "react";
+
 import styled from "styled-components";
 import { Span } from "../style/TextStyle";
 import { Div, Article } from "../style/LayoutStyle";
+
 import ImgTextBtnUtil from "../util/ImgTextBtnUtil";
 
 import DeleteIcon from "../img/deleteIcon.svg";
 import RejectIcon from "../img/rejectIcon.svg";
 import ApproveIcon from "../img/approveIcon.svg";
+
+import { useClick } from "../hook/useClick";
+import TermsDetailViewContainer from "../container/inSignUpPage/TermsDetailViewContainer";
 
 const BorderStyleArticle = styled(Article)`
   border-radius: 5px;
@@ -15,6 +20,8 @@ const BorderStyleArticle = styled(Article)`
 const NotificationListItem = (props) => {
   const { date, content } = props.data;
   const { isAdmin } = props;
+
+  const { click: acceptGame, ClickEvent: setGameImgEvent } = useClick(false);
 
   return (
     <Div $flex="v_start_start" $width="100%" $margin="70px 0 0 0">
@@ -45,6 +52,7 @@ const NotificationListItem = (props) => {
                 text="APPROVE"
                 color="major"
                 backgroundColor="white"
+                onClick={setGameImgEvent}
               />
             </>
           ) : (
@@ -52,6 +60,7 @@ const NotificationListItem = (props) => {
           )}
         </Div>
       </BorderStyleArticle>
+      {acceptGame && <TermsDetailViewContainer {...{ setGameImgEvent }} />}
     </Div>
   );
 };
