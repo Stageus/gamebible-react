@@ -36,9 +36,8 @@ const NotificationListItem = (props) => {
         <Div>
           <Span $fontWeight="bold">{content}</Span>
         </Div>
-        <Div $width="25%" $flex={isAdmin ? "h_between_center" : "h_end_center"}>
-          {/* {isAdmin ? ( */}
-          <>
+        {isAdmin ? (
+          <Div $flex="h_between_center" $width="30%">
             <ImgTextBtnUtil
               key="Reject"
               img={RejectIcon}
@@ -54,16 +53,10 @@ const NotificationListItem = (props) => {
               backgroundColor="default"
               onClick={setGameImgEvent}
             />
-          </>
-          {/* ) : (
-            <ImgTextBtnUtil
-              img={DeleteIcon}
-              text="DELETE"
-              color="major"
-              backgroundColor="default"
-            />
-          )} */}
-        </Div>
+          </Div>
+        ) : (
+          <ImgTextBtnUtil img={DeleteIcon} text="DELETE" color="major" backgroundColor="default" />
+        )}
       </BorderStyleArticle>
       {acceptGame && <GameImgSettingContainer {...{ setGameImgEvent }} />}
     </Div>
