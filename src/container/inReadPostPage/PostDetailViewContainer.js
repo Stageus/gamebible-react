@@ -6,7 +6,7 @@ import { H1, P } from "../../style/TextStyle";
 import { Div } from "../../style/LayoutStyle";
 import { Section } from "../../style/LayoutStyle";
 
-import CommentContainer from "./ComentContainer";
+import CommentContainer from "./CommentContainer";
 
 const dummyData = {
   title: "신입 유저라서 궁금한데, 카이사 좋은가요?",
