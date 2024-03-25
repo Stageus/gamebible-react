@@ -13,7 +13,6 @@ import { Section } from "../../style/LayoutStyle";
 const RelativeDiv = styled(Div)`
   position: relative;
 `;
-
 const RelativeSection = styled(Section)`
   position: fixed;
   top: 0;
@@ -21,7 +20,6 @@ const RelativeSection = styled(Section)`
   z-index: 10000;
   background-color: rgba(0, 0, 0, 0.5);
 `;
-
 const RightButton = styled(Button)`
   position: absolute;
   right: 20px;
