@@ -9,8 +9,8 @@ import { Link } from "react-router-dom";
 
 const GameListContainer = styled(Aside)`
   z-index: 100;
-  position: absolute;
-  left: 30px;
+  position: fixed;
+  // left: 30px;
   top: 0;
 `;
 const GameListNav = styled(Nav)`
@@ -128,13 +128,22 @@ const GameListNavContainer = () => {
 
   return (
     navToggle && (
-      <GameListContainer $width={navToggle ? "250px" : 0} $backgroundColor="white">
-        <Div $flex="v_start_center" $padding="0 0 30px 0">
+      <GameListContainer
+        $width={navToggle ? "250px" : 0}
+        $backgroundColor="white"
+        $margin="100px 0 0 0"
+      >
+        <Div $flex="v_start_center" $padding="0 0 30px 20px">
           <H1 $fontSize="large" $fontWeight="bold">
             게임 목록
           </H1>
         </Div>
-        <GameListNav $flex="v_center_center" $width="100%" $backgroundColor="white">
+        <GameListNav
+          $flex="v_center_center"
+          $width="100%"
+          $backgroundColor="white"
+          $padding="0 0 0 30px"
+        >
           <NavSection $width="100%">
             {GameListData.map((elem) => {
               return (
