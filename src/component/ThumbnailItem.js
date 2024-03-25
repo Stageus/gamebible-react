@@ -1,29 +1,40 @@
 import React from "react";
+
 import styled from "styled-components";
 import { Img } from "../style/ImgStyle";
+import { Div } from "../style/LayoutStyle";
 import { Link } from "react-router-dom";
 
-const dummyData = {
-  imgProps:
-    "https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt60f5d7e2095fa266/65556d537c884ff9070fc7bf/112023_SN24-GameplaySpotlight-Banner.jpg",
-  idx: 1,
-};
-
-const ThumbnailWrapper = styled(Link)`
+const ThumbnailContainer = styled(Div)`
   flex-basis: 23%;
   margin: 1%;
+  width: 250px;
+  position: relative;
 `;
+const ThumbnailWrapper = styled(Link)`
+  display: block;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  position: relative;
 
+  &:hover {
+    transform: scale(1.3);
+    z-index: 2;
+  }
+`;
 const ThumbnailImg = styled(Img)`
   width: 100%;
   height: auto;
 `;
 
 const ThumbnailItem = (props) => {
+  const { idx, imgProps } = props.data;
   return (
-    <ThumbnailWrapper to={`ReadPostPage/${dummyData.idx}`}>
-      <ThumbnailImg src={dummyData.imgProps} />
-    </ThumbnailWrapper>
+    <ThumbnailContainer>
+      <ThumbnailWrapper to={`game/${idx}`}>
+        <ThumbnailImg src={imgProps} />
+      </ThumbnailWrapper>
+    </ThumbnailContainer>
   );
 };
 

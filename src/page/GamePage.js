@@ -12,10 +12,10 @@ const PageWrapper = styled(Div)`
   min-height: 100vh;
   position: relative;
 `;
-const FooterWrapper = styled(Div)`
-  position: absolute;
-  bottom: 0;
-`;
+// const FooterWrapper = styled(Div)`
+//   position: absolute;
+//   bottom: 0;
+// `;
 
 const GamePage = () => {
   return (
@@ -25,9 +25,7 @@ const GamePage = () => {
       <Section $flex="v_center_center" $margin="100px 0 0 0" $padding="0 60px" $width="100vw">
         <GameContentContainer />
       </Section>
-      <FooterWrapper>
-        <FooterItem />
-      </FooterWrapper>
+      <FooterItem />
     </PageWrapper>
   );
 };
