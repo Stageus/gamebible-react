@@ -10,6 +10,9 @@ import DeleteIcon from "../img/deleteIcon.svg";
 import RejectIcon from "../img/rejectIcon.svg";
 import ApproveIcon from "../img/approveIcon.svg";
 
+import { useClick } from "../hook/useClick";
+import GameImgSettingContainer from "../container/inNotificationPage/GameImgSettingContainer";
+
 const BorderStyleArticle = styled(Article)`
   border-radius: 5px;
 `;
@@ -17,6 +20,8 @@ const BorderStyleArticle = styled(Article)`
 const NotificationListItem = (props) => {
   const { date, content } = props.data;
   const { isAdmin } = props;
+
+  const { click: acceptGame, ClickEvent: setGameImgEvent } = useClick(false);
 
   return (
     <Div $flex="v_start_start" $width="100%" $margin="70px 0 0 0">
@@ -47,6 +52,7 @@ const NotificationListItem = (props) => {
                 text="APPROVE"
                 color="major"
                 backgroundColor="default"
+                onClick={setGameImgEvent}
               />
             </>
           ) : (
@@ -59,6 +65,7 @@ const NotificationListItem = (props) => {
           )}
         </Div>
       </BorderStyleArticle>
+      {acceptGame && <GameImgSettingContainer {...{ setGameImgEvent }} />}
     </Div>
   );
 };
