@@ -1,7 +1,9 @@
 import React from "react";
+
 import styled from "styled-components";
 import { Span } from "../style/TextStyle";
 import { Div, Article } from "../style/LayoutStyle";
+
 import ImgTextBtnUtil from "../util/ImgTextBtnUtil";
 
 import DeleteIcon from "../img/deleteIcon.svg";
@@ -37,18 +39,23 @@ const NotificationListItem = (props) => {
                 img={RejectIcon}
                 text="REJECT"
                 color="major"
-                backgroundColor="white"
+                backgroundColor="default"
               />
               <ImgTextBtnUtil
                 key="Approve"
                 img={ApproveIcon}
                 text="APPROVE"
                 color="major"
-                backgroundColor="white"
+                backgroundColor="default"
               />
             </>
           ) : (
-            <ImgTextBtnUtil img={DeleteIcon} text="DELETE" color="white" />
+            <ImgTextBtnUtil
+              img={DeleteIcon}
+              text="DELETE"
+              color="major"
+              backgroundColor="default"
+            />
           )}
         </Div>
       </BorderStyleArticle>
