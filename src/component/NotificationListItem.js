@@ -11,7 +11,7 @@ import RejectIcon from "../img/rejectIcon.svg";
 import ApproveIcon from "../img/approveIcon.svg";
 
 import { useClick } from "../hook/useClick";
-import TermsDetailViewContainer from "../container/inSignUpPage/TermsDetailViewContainer";
+import GameImgSettingContainer from "../container/inNotificationPage/GameImgSettingContainer";
 
 const BorderStyleArticle = styled(Article)`
   border-radius: 5px;
@@ -37,30 +37,35 @@ const NotificationListItem = (props) => {
           <Span $fontWeight="bold">{content}</Span>
         </Div>
         <Div $width="25%" $flex={isAdmin ? "h_between_center" : "h_end_center"}>
-          {isAdmin ? (
-            <>
-              <ImgTextBtnUtil
-                key="Reject"
-                img={RejectIcon}
-                text="REJECT"
-                color="major"
-                backgroundColor="white"
-              />
-              <ImgTextBtnUtil
-                key="Approve"
-                img={ApproveIcon}
-                text="APPROVE"
-                color="major"
-                backgroundColor="white"
-                onClick={setGameImgEvent}
-              />
-            </>
-          ) : (
-            <ImgTextBtnUtil img={DeleteIcon} text="DELETE" color="white" />
-          )}
+          {/* {isAdmin ? ( */}
+          <>
+            <ImgTextBtnUtil
+              key="Reject"
+              img={RejectIcon}
+              text="REJECT"
+              color="major"
+              backgroundColor="default"
+            />
+            <ImgTextBtnUtil
+              key="Approve"
+              img={ApproveIcon}
+              text="APPROVE"
+              color="major"
+              backgroundColor="default"
+              onClick={setGameImgEvent}
+            />
+          </>
+          {/* ) : (
+            <ImgTextBtnUtil
+              img={DeleteIcon}
+              text="DELETE"
+              color="major"
+              backgroundColor="default"
+            />
+          )} */}
         </Div>
       </BorderStyleArticle>
-      {acceptGame && <TermsDetailViewContainer {...{ setGameImgEvent }} />}
+      {acceptGame && <GameImgSettingContainer {...{ setGameImgEvent }} />}
     </Div>
   );
 };
