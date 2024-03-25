@@ -10,6 +10,9 @@ import ImgTextBtnUtil from "../util/ImgTextBtnUtil";
 const HistoryContentLayout = styled(P)`
   line-height: 30px;
 `;
+const GameTitleLayout = styled(H1)`
+  font-size: 45px;
+`;
 
 const WikiHistoryListContainer = () => {
   const WikiHistoryDummyData = [
@@ -20,9 +23,9 @@ const WikiHistoryListContainer = () => {
     <Section $backgroundColor="white" $width="100%" $height="80%" $padding="40px">
       <Article $width="100%">
         <Div $flex="h_between_start" $width="100%" $margin="0 0 20px 0">
-          <H1 $width="60%" $fontWeight="bold" $fontSize="45px">
-            리그오브레전드(LEAGUE of LEGENDS)
-          </H1>
+          <GameTitleLayout $width="60%" $fontWeight="bold">
+            리그오브레전드(League of legends)
+          </GameTitleLayout>
           <Div $flex="h_end_start" $width="30%">
             <ImgTextBtnUtil img={backImg} text={"BACK"} color={"major"} />
           </Div>

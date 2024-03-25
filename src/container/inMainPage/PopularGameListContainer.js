@@ -71,12 +71,12 @@ const PopularGameListContainer = () => {
   ];
   return (
     <GameContentLayout $flex="v_center_start" $padding={navToggle && "0 0 0 250px"}>
-      <H1 $fontSize="large" $fontWeight="bold">
+      <H1 $fontSize="large" $fontWeight="bold" $padding="0 0 30px 0">
         인기 게임 TOP 100
       </H1>
       <MainSection $width="100%">
         {popularGameDummyData.map((elem) => {
-          return <ThumbnailItem key={elem.id} data={elem} />;
+          return <ThumbnailItem key={elem.idx} data={elem} />;
         })}
       </MainSection>
     </GameContentLayout>
