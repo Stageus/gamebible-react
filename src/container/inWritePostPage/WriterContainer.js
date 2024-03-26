@@ -6,7 +6,6 @@ import DoneAll from "../../img/doneAll.svg";
 
 import styled from "styled-components";
 import { Div } from "../../style/LayoutStyle";
-import { Span } from "../../style/TextStyle";
 import { Input } from "../../style/InputStyle";
 import { Img } from "../../style/ImgStyle";
 import { setColor } from "../../style/SetStyle";
@@ -29,7 +28,7 @@ const EditorContainer = styled(Div)`
 `;
 
 const WriterContainer = () => {
-  const { change, setChange, changeEvent } = useInput("");
+  const { change, changeEvent } = useInput("");
   const [image, setImage] = useState([]);
   const [content, setContent] = useState("");
   const contentContainer = useRef(null);
