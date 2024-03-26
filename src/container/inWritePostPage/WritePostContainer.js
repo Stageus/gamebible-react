@@ -12,7 +12,7 @@ import SwitchTabItem from "../../component/SwitchTabItem";
 import WikiContainer from "../inWikiComponent/WikiContainer";
 import WikiHistoryListContainer from "../inWikiComponent/WikiHistoryListContainer";
 import WikiEditContainer from "../WikiEditContainer";
-import PostEditorContainer from "./PosrEditorContainer";
+import WriterContainer from "./WriterContainer";
 
 const GameContentLayout = styled(Section)`
   width: calc(100vw - 120px);
@@ -49,7 +49,7 @@ const WritePostContainer = () => {
         onClick={(tab) => switchTabEvent(tab)}
       />
       <Article $flex="v_center_center" $backgroundColor="major" $width="100%" $padding="50px">
-        {tabBtnValue === "커뮤니티" && <PostEditorContainer />}
+        {tabBtnValue === "커뮤니티" && <WriterContainer />}
         {tabBtnValue === "위키" && !historyBtn && (
           <WikiContainer
             historyBtn={historyBtn}
