@@ -7,6 +7,9 @@ import { H1, P } from "../style/TextStyle";
 import backImg from "../img/backImg.svg";
 import ImgTextBtnUtil from "../util/ImgTextBtnUtil";
 
+const GameTitleLayout = styled(H1)`
+  font-size: 45px;
+`;
 const HistoryContentLayout = styled(P)`
   line-height: 30px;
 `;
