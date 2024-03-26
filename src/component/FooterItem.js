@@ -32,7 +32,7 @@ const FooterItem = () => {
     <FooterContainer
       $backgroundColor="minorLight"
       $flex="h_center_center"
-      $width="100%"
+      $width="100vw"
       $height="300px"
     >
       <Section $flex="v_between_center" $height="230px">
