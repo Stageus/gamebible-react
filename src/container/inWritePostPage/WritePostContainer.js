@@ -12,7 +12,7 @@ import SwitchTabItem from "../../component/SwitchTabItem";
 import WikiContainer from "../inWikiComponent/WikiContainer";
 import WikiHistoryListContainer from "../inWikiComponent/WikiHistoryListContainer";
 import WikiEditContainer from "../WikiEditContainer";
-import PostEditorContainer from "./PosrEditorContainer";
+import PostEditorContainer from "./PostEditorContainer";
 
 const GameContentLayout = styled(Section)`
   width: calc(100vw - 120px);

@@ -8,6 +8,10 @@ import { setSize } from "../../style/SetStyle";
 import PostListContainer from "../inGamePage/PostListContainer";
 import NoResultNoGameContainer from "./NoResultNoGameContainer";
 import noPostImg from "../../img/noPostImg.svg";
+import YesGameContainer from "./YesGameContainer";
+
+import { useRecoilValue } from "recoil";
+import navToggleAtom from "../../recoil/navToggleAtom";
 
 const ArticleLabel = styled(Div)`
   font-size: ${setSize("large")};
@@ -17,11 +21,13 @@ const ArticleContentLayout = styled(Div)`
 `;
 
 const YesResultContainer = () => {
+  const navToggle = useRecoilValue(navToggleAtom);
+
   const searchResultData = [];
 
   return (
     <>
-      <Article $flex="v_center_start" $width="100%" $margin="30px 0 30px 0">
+      <Article $flex="v_center_start" $width={navToggle ? "90%" : "100%"} $margin="30px 0 30px 0">
         <ArticleLabel
           $flex="h_center_center"
           $backgroundColor="white"
@@ -31,11 +37,17 @@ const YesResultContainer = () => {
           연관 게임
         </ArticleLabel>
         <ArticleContentLayout $width="100%" $height="556px" $backgroundColor="white">
-          {searchResultData ? <></> : <NoResultNoGameContainer />}
+          {searchResultData ? (
+            <Div $padding="30px">
+              <YesGameContainer />
+            </Div>
+          ) : (
+            <NoResultNoGameContainer />
+          )}
         </ArticleContentLayout>
       </Article>
 
-      <Article $flex="v_center_start" $width="100%" $margin="0 0 30px 0">
+      <Article $flex="v_center_start" $width={navToggle ? "90%" : "100%"} $margin="0 0 30px 0">
         <ArticleLabel
           $flex="h_center_center"
           $backgroundColor="white"

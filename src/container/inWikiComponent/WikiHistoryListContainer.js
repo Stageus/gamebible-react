@@ -12,9 +12,6 @@ const GameTitleLayout = styled(H1)`
 const HistoryContentLayout = styled(P)`
   line-height: 30px;
 `;
-const GameTitleLayout = styled(H1)`
-  font-size: 45px;
-`;
 
 const WikiHistoryListContainer = ({ backToWikiBtn, setBackToWikiBtn }) => {
   const WikiHistoryListDummyData = [

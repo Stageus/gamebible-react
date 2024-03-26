@@ -6,7 +6,8 @@ import { Div } from "../style/LayoutStyle";
 import { Link } from "react-router-dom";
 
 const ThumbnailContainer = styled(Div)`
-  flex-basis: 23%;
+  // flex-basis: 23%;
+  flex-basis: 250px;
   margin: 1%;
   width: 250px;
   position: relative;
