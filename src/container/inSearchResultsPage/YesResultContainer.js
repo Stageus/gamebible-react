@@ -2,6 +2,7 @@ import React from "react";
 
 import { styled } from "styled-components";
 import { Div, Article } from "../../style/LayoutStyle";
+import { Img } from "../../style/ImgStyle";
 import { setSize } from "../../style/SetStyle";
 
 import PostListContainer from "../inGamePage/PostListContainer";
@@ -20,7 +21,7 @@ const YesResultContainer = () => {
 
   return (
     <>
-      <Article $flex="v_end_center" $width="100%" $margin="0 0 30px 0">
+      <Article $flex="v_center_start" $width="100%" $margin="30px 0 30px 0">
         <ArticleLabel
           $flex="h_center_center"
           $backgroundColor="white"
@@ -34,7 +35,7 @@ const YesResultContainer = () => {
         </ArticleContentLayout>
       </Article>
 
-      <Article $flex="v_end_center" $width="100%">
+      <Article $flex="v_center_start" $width="100%" $margin="0 0 30px 0">
         <ArticleLabel
           $flex="h_center_center"
           $backgroundColor="white"
