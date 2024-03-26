@@ -1,7 +1,7 @@
 import React from "react";
 import HeaderItem from "../component/HeaderItem";
 import FooterItem from "../component/FooterItem";
-import ChangePWContainer from "../container/inChangePWContainer/ChangePWContainer";
+import ChangePWContainer from "../container/inChangePWPage/ChangePWContainer";
 
 import { Section } from "../style/LayoutStyle";
 
