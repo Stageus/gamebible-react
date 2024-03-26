@@ -3,7 +3,6 @@ import React from "react";
 import { styled } from "styled-components";
 import { Div, Article } from "../../style/LayoutStyle";
 import { setSize } from "../../style/SetStyle";
-import { Img } from "../../style/ImgStyle";
 
 import PostListContainer from "../inGamePage/PostListContainer";
 
