@@ -13,6 +13,7 @@ export const Button = styled.button`
   color: ${(props) => setColor(props.$color || "black")};
   font-size: ${(props) => setSize(props.$fontSize || "medium")};
   font-weight: ${(props) => setWeight(props.$fontWeight || "normal")};
+  border: ${(props) => props.$border || "none"};
   border-style: ${(props) => props.$borderStyle || "none"};
   border-radius: ${(props) => props.$borderRadius || "0"};
 `;
