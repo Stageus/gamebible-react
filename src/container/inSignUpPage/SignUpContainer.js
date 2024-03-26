@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useClick } from "../../hook/useClick";
 
 import styled from "styled-components";
 import { Div } from "../../style/LayoutStyle";
@@ -79,7 +80,21 @@ const SignUpContainer = () => {
 
   const [nicknameValue, setNicknameValue] = useState("");
 
-  console.log(idValue, emailValue, verificationValue);
+  const {
+    click: termsServiceChecked,
+    setClick: setTermsServiceChecked,
+    clickEvent: termsServiceCheckedEvent,
+  } = useClick(false);
+
+  const {
+    click: privacyPolicyChecked,
+    setClick: setPrivacyPolicyChecked,
+    clickEvent: privacyPolicyCheckedEvent,
+  } = useClick(false);
+
+  const emailVerificationCheck = (value) => {
+    return value === "1234";
+  };
 
   const SignUpClickEvent = () => {
     if (!idCheck) {
@@ -97,20 +112,29 @@ const SignUpContainer = () => {
     if (!nicknameValueValidation(nicknameValue)) {
       return;
     }
+    if (!termsServiceChecked) {
+      return alert("이용약관에 동의해주세요");
+    }
+    if (!privacyPolicyChecked) {
+      return alert("개인정보 수집에 동의해주세요");
+    }
     accountEvent();
   };
   const accountEvent = async () => {
-    const response = await fetch(`http://192.168.0.227/account`, {
+    console.log("회원가입 로직 실행");
+    console.log(process.env.REACT_APP_API_KEY);
+    let formData = new FormData();
+    formData.append("id", idValue);
+    formData.append("pw", pwValue);
+    formData.append("email", emailValue);
+    const response = await fetch(`${process.env.REACT_APP_API_KEY}/account`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: {
-        id: idValue, // 아이디
-        pw: pwValue, // 비밀번호
-        email: emailValue, //이메일
-      },
+      body: formData,
     });
+    console.log("durlRKwl tofgod");
     const result = await response.json();
 
     if (result.success) {
@@ -118,10 +142,6 @@ const SignUpContainer = () => {
     } else {
       console.log(result.message);
     }
-  };
-
-  const emailVerificationCheck = (value) => {
-    return value === "1234";
   };
 
   return (
@@ -166,7 +186,16 @@ const SignUpContainer = () => {
             }}
           ></InputItem>
           <Div $width="100%" $flex="v_start_start">
-            <TermsServiceContainer />
+            <TermsServiceContainer
+              {...{
+                termsServiceChecked,
+                setTermsServiceChecked,
+                termsServiceCheckedEvent,
+                privacyPolicyChecked,
+                setPrivacyPolicyChecked,
+                privacyPolicyCheckedEvent,
+              }}
+            />
             <Button
               $width="100%"
               $height="50px"

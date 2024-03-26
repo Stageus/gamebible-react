@@ -26,7 +26,7 @@ export const emailValueValidation = (value) => {
 };
 
 export const nicknameValueValidation = (value) => {
-  const regex = /^[a-zA-Z0-9]{2,20}$/;
+  const regex = /^[a-zA-Z0-9가-힣]{2,20}$/;
   if (!regex.test(value)) {
     alert("닉네임은 2~20글자로 이루어져야 합니다.");
     return false;
