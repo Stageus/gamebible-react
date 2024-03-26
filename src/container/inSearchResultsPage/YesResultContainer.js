@@ -5,6 +5,8 @@ import { Div, Article } from "../../style/LayoutStyle";
 import { setSize } from "../../style/SetStyle";
 
 import PostListContainer from "../inGamePage/PostListContainer";
+import NoResultNoGameContainer from "./NoResultNoGameContainer";
+import noPostImg from "../../img/noPostImg.svg";
 
 const ArticleLabel = styled(Div)`
   font-size: ${setSize("large")};
@@ -12,13 +14,10 @@ const ArticleLabel = styled(Div)`
 const ArticleContentLayout = styled(Div)`
   overflow: scroll;
 `;
-const ImgLayout = styled(Div)`
-  border: 2px solid red;
-  width: 100%;
-  height: 100%;
-`;
 
-const YesGameContainer = () => {
+const YesResultContainer = () => {
+  const searchResultData = [];
+
   return (
     <>
       <Article $flex="v_end_center" $width="100%" $margin="0 0 30px 0">
@@ -31,11 +30,10 @@ const YesGameContainer = () => {
           연관 게임
         </ArticleLabel>
         <ArticleContentLayout $width="100%" $height="556px" $backgroundColor="white">
-          <ImgLayout>
-            <YesGameContainer />
-          </ImgLayout>
+          {searchResultData ? <></> : <NoResultNoGameContainer />}
         </ArticleContentLayout>
       </Article>
+
       <Article $flex="v_end_center" $width="100%">
         <ArticleLabel
           $flex="h_center_center"
@@ -46,11 +44,17 @@ const YesGameContainer = () => {
           연관 게시글
         </ArticleLabel>
         <ArticleContentLayout $width="100%" $height="556px" $backgroundColor="white">
-          <PostListContainer />
+          {searchResultData ? (
+            <PostListContainer />
+          ) : (
+            <Div $flex="v_center_center">
+              <Img src={noPostImg} $margin="0 0 30px 0" />
+            </Div>
+          )}
         </ArticleContentLayout>
       </Article>
     </>
   );
 };
 
-export default YesGameContainer;
+export default YesResultContainer;

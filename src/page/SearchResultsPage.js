@@ -7,7 +7,7 @@ import HeaderItem from "../component/HeaderItem";
 import GameListContainer from "../container/GameListNavContainer";
 import FooterItem from "../component/FooterItem";
 import NoResultNoGameContainer from "../container/inSearchResultsPage/NoResultNoGameContainer";
-import YesGameContainer from "../container/inSearchResultsPage/YesGameContainer";
+import YesResultContainer from "../container/inSearchResultsPage/YesResultContainer";
 
 const PageWrapper = styled(Div)`
   min-height: 100vh;
@@ -49,7 +49,7 @@ const SearchResultsPage = () => {
           $width="100vw"
           $backgroundColor="major"
         >
-          <YesGameContainer />
+          <YesResultContainer />
         </YesResultSection>
       )}
       {/* <YesResultSection
@@ -59,7 +59,7 @@ const SearchResultsPage = () => {
         $width="100vw"
         $backgroundColor="major"
       >
-        <YesGameContainer />
+        <YesResultContainer />
       </YesResultSection> */}
       <FooterWrapper>
         <FooterItem />
