@@ -16,12 +16,8 @@ const PageWrapper = styled(Div)`
   min-height: 100vh;
   position: relative;
 `;
-const NoResultSection = styled(Section)`
-  // border: 2px solid red;
-`;
-const YesResultSection = styled(Section)`
-  // border: 2px solid red;
-`;
+const NoResultSection = styled(Section)``;
+const YesResultSection = styled(Section)``;
 const FooterWrapper = styled(Div)`
   position: absolute;
   bottom: 0;
@@ -36,7 +32,7 @@ const SearchResultsPage = () => {
     <PageWrapper>
       <HeaderItem />
       <GameListContainer />
-      {/* {searchResultData ? (
+      {searchResultData ? (
         <NoResultSection
           $flex="v_center_center"
           $margin="100px 0 0 0"
@@ -49,25 +45,14 @@ const SearchResultsPage = () => {
       ) : (
         <YesResultSection
           $flex="v_center_center"
-          $margin="100px 0 0 0"
+          $margin={navToggle ? "100px 0 0 300px" : "100px 0 0 0"}
           $padding="0 60px"
-          $width="100vw"
+          $width={navToggle ? "80vw" : "100vw"}
           $backgroundColor="major"
         >
           <YesResultContainer />
         </YesResultSection>
-      )} */}
-      <YesResultSection
-        $flex="v_center_center"
-        $margin={navToggle ? "100px 0 0 300px" : "100px 0 0 0"}
-        $padding="0 60px"
-        $width={navToggle ? "80vw" : "100vw"}
-        // $width="100vw"
-        $backgroundColor="major"
-      >
-        <YesResultContainer />
-      </YesResultSection>
-
+      )}
       <FooterWrapper>
         <FooterItem />
       </FooterWrapper>
