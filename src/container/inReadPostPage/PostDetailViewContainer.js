@@ -6,7 +6,7 @@ import { H1, P } from "../../style/TextStyle";
 import { Div } from "../../style/LayoutStyle";
 import { Section } from "../../style/LayoutStyle";
 
-import CommentContainer from "./ComentContainer";
+import CommentContainer from "./CommentContainer";
 
 const dummyData = {
   title: "신입 유저라서 궁금한데, 카이사 좋은가요?",
@@ -54,13 +54,12 @@ const dummyData = {
 </Div>`,
 };
 
-const CommentSection = styled(Section)``;
-
 const TitleDiv = styled(Div)`
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
 `;
+
 const PostDetailViewContainer = (props) => {
   return (
     <>
@@ -98,14 +97,14 @@ const PostDetailViewContainer = (props) => {
       >
         <Div $padding="5%" dangerouslySetInnerHTML={{ __html: dummyData.htmlContent }}></Div>
       </Section>
-      <CommentSection
+      <Section
         $width="100%"
         $padding="5% 30px"
         $backgroundColor="minorDark"
         $flex="v_center_center"
       >
         <CommentContainer />
-      </CommentSection>
+      </Section>
     </>
   );
 };

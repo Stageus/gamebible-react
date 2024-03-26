@@ -7,7 +7,6 @@ import { Button } from "../style/ButtonStyle";
 import { Span } from "../style/TextStyle";
 
 const TabBtn = styled(Button)`
-  border: none;
   border-right: 1px solid ${setColor("major")};
   border-left: 1px solid ${setColor("major")};
 `;

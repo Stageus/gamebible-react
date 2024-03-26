@@ -14,11 +14,11 @@ const CenterDiv = styled(Div)`
 const SignInPage = () => {
   return (
     <>
-      <HeaderItem {...{ userIdx }}></HeaderItem>
+      <HeaderItem {...{ userIdx }} />
       <CenterDiv $width="100vw" $height="100vh" $flex="h_center_center">
-        <SignInContainer></SignInContainer>
+        <SignInContainer />
       </CenterDiv>
-      <FooterItem></FooterItem>
+      <FooterItem />
     </>
   );
 };

@@ -12,7 +12,7 @@ import { Img } from "../style/ImgStyle";
 
 import { Link } from "react-router-dom";
 
-const duumyUserData = {
+const dummyUserData = {
   id: {
     key: "id",
     label: "아이디",
@@ -52,11 +52,11 @@ const DeleteClickEvent = () => {
 const ChangePWPage = () => {
   return (
     <>
-      <HeaderItem {...{ userIdx: duumyUserData.nickname.text }}></HeaderItem>
+      <HeaderItem {...{ userIdx: dummyUserData.nickname.text }} />
       <Section $width="100vw" $height="90vh" $flex="h_center_center">
         <PositionDiv $flex="v_center_center" $width="350px">
           <Img $margin="0 0 20px 0" src={MainLogo} alt="MainLogo" />
-          <LabelText {...{ dummyTextData: duumyUserData }}></LabelText>
+          <LabelText {...{ dummyTextData: dummyUserData }}></LabelText>
           <FullWideLink to="/EditPersonalInfoPage">
             <Button
               $width="100%"
@@ -82,7 +82,7 @@ const ChangePWPage = () => {
           </Button>
         </PositionDiv>
       </Section>
-      <FooterItem></FooterItem>
+      <FooterItem />
     </>
   );
 };

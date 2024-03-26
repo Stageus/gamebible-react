@@ -1,9 +1,5 @@
 import React from "react";
-import { styled } from "styled-components";
 import CommentListItem from "../component/CommentListItem";
-import { Section } from "../style/LayoutStyle";
-
-const CommentListLayout = styled(Section)``;
 
 const CommentListContainer = () => {
   const CommentListData = [
@@ -40,11 +36,11 @@ const CommentListContainer = () => {
   ];
 
   return (
-    <CommentListLayout $flex="v_center_center">
+    <Section $flex="v_center_center">
       {CommentListData.map((elem) => {
         return <CommentListItem key={elem.id} data={elem} />;
       })}
-    </CommentListLayout>
+    </Section>
   );
 };
 

@@ -2,7 +2,7 @@ import React from "react";
 import { styled } from "styled-components";
 import { setColor } from "../style/SetStyle";
 import { Span } from "../style/TextStyle";
-import { Article, Div } from "../style/LayoutStyle";
+import { Div, Article } from "../style/LayoutStyle";
 import deleteImg from "../img/deleteImg.svg";
 
 const CommentListItemLayout = styled(Article)`
@@ -10,7 +10,6 @@ const CommentListItemLayout = styled(Article)`
   border: 1px solid ${setColor("black")};
   border-radius: 5px;
 `;
-
 const CursorDiv = styled(Div)`
   cursor: pointer;
 `;

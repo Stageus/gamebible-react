@@ -23,19 +23,13 @@ const FixedHeader = styled(Header)`
   z-index: 1000;
 `;
 const BtnLayout = styled(Div)``;
-const SignBtn = styled(Button)`
-  border-style: none;
-  border-radius: 5px;
-`;
 
 const CursorPointerDiv = styled(Div)`
   cursor: pointer;
 `;
-
 const CenterDiv = styled(Div)`
   position: relative;
 `;
-
 const CenterInput = styled(Input)`
   border-radius: 15px;
   border-style: none;
@@ -99,24 +93,26 @@ const HeaderItem = (props) => {
         {userIdx === "null" || userIdx === " " ? (
           <>
             {" "}
-            <SignBtn
+            <Button
               $padding="0 10px"
               $height="35px"
               $flex="h_center_center"
               $color="white"
               $margin="0 10% 0 0"
+              $borderRadius="5px"
             >
               <WhiteColorLink to="/SignInPage">로그인</WhiteColorLink>
-            </SignBtn>
-            <SignBtn
+            </Button>
+            <Button
               $padding="0 10px"
               $height="35px"
               $flex="h_center_center"
               $color="white"
               $margin="0 10% 0 0"
+              $borderRadius="5px"
             >
               <WhiteColorLink to="/SignUpPage">회원가입</WhiteColorLink>
-            </SignBtn>
+            </Button>
           </>
         ) : (
           <BtnLayout $flex="h_between_center" $width="210px">
@@ -130,9 +126,9 @@ const HeaderItem = (props) => {
                 <Img src={UserIcon} alt="UserIcon" />
               </CursorPointerDiv>
             </Link>
-            <SignBtn $padding="10px" $flex="h_center_center" $color="white">
+            <Button $padding="10px" $flex="h_center_center" $color="white" $borderRadius="5px">
               로그아웃
-            </SignBtn>
+            </Button>
           </BtnLayout>
         )}
       </Div>
