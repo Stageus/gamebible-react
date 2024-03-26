@@ -12,6 +12,9 @@ const GameTitleLayout = styled(H1)`
 const HistoryContentLayout = styled(P)`
   line-height: 30px;
 `;
+const GameTitleLayout = styled(H1)`
+  font-size: 45px;
+`;
 
 const WikiHistoryListContainer = ({ backToWikiBtn, setBackToWikiBtn }) => {
   const WikiHistoryListDummyData = [
@@ -70,7 +73,7 @@ const WikiHistoryListContainer = ({ backToWikiBtn, setBackToWikiBtn }) => {
       <Article $width="100%">
         <Div $flex="h_between_start" $width="100%" $margin="0 0 20px 0">
           <GameTitleLayout $width="60%" $fontWeight="bold">
-            리그오브레전드(LEAGUE of LEGENDS)
+            리그오브레전드(League of legends)
           </GameTitleLayout>
           <Div $flex="h_end_start" $width="30%">
             <ImgTextBtnUtil

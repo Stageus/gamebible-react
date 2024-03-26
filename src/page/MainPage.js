@@ -1,27 +1,26 @@
 import React from "react";
 
 import { styled } from "styled-components";
-import { Section } from "../style/LayoutStyle";
+import { Div, Section } from "../style/LayoutStyle";
 
 import HeaderItem from "../component/HeaderItem";
-import GameListNavContainer from "../container/GameListNavContainer";
-import FooterItem from "../component/FooterItem";
+import GameListContainer from "../container/GameListNavContainer";
+import PopularGameListContainer from "../container/inMainPage/PopularGameListContainer";
 
-const ContainerWrapper = styled(Section)`
-  margin: 100px 0 0;
-  padding: 0 60px;
-  width: 100vw;
-  border: 3px solid red;
+const PageWrapper = styled(Div)`
+  min-height: 100vh;
+  position: relative;
 `;
 
 const MainPage = () => {
   return (
-    <>
+    <PageWrapper>
       <HeaderItem />
-      <GameListNavContainer />
-      <ContainerWrapper>메인페이지임</ContainerWrapper>
-      <FooterItem />
-    </>
+      <GameListContainer />
+      <Section $flex="v_center_center" $margin="100px 0 0 0" $padding="0 60px" $width="100vw">
+        <PopularGameListContainer />
+      </Section>
+    </PageWrapper>
   );
 };
 
