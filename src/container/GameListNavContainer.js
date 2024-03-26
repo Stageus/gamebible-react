@@ -12,6 +12,7 @@ const GameListContainer = styled(Aside)`
   position: fixed;
   // left: 30px;
   top: 0;
+  box-shadow: 5px 0 5px rgba(0, 0, 0, 0.2);
 `;
 const GameListNav = styled(Nav)`
   height: calc(100vh - 160px);
@@ -131,10 +132,10 @@ const GameListNavContainer = () => {
       <GameListContainer
         $width={navToggle ? "250px" : 0}
         $backgroundColor="white"
-        $margin="100px 0 0 0"
+        $margin="70px 0 0 0"
       >
         <Div $flex="v_start_center" $padding="0 0 30px 20px">
-          <H1 $fontSize="large" $fontWeight="bold">
+          <H1 $fontSize="large" $fontWeight="bold" $margin="30px 0 0 0">
             게임 목록
           </H1>
         </Div>
