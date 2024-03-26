@@ -97,8 +97,27 @@ const SignUpContainer = () => {
     if (!nicknameValueValidation(nicknameValue)) {
       return;
     }
+    accountEvent();
+  };
+  const accountEvent = async () => {
+    const response = await fetch(`http://192.168.0.227/account`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: {
+        id: idValue, // 아이디
+        pw: pwValue, // 비밀번호
+        email: emailValue, //이메일
+      },
+    });
+    const result = await response.json();
 
-    console.log("회원가입 성공!");
+    if (result.success) {
+      console.log(result.message);
+    } else {
+      console.log(result.message);
+    }
   };
 
   const emailVerificationCheck = (value) => {
