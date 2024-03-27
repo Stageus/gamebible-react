@@ -42,7 +42,7 @@ const App = () => {
             <Route path="/SearchResultsPage" element={<SearchResultsPage />} />
             <Route path="/WritePostPage" element={<WritePostPage />} />
             <Route path="/game/:idx/history" element={<WikiHistoryPage />} />
-            <Route path="/editContent" element={<WikiHistoryContentPage />} />
+            <Route path="/game/:idx/history/:idx" element={<WikiHistoryContentPage />} />
           </Routes>
         </BrowserRouter>
       </RecoilRoot>

@@ -32,7 +32,6 @@ const SwitchTabItem = (props) => {
           onClick={() => {
             BtnClickEvent(elem);
             props.onClick(elem);
-            console.log(elem);
           }}
         >
           <Span $color={tab === elem ? "white" : "black"} $fontSize="12px">

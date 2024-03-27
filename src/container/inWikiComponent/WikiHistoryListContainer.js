@@ -18,7 +18,7 @@ import SwitchTabItem from "../../component/SwitchTabItem";
 const GameTitleLayout = styled(H1)`
   font-size: 45px;
 `;
-const HistoryContentLayout = styled(P)`
+const HistoryListLayout = styled(P)`
   line-height: 30px;
 `;
 const GameContentLayout = styled(Section)`
@@ -38,23 +38,23 @@ const WikiHistoryListContainer = () => {
 
   const WikiHistoryListDummyData = [
     {
-      idx: "history_11",
+      idx: "history_1",
       content: "2024-02-29 16:58:36 쩡태은",
     },
     {
-      idx: "history_10",
+      idx: "history_2",
       content: "2024-02-29 16:54:11 김기쭈",
     },
     {
-      idx: "history_9",
+      idx: "history_3",
       content: "2024-02-29 16:51:41 쪼경은",
     },
     {
-      idx: "history_8",
+      idx: "history_4",
       content: "2024-02-29 16:39:44 최민썩",
     },
     {
-      idx: "history_7",
+      idx: "history_5",
       content: "2024-02-28 21:11:25 뱅준연",
     },
     {
@@ -62,23 +62,23 @@ const WikiHistoryListContainer = () => {
       content: "2024-02-28 21:03:15 박해쭈",
     },
     {
-      idx: "history_5",
+      idx: "history_7",
       content: "2024-02-29 16:58:36 쩡태은",
     },
     {
-      idx: "history_4",
+      idx: "history_8",
       content: "2024-02-28 21:02:01 김기쭈",
     },
     {
-      idx: "history_3",
+      idx: "history_9",
       content: "2024-02-28 20:58:27 쪼경은",
     },
     {
-      idx: "history_2",
+      idx: "history_10",
       content: "2024-02-24 11:58:27 최민썩",
     },
     {
-      idx: "history_1",
+      idx: "history_11",
       content: "2024-02-24 09:28:30 뱅준연",
     },
   ];
@@ -96,7 +96,6 @@ const WikiHistoryListContainer = () => {
           setTabBtnValue(tabText);
           if (tabText === "커뮤니티") {
             navigate("/game/:idx");
-            console.log("커뮤니티로 이동할 거야");
           }
         }}
       />
@@ -118,7 +117,7 @@ const WikiHistoryListContainer = () => {
                 </Div>
               </Link>
             </Div>
-            <HistoryContentLayout $flex="v_center_start" $width="100%">
+            <HistoryListLayout $flex="v_center_start" $width="100%">
               {WikiHistoryListDummyData.map((elem) => {
                 return (
                   <Link key={`${elem.idx}`} to={`./${elem.idx}`}>
@@ -126,7 +125,7 @@ const WikiHistoryListContainer = () => {
                   </Link>
                 );
               })}
-            </HistoryContentLayout>
+            </HistoryListLayout>
           </Article>
         </Section>
       </Article>
