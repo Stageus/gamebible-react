@@ -11,8 +11,6 @@ import bannerImg from "../../img/bannerImg.svg";
 import SwitchTabItem from "../../component/SwitchTabItem";
 import CommunityContainer from "../inCommunityPage/CommunityContainer";
 import WikiContainer from "../inWikiComponent/WikiContainer";
-import WikiHistoryListContainer from "../inWikiComponent/WikiHistoryListContainer";
-import WikiEditContainer from "../WikiEditContainer";
 
 const GameContentLayout = styled(Section)`
   width: calc(100vw - 120px);

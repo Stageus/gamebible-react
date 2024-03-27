@@ -12,10 +12,6 @@ const PageWrapper = styled(Div)`
   min-height: 100vh;
   position: relative;
 `;
-// const FooterWrapper = styled(Div)`
-//   position: absolute;
-//   bottom: 0;
-// `;
 
 const WikiHistoryPage = () => {
   return (

@@ -41,7 +41,7 @@ const App = () => {
             <Route path="/ReadPostPage" element={<ReadPostPage />} />
             <Route path="/SearchResultsPage" element={<SearchResultsPage />} />
             <Route path="/WritePostPage" element={<WritePostPage />} />
-            <Route path="/editHistory" element={<WikiHistoryPage />} />
+            <Route path="/game/:idx/history" element={<WikiHistoryPage />} />
             <Route path="/editContent" element={<WikiHistoryContentPage />} />
           </Routes>
         </BrowserRouter>
