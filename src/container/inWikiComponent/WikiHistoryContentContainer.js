@@ -1,20 +1,17 @@
 import React from "react";
 
 import { styled } from "styled-components";
-import { Article, Section, Div } from "../style/LayoutStyle";
-import { H1, P } from "../style/TextStyle";
+import { Article, Section, Div } from "../../style/LayoutStyle";
+import { H1, P } from "../../style/TextStyle";
 
-import backImg from "../img/backImg.svg";
-import ImgTextBtnUtil from "../util/ImgTextBtnUtil";
+import backImg from "../../img/backImg.svg";
+import ImgTextBtnUtil from "../../util/ImgTextBtnUtil";
 
 const GameTitleLayout = styled(H1)`
   font-size: 45px;
 `;
 const HistoryContentLayout = styled(P)`
   line-height: 30px;
-`;
-const GameTitleLayout = styled(H1)`
-  font-size: 45px;
 `;
 
 const WikiHistoryListContainer = () => {
@@ -33,11 +30,7 @@ const WikiHistoryListContainer = () => {
             <ImgTextBtnUtil img={backImg} text={"BACK"} color={"major"} />
           </Div>
         </Div>
-        <HistoryContentLayout $flex="v_center_start" $width="100%">
-          {WikiHistoryDummyData.map((elem) => {
-            return <li>{`${elem.content}`}</li>;
-          })}
-        </HistoryContentLayout>
+        <HistoryContentLayout $flex="v_center_start" $width="100%"></HistoryContentLayout>
       </Article>
     </Section>
   );

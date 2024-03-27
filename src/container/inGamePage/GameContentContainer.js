@@ -27,14 +27,9 @@ const GameContentContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
 
   const [tabBtnValue, setTabBtnValue] = useState(BtnText[0]);
-  const [historyBtn, setHistoryBtn] = useState(false);
-  const [editBtn, setEditBtn] = useState(false);
-  const [backToWikiBtn, setBackToWikiBtn] = useState(false);
 
   const switchTabEvent = (btnText) => {
     setTabBtnValue(btnText);
-    setHistoryBtn(false);
-    setEditBtn(false);
   };
 
   return (
@@ -50,22 +45,7 @@ const GameContentContainer = () => {
       />
       <Article $flex="h_center_center" $backgroundColor="major" $width="100%" $padding="50px">
         {tabBtnValue === "커뮤니티" && <CommunityContainer />}
-        {tabBtnValue === "위키" && !historyBtn && (
-          <WikiContainer
-            historyBtn={historyBtn}
-            setHistoryBtn={setHistoryBtn}
-            editBtn={editBtn}
-            setEditBtn={setEditBtn}
-          />
-        )}
-        {tabBtnValue !== "커뮤니티" && historyBtn && !editBtn && (
-          <WikiHistoryListContainer
-            backToWikiBtn={backToWikiBtn}
-            setBackToWikiBtn={setBackToWikiBtn}
-          />
-        )}
-        {tabBtnValue !== "커뮤니티" && editBtn && !historyBtn && <WikiEditContainer />}
-        {backToWikiBtn && <WikiContainer />}
+        {tabBtnValue === "위키" && <WikiContainer />}
       </Article>
     </GameContentLayout>
   );

@@ -10,6 +10,8 @@ import putByUserImg from "../../img/putByUserImg.svg";
 import historyImg from "../../img/historyImg.svg";
 import editImg from "../../img/editImg.svg";
 
+import { Link } from "react-router-dom";
+
 const MainContentLayout = styled(Div)`
   line-height: 30px;
 `;
@@ -31,14 +33,7 @@ const ImgByUser = styled(Img)`
   width: 100%;
 `;
 
-const WikiContainer = ({ historyBtn, setHistoryBtn, editBtn, setEditBtn }) => {
-  const clickHistoryBtnEvent = () => {
-    setHistoryBtn(!historyBtn);
-  };
-  const clickEditBtnEvent = () => {
-    setHistoryBtn(!editBtn);
-  };
-
+const WikiContainer = () => {
   return (
     <Section $backgroundColor="white" $width="100%" $height="80%" $padding="40px">
       <Article $width="100%">
@@ -47,24 +42,22 @@ const WikiContainer = ({ historyBtn, setHistoryBtn, editBtn, setEditBtn }) => {
             리그오브레전드(League of legends)
           </GameTitleLayout>
           <Div $flex="h_between_start" $width="30%">
-            <ImgTextBtnUtil
-              img={historyImg}
-              text={"HISTORY"}
-              color={"major"}
-              backgroundColor={"white"}
-              historyBtn={historyBtn}
-              setHistoryBtn={setHistoryBtn}
-              onClick={clickHistoryBtnEvent}
-            />
-            <ImgTextBtnUtil
-              img={editImg}
-              text={"EDIT"}
-              color={"major"}
-              backgroundColor={"white"}
-              editBtn={editBtn}
-              setEditBtn={setEditBtn}
-              onClick={clickEditBtnEvent}
-            />
+            <Link to="./history">
+              <ImgTextBtnUtil
+                img={historyImg}
+                text={"HISTORY"}
+                color={"major"}
+                backgroundColor={"white"}
+              />
+            </Link>
+            <Link to="./edit">
+              <ImgTextBtnUtil
+                img={editImg}
+                text={"EDIT"}
+                color={"major"}
+                backgroundColor={"white"}
+              />
+            </Link>
           </Div>
         </Div>
         <MainContentLayout $flex="v_start_center" $width="100%" $margin="20px 0 0 0">
