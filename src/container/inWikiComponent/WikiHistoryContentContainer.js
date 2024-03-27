@@ -18,7 +18,8 @@ import SwitchTabItem from "../../component/SwitchTabItem";
 const GameTitleLayout = styled(H1)`
   font-size: 45px;
 `;
-const HistoryListLayout = styled(P)`
+const HistoryWriterLayout = styled(P)``;
+const HistoryContentLayout = styled(P)`
   line-height: 30px;
 `;
 const GameContentLayout = styled(Section)`
@@ -29,59 +30,12 @@ const BannerImg = styled(Img)`
   width: 100%;
 `;
 
-const WikiHistoryListContainer = () => {
+const WikiHistoryContentContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
   const navigate = useNavigate();
 
   const BtnText = ["커뮤니티", "위키"];
   const [tabBtnValue, setTabBtnValue] = useState(BtnText[1]);
-
-  const WikiHistoryListDummyData = [
-    {
-      idx: "history_1",
-      content: "2024-02-29 16:58:36 쩡태은",
-    },
-    {
-      idx: "history_2",
-      content: "2024-02-29 16:54:11 김기쭈",
-    },
-    {
-      idx: "history_3",
-      content: "2024-02-29 16:51:41 쪼경은",
-    },
-    {
-      idx: "history_4",
-      content: "2024-02-29 16:39:44 최민썩",
-    },
-    {
-      idx: "history_5",
-      content: "2024-02-28 21:11:25 뱅준연",
-    },
-    {
-      idx: "history_6",
-      content: "2024-02-28 21:03:15 박해쭈",
-    },
-    {
-      idx: "history_7",
-      content: "2024-02-29 16:58:36 쩡태은",
-    },
-    {
-      idx: "history_8",
-      content: "2024-02-28 21:02:01 김기쭈",
-    },
-    {
-      idx: "history_9",
-      content: "2024-02-28 20:58:27 쪼경은",
-    },
-    {
-      idx: "history_10",
-      content: "2024-02-24 11:58:27 최민썩",
-    },
-    {
-      idx: "history_11",
-      content: "2024-02-24 09:28:30 뱅준연",
-    },
-  ];
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
@@ -106,7 +60,7 @@ const WikiHistoryListContainer = () => {
               <GameTitleLayout $width="60%" $fontWeight="bold">
                 리그오브레전드(League of legends)
               </GameTitleLayout>
-              <Link to={`../game/:idx`}>
+              <Link to={`../game/:idx/history`}>
                 <Div $flex="h_end_start" $width="30%">
                   <ImgTextBtnUtil
                     img={backImg}
@@ -117,15 +71,20 @@ const WikiHistoryListContainer = () => {
                 </Div>
               </Link>
             </Div>
-            <HistoryListLayout $flex="v_center_start" $width="100%">
-              {WikiHistoryListDummyData.map((elem) => {
-                return (
-                  <Link key={`${elem.idx}`} to={`./${elem.idx}`}>
-                    <li>{elem.content}</li>
-                  </Link>
-                );
-              })}
-            </HistoryListLayout>
+            <HistoryWriterLayout
+              $flex="v_center_start"
+              $width="100%"
+              $fontWeight="bold"
+              $fontSize="large"
+              $margin="0 0 20px 0"
+            >
+              2024-02-29 16:51:41 쪼경은
+            </HistoryWriterLayout>
+            <HistoryContentLayout $flex="v_center_start" $width="100%">
+              리그 오브 레전드에서는 1년이 1시즌이다. 이는 다른 게임들과 비교하면 긴 기간이다.
+              배치를 받은 후 시즌이 끝날 때까지 랭크를 올리는 것이 랭크 게임의 주 플레이 목적으로,
+              시즌 종료후 다음 시즌이 시작되면 다시 배치 게임을 치러야 한다.
+            </HistoryContentLayout>
           </Article>
         </Section>
       </Article>
@@ -133,4 +92,4 @@ const WikiHistoryListContainer = () => {
   );
 };
 
-export default WikiHistoryListContainer;
+export default WikiHistoryContentContainer;
