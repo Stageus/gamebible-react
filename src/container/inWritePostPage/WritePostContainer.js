@@ -9,8 +9,8 @@ import navToggleAtom from "../../recoil/navToggleAtom";
 
 import bannerImg from "../../img/bannerImg.svg";
 import SwitchTabItem from "../../component/SwitchTabItem";
-import WikiContainer from "../inWikiComponent/WikiContainer";
-import WikiHistoryListContainer from "../inWikiComponent/WikiHistoryListContainer";
+import WikiContainer from "../inWikiPage/WikiContainer";
+import WikiHistoryListContainer from "../inWikiPage/WikiHistoryListContainer";
 import WikiEditContainer from "../WikiEditContainer";
 import WriterContainer from "./WriterContainer";
 

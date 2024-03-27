@@ -6,7 +6,7 @@ import { Div, Section } from "../style/LayoutStyle";
 import HeaderItem from "../component/HeaderItem";
 import GameListContainer from "../container/GameListNavContainer";
 import FooterItem from "../component/FooterItem";
-import GameContentContainer from "../container/inGamePage/GameCommunityContainer";
+import WikiContainer from "../container/inWikiPage/WikiContainer";
 
 const PageWrapper = styled(Div)`
   min-height: 100vh;
@@ -19,7 +19,7 @@ const WikiPage = () => {
       <HeaderItem />
       <GameListContainer />
       <Section $flex="v_center_center" $margin="100px 0 0 0" $padding="0 60px" $width="100vw">
-        <GameContentContainer />
+        <WikiContainer />
       </Section>
       <FooterItem />
     </PageWrapper>
