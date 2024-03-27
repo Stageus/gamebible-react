@@ -25,7 +25,7 @@ const PostListItem = (props) => {
       $padding="10px 40px 10px 40px"
       $margin="0 0 20px 0"
     >
-      <FullWideLink to="/ReadPostPage">
+      <FullWideLink>
         <Div $flex="h_between_center" $width="100%">
           <Div $flex="h_start_center" $width="50%">
             {title}

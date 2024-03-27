@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import PostListItem from "../../component/PostListItem";
 import PaginationContainer from "./PaginationContainer";
 
@@ -91,9 +91,14 @@ const PostListContainer = (props) => {
   return (
     <Section $width="100%">
       <Div $width="100%" $padding="30px">
-        {postListData.map((elem, idx) => {
-          return <PostListItem key={`${idx + elem}`} data={elem} />;
+        {postListData.map((elem) => {
+          return (
+            <Link key={`${elem.idx}`} to={`./post/${elem.idx}`}>
+              <PostListItem key={`${elem.idx}`} data={elem} />
+            </Link>
+          );
         })}
+
         <PaginationContainer
           {...{
             totalItems: dummyData.totalItems,
