@@ -12,7 +12,8 @@ import FindIDPage from "./page/FindIDPage";
 import ResetPWPage from "./page/ResetPWPage";
 import ChangePWPage from "./page/ChangePWPage";
 import ReadPostPage from "./page/ReadPostPage";
-import GamePage from "./page/GamePage";
+import CommunityPage from "./page/CommunityPage";
+import WikiPage from "./page/WikiPage";
 import NotificationPage from "./page/NotificationPage";
 import PersonalInfoPage from "./page/PersonalInfoPage";
 import EditPersonalInfoPage from "./page/EditPersonalInfoPage";
@@ -37,14 +38,15 @@ const App = () => {
             <Route path="/findID" element={<FindIDPage />} />
             <Route path="/resetPW" element={<ResetPWPage />} />
             <Route path="/changePW" element={<ChangePWPage />} />
-            <Route path="/game/:idx" element={<GamePage />} />
+            <Route path="/game/:idx/community" element={<CommunityPage />} />
+            <Route path="/game/:idx/wiki" element={<WikiPage />} />
             <Route path="/alarm" element={<NotificationPage />} />
             <Route path="/game/:idx/post/:idx" element={<ReadPostPage />} />
             <Route path="/searchResults" element={<SearchResultsPage />} />
             <Route path="/writePost" element={<WritePostPage />} />
-            <Route path="/game/:idx/history" element={<WikiHistoryPage />} />
-            <Route path="/game/:idx/history/:idx" element={<WikiHistoryContentPage />} />
-            <Route path="/game/editWiki" element={<EditWikiPage />} />
+            <Route path="/game/:idx/wiki/history" element={<WikiHistoryPage />} />
+            <Route path="/game/:idx/wiki/history/:idx" element={<WikiHistoryContentPage />} />
+            <Route path="/game/:idx/editWiki" element={<EditWikiPage />} />
           </Routes>
         </BrowserRouter>
       </RecoilRoot>

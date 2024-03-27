@@ -5,7 +5,7 @@ import { Section, Div } from "../../style/LayoutStyle";
 import { Span } from "../../style/TextStyle";
 import { setColor } from "../../style/SetStyle";
 
-const CommunityTitleContainer = styled(Div)`
+const CommunityTitleWrapper = styled(Div)`
   border: none;
   border-bottom: 1px solid ${setColor("white")};
 `;
@@ -13,7 +13,7 @@ const CommunityTitleContainer = styled(Div)`
 const CommunityContainer = () => {
   return (
     <Section $flex="v_center_center" $width="100%">
-      <CommunityTitleContainer
+      <CommunityTitleWrapper
         $width="100%"
         $height="60px"
         $flex="h_center_center"
@@ -37,7 +37,7 @@ const CommunityContainer = () => {
             </Span>
           </Div>
         </Div>
-      </CommunityTitleContainer>
+      </CommunityTitleWrapper>
       <PostListContainer />
     </Section>
   );

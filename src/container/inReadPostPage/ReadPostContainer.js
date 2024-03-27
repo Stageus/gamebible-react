@@ -1,5 +1,7 @@
 import { React, useState } from "react";
 
+import { Link, useNavigate } from "react-router-dom";
+
 import { styled } from "styled-components";
 import { Img } from "../../style/ImgStyle";
 import { Div, Article, Section } from "../../style/LayoutStyle";
@@ -9,9 +11,6 @@ import navToggleAtom from "../../recoil/navToggleAtom";
 
 import bannerImg from "../../img/bannerImg.svg";
 import SwitchTabItem from "../../component/SwitchTabItem";
-import WikiContainer from "../inWikiComponent/WikiContainer";
-import WikiHistoryListContainer from "../inWikiComponent/WikiHistoryListContainer";
-import WikiEditContainer from "../WikiEditContainer";
 import PostDetailViewContainer from "./PostDetailViewContainer";
 
 const GameContentLayout = styled(Section)`
@@ -23,19 +22,11 @@ const BannerImg = styled(Img)`
 `;
 
 const ReadPostContainer = () => {
-  const BtnText = ["커뮤니티", "위키"];
   const navToggle = useRecoilValue(navToggleAtom);
+  const navigate = useNavigate();
 
+  const BtnText = ["커뮤니티", "위키"];
   const [tabBtnValue, setTabBtnValue] = useState(BtnText[0]);
-  const [historyBtn, setHistoryBtn] = useState(false);
-  const [editBtn, setEditBtn] = useState(false);
-  const [backToWikiBtn, setBackToWikiBtn] = useState(false);
-
-  const switchTabEvent = (btnText) => {
-    setTabBtnValue(btnText);
-    setHistoryBtn(false);
-    setEditBtn(false);
-  };
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
@@ -46,26 +37,19 @@ const ReadPostContainer = () => {
         {...{ BtnText }}
         tab={tabBtnValue}
         setTab={setTabBtnValue}
-        onClick={(tab) => switchTabEvent(tab)}
+        onClick={(tabText) => {
+          setTabBtnValue(tabText);
+          if (tabText === "위키") {
+            navigate("/game/:idx");
+          }
+        }}
       />
-      <Article $flex="v_center_center" $backgroundColor="major" $width="100%" $padding="50px">
-        {tabBtnValue === "커뮤니티" && <PostDetailViewContainer />}
-        {tabBtnValue === "위키" && !historyBtn && (
-          <WikiContainer
-            historyBtn={historyBtn}
-            setHistoryBtn={setHistoryBtn}
-            editBtn={editBtn}
-            setEditBtn={setEditBtn}
-          />
-        )}
-        {tabBtnValue !== "커뮤니티" && historyBtn && !editBtn && (
-          <WikiHistoryListContainer
-            backToWikiBtn={backToWikiBtn}
-            setBackToWikiBtn={setBackToWikiBtn}
-          />
-        )}
-        {tabBtnValue !== "커뮤니티" && editBtn && !historyBtn && <WikiEditContainer />}
-        {backToWikiBtn && <WikiContainer />}
+      <Article $flex="h_center_center" $backgroundColor="major" $width="100%" $padding="50px">
+        <Section $backgroundColor="white" $width="100%" $height="80%" $padding="40px">
+          <Article $width="100%">
+            <PostDetailViewContainer />
+          </Article>
+        </Section>
       </Article>
     </GameContentLayout>
   );

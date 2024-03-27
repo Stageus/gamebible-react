@@ -6,14 +6,14 @@ import { Div, Section } from "../style/LayoutStyle";
 import HeaderItem from "../component/HeaderItem";
 import GameListContainer from "../container/GameListNavContainer";
 import FooterItem from "../component/FooterItem";
-import GameContentContainer from "../container/inGamePage/GameContentContainer";
+import GameContentContainer from "../container/inGamePage/GameCommunityContainer";
 
 const PageWrapper = styled(Div)`
   min-height: 100vh;
   position: relative;
 `;
 
-const GamePage = () => {
+const WikiPage = () => {
   return (
     <PageWrapper>
       <HeaderItem />
@@ -26,4 +26,4 @@ const GamePage = () => {
   );
 };
 
-export default GamePage;
+export default WikiPage;

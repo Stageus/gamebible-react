@@ -1,29 +1,28 @@
 import React from "react";
 
+import { styled } from "styled-components";
+import { Div, Section } from "../style/LayoutStyle";
+
 import HeaderItem from "../component/HeaderItem";
+import GameListContainer from "../container/GameListNavContainer";
 import FooterItem from "../component/FooterItem";
-import CommunityContainer from "../container/inCommunityPage/CommunityContainer";
+import GameCommunityContainer from "../container/inGamePage/GameCommunityContainer";
 
-import BannerImg from "../img/bannerImg.svg";
-
-import styled from "styled-components";
-import { Div } from "../style/LayoutStyle";
-import { Img } from "../style/ImgStyle";
-
-const WideImg = styled(Img)`
-  width: 100%;
+const PageWrapper = styled(Div)`
+  min-height: 100vh;
+  position: relative;
 `;
 
 const CommunityPage = () => {
   return (
-    <>
+    <PageWrapper>
       <HeaderItem />
-      <Div $padding="0 30px" $width="100%" $margin="70px 0 0 0">
-        <WideImg src={BannerImg} />
-      </Div>
-      <CommunityContainer />
+      <GameListContainer />
+      <Section $flex="v_center_center" $margin="100px 0 0 0" $padding="0 60px" $width="100vw">
+        <GameCommunityContainer />
+      </Section>
       <FooterItem />
-    </>
+    </PageWrapper>
   );
 };
 
