@@ -1,12 +1,15 @@
 import React from "react";
 
 import styled from "styled-components";
-import {} from "../../style/InputStyle";
 import { H1, P } from "../../style/TextStyle";
 import { Div } from "../../style/LayoutStyle";
 import { Section } from "../../style/LayoutStyle";
 
 import CommentContainer from "./CommentContainer";
+
+const CommentSection = styled(Section)`
+  border-radius: 10px;
+`;
 
 const dummyData = {
   title: "신입 유저라서 궁금한데, 카이사 좋은가요?",
@@ -89,18 +92,18 @@ const PostDetailViewContainer = (props) => {
           </Div>
         </Div>
       </TitleDiv>
-      <hr></hr>
+      <hr />
       <PostContentDiv>
         <Div $padding="5% 0" dangerouslySetInnerHTML={{ __html: dummyData.htmlContent }}></Div>
       </PostContentDiv>
-      <Section
+      <CommentSection
         $width="100%"
         $padding="5% 30px"
         $backgroundColor="minorDark"
         $flex="v_center_center"
       >
         <CommentContainer />
-      </Section>
+      </CommentSection>
     </>
   );
 };
