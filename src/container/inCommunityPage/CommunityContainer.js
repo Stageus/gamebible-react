@@ -3,7 +3,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { styled } from "styled-components";
-import { Img } from "../../style/ImgStyle";
 import { Div, Article, Section } from "../../style/LayoutStyle";
 import { Button } from "../../style/ButtonStyle";
 import { Span } from "../../style/TextStyle";
@@ -12,7 +11,7 @@ import { setColor } from "../../style/SetStyle";
 import { useRecoilValue } from "recoil";
 import navToggleAtom from "../../recoil/navToggleAtom";
 
-import bannerImg from "../../img/bannerImg.svg";
+import BannerImgItem from "../../component/BannerImgItem";
 import PostListContainer from "../inGamePage/PostListContainer";
 
 const TabBtn = styled(Button)`
@@ -28,18 +27,13 @@ const GameContentLayout = styled(Section)`
   width: calc(100vw - 120px);
   transition: padding 0.1s ease;
 `;
-const BannerImg = styled(Img)`
-  width: 100%;
-`;
 
 const CommunityContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
-      <Div $width="100%">
-        <BannerImg src={bannerImg} />
-      </Div>
+      <BannerImgItem />
       <Section $flex="v_center_start" $width="100%">
         <SwitchTabLayout $flex="h_center_center">
           <TabBtn
@@ -54,7 +48,6 @@ const CommunityContainer = () => {
               커뮤니티
             </Span>
           </TabBtn>
-
           <Link to="/game/:idx/wiki">
             <TabBtn
               $width="150px"

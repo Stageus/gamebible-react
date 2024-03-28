@@ -8,13 +8,12 @@ import navToggleAtom from "../../recoil/navToggleAtom";
 import { styled } from "styled-components";
 import { setColor } from "../../style/SetStyle";
 import { Button } from "../../style/ButtonStyle";
-import { Img } from "../../style/ImgStyle";
 import { Article, Section, Div } from "../../style/LayoutStyle";
 import { H1, P, Span } from "../../style/TextStyle";
 
 import backImg from "../../img/backImg.svg";
 import ImgTextBtnUtil from "../../util/ImgTextBtnUtil";
-import bannerImg from "../../img/bannerImg.svg";
+import BannerImgItem from "../../component/BannerImgItem";
 
 const TabBtn = styled(Button)`
   border-right: 1px solid ${setColor("major")};
@@ -32,18 +31,13 @@ const GameContentLayout = styled(Section)`
   width: calc(100vw - 120px);
   transition: padding 0.1s ease;
 `;
-const BannerImg = styled(Img)`
-  width: 100%;
-`;
 
 const WikiHistoryContentContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
-      <Div $width="100%">
-        <BannerImg src={bannerImg} />
-      </Div>
+      <BannerImgItem />
       <Section $flex="v_center_start" $width="100%">
         <SwitchTabLayout $flex="h_center_center">
           <Link to="/game/:idx/community">

@@ -11,19 +11,18 @@ import ImgTextBtnUtil from "../../util/ImgTextBtnUtil";
 import putByUserImg from "../../img/putByUserImg.svg";
 import historyImg from "../../img/historyImg.svg";
 import editImg from "../../img/editImg.svg";
+import BannerImgItem from "../../component/BannerImgItem";
 
 import { Link } from "react-router-dom";
 
 import { useRecoilValue } from "recoil";
 import navToggleAtom from "../../recoil/navToggleAtom";
-import bannerImg from "../../img/bannerImg.svg";
 
 const TabBtn = styled(Button)`
   border-right: 1px solid ${setColor("major")};
   border-left: 1px solid ${setColor("major")};
 `;
 const SwitchTabLayout = styled(Div)``;
-
 const MainContentLayout = styled(Div)`
   line-height: 30px;
 `;
@@ -48,18 +47,13 @@ const GameContentLayout = styled(Section)`
   width: calc(100vw - 120px);
   transition: padding 0.1s ease;
 `;
-const BannerImg = styled(Img)`
-  width: 100%;
-`;
 
 const WikiContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
-      <Div $width="100%">
-        <BannerImg src={bannerImg} />
-      </Div>
+      <BannerImgItem />
       <Section $flex="v_center_start" $width="100%">
         <SwitchTabLayout $flex="h_center_center">
           <Link to="/game/:idx/community">

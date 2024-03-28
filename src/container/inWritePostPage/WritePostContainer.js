@@ -1,72 +1,68 @@
-import { React, useState } from "react";
+import React from "react";
 
 import { styled } from "styled-components";
-import { Img } from "../../style/ImgStyle";
 import { Div, Article, Section } from "../../style/LayoutStyle";
+import { Button } from "../../style/ButtonStyle";
+import { Span } from "../../style/TextStyle";
+import { setColor } from "../../style/SetStyle";
 
 import { useRecoilValue } from "recoil";
 import navToggleAtom from "../../recoil/navToggleAtom";
 
-import bannerImg from "../../img/bannerImg.svg";
-import SwitchTabItem from "../../component/SwitchTabItem";
-import WikiContainer from "../inWikiPage/WikiContainer";
-import WikiHistoryListContainer from "../inWikiPage/WikiHistoryListContainer";
-import WikiEditContainer from "../WikiEditContainer";
+import { Link } from "react-router-dom";
+
+import BannerImgItem from "../../component/BannerImgItem";
 import WriterContainer from "./WriterContainer";
 
+const TabBtn = styled(Button)`
+  border-right: 1px solid ${setColor("major")};
+  border-left: 1px solid ${setColor("major")};
+`;
+const SwitchTabLayout = styled(Div)``;
 const GameContentLayout = styled(Section)`
   width: calc(100vw - 120px);
   transition: padding 0.1s ease;
 `;
-const BannerImg = styled(Img)`
-  width: 100%;
-`;
 
 const WritePostContainer = () => {
-  const BtnText = ["커뮤니티", "위키"];
   const navToggle = useRecoilValue(navToggleAtom);
-
-  const [tabBtnValue, setTabBtnValue] = useState(BtnText[0]);
-  const [historyBtn, setHistoryBtn] = useState(false);
-  const [editBtn, setEditBtn] = useState(false);
-  const [backToWikiBtn, setBackToWikiBtn] = useState(false);
-
-  const switchTabEvent = (btnText) => {
-    setTabBtnValue(btnText);
-    setHistoryBtn(false);
-    setEditBtn(false);
-  };
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
-      <Div $width="100%">
-        <BannerImg src={bannerImg} />
-      </Div>
-      <SwitchTabItem
-        {...{ BtnText }}
-        tab={tabBtnValue}
-        setTab={setTabBtnValue}
-        onClick={(tab) => switchTabEvent(tab)}
-      />
-      <Article $flex="v_center_center" $backgroundColor="major" $width="100%" $padding="50px">
-        {tabBtnValue === "커뮤니티" && <WriterContainer />}
-        {tabBtnValue === "위키" && !historyBtn && (
-          <WikiContainer
-            historyBtn={historyBtn}
-            setHistoryBtn={setHistoryBtn}
-            editBtn={editBtn}
-            setEditBtn={setEditBtn}
-          />
-        )}
-        {tabBtnValue !== "커뮤니티" && historyBtn && !editBtn && (
-          <WikiHistoryListContainer
-            backToWikiBtn={backToWikiBtn}
-            setBackToWikiBtn={setBackToWikiBtn}
-          />
-        )}
-        {tabBtnValue !== "커뮤니티" && editBtn && !historyBtn && <WikiEditContainer />}
-        {backToWikiBtn && <WikiContainer />}
-      </Article>
+      <BannerImgItem />
+      <Section $flex="v_center_start" $width="100%">
+        <SwitchTabLayout $flex="h_center_center">
+          <TabBtn
+            $width="150px"
+            $height="50px"
+            $margin="0 -1px 0 0"
+            $backgroundColor="major"
+            $fontSize="large"
+            $flex="h_center_center"
+          >
+            <Span $color="white" $fontSize="12px">
+              커뮤니티
+            </Span>
+          </TabBtn>
+          <Link to="/game/:idx/wiki">
+            <TabBtn
+              $width="150px"
+              $height="50px"
+              $margin="0 -1px 0 0"
+              $backgroundColor="white"
+              $fontSize="large"
+              $flex="h_center_center"
+            >
+              <Span $color="black" $fontSize="12px">
+                위키
+              </Span>
+            </TabBtn>
+          </Link>
+        </SwitchTabLayout>
+        <Article $flex="v_center_center" $backgroundColor="major" $width="100%" $padding="50px">
+          <WriterContainer />
+        </Article>
+      </Section>
     </GameContentLayout>
   );
 };
