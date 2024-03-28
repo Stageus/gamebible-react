@@ -90,7 +90,7 @@ const PostListContainer = (props) => {
   };
   return (
     <Section $width="100%">
-      <Div $width="100%" $padding="30px">
+      <Div $width="100%" $padding="30px 30px 0 30px">
         {postListData.map((elem) => {
           return <PostListItem key={`${elem.idx}`} data={elem} />;
         })}

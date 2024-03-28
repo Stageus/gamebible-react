@@ -43,7 +43,7 @@ const App = () => {
             <Route path="/alarm" element={<NotificationPage />} />
             <Route path="/game/:idx/community/post/:idx" element={<ReadPostPage />} />
             <Route path="/searchResults" element={<SearchResultsPage />} />
-            <Route path="/writePost" element={<WritePostPage />} />
+            <Route path="/game/:idx/writePost" element={<WritePostPage />} />
             <Route path="/game/:idx/wiki/history" element={<WikiHistoryPage />} />
             <Route path="/game/:idx/wiki/history/:idx" element={<WikiHistoryContentPage />} />
             <Route path="/game/:idx/editWiki" element={<EditWikiPage />} />

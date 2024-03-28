@@ -27,6 +27,9 @@ const GameContentLayout = styled(Section)`
   width: calc(100vw - 120px);
   transition: padding 0.1s ease;
 `;
+const ButtonWrapper = styled(Div)`
+  // border: 2px solid red;
+`;
 
 const CommunityContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
@@ -96,6 +99,19 @@ const CommunityContainer = () => {
               </Div>
             </CommunityTitleWrapper>
             <PostListContainer />
+            <ButtonWrapper $width="100%" $flex="h_end_center" $padding="0 30px">
+              <Link to="/game/:idx/writePost">
+                <Button
+                  $color="white"
+                  $backgroundColor="orange"
+                  $padding="9px 10px"
+                  $borderRadius="5px"
+                  $borderStyle="1px solid black"
+                >
+                  작성하기
+                </Button>
+              </Link>
+            </ButtonWrapper>
           </Section>
         </Article>
       </Section>
