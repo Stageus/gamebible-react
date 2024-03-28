@@ -18,6 +18,7 @@ import {
   nicknameValueValidation,
 } from "../../util/ValidationUtil";
 import TermsServiceContainer from "./TermsServiceContainer";
+import { useInput } from "../../hook/useInput";
 
 const dummyIdData = {
   id: {
@@ -25,6 +26,7 @@ const dummyIdData = {
     label: "아이디",
     button: "중복확인",
     placeholder: "4 ~ 20글자 제한",
+    type: "id",
   },
 };
 
@@ -34,6 +36,7 @@ const dummyEmailData = {
     label: "이메일",
     button: "인증전송",
     placeholder: "이메일 주소 입력",
+    type: "email",
   },
 };
 
@@ -42,6 +45,7 @@ const dummyVerificationData = {
     key: "verificationCode",
     label: "인증번호",
     button: "인증확인",
+    type: "verificationCode",
   },
 };
 
@@ -67,35 +71,53 @@ const KakaoLoginStyleBtn = styled(Img)`
 `;
 
 const SignUpContainer = () => {
-  const [idValue, setIdValue] = useState("");
+  // 인증 버튼 체크 유무
   const [idCheck, setIdCheck] = useState(false);
-
-  const [emailValue, setEmailValue] = useState("");
   const [emailCheck, setEmailCheck] = useState(false);
+  const [verificationCodeCheck, setVerificationCodeCheck] = useState(false);
+  // /인증 버튼 체크 유무
 
-  const [pwValue, setPwValue] = useState("");
+  // 인풋 값
+  const { value: idValue, onChangeEvent: idInputChangeEvent } = useInput("");
+  const { value: emailValue, onChangeEvent: emailInputChangeEvent } = useInput("");
+  const { value: pwValue, onChangeEvent: pwInputChangeEvent } = useInput("");
+  const { value: nicknameValue, onChangeEvent: nicknameChangeEvent } = useInput("");
+  const { value: verificationCodeValue, onChangeEvent: verificationCodeInputChangeEvent } =
+    useInput("");
+  // /인풋 값
 
-  const [verificationValue, setVerificationValue] = useState("");
-  const [verificationCheck, setVerificationCheck] = useState(false);
+  // 타입에 따른 유효성 검사 함수
+  const verificationClickEvent = (type, value) => {
+    if (type === "id") {
+      if (idValueValidation(value)) {
+        setIdCheck(true);
+      }
+    }
+    if (type === "email") {
+      if (emailValueValidation(value)) {
+        setEmailCheck(true);
+      }
+    }
+    if (type === "verificationCode") {
+      setVerificationCodeCheck(true);
+    }
+  };
+  // /타입에 따른 유효성 검사 함수
 
-  const [nicknameValue, setNicknameValue] = useState("");
-
+  // 이용약관 상태
   const {
     click: termsServiceChecked,
     setClick: setTermsServiceChecked,
     clickEvent: termsServiceCheckedEvent,
   } = useClick(false);
-
   const {
     click: privacyPolicyChecked,
     setClick: setPrivacyPolicyChecked,
     clickEvent: privacyPolicyCheckedEvent,
   } = useClick(false);
+  // /이용약관 상태
 
-  const emailVerificationCheck = (value) => {
-    return value === "1234";
-  };
-
+  // 회원가입 전 모든 인풋 유효성 검사
   const SignUpClickEvent = () => {
     if (!idCheck) {
       return alert("아이디 중복 인증을 확인해주세요.");
@@ -103,7 +125,7 @@ const SignUpContainer = () => {
     if (!emailCheck) {
       return alert("이메일 인증을 확인해주세요");
     }
-    if (!verificationCheck) {
+    if (!verificationCodeCheck) {
       return alert("이메일 인증을 확인해주세요");
     }
     if (!pwValueValidation(pwValue)) {
@@ -120,71 +142,99 @@ const SignUpContainer = () => {
     }
     accountEvent();
   };
+  // /회원가입 전 모든 인풋 유효성 검사
+
+  // 회원가입 백엔드 통신
   const accountEvent = async () => {
-    console.log("회원가입 로직 실행");
-    console.log(process.env.REACT_APP_API_KEY);
     let formData = new FormData();
     formData.append("id", idValue);
     formData.append("pw", pwValue);
     formData.append("email", emailValue);
+
     const response = await fetch(`${process.env.REACT_APP_API_KEY}/account`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: formData,
+      body: JSON.stringify({
+        id: idValue,
+        pw: pwValue,
+        email: emailValue,
+      }),
     });
-    console.log("durlRKwl tofgod");
     const result = await response.json();
 
     if (result.success) {
       console.log(result.message);
     } else {
+      console.log(result);
       console.log(result.message);
     }
   };
+  // /회원가입 백엔드 통신
 
   return (
     <>
       <Section $padding="50px 0" $margin="70px 0 0 0" $width="100vw" $flex="h_center_center">
         <Div $flex="v_center_center" $width="350px">
           <Img src={MainLogo} alt="MainLogo" />
+
+          {/* 아이디 인풋 */}
           <InputItem
             {...{
               dummyInputData: dummyIdData,
-              inputValue: setIdValue,
-              validationCheck: setIdCheck,
-              validationFcn: idValueValidation,
+              inputValue: idValue,
+              inputChangeEvent: idInputChangeEvent,
+              verificationCheckValue: idCheck,
+              verificationClickEvent: verificationClickEvent,
             }}
           ></InputItem>
+          {/* /아이디 인풋 */}
+
+          {/* 이메일 인풋 */}
           <InputItem
             {...{
               dummyInputData: dummyEmailData,
-              inputValue: setEmailValue,
-              validationCheck: setEmailCheck,
-              validationFcn: emailValueValidation,
+              inputValue: emailValue,
+              inputChangeEvent: emailInputChangeEvent,
+              verificationCheckValue: emailCheck,
+              verificationClickEvent: verificationClickEvent,
             }}
           ></InputItem>
+          {/* /이메일 인풋 */}
+
+          {/* 인증번호 인풋 */}
           <InputItem
             {...{
               dummyInputData: dummyVerificationData,
-              inputValue: setVerificationValue,
-              validationCheck: setVerificationCheck,
-              validationFcn: emailVerificationCheck,
+              inputValue: verificationCodeValue,
+              inputChangeEvent: verificationCodeInputChangeEvent,
+              verificationCheckValue: verificationCodeCheck,
+              verificationClickEvent: verificationClickEvent,
             }}
           ></InputItem>
+          {/* /인증번호 인풋 */}
+
+          {/* 닉네임 인풋 */}
           <InputItem
             {...{
               dummyInputData: dummyNameData,
-              inputValue: setNicknameValue,
+              inputValue: nicknameValue,
+              inputChangeEvent: nicknameChangeEvent,
             }}
           ></InputItem>
+          {/* /닉네임 인풋 */}
+
+          {/* 비밀번호 인풋 */}
           <InputItem
             {...{
               dummyInputData: dummyPWData,
-              inputValue: setPwValue,
+              inputValue: pwValue,
+              inputChangeEvent: pwInputChangeEvent,
             }}
           ></InputItem>
+          {/* /비밀번호 인풋 */}
+
           <Div $width="100%" $flex="v_start_start">
             <TermsServiceContainer
               {...{
@@ -218,3 +268,5 @@ const SignUpContainer = () => {
 };
 
 export default SignUpContainer;
+
+
