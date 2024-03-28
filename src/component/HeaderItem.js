@@ -47,12 +47,12 @@ const WhiteColorLink = styled(Link)`
 `;
 
 const MenuNullUrl = [
-  "/SignInPage",
-  "/SignUpPage",
-  "/ResetPWPage",
-  "/ChangePWPage",
-  "/PersonalInfoPage",
-  "/EditPersonalInfoPage",
+  "/signIn",
+  "/signUp",
+  "/resetPW",
+  "/changePW",
+  "/personalInfo",
+  "/editPersonalInfo",
   "/alarm",
 ];
 
@@ -63,6 +63,7 @@ const HeaderItem = (props) => {
   const menuIconClickEvent = () => {
     setNavToggle(!navToggle);
   };
+
   return (
     <FixedHeader $width="100%" $flex="h_between_center" $padding="15px 30px">
       <Div $width="30%" $height="40px" $flex="h_start_center">
@@ -121,7 +122,7 @@ const HeaderItem = (props) => {
                 <Img src={NotiIcon} alt="NotiIcon" />
               </CursorPointerDiv>
             </Link>
-            <Link to="/PersonalInfoPage">
+            <Link to="/personalInfo">
               <CursorPointerDiv $height="30px">
                 <Img src={UserIcon} alt="UserIcon" />
               </CursorPointerDiv>

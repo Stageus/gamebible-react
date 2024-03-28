@@ -1,6 +1,6 @@
-import { React, useState } from "react";
+import React from "react";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { useRecoilValue } from "recoil";
 import navToggleAtom from "../../recoil/navToggleAtom";
@@ -38,10 +38,6 @@ const BannerImg = styled(Img)`
 
 const WikiHistoryContentContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
-  const navigate = useNavigate();
-
-  const BtnText = ["커뮤니티", "위키"];
-  const [tabBtnValue, setTabBtnValue] = useState(BtnText[1]);
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>

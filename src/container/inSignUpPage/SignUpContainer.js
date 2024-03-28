@@ -99,6 +99,7 @@ const SignUpContainer = () => {
     }
     accountEvent();
   };
+
   const accountEvent = async () => {
     const response = await fetch(`http://192.168.0.227/account`, {
       method: "POST",

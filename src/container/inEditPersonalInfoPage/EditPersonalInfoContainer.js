@@ -46,7 +46,7 @@ const EditPersonalInfoContainer = () => {
       >
         저장하기
       </Button>
-      <FullWideLink to="/PersonalInfoPage">
+      <FullWideLink to="/personalInfo">
         <Button
           $flex="h_center_center"
           $width="100%"
