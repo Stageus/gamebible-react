@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+
 import InputItem from "../../component/InputItem";
 import { emailValueValidation } from "../../util/ValidationUtil";
-
 import MainLogo from "../../img/HeaderLogo.svg";
 
 import styled from "styled-components";
@@ -30,6 +30,7 @@ const FindIDContainer = () => {
     }
     console.log("아이디 찾기 API 호출");
   };
+
   return (
     <FindIDWarpper $flex="v_center_center" $width="350px">
       <Img $margin="0 0 20px 0" src={MainLogo} alt="MainLogo" />

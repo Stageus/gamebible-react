@@ -62,10 +62,10 @@ const SignInContainer = () => {
         로그인
       </Button>
       <Div $width="100%" $flex="h_between_center" $margin="0 0 20px 0">
-        <Link to="/SignUpPage">계정이 없으세요? 회원가입</Link>
+        <Link to="/signUp">계정이 없으세요? 회원가입</Link>
         <Div>
-          <Link to="/FindIDPage">아이디 찾기/</Link>
-          <Link to="/ResetPWPage">비밀번호 찾기</Link>
+          <Link to="/findID">아이디 찾기/</Link>
+          <Link to="/resetPW">비밀번호 찾기</Link>
         </Div>
       </Div>
       <Button $width="100%" $borderRadius="4px">

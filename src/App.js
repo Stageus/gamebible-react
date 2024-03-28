@@ -12,7 +12,8 @@ import FindIDPage from "./page/FindIDPage";
 import ResetPWPage from "./page/ResetPWPage";
 import ChangePWPage from "./page/ChangePWPage";
 import ReadPostPage from "./page/ReadPostPage";
-import GamePage from "./page/GamePage";
+import CommunityPage from "./page/CommunityPage";
+import WikiPage from "./page/WikiPage";
 import NotificationPage from "./page/NotificationPage";
 import PersonalInfoPage from "./page/PersonalInfoPage";
 import EditPersonalInfoPage from "./page/EditPersonalInfoPage";
@@ -20,6 +21,7 @@ import SearchResultsPage from "./page/SearchResultsPage";
 import WritePostPage from "./page/WritePostPage";
 import WikiHistoryPage from "./page/WikiHistoryPage";
 import WikiHistoryContentPage from "./page/WikiHistoryContentPage";
+import EditWikiPage from "./page/EditWikiPage";
 
 const App = () => {
   return (
@@ -29,20 +31,22 @@ const App = () => {
           <GlobalStyle />
           <Routes>
             <Route path="/" element={<MainPage />} />
-            <Route path="/SignUpPage" element={<SignUpPage />} />
-            <Route path="/SignInPage" element={<SignInPage />} />
-            <Route path="/PersonalInfoPage" element={<PersonalInfoPage />} />
-            <Route path="/EditPersonalInfoPage" element={<EditPersonalInfoPage />} />
-            <Route path="/FindIDPage" element={<FindIDPage />} />
-            <Route path="/ResetPWPage" element={<ResetPWPage />} />
-            <Route path="/ChangePWPage" element={<ChangePWPage />} />
-            <Route path="/game/:idx" element={<GamePage />} />
+            <Route path="/signUp" element={<SignUpPage />} />
+            <Route path="/signIn" element={<SignInPage />} />
+            <Route path="/personalInfo" element={<PersonalInfoPage />} />
+            <Route path="/editPersonalInfo" element={<EditPersonalInfoPage />} />
+            <Route path="/findID" element={<FindIDPage />} />
+            <Route path="/resetPW" element={<ResetPWPage />} />
+            <Route path="/changePW" element={<ChangePWPage />} />
+            <Route path="/game/:idx/community" element={<CommunityPage />} />
+            <Route path="/game/:idx/wiki" element={<WikiPage />} />
             <Route path="/alarm" element={<NotificationPage />} />
-            <Route path="/ReadPostPage" element={<ReadPostPage />} />
-            <Route path="/SearchResultsPage" element={<SearchResultsPage />} />
-            <Route path="/WritePostPage" element={<WritePostPage />} />
-            <Route path="/game/:idx/history" element={<WikiHistoryPage />} />
-            <Route path="/game/:idx/history/:idx" element={<WikiHistoryContentPage />} />
+            <Route path="/game/:idx/community/post/:idx" element={<ReadPostPage />} />
+            <Route path="/searchResults" element={<SearchResultsPage />} />
+            <Route path="/game/:idx/writePost" element={<WritePostPage />} />
+            <Route path="/game/:idx/wiki/history" element={<WikiHistoryPage />} />
+            <Route path="/game/:idx/wiki/history/:idx" element={<WikiHistoryContentPage />} />
+            <Route path="/game/:idx/wiki/edit" element={<EditWikiPage />} />
           </Routes>
         </BrowserRouter>
       </RecoilRoot>

@@ -9,10 +9,7 @@ import { Img } from "../style/ImgStyle";
 
 import addPhotoImg from "../img/addPhotoImg.svg";
 
-const AddPhotoBtnItemLayout = styled(Button)`
-  border: 1px solid ${setColor("black")};
-  border-radius: 20px;
-`;
+const AddPhotoBtnItemLayout = styled(Button)``;
 
 const AddPhotoBtnItem = (props) => {
   const { setImage } = props;
@@ -45,10 +42,12 @@ const AddPhotoBtnItem = (props) => {
       <AddPhotoBtnItemLayout
         $flex="h_center_center"
         $backgroundColor="initial"
-        $width="120px"
         $height="50px"
+        $padding="15px 20px"
         $color="black"
         $fontWeight="bold"
+        $borderRadius="20px"
+        $borderStyle={`1px solid ${setColor("black")}`}
         onClick={handleBtnClick}
       >
         <Div $margin="0 10px 0 0" $height="24px">

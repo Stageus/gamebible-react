@@ -1,30 +1,30 @@
-import React, { useRef, useState } from "react";
+import { React, useRef, useState } from "react";
 
 import AddPhotoBtnItem from "../../component/AddPhotoBtnItem";
 import ImgTextBtnUtil from "../../util/ImgTextBtnUtil";
-import DoneAll from "../../img/doneAll.svg";
+import finishImg from "../../img/finishImg.svg";
 
 import styled from "styled-components";
 import { Div } from "../../style/LayoutStyle";
 import { Input } from "../../style/InputStyle";
 import { Img } from "../../style/ImgStyle";
 import { setColor } from "../../style/SetStyle";
+
 import { useInput } from "../../hook/useInput";
 
 const EditorWrapper = styled(Div)`
   border-radius: 4px;
 `;
-
 const BorderNoneInput = styled(Input)`
   border-style: none;
   outline: none;
 `;
-
 const EditorContainer = styled(Div)`
   border: 1px solid ${setColor("black")};
   border-radius: 4px;
   outline: none;
   min-height: 500px;
+  line-height: 30px;
 `;
 
 const WriterContainer = () => {
@@ -68,22 +68,22 @@ const WriterContainer = () => {
         <Div $width="100%" $height="1px" $backgroundColor="black" $margin="2% 0" />
       </Div>
       <Div $width="100%" $flex="v_center_end">
-        <Div $width="250px" $flex="h_between_center" $margin="0 0 2% 0">
+        <Div $flex="h_between_center" $margin="0 0 2% 0">
           <AddPhotoBtnItem {...{ setImage }} />
-          <ImgTextBtnUtil
-            {...{
-              img: DoneAll,
-              text: "FINISH",
-              color: "white",
-              backgroundColor: "major",
-              onClick: postClickEvent,
-            }}
-          ></ImgTextBtnUtil>
+          <Div $margin="0 0 0 20px">
+            <ImgTextBtnUtil
+              img={finishImg}
+              text={"FINISH"}
+              color={"white"}
+              backgroundColor={"major"}
+              onClick={postClickEvent}
+            />
+          </Div>
         </Div>
         <EditorContainer
           onInput={postChangeEvent}
           ref={contentContainer}
-          contenteditable="true"
+          contentEditable="true"
           $width="100%"
           $padding="4%"
         >

@@ -17,7 +17,7 @@ const ImgTextBtnUtil = ({ img, text, color, backgroundColor, onClick }) => {
       $borderStyle={`1px solid ${setColor(color)}`}
       onClick={onClick}
     >
-      <Div $margin="0 10px 0 0" $height="25px">
+      <Div $margin="0 10px 0 0" $width="25px">
         <Img src={img} alt={text} />
       </Div>
       {text}
