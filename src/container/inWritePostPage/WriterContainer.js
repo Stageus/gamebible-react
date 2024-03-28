@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { React, useRef, useState } from "react";
 
 import AddPhotoBtnItem from "../../component/AddPhotoBtnItem";
 import ImgTextBtnUtil from "../../util/ImgTextBtnUtil";
@@ -9,6 +9,7 @@ import { Div } from "../../style/LayoutStyle";
 import { Input } from "../../style/InputStyle";
 import { Img } from "../../style/ImgStyle";
 import { setColor } from "../../style/SetStyle";
+
 import { useInput } from "../../hook/useInput";
 
 const EditorWrapper = styled(Div)`
@@ -23,6 +24,7 @@ const EditorContainer = styled(Div)`
   border-radius: 4px;
   outline: none;
   min-height: 500px;
+  line-height: 30px;
 `;
 
 const WriterContainer = () => {
