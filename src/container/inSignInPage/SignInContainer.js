@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import InputItem from "../../component/InputItem";
 import HeaderLogo from "../../img/HeaderLogo.svg";
 
+import { useInput } from "../../hook/useInput";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Img } from "../../style/ImgStyle";
@@ -9,7 +11,8 @@ import { Div, Section } from "../../style/LayoutStyle";
 import { Button } from "../../style/ButtonStyle";
 import { idValueValidation, pwValueValidation } from "../../util/ValidationUtil";
 import KakaoLoginBtn from "../../img/kakaoLoginMediumWide.svg";
-
+import { useCookies } from "react-cookie";
+import useFetch from "../../hook/useFetch";
 const KakaoLoginStyleBtn = styled(Img)`
   width: 100%;
 `;
@@ -28,28 +31,83 @@ const dummyPWData = {
 };
 
 const SignInContainer = () => {
-  const [idValue, setIdValue] = useState("");
-  const [pwValue, setPwValue] = useState("");
+  // 인풋 값
+  const { value: idValue, onChangeEvent: onChangeIdValue } = useInput("");
+  const { value: pwValue, onChangeEvent: onChangePwValue } = useInput("");
+  // /인풋 값
 
-  const signInClickEvent = () => {
+  const { data, error, request } = useFetch();
+
+  const [cookies, setCookies] = useCookies(["token"]);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (cookies.token) {
+      navigate("/");
+    }
+  }, [cookies.token, navigate]);
+
+  useEffect(() => {
+    if (error) {
+      console.error("Error:", error.message);
+    } else if (data && data.token) {
+      setCookies("token", data.token, { path: "/" });
+      navigate("/");
+    }
+  }, [error, data, setCookies, navigate]);
+
+  const submitData = async () => {
     if (!idValueValidation(idValue)) {
       return;
     }
     if (!pwValueValidation(pwValue)) {
       return;
     }
-    console.log("로그인 성공!");
+    await request(`/account/auth`, "POST", {
+      id: idValue,
+      pw: pwValue,
+    });
+
+    //   let formData = new FormData();
+    //   formData.append("id", idValue);
+    //   formData.append("pw", pwValue);
+
+    //   const response = await fetch(`${process.env.REACT_APP_API_KEY}/account/auth`, {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       id: idValue,
+    //       pw: pwValue,
+    //     }),
+    //   });
+    //   const result = await response.json();
+
+    //   if (result.success) {
+    //     console.log(result.message);
+    //   } else {
+    //     console.log(result);
+    //     console.log(result.message);
+    //   }
   };
+
   return (
     <Section $flex="v_center_center" $width="350px">
       <Img src={HeaderLogo} alt="HeaderLogo" />
       <InputItem
         {...{
           dummyInputData: dummyIdData,
-          inputValue: setIdValue,
+          inputValue: idValue,
+          inputChangeEvent: onChangeIdValue,
         }}
       ></InputItem>
-      <InputItem {...{ dummyInputData: dummyPWData, inputValue: setPwValue }}></InputItem>
+      <InputItem
+        {...{
+          dummyInputData: dummyPWData,
+          inputValue: pwValue,
+          inputChangeEvent: onChangePwValue,
+        }}
+      ></InputItem>
       <Button
         $flex="h_center_center"
         $width="100%"
@@ -57,7 +115,7 @@ const SignInContainer = () => {
         $color="white"
         $margin="0 0 20px 0"
         $borderRadius="4px"
-        onClick={signInClickEvent}
+        onClick={submitData}
       >
         로그인
       </Button>
