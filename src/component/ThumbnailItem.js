@@ -29,11 +29,12 @@ const ThumbnailImg = styled(Img)`
 `;
 
 const ThumbnailItem = (props) => {
-  const { idx, imgProps } = props.data;
+  const { idx, title, post_count, imgPath } = props.data;
+  console.log(idx);
   return (
     <ThumbnailContainer>
       <ThumbnailWrapper to={`game/${idx}/community`}>
-        <ThumbnailImg src={imgProps} />
+        <ThumbnailImg src={imgPath} />
       </ThumbnailWrapper>
     </ThumbnailContainer>
   );
