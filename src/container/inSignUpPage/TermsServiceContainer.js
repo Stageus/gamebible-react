@@ -9,20 +9,19 @@ import { P } from "../../style/TextStyle";
 
 import { useClick } from "../../hook/useClick";
 
-const TermsServiceContainer = () => {
+const TermsServiceContainer = (props) => {
   const {
-    click: termsServiceChecked,
-    setClick: setTermsServiceChecked,
-    ClickEvent: termsServiceCheckedEvent,
-  } = useClick(false);
-  const {
-    click: privacyPolicyChecked,
-    setClick: setPrivacyPolicyChecked,
-    ClickEvent: privacyPolicyCheckedEvent,
-  } = useClick(false);
+    termsServiceChecked,
+    setTermsServiceChecked,
+    termsServiceCheckedEvent,
 
-  const { click: termsReadMore, ClickEvent: termsReadMoreEvent } = useClick(false);
-  const { click: privacyReadMore, ClickEvent: privacyReadMoreEvent } = useClick(false);
+    privacyPolicyChecked,
+    setPrivacyPolicyChecked,
+    privacyPolicyCheckedEvent,
+  } = props;
+
+  const { click: termsReadMore, clickEvent: termsReadMoreEvent } = useClick(false);
+  const { click: privacyReadMore, clickEvent: privacyReadMoreEvent } = useClick(false);
 
   const [isAllChecked, setIsAllChecked] = useState(false);
 

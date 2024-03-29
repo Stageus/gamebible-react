@@ -52,7 +52,7 @@ const PersonalInfoContainer = () => {
     <PersonalInfoWrapper $flex="v_center_center" $width="350px">
       <Img $margin="0 0 20px 0" src={MainLogo} alt="MainLogo" />
       <LabelText {...{ dummyTextData: dummyUserData }}></LabelText>
-      <FullWideLink to="/EditPersonalInfoPage">
+      <FullWideLink to="/editPersonalInfo">
         <Button
           $width="100%"
           $height="50px"

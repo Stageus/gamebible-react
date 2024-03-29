@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "../style/ButtonStyle";
 import { Div } from "../style/LayoutStyle";
 import { Img } from "../style/ImgStyle";
+import { setColor } from "../style/SetStyle";
 
 const ImgTextBtnUtil = ({ img, text, color, backgroundColor, onClick }) => {
   return (
@@ -9,14 +10,14 @@ const ImgTextBtnUtil = ({ img, text, color, backgroundColor, onClick }) => {
       $flex="h_center_center"
       $backgroundColor={backgroundColor}
       $color={color}
-      $width="120px"
+      $padding="15px 20px"
       $height="50px"
       $fontWeight="bold"
       $borderRadius="20px"
-      $border={`1px solid ${color}`}
+      $borderStyle={`1px solid ${setColor(color)}`}
       onClick={onClick}
     >
-      <Div $margin="0 10px 0 0" $height="15px">
+      <Div $margin="0 10px 0 0" $width="25px">
         <Img src={img} alt={text} />
       </Div>
       {text}
