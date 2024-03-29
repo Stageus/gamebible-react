@@ -12,7 +12,7 @@ import { Button } from "../../style/ButtonStyle";
 import { idValueValidation, pwValueValidation } from "../../util/ValidationUtil";
 import KakaoLoginBtn from "../../img/kakaoLoginMediumWide.svg";
 import { useCookies } from "react-cookie";
-import usePost from "../../hook/useFetch";
+import useFetch from "../../hook/useFetch";
 const KakaoLoginStyleBtn = styled(Img)`
   width: 100%;
 `;
@@ -36,7 +36,7 @@ const SignInContainer = () => {
   const { value: pwValue, onChangeEvent: onChangePwValue } = useInput("");
   // /인풋 값
 
-  const { data, loading, error, postRequest } = usePost();
+  const { data, error, request } = useFetch();
 
   const [cookies, setCookies] = useCookies(["token"]);
   const navigate = useNavigate();
@@ -47,15 +47,13 @@ const SignInContainer = () => {
   }, [cookies.token, navigate]);
 
   useEffect(() => {
-    if (loading) {
-      console.log("로그인 중 입니다.");
-    } else if (error) {
+    if (error) {
       console.error("Error:", error.message);
     } else if (data && data.token) {
       setCookies("token", data.token, { path: "/" });
       navigate("/");
     }
-  }, [loading, error, data, setCookies, navigate]);
+  }, [error, data, setCookies, navigate]);
 
   const submitData = async () => {
     if (!idValueValidation(idValue)) {
@@ -64,10 +62,33 @@ const SignInContainer = () => {
     if (!pwValueValidation(pwValue)) {
       return;
     }
-    await postRequest(`${process.env.REACT_APP_API_KEY}/account/auth`, {
+    await request(`/account/auth`, "POST", {
       id: idValue,
       pw: pwValue,
     });
+
+    //   let formData = new FormData();
+    //   formData.append("id", idValue);
+    //   formData.append("pw", pwValue);
+
+    //   const response = await fetch(`${process.env.REACT_APP_API_KEY}/account/auth`, {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       id: idValue,
+    //       pw: pwValue,
+    //     }),
+    //   });
+    //   const result = await response.json();
+
+    //   if (result.success) {
+    //     console.log(result.message);
+    //   } else {
+    //     console.log(result);
+    //     console.log(result.message);
+    //   }
   };
 
   return (

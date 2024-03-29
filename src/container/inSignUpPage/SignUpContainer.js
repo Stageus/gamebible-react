@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useClick } from "../../hook/useClick";
 
 import styled from "styled-components";
 import { Div } from "../../style/LayoutStyle";
@@ -18,7 +17,6 @@ import {
   nicknameValueValidation,
 } from "../../util/ValidationUtil";
 import TermsServiceContainer from "./TermsServiceContainer";
-import { useInput } from "../../hook/useInput";
 
 const dummyIdData = {
   id: {
@@ -26,7 +24,6 @@ const dummyIdData = {
     label: "아이디",
     button: "중복확인",
     placeholder: "4 ~ 20글자 제한",
-    type: "id",
   },
 };
 
@@ -36,7 +33,6 @@ const dummyEmailData = {
     label: "이메일",
     button: "인증전송",
     placeholder: "이메일 주소 입력",
-    type: "email",
   },
 };
 
@@ -45,7 +41,6 @@ const dummyVerificationData = {
     key: "verificationCode",
     label: "인증번호",
     button: "인증확인",
-    type: "verificationCode",
   },
 };
 
@@ -71,53 +66,21 @@ const KakaoLoginStyleBtn = styled(Img)`
 `;
 
 const SignUpContainer = () => {
-  // 인증 버튼 체크 유무
+  const [idValue, setIdValue] = useState("");
   const [idCheck, setIdCheck] = useState(false);
+
+  const [emailValue, setEmailValue] = useState("");
   const [emailCheck, setEmailCheck] = useState(false);
-  const [verificationCodeCheck, setVerificationCodeCheck] = useState(false);
-  // /인증 버튼 체크 유무
 
-  // 인풋 값
-  const { value: idValue, onChangeEvent: idInputChangeEvent } = useInput("");
-  const { value: emailValue, onChangeEvent: emailInputChangeEvent } = useInput("");
-  const { value: pwValue, onChangeEvent: pwInputChangeEvent } = useInput("");
-  const { value: nicknameValue, onChangeEvent: nicknameChangeEvent } = useInput("");
-  const { value: verificationCodeValue, onChangeEvent: verificationCodeInputChangeEvent } =
-    useInput("");
-  // /인풋 값
+  const [pwValue, setPwValue] = useState("");
 
-  // 타입에 따른 유효성 검사 함수
-  const verificationClickEvent = (type, value) => {
-    if (type === "id") {
-      if (idValueValidation(value)) {
-        setIdCheck(true);
-      }
-    }
-    if (type === "email") {
-      if (emailValueValidation(value)) {
-        setEmailCheck(true);
-      }
-    }
-    if (type === "verificationCode") {
-      setVerificationCodeCheck(true);
-    }
-  };
-  // /타입에 따른 유효성 검사 함수
+  const [verificationValue, setVerificationValue] = useState("");
+  const [verificationCheck, setVerificationCheck] = useState(false);
 
-  // 이용약관 상태
-  const {
-    click: termsServiceChecked,
-    setClick: setTermsServiceChecked,
-    clickEvent: termsServiceCheckedEvent,
-  } = useClick(false);
-  const {
-    click: privacyPolicyChecked,
-    setClick: setPrivacyPolicyChecked,
-    clickEvent: privacyPolicyCheckedEvent,
-  } = useClick(false);
-  // /이용약관 상태
+  const [nicknameValue, setNicknameValue] = useState("");
 
-  // 회원가입 전 모든 인풋 유효성 검사
+  console.log(idValue, emailValue, verificationValue);
+
   const SignUpClickEvent = () => {
     if (!idCheck) {
       return alert("아이디 중복 인증을 확인해주세요.");
@@ -125,7 +88,7 @@ const SignUpContainer = () => {
     if (!emailCheck) {
       return alert("이메일 인증을 확인해주세요");
     }
-    if (!verificationCodeCheck) {
+    if (!verificationCheck) {
       return alert("이메일 인증을 확인해주세요");
     }
     if (!pwValueValidation(pwValue)) {
@@ -134,118 +97,77 @@ const SignUpContainer = () => {
     if (!nicknameValueValidation(nicknameValue)) {
       return;
     }
-    if (!termsServiceChecked) {
-      return alert("이용약관에 동의해주세요");
-    }
-    if (!privacyPolicyChecked) {
-      return alert("개인정보 수집에 동의해주세요");
-    }
     accountEvent();
   };
-  // /회원가입 전 모든 인풋 유효성 검사
 
-  // 회원가입 백엔드 통신
   const accountEvent = async () => {
-    let formData = new FormData();
-    formData.append("id", idValue);
-    formData.append("pw", pwValue);
-    formData.append("email", emailValue);
-
-    const response = await fetch(`${process.env.REACT_APP_API_KEY}/account`, {
+    const response = await fetch(`http://192.168.0.227/account`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        id: idValue,
-        pw: pwValue,
-        email: emailValue,
-      }),
+      body: {
+        id: idValue, // 아이디
+        pw: pwValue, // 비밀번호
+        email: emailValue, //이메일
+      },
     });
     const result = await response.json();
 
     if (result.success) {
       console.log(result.message);
     } else {
-      console.log(result);
       console.log(result.message);
     }
   };
-  // /회원가입 백엔드 통신
+
+  const emailVerificationCheck = (value) => {
+    return value === "1234";
+  };
 
   return (
     <>
       <Section $padding="50px 0" $margin="70px 0 0 0" $width="100vw" $flex="h_center_center">
         <Div $flex="v_center_center" $width="350px">
           <Img src={MainLogo} alt="MainLogo" />
-
-          {/* 아이디 인풋 */}
           <InputItem
             {...{
               dummyInputData: dummyIdData,
-              inputValue: idValue,
-              inputChangeEvent: idInputChangeEvent,
-              verificationCheckValue: idCheck,
-              verificationClickEvent: verificationClickEvent,
+              inputValue: setIdValue,
+              validationCheck: setIdCheck,
+              validationFcn: idValueValidation,
             }}
           ></InputItem>
-          {/* /아이디 인풋 */}
-
-          {/* 이메일 인풋 */}
           <InputItem
             {...{
               dummyInputData: dummyEmailData,
-              inputValue: emailValue,
-              inputChangeEvent: emailInputChangeEvent,
-              verificationCheckValue: emailCheck,
-              verificationClickEvent: verificationClickEvent,
+              inputValue: setEmailValue,
+              validationCheck: setEmailCheck,
+              validationFcn: emailValueValidation,
             }}
           ></InputItem>
-          {/* /이메일 인풋 */}
-
-          {/* 인증번호 인풋 */}
           <InputItem
             {...{
               dummyInputData: dummyVerificationData,
-              inputValue: verificationCodeValue,
-              inputChangeEvent: verificationCodeInputChangeEvent,
-              verificationCheckValue: verificationCodeCheck,
-              verificationClickEvent: verificationClickEvent,
+              inputValue: setVerificationValue,
+              validationCheck: setVerificationCheck,
+              validationFcn: emailVerificationCheck,
             }}
           ></InputItem>
-          {/* /인증번호 인풋 */}
-
-          {/* 닉네임 인풋 */}
           <InputItem
             {...{
               dummyInputData: dummyNameData,
-              inputValue: nicknameValue,
-              inputChangeEvent: nicknameChangeEvent,
+              inputValue: setNicknameValue,
             }}
           ></InputItem>
-          {/* /닉네임 인풋 */}
-
-          {/* 비밀번호 인풋 */}
           <InputItem
             {...{
               dummyInputData: dummyPWData,
-              inputValue: pwValue,
-              inputChangeEvent: pwInputChangeEvent,
+              inputValue: setPwValue,
             }}
           ></InputItem>
-          {/* /비밀번호 인풋 */}
-
           <Div $width="100%" $flex="v_start_start">
-            <TermsServiceContainer
-              {...{
-                termsServiceChecked,
-                setTermsServiceChecked,
-                termsServiceCheckedEvent,
-                privacyPolicyChecked,
-                setPrivacyPolicyChecked,
-                privacyPolicyCheckedEvent,
-              }}
-            />
+            <TermsServiceContainer />
             <Button
               $width="100%"
               $height="50px"
@@ -268,5 +190,3 @@ const SignUpContainer = () => {
 };
 
 export default SignUpContainer;
-
-

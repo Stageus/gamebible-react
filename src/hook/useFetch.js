@@ -1,36 +1,36 @@
 import { useState } from "react";
 
-const usePost = () => {
+const useFetch = () => {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const postRequest = async (url, body = {}) => {
-    setLoading(true);
+  const request = async (path, method, body) => {
     try {
-      const response = await fetch(url, {
-        method: "POST",
+      const object = {
+        method: method,
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(body),
-      });
+      };
+      if (body) {
+        object.body = JSON.stringify(body);
+      }
+
+      console.log(object);
+
+      const response = await fetch(`${process.env.REACT_APP_API_KEY}${path}`, object);
 
       if (!response.ok) {
         throw new Error("네트워크 상태가 올바르지 않습니다.");
       }
-
       const result = await response.json();
       setData(result);
-      setError(null);
     } catch (error) {
       setError(error);
-    } finally {
-      setLoading(false);
     }
   };
 
-  return { data, loading, error, postRequest };
+  return { data, error, request };
 };
 
-export default usePost;
+export default useFetch;
