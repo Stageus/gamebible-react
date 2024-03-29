@@ -14,6 +14,8 @@ import navToggleAtom from "../../recoil/navToggleAtom";
 import BannerImgItem from "../../component/BannerImgItem";
 import PostListContainer from "../inGamePage/PostListContainer";
 
+import { useParams } from "react-router-dom";
+
 const TabBtn = styled(Button)`
   border-right: 1px solid ${setColor("major")};
   border-left: 1px solid ${setColor("major")};
@@ -27,12 +29,12 @@ const GameContentLayout = styled(Section)`
   width: calc(100vw - 120px);
   transition: padding 0.1s ease;
 `;
-const ButtonWrapper = styled(Div)`
-  // border: 2px solid red;
-`;
+const ButtonWrapper = styled(Div)``;
 
 const CommunityContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
+
+  let { idx } = useParams();
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
@@ -51,7 +53,7 @@ const CommunityContainer = () => {
               커뮤니티
             </Span>
           </TabBtn>
-          <Link to="/game/:idx/wiki">
+          <Link to={`/game/${idx}/wiki`}>
             <TabBtn
               $width="150px"
               $height="50px"
@@ -100,7 +102,7 @@ const CommunityContainer = () => {
             </CommunityTitleWrapper>
             <PostListContainer />
             <ButtonWrapper $width="100%" $flex="h_end_center" $padding="0 30px">
-              <Link to="/game/:idx/writePost">
+              <Link to={`/game/${idx}/writePost`}>
                 <Button
                   $color="white"
                   $backgroundColor="orange"

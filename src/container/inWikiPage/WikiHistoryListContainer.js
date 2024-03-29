@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -34,52 +34,70 @@ const GameContentLayout = styled(Section)`
 const WikiHistoryListContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
 
-  const WikiHistoryListDummyData = [
-    {
-      idx: "history_1",
-      content: "2024-02-29 16:58:36 쩡태은",
-    },
-    {
-      idx: "history_2",
-      content: "2024-02-29 16:54:11 김기쭈",
-    },
-    {
-      idx: "history_3",
-      content: "2024-02-29 16:51:41 쪼경은",
-    },
-    {
-      idx: "history_4",
-      content: "2024-02-29 16:39:44 최민썩",
-    },
-    {
-      idx: "history_5",
-      content: "2024-02-28 21:11:25 뱅준연",
-    },
-    {
-      idx: "history_6",
-      content: "2024-02-28 21:03:15 박해쭈",
-    },
-    {
-      idx: "history_7",
-      content: "2024-02-29 16:58:36 쩡태은",
-    },
-    {
-      idx: "history_8",
-      content: "2024-02-28 21:02:01 김기쭈",
-    },
-    {
-      idx: "history_9",
-      content: "2024-02-28 20:58:27 쪼경은",
-    },
-    {
-      idx: "history_10",
-      content: "2024-02-24 11:58:27 최민썩",
-    },
-    {
-      idx: "history_11",
-      content: "2024-02-24 09:28:30 뱅준연",
-    },
-  ];
+  const [historyListData, setHistoryListData] = useState(null);
+
+  // useEffect(() => {
+  //   const wikiEditHistory = async () => {
+  //     const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/${gameidx}/history`);
+  //     const result = await response.json();
+
+  //     if (response.status === 200) {
+  //       setHistoryListData(result.data);
+  //     } else {
+  //       alert(result.message);
+  //     }
+  //   };
+  //   wikiEditHistory();
+  // });
+
+  useEffect(() => {}, [historyListData]);
+
+  // const WikiHistoryListDummyData = [
+  //   {
+  //     idx: "history_1",
+  //     content: "2024-02-29 16:58:36 쩡태은",
+  //   },
+  //   {
+  //     idx: "history_2",
+  //     content: "2024-02-29 16:54:11 김기쭈",
+  //   },
+  //   {
+  //     idx: "history_3",
+  //     content: "2024-02-29 16:51:41 쪼경은",
+  //   },
+  //   {
+  //     idx: "history_4",
+  //     content: "2024-02-29 16:39:44 최민썩",
+  //   },
+  //   {
+  //     idx: "history_5",
+  //     content: "2024-02-28 21:11:25 뱅준연",
+  //   },
+  //   {
+  //     idx: "history_6",
+  //     content: "2024-02-28 21:03:15 박해쭈",
+  //   },
+  //   {
+  //     idx: "history_7",
+  //     content: "2024-02-29 16:58:36 쩡태은",
+  //   },
+  //   {
+  //     idx: "history_8",
+  //     content: "2024-02-28 21:02:01 김기쭈",
+  //   },
+  //   {
+  //     idx: "history_9",
+  //     content: "2024-02-28 20:58:27 쪼경은",
+  //   },
+  //   {
+  //     idx: "history_10",
+  //     content: "2024-02-24 11:58:27 최민썩",
+  //   },
+  //   {
+  //     idx: "history_11",
+  //     content: "2024-02-24 09:28:30 뱅준연",
+  //   },
+  // ];
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
@@ -132,10 +150,10 @@ const WikiHistoryListContainer = () => {
                 </Link>
               </Div>
               <HistoryListLayout $flex="v_center_start" $width="100%">
-                {WikiHistoryListDummyData.map((elem) => {
+                {historyListData?.map((elem) => {
                   return (
                     <Link key={`${elem.idx}`} to={`./${elem.idx}`}>
-                      <li>{elem.content}</li>
+                      <li>{elem.title}</li>
                     </Link>
                   );
                 })}
