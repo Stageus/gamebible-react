@@ -29,7 +29,10 @@ const SwitchTabItem = (props) => {
           $fontSize="large"
           $flex="h_center_center"
           key={elem}
-          onClick={() => BtnClickEvent(elem)}
+          onClick={() => {
+            BtnClickEvent(elem);
+            props.onClick(elem);
+          }}
         >
           <Span $color={tab === elem ? "white" : "black"} $fontSize="12px">
             {elem}

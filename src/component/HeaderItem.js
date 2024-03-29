@@ -48,12 +48,12 @@ const WhiteColorLink = styled(Link)`
 `;
 
 const MenuNullUrl = [
-  "/SignInPage",
-  "/SignUpPage",
-  "/ResetPWPage",
-  "/ChangePWPage",
-  "/PersonalInfoPage",
-  "/EditPersonalInfoPage",
+  "/signIn",
+  "/signUp",
+  "/resetPW",
+  "/changePW",
+  "/personalInfo",
+  "/editPersonalInfo",
   "/alarm",
 ];
 
@@ -67,6 +67,7 @@ const HeaderItem = () => {
   const logoutClickEvent = () => {
     removeCookie("token");
   };
+
   return (
     <FixedHeader $width="100%" $flex="h_between_center" $padding="15px 30px">
       <Div $width="30%" $height="40px" $flex="h_start_center">
