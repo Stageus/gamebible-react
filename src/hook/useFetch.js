@@ -3,6 +3,7 @@ import { useState } from "react";
 const useFetch = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
+  const [status, setStatus] = useState(0);
 
   const request = async (path, method, body) => {
     try {
@@ -16,21 +17,17 @@ const useFetch = () => {
         object.body = JSON.stringify(body);
       }
 
-      console.log(object);
-
       const response = await fetch(`${process.env.REACT_APP_API_KEY}${path}`, object);
-
-      if (!response.ok) {
-        throw new Error("네트워크 상태가 올바르지 않습니다.");
-      }
+      setStatus(response.status);
       const result = await response.json();
       setData(result);
     } catch (error) {
+      console.log(error);
       setError(error);
     }
   };
 
-  return { data, error, request };
+  return { data, error, status, request };
 };
 
 export default useFetch;

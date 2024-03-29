@@ -36,7 +36,7 @@ const SignInContainer = () => {
   const { value: pwValue, onChangeEvent: onChangePwValue } = useInput("");
   // /인풋 값
 
-  const { data, error, request } = useFetch();
+  const { data, error, status, request } = useFetch();
 
   const [cookies, setCookies] = useCookies(["token"]);
   const navigate = useNavigate();
@@ -47,8 +47,9 @@ const SignInContainer = () => {
   }, [cookies.token, navigate]);
 
   useEffect(() => {
-    if (error) {
-      console.error("Error:", error.message);
+    if (data) {
+      console.log(data.message);
+      console.log(status);
     } else if (data && data.token) {
       setCookies("token", data.token, { path: "/" });
       navigate("/");
@@ -66,29 +67,6 @@ const SignInContainer = () => {
       id: idValue,
       pw: pwValue,
     });
-
-    //   let formData = new FormData();
-    //   formData.append("id", idValue);
-    //   formData.append("pw", pwValue);
-
-    //   const response = await fetch(`${process.env.REACT_APP_API_KEY}/account/auth`, {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       id: idValue,
-    //       pw: pwValue,
-    //     }),
-    //   });
-    //   const result = await response.json();
-
-    //   if (result.success) {
-    //     console.log(result.message);
-    //   } else {
-    //     console.log(result);
-    //     console.log(result.message);
-    //   }
   };
 
   return (
