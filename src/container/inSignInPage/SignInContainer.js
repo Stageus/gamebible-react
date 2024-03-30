@@ -31,15 +31,16 @@ const dummyPWData = {
 };
 
 const SignInContainer = () => {
+  const { data, error, status, request } = useFetch();
+
   // 인풋 값
   const { value: idValue, onChangeEvent: onChangeIdValue } = useInput("");
   const { value: pwValue, onChangeEvent: onChangePwValue } = useInput("");
   // /인풋 값
 
-  const { data, error, status, request } = useFetch();
-
   const [cookies, setCookies] = useCookies(["token"]);
   const navigate = useNavigate();
+
   useEffect(() => {
     if (cookies.token) {
       navigate("/");
@@ -54,7 +55,7 @@ const SignInContainer = () => {
       setCookies("token", data.token, { path: "/" });
       navigate("/");
     }
-  }, [error, data, setCookies, navigate]);
+  }, [data, error, status, setCookies, navigate]);
 
   const submitData = async () => {
     if (!idValueValidation(idValue)) {

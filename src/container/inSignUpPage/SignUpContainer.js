@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useFetch from "../../hook/useFetch";
 
 import styled from "styled-components";
@@ -20,6 +20,7 @@ import {
 import TermsServiceContainer from "./TermsServiceContainer";
 import { useInput } from "../../hook/useInput";
 import { useClick } from "../../hook/useClick";
+import { useNavigate } from "react-router-dom";
 
 const dummyIdData = {
   id: {
@@ -83,6 +84,8 @@ const SignUpContainer = () => {
   const { value: verificationValue, onChangeEvent: onChangeVerificationValue } = useInput("");
   // /인풋 상태
 
+  const navigate = useNavigate();
+
   // 인증 체크
   const [idCheck, setIdCheck] = useState(false);
   const [emailCheck, setEmailCheck] = useState(false);
@@ -100,10 +103,11 @@ const SignUpContainer = () => {
   } = useClick(false);
   // /인증 체크
 
+  // 인증 타입에 따른 인풋 비활성화
   const verificationClickEvent = (type, inputValue) => {
     switch (type) {
       case "id":
-        if (idValueValidation(inputValue)) setIdCheck(true);
+        if (idValueValidation(inputValue)) submitIdCheckEvent();
         break;
       case "email":
         if (emailValueValidation(emailValue)) setEmailCheck(true);
@@ -116,8 +120,27 @@ const SignUpContainer = () => {
         break;
     }
   };
+  // /인증 타입에 따른 인풋 비활성화
 
-  const SignUpClickEvent = () => {
+  useEffect(() => {
+    if (data) {
+      if (status === 200) {
+        /* eslint-disable no-restricted-globals */
+        const confirmed = confirm("사용가능한 아이디 입니다. 사용하시겠습니까?");
+        if (confirmed) {
+          setIdCheck(true);
+        } else {
+          return;
+        }
+      }
+    }
+  }, [data, error, status, navigate]);
+
+  const submitIdCheckEvent = async () => {
+    await request("/account/id/check", "POST", { id: idValue });
+  };
+
+  const submitSignUpEvent = async () => {
     if (!idCheck) {
       return alert("아이디 중복 인증을 확인해주세요.");
     }
@@ -133,10 +156,6 @@ const SignUpContainer = () => {
     if (!nicknameValueValidation(nicknameValue)) {
       return alert("닉네임은 2 ~ 20글자 제한입니다");
     }
-    accountEvent();
-  };
-
-  const accountEvent = async () => {
     await request("/account", "POST", { id: idValue, pw: pwValue, email: emailValue });
   };
 
@@ -221,7 +240,7 @@ const SignUpContainer = () => {
               $color="white"
               $margin="0 0 20px 0"
               $borderRadius="4px"
-              onClick={SignUpClickEvent}
+              onClick={submitSignUpEvent}
             >
               회원가입
             </Button>
