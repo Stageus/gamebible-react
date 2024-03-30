@@ -19,6 +19,7 @@ const KakaoLoginStyleBtn = styled(Img)`
 const dummyIdData = {
   id: {
     key: "id",
+    type: "id",
     placeholder: "아이디",
   },
 };

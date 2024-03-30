@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
 import useFetch from "../../hook/useFetch";
+import useConfirm from "../../hook/useConfirm";
+import { useInput } from "../../hook/useInput";
+import { useClick } from "../../hook/useClick";
+import { useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
 import { Div } from "../../style/LayoutStyle";
@@ -18,9 +22,6 @@ import {
   nicknameValueValidation,
 } from "../../util/ValidationUtil";
 import TermsServiceContainer from "./TermsServiceContainer";
-import { useInput } from "../../hook/useInput";
-import { useClick } from "../../hook/useClick";
-import { useNavigate } from "react-router-dom";
 
 const dummyIdData = {
   id: {
@@ -81,7 +82,7 @@ const SignUpContainer = () => {
   const { value: emailValue, onChangeEvent: onChangeEmailEvent } = useInput("");
   const { value: pwValue, onChangeEvent: onChangePwEvent } = useInput("");
   const { value: nicknameValue, onChangeEvent: onChangeNicknameEvent } = useInput("");
-  const { value: verificationValue, onChangeEvent: onChangeVerificationValue } = useInput("");
+  const { value: emailAuth, onChangeEvent: onChangeEmailAuth } = useInput("");
   // /인풋 상태
 
   const navigate = useNavigate();
@@ -89,7 +90,7 @@ const SignUpContainer = () => {
   // 인증 체크
   const [idCheck, setIdCheck] = useState(false);
   const [emailCheck, setEmailCheck] = useState(false);
-  const [verificationCheck, setVerificationCheck] = useState(false);
+  const [emailAuthCheck, setEmailAuthCheck] = useState(false);
 
   const {
     click: termsServiceChecked,
@@ -103,41 +104,73 @@ const SignUpContainer = () => {
   } = useClick(false);
   // /인증 체크
 
-  // 인증 타입에 따른 인풋 비활성화
-  const verificationClickEvent = (type, inputValue) => {
-    switch (type) {
-      case "id":
-        if (idValueValidation(inputValue)) submitIdCheckEvent();
-        break;
-      case "email":
-        if (emailValueValidation(emailValue)) setEmailCheck(true);
-        break;
-      case "verificationCode":
-        if (verificationValue.length === 4) setVerificationCheck(true);
-        else alert("인증번호를 바르게 입력해주세요");
-        break;
-      default:
-        break;
-    }
-  };
-  // /인증 타입에 따른 인풋 비활성화
-
   useEffect(() => {
     if (data) {
       if (status === 200) {
-        /* eslint-disable no-restricted-globals */
-        const confirmed = confirm("사용가능한 아이디 입니다. 사용하시겠습니까?");
-        if (confirmed) {
-          setIdCheck(true);
-        } else {
-          return;
-        }
+      } else {
+        return;
       }
     }
   }, [data, error, status, navigate]);
 
+  //문제점 useEffect로 data의 상태를 나타내서 올바르면
+  //해당 아이디,이메일 confirm창을 열어줘야 하는데
+  //해당 통신이 아이디 중복체크인지, 이메일 중복체크인지 모름
+
+  //해결 예상
+  //컴포넌트를 하나 더 새로 파야할 것 같음
+
+  // 인증 타입에 따른 인풋 비활성화
+  const verificationClickEvent = (type, inputValue) => {
+    if (type === "id") {
+      if (idValueValidation(inputValue)) {
+        setIdCheck(true);
+      }
+      return;
+    }
+    if (type === "email") {
+      if (emailValueValidation(emailValue)) {
+        setEmailCheck(true);
+      }
+      return;
+    }
+    if (type === "verificationCode") {
+      console.log("인증번호가 맞는지?");
+    }
+  };
+
+  // /인증 타입에 따른 인풋 비활성화
+
+  const confirmId = useConfirm(
+    "사용가능한 아이디입니다 사용하시겠습니까?",
+    () => {
+      setIdCheck(true);
+    },
+    () => {
+      setIdCheck(false);
+    }
+  );
+  const confirmEmail = useConfirm(
+    "인증번호를 전송했습니다",
+    () => {
+      setEmailCheck(true);
+    },
+    () => {
+      setEmailCheck(false);
+    }
+  );
+
   const submitIdCheckEvent = async () => {
     await request("/account/id/check", "POST", { id: idValue });
+  };
+  const submitEmailCheckEvent = async () => {
+    await request("/account/email/check", "POST", { email: emailValue });
+  };
+
+  const submitEmailVerification = async () => {
+    await request("/account/email/auth", "POST", {
+      auth: emailAuth,
+    });
   };
 
   const submitSignUpEvent = async () => {
@@ -147,7 +180,7 @@ const SignUpContainer = () => {
     if (!emailCheck) {
       return alert("이메일 인증을 확인해주세요");
     }
-    if (!verificationCheck) {
+    if (!emailAuthCheck) {
       return alert("이메일 인증을 확인해주세요");
     }
     if (!pwValueValidation(pwValue)) {
@@ -159,7 +192,7 @@ const SignUpContainer = () => {
     await request("/account", "POST", { id: idValue, pw: pwValue, email: emailValue });
   };
 
-  const emailVerificationCheck = (value) => {
+  const emailemailAuthCheck = (value) => {
     return value === "1234";
   };
 
@@ -194,9 +227,9 @@ const SignUpContainer = () => {
           <InputItem
             {...{
               dummyInputData: dummyVerificationData,
-              inputValue: verificationValue,
-              inputChangeEvent: onChangeVerificationValue,
-              verificationCheckValue: verificationCheck,
+              inputValue: emailAuth,
+              inputChangeEvent: onChangeEmailAuth,
+              verificationCheckValue: emailAuthCheck,
               verificationClickEvent,
             }}
           ></InputItem>

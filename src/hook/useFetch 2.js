@@ -5,20 +5,20 @@ const useFetch = () => {
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(0);
 
-  const request = async (path, method, body, headers) => {
+  const request = async (path, method, body) => {
     try {
-      const defaultHeader = {
-        "Content-Type": "application/json",
-      };
-      const option = {
+      const object = {
         method: method,
-        headers: { defaultHeader, ...headers },
+        headers: {
+          "Content-Type": "application/json",
+        },
       };
       if (body) {
-        option.body = JSON.stringify(body);
+        object.body = JSON.stringify(body);
       }
 
-      const response = await fetch(`${process.env.REACT_APP_API_KEY}${path}`, option);
+      const response = await fetch(`${process.env.REACT_APP_API_KEY}${path}`, object);
+
       setStatus(response.status);
       const result = await response.json();
       setData(result);
@@ -28,7 +28,7 @@ const useFetch = () => {
     }
   };
 
-  return { data, error, status, request };
+  return { data, error, request };
 };
 
 export default useFetch;

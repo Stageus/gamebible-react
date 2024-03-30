@@ -7,8 +7,7 @@ const useConfirm = (msg = "", onConfirm, onCancel) => {
   }
 
   const confirmEvent = () => {
-    /* eslint-disable no-restricted-globals */
-    if (confirm(msg)) {
+    if (window.confirm(msg)) {
       onConfirm();
     } else {
       onCancel();

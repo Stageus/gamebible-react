@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import useFetch from "../../hook/useFetch";
 
 import InputItem from "../../component/InputItem";
 import { emailValueValidation } from "../../util/ValidationUtil";
@@ -23,12 +24,23 @@ const FindIDWarpper = styled(Div)`
 `;
 
 const FindIDContainer = () => {
+  const { data, error, status, request } = useFetch();
   const [emailValue, setEmailValue] = useState("");
-  const findIdClickEvent = () => {
+
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+      console.log(status);
+    } else if (error) {
+      console.log(error);
+    }
+  }, [data, error, status]);
+
+  const findIdClickEvent = async () => {
     if (!emailValueValidation(emailValue)) {
       return;
     }
-    console.log("아이디 찾기 API 호출");
+    await request("/account/id", "GET");
   };
 
   return (

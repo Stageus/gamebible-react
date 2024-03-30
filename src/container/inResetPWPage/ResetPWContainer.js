@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputItem from "../../component/InputItem";
+import useFetch from "../../hook/useFetch";
+import { useInput } from "../../hook/useInput";
 
 import { emailValueValidation } from "../../util/ValidationUtil";
 
@@ -24,24 +26,40 @@ const PositionDiv = styled(Div)`
 `;
 
 const ResetPWContainer = () => {
-  const [emailValue, setEmailValue] = useState("");
-  const ResetPWClickEvent = () => {
-    if (!emailValueValidation(emailValue)) {
-      return;
+  const { data, error, status, request } = useFetch();
+  const { value: emailValue, onChangeEvent: onChangeEmailEvent } = useInput("");
+
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+      console.log(status);
+    } else if (error) {
+      console.log(error);
+    }
+  }, [data, error, status]);
+  const resetPwSubmitEvent = async () => {
+    if (emailValueValidation(emailValue)) {
+      await request("/account/pw", "PUT", { email: emailValue });
     }
     console.log("비밀번호 찾기 API 호출");
   };
   return (
     <PositionDiv $flex="v_center_center" $width="350px">
       <Img $margin="0 0 20px 0" src={MainLogo} alt="MainLogo" />
-      <InputItem {...{ dummyInputData: dummyEmailData, inputValue: setEmailValue }}></InputItem>
+      <InputItem
+        {...{
+          dummyInputData: dummyEmailData,
+          inputValue: emailValue,
+          inputChangeEvent: onChangeEmailEvent,
+        }}
+      ></InputItem>
       <Button
         $flex="h_center_center"
         $width="100%"
         $color="white"
         $height="50px"
         $borderRadius="4px"
-        onClick={ResetPWClickEvent}
+        onClick={resetPwSubmitEvent}
       >
         이메일 전송
       </Button>
