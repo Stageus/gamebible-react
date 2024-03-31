@@ -1,4 +1,5 @@
 import React from "react";
+import { useCookies } from "react-cookie";
 import { Link, useLocation } from "react-router-dom";
 import navToggleAtom from "../recoil/navToggleAtom";
 import { useRecoilState } from "recoil";
@@ -56,12 +57,15 @@ const MenuNullUrl = [
   "/alarm",
 ];
 
-const HeaderItem = (props) => {
-  const { userIdx } = props;
+const HeaderItem = () => {
   const location = useLocation();
   const [navToggle, setNavToggle] = useRecoilState(navToggleAtom);
   const menuIconClickEvent = () => {
     setNavToggle(!navToggle);
+  };
+  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+  const logoutClickEvent = () => {
+    removeCookie("token");
   };
 
   return (
@@ -91,7 +95,29 @@ const HeaderItem = (props) => {
         </CursorPointerDiv>
       </CenterDiv>
       <Div $width="30%" $flex="h_end_center">
-        {userIdx === "null" || userIdx === " " ? (
+        {cookies.token ? (
+          <BtnLayout $flex="h_between_center" $width="210px">
+            <Link to="/alarm">
+              <CursorPointerDiv $height="30px">
+                <Img src={NotiIcon} alt="NotiIcon" />
+              </CursorPointerDiv>
+            </Link>
+            <Link to="/personalInfo">
+              <CursorPointerDiv $height="30px">
+                <Img src={UserIcon} alt="UserIcon" />
+              </CursorPointerDiv>
+            </Link>
+            <Button
+              $padding="10px"
+              $flex="h_center_center"
+              $color="white"
+              $borderRadius="5px"
+              onClick={logoutClickEvent}
+            >
+              로그아웃
+            </Button>
+          </BtnLayout>
+        ) : (
           <>
             {" "}
             <Button
@@ -115,22 +141,6 @@ const HeaderItem = (props) => {
               <WhiteColorLink to="/SignUpPage">회원가입</WhiteColorLink>
             </Button>
           </>
-        ) : (
-          <BtnLayout $flex="h_between_center" $width="210px">
-            <Link to="/alarm">
-              <CursorPointerDiv $height="30px">
-                <Img src={NotiIcon} alt="NotiIcon" />
-              </CursorPointerDiv>
-            </Link>
-            <Link to="/personalInfo">
-              <CursorPointerDiv $height="30px">
-                <Img src={UserIcon} alt="UserIcon" />
-              </CursorPointerDiv>
-            </Link>
-            <Button $padding="10px" $flex="h_center_center" $color="white" $borderRadius="5px">
-              로그아웃
-            </Button>
-          </BtnLayout>
         )}
       </Div>
     </FixedHeader>

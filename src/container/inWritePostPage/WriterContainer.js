@@ -1,4 +1,4 @@
-import { React, useRef, useState } from "react";
+import { React, useEffect, useRef, useState } from "react";
 
 import AddPhotoBtnItem from "../../component/AddPhotoBtnItem";
 import ImgTextBtnUtil from "../../util/ImgTextBtnUtil";
@@ -11,6 +11,7 @@ import { Img } from "../../style/ImgStyle";
 import { setColor } from "../../style/SetStyle";
 
 import { useInput } from "../../hook/useInput";
+import { useCookies } from "react-cookie";
 
 const EditorWrapper = styled(Div)`
   border-radius: 4px;
@@ -28,30 +29,55 @@ const EditorContainer = styled(Div)`
 `;
 
 const WriterContainer = () => {
-  const { change, changeEvent } = useInput("");
+  const { value: title, onChangeEvent: onChangeTitltEvent } = useInput("");
   const [image, setImage] = useState([]);
   const [content, setContent] = useState("");
   const contentContainer = useRef(null);
 
   const regex = /^\s*$/;
 
+  useEffect(() => {}, []);
+
   const postClickEvent = () => {
-    console.log(change);
-    if (regex.test(change)) {
+    console.log(title);
+    if (regex.test(title)) {
       alert("제목을 입력해주세요");
       return;
     } else if (contentContainer.current.innerText.trim() === "") {
       alert("내용을 입력해주세요");
       return;
     }
-    console.log("content" + content);
-    console.log("성공!");
+    postSubmitEvent();
   };
 
-  const postChangeEvent = () => {
-    content.replace("$nbsp;", "안녕하세요").trim();
-    console.log(contentContainer.current.innerText);
+  const postContentChangeEvent = () => {
     setContent(contentContainer.current.innerHTML);
+  };
+
+  const postSubmitEvent = async () => {
+    const [cookies] = useCookies["token"];
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_KEY}/post`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: cookies.token,
+        },
+        body: JSON.stringify({
+          title: title,
+          content: content,
+        }),
+        path: {},
+        query: {
+          gameidx: "int",
+          useridx: "int",
+        },
+      });
+      if (response.status === 200) {
+        console.log("응 성공");
+      }
+    } catch (error) {
+      alert(`Error: ${error.message}`);
+    }
   };
 
   return (
@@ -63,7 +89,8 @@ const WriterContainer = () => {
           $fontSize="large"
           placeholder="제목"
           type="text"
-          onChange={changeEvent}
+          onChange={onChangeTitltEvent}
+          value={title}
         />
         <Div $width="100%" $height="1px" $backgroundColor="black" $margin="2% 0" />
       </Div>
@@ -81,7 +108,7 @@ const WriterContainer = () => {
           </Div>
         </Div>
         <EditorContainer
-          onInput={postChangeEvent}
+          onInput={postContentChangeEvent}
           ref={contentContainer}
           contentEditable="true"
           $width="100%"

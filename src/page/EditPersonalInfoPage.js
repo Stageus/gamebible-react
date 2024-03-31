@@ -5,14 +5,10 @@ import EditPersonalInfoContainer from "../container/inEditPersonalInfoPage/EditP
 
 import { Section } from "../style/LayoutStyle";
 
-const dummyData = {
-  userIdx: "1234",
-};
-
 const EditPersonalInfoPage = () => {
   return (
     <>
-      <HeaderItem {...{ dummyData }} />
+      <HeaderItem />
       <Section $width="100vw" $height="90vh" $flex="h_center_center">
         <EditPersonalInfoContainer />
       </Section>

@@ -36,25 +36,17 @@ const Label = styled.label`
 `;
 
 const InputItem = (props) => {
-  const { dummyInputData, inputValue, validationCheck, validationFcn } = props;
-  const [absoluteValue, setAbsoluteValue] = useState(false);
-  const [currentValue, setCurrentValue] = useState("");
+  const {
+    dummyInputData,
+    inputValue,
+    inputChangeEvent,
+    verificationCheckValue,
+    verificationClickEvent,
+  } = props;
   const [toggle, setToggle] = useState(false);
 
   const toggleClickEvent = () => {
     setToggle(!toggle);
-  };
-
-  const inputChangeEvent = (event) => {
-    inputValue(event.target.value);
-    setCurrentValue(event.target.value);
-  };
-
-  const absoluteBtnClickEvent = () => {
-    if (validationFcn(currentValue)) {
-      setAbsoluteValue(true);
-      validationCheck(true);
-    }
   };
 
   return (
@@ -71,16 +63,17 @@ const InputItem = (props) => {
                 $width="100%"
                 $height="50px"
                 $padding="0 3%"
-                onChange={inputChangeEvent}
+                onChange={(e) => inputChangeEvent(e)}
                 type={data.type === "pw" && !toggle ? "password" : "text"}
-                $backgroundColor={absoluteValue ? "lightGray" : "white"}
-                disabled={absoluteValue}
+                $backgroundColor={verificationCheckValue ? "lightGray" : "white"}
+                disabled={verificationCheckValue}
                 placeholder={data.placeholder}
+                value={inputValue}
               />
               {/* 버튼 유무에 따라 출력 결정 */}
               {data.button && (
                 <AbsoluteBtn
-                  onClick={absoluteBtnClickEvent}
+                  onClick={() => verificationClickEvent(inputValue)}
                   $color="white"
                   $fontSize="smail"
                   $padding="6px 8px"
