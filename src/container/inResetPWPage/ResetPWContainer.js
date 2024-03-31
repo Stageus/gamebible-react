@@ -30,11 +30,12 @@ const ResetPWContainer = () => {
   const { value: emailValue, onChangeEvent: onChangeEmailEvent } = useInput("");
 
   useEffect(() => {
-    if (data) {
-      console.log(data);
-      console.log(status);
-    } else if (error) {
-      console.log(error);
+    if (status === 200) {
+      alert("가입된 이메일에 비밀번호 변경 링크를 전송했습니다.");
+    } else if (status === 400) {
+      alert("올바른 값이 아닙니다.");
+    } else if (status === 409) {
+      alert("가입되지 않은 이메일입니다.");
     }
   }, [data, error, status]);
   const resetPwSubmitEvent = async () => {

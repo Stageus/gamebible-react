@@ -9,7 +9,7 @@ import { Div } from "../../style/LayoutStyle";
 import { Img } from "../../style/ImgStyle";
 import { pwValueValidation } from "../../util/ValidationUtil";
 
-const dummyEmailData = {
+const pwTextData = {
   pw: {
     key: "pw",
     type: "pw",
@@ -34,7 +34,7 @@ const ChangePWContainer = () => {
   return (
     <ChangePWWrapper $flex="v_center_center" $width="350px">
       <Img $margin="0 0 20px 0" src={MainLogo} alt="MainLogo" />
-      <InputItem {...{ dummyInputData: dummyEmailData, inputValue: setPwValue }} />
+      <InputItem {...{ dummyInputData: pwTextData, inputValue: setPwValue }} />
       <Button
         $flex="h_center_center"
         $width="100%"

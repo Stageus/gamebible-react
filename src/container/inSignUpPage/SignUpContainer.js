@@ -11,8 +11,9 @@ import { Button } from "../../style/ButtonStyle";
 import { Img } from "../../style/ImgStyle";
 import { Section } from "../../style/LayoutStyle";
 
-import IdInputContainer from "../../container/inSignUpPage/IdInputContainer";
+import IdInputContainer from "./IdInputContainer.js";
 import EmailInputContainer from "../../container/inSignUpPage/EmailInputContainer";
+import EmailAuthInputContainer from "../../container/inSignUpPage/EmailAuthInputContainer";
 import InputItem from "../../component/InputItem";
 import MainLogo from "../../img/HeaderLogo.svg";
 import KakaoLoginBtn from "../../img/kakaoLoginMediumWide.svg";
@@ -25,16 +26,6 @@ import {
 } from "../../util/ValidationUtil";
 import TermsServiceContainer from "./TermsServiceContainer";
 
-const dummyEmailData = {
-  email: {
-    key: "email",
-    type: "email",
-    label: "이메일",
-    button: "인증전송",
-    placeholder: "이메일 주소 입력",
-  },
-};
-
 const dummyVerificationData = {
   verificationCond: {
     key: "verificationCode",
@@ -44,7 +35,7 @@ const dummyVerificationData = {
   },
 };
 
-const dummyNameData = {
+const nicknameData = {
   name: {
     key: "nickname",
     type: "nickname",
@@ -74,15 +65,13 @@ const SignUpContainer = () => {
   const { value: emailValue, onChangeEvent: onChangeEmailEvent } = useInput("");
   const { value: pwValue, onChangeEvent: onChangePwEvent } = useInput("");
   const { value: nicknameValue, onChangeEvent: onChangeNicknameEvent } = useInput("");
-  const { value: emailAuth, onChangeEvent: onChangeEmailAuth } = useInput("");
   // /인풋 상태
-
   const navigate = useNavigate();
-
   // 인증 체크
   const [idCheck, setIdCheck] = useState(false);
   const [emailCheck, setEmailCheck] = useState(false);
   const [emailAuthCheck, setEmailAuthCheck] = useState(false);
+  // /인증 체크
 
   const {
     click: termsServiceChecked,
@@ -105,74 +94,6 @@ const SignUpContainer = () => {
     }
   }, [data, error, status, navigate]);
 
-  //문제점 useEffect로 data의 상태를 나타내서 올바르면
-  //해당 아이디,이메일 confirm창을 열어줘야 하는데
-  //해당 통신이 아이디 중복체크인지, 이메일 중복체크인지 모름
-
-  //해결 예상
-  //컴포넌트를 하나 더 새로 파야할 것 같음
-
-  // 인증 타입에 따른 인풋 비활성화
-  const verificationClickEvent = (type, inputValue) => {
-    if (type === "id") {
-      if (idValueValidation(inputValue)) {
-        submitIdCheckEvent();
-      }
-      return;
-    }
-    if (type === "email") {
-      if (emailValueValidation(emailValue)) {
-        setEmailCheck(true);
-      }
-      return;
-    }
-    if (type === "verificationCode") {
-      console.log("인증번호가 맞는지?");
-    }
-  };
-
-  // /인증 타입에 따른 인풋 비활성화
-
-  const confirmId = useConfirm(
-    "사용가능한 아이디입니다 사용하시겠습니까?",
-    () => {
-      setIdCheck(true);
-    },
-    () => {
-      setIdCheck(false);
-    }
-  );
-  const confirmEmail = useConfirm(
-    "인증번호를 전송했습니다",
-    () => {
-      setEmailCheck(true);
-    },
-    () => {
-      setEmailCheck(false);
-    }
-  );
-
-  const submitIdCheckEvent = async () => {
-    await request("/account/id/check", "POST", { id: idValue });
-    if (status === 200) {
-      confirmId();
-    }
-    if (status === 409) {
-      alert("존재하는 아이디 입니다.");
-    } else if (error) {
-      console.log();
-    }
-  };
-  const submitEmailCheckEvent = async () => {
-    await request("/account/email/check", "POST", { email: emailValue });
-  };
-
-  const submitEmailVerification = async () => {
-    await request("/account/email/auth", "POST", {
-      auth: emailAuth,
-    });
-  };
-
   const submitSignUpEvent = async () => {
     if (!idCheck) {
       return alert("아이디 중복 인증을 확인해주세요.");
@@ -184,16 +105,12 @@ const SignUpContainer = () => {
       return alert("이메일 인증을 확인해주세요");
     }
     if (!pwValueValidation(pwValue)) {
-      return alert("비밀번호는 8 ~ 20글자 제한입니다");
+      return;
     }
     if (!nicknameValueValidation(nicknameValue)) {
-      return alert("닉네임은 2 ~ 20글자 제한입니다");
+      return;
     }
     await request("/account", "POST", { id: idValue, pw: pwValue, email: emailValue });
-  };
-
-  const emailemailAuthCheck = (value) => {
-    return value === "1234";
   };
 
   return (
@@ -202,28 +119,20 @@ const SignUpContainer = () => {
         <Div $flex="v_center_center" $width="350px">
           <Img src={MainLogo} alt="MainLogo" />
           {/* 아이디 인풋 */}
-          <IdInputContainer />
+          <IdInputContainer {...{ idValue, onChangeIdEvent, idCheck, setIdCheck }} />
           {/* /아이디 인풋 */}
           {/* 이메일 인풋 */}
-          <EmailInputContainer />
+          <EmailInputContainer {...{ emailValue, onChangeEmailEvent, emailCheck, setEmailCheck }} />
           {/* /이메일 인풋 */}
           {/* 이메일 인증번호 인풋 */}
-          <InputItem
-            {...{
-              dummyInputData: dummyVerificationData,
-              inputValue: emailAuth,
-              inputChangeEvent: onChangeEmailAuth,
-              verificationCheckValue: emailAuthCheck,
-              verificationClickEvent,
-            }}
-          ></InputItem>
+          <EmailAuthInputContainer {...{ emailAuthCheck, setEmailAuthCheck }} />
           {/* /이메일 인증번호 인풋 */}
           {/* 닉네임 인풋 */}
           <InputItem
             {...{
-              dummyInputData: dummyNameData,
+              dummyInputData: nicknameData,
               inputValue: nicknameValue,
-              onChangeEvent: onChangeNicknameEvent,
+              inputChangeEvent: onChangeNicknameEvent,
             }}
           ></InputItem>
           {/* /닉네임 인풋 */}
@@ -232,7 +141,7 @@ const SignUpContainer = () => {
             {...{
               dummyInputData: dummyPWData,
               inputValue: pwValue,
-              onChangeEvent: onChangePwEvent,
+              inputChangeEvent: onChangePwEvent,
             }}
           ></InputItem>
           {/* 비밀번호 인풋 */}

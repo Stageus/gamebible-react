@@ -15,16 +15,15 @@ const dummyIdData = {
   },
 };
 
-const IdInputContainer = () => {
+const IdInputContainer = (props) => {
+  const { idValue, onChangeIdEvent, idCheck, setIdCheck } = props;
   const { data, error, status, request } = useFetch();
 
   // 인풋 상태
-  const { value: idValue, onChangeEvent: onChangeIdEvent } = useInput("");
 
   // /인풋 상태
 
   // 인증 체크
-  const [idCheck, setIdCheck] = useState(false);
   // /인증 체크
 
   useEffect(() => {

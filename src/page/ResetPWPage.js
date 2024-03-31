@@ -5,12 +5,10 @@ import FooterItem from "../component/FooterItem";
 
 import { Section } from "../style/LayoutStyle";
 
-const userIdx = "null";
-
 const ResetPWPage = () => {
   return (
     <>
-      <HeaderItem {...{ userIdx }} />
+      <HeaderItem />
       <Section $width="100vw" $height="90vh" $flex="h_center_center">
         <ResetPWContainer />
       </Section>

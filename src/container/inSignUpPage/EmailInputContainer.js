@@ -17,23 +17,20 @@ const dummyEmailData = {
   },
 };
 
-const EmailInputContainer = () => {
+const EmailInputContainer = (props) => {
   const { data, error, status, request } = useFetch();
 
+  const { emailValue, onChangeEmailEvent, emailCheck, setEmailCheck } = props;
+
   // 인풋 상태
-  const { value: emailValue, onChangeEvent: onChangeEmailEvent } = useInput("");
 
   // /인풋 상태
-
-  // 인증 체크
-  const [emailCheck, setEmailCheck] = useState(false);
-
-  // /인증 체크
 
   useEffect(() => {
     console.log(data);
     if (status === 200) {
       alert("이메일을 전송했습니다.");
+      setEmailCheck(true);
     } else {
       return;
     }

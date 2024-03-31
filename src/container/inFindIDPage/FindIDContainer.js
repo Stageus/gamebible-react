@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useFetch from "../../hook/useFetch";
+import { useInput } from "../../hook/useInput";
 
 import InputItem from "../../component/InputItem";
 import { emailValueValidation } from "../../util/ValidationUtil";
@@ -10,7 +11,7 @@ import { Button } from "../../style/ButtonStyle";
 import { Div } from "../../style/LayoutStyle";
 import { Img } from "../../style/ImgStyle";
 
-const dummyEmailData = {
+const emailData = {
   pw: {
     key: "email",
     label: "이메일",
@@ -25,14 +26,15 @@ const FindIDWarpper = styled(Div)`
 
 const FindIDContainer = () => {
   const { data, error, status, request } = useFetch();
-  const [emailValue, setEmailValue] = useState("");
+  const { value: emailValue, onChangeEvent: onChangeEmailEvent } = useInput("");
 
   useEffect(() => {
-    if (data) {
-      console.log(data);
-      console.log(status);
-    } else if (error) {
-      console.log(error);
+    if (status === 200) {
+      alert(`가입된 아이디는 ${data.id}입니다.`);
+    } else if (status === 400) {
+      alert("일치하는 사용자가 존재하지 않습니다");
+    } else if (status === 409) {
+      alert("일치하는 사용자가 존재하지 않습니다");
     }
   }, [data, error, status]);
 
@@ -46,7 +48,13 @@ const FindIDContainer = () => {
   return (
     <FindIDWarpper $flex="v_center_center" $width="350px">
       <Img $margin="0 0 20px 0" src={MainLogo} alt="MainLogo" />
-      <InputItem {...{ dummyInputData: dummyEmailData, inputValue: setEmailValue }} />
+      <InputItem
+        {...{
+          dummyInputData: emailData,
+          inputValue: emailValue,
+          inputChangeEvent: onChangeEmailEvent,
+        }}
+      />
       <Button
         $flex="h_center_center"
         $width="100%"
