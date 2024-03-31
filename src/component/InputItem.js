@@ -73,7 +73,7 @@ const InputItem = (props) => {
               {/* 버튼 유무에 따라 출력 결정 */}
               {data.button && (
                 <AbsoluteBtn
-                  onClick={() => verificationClickEvent(data.type, inputValue)}
+                  onClick={() => verificationClickEvent(inputValue)}
                   $color="white"
                   $fontSize="smail"
                   $padding="6px 8px"

@@ -102,7 +102,7 @@ const HeaderItem = () => {
                 <Img src={NotiIcon} alt="NotiIcon" />
               </CursorPointerDiv>
             </Link>
-            <Link to="/PersonalInfoPage">
+            <Link to="/personalInfo">
               <CursorPointerDiv $height="30px">
                 <Img src={UserIcon} alt="UserIcon" />
               </CursorPointerDiv>

@@ -7,17 +7,13 @@ const useFetch = () => {
 
   const request = async (path, method, body, headers) => {
     try {
-      const defaultHeader = {
-        "Content-Type": "application/json",
-      };
       const option = {
         method: method,
-        headers: { defaultHeader, ...headers },
+        headers: { "Content-Type": "application/json", ...headers },
       };
       if (body) {
         option.body = JSON.stringify(body);
       }
-
       const response = await fetch(`${process.env.REACT_APP_API_KEY}${path}`, option);
       setStatus(response.status);
       const result = await response.json();

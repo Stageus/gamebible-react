@@ -50,8 +50,12 @@ const SignInContainer = () => {
 
   useEffect(() => {
     if (data) {
-      console.log(data.message);
-      console.log(status);
+      if (status === 400) {
+        alert("유효하지 않은 아이디 입니다.");
+      }
+      if (status === 401) {
+        alert("유효하지 않은 비밀번호 입니다.");
+      }
     } else if (data && data.token) {
       setCookies("token", data.token, { path: "/" });
       navigate("/");

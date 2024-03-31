@@ -11,6 +11,8 @@ import { Button } from "../../style/ButtonStyle";
 import { Img } from "../../style/ImgStyle";
 import { Section } from "../../style/LayoutStyle";
 
+import IdInputContainer from "../../container/inSignUpPage/IdInputContainer";
+import EmailInputContainer from "../../container/inSignUpPage/EmailInputContainer";
 import InputItem from "../../component/InputItem";
 import MainLogo from "../../img/HeaderLogo.svg";
 import KakaoLoginBtn from "../../img/kakaoLoginMediumWide.svg";
@@ -22,16 +24,6 @@ import {
   nicknameValueValidation,
 } from "../../util/ValidationUtil";
 import TermsServiceContainer from "./TermsServiceContainer";
-
-const dummyIdData = {
-  id: {
-    key: "id",
-    type: "id",
-    label: "아이디",
-    button: "중복확인",
-    placeholder: "4 ~ 20글자 제한",
-  },
-};
 
 const dummyEmailData = {
   email: {
@@ -124,7 +116,7 @@ const SignUpContainer = () => {
   const verificationClickEvent = (type, inputValue) => {
     if (type === "id") {
       if (idValueValidation(inputValue)) {
-        setIdCheck(true);
+        submitIdCheckEvent();
       }
       return;
     }
@@ -162,6 +154,14 @@ const SignUpContainer = () => {
 
   const submitIdCheckEvent = async () => {
     await request("/account/id/check", "POST", { id: idValue });
+    if (status === 200) {
+      confirmId();
+    }
+    if (status === 409) {
+      alert("존재하는 아이디 입니다.");
+    } else if (error) {
+      console.log();
+    }
   };
   const submitEmailCheckEvent = async () => {
     await request("/account/email/check", "POST", { email: emailValue });
@@ -202,26 +202,10 @@ const SignUpContainer = () => {
         <Div $flex="v_center_center" $width="350px">
           <Img src={MainLogo} alt="MainLogo" />
           {/* 아이디 인풋 */}
-          <InputItem
-            {...{
-              dummyInputData: dummyIdData,
-              inputValue: idValue,
-              inputChangeEvent: onChangeIdEvent,
-              verificationCheckValue: idCheck,
-              verificationClickEvent,
-            }}
-          ></InputItem>
+          <IdInputContainer />
           {/* /아이디 인풋 */}
           {/* 이메일 인풋 */}
-          <InputItem
-            {...{
-              dummyInputData: dummyEmailData,
-              inputValue: emailValue,
-              inputChangeEvent: onChangeEmailEvent,
-              verificationCheckValue: emailCheck,
-              verificationClickEvent,
-            }}
-          ></InputItem>
+          <EmailInputContainer />
           {/* /이메일 인풋 */}
           {/* 이메일 인증번호 인풋 */}
           <InputItem
