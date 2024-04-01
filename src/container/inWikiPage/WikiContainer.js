@@ -37,10 +37,10 @@ const WikiContainer = () => {
 
   let { idx } = useParams();
 
+  const [wikiContentData, setWikiContentData] = useState(null);
+
   const [title, setTitle] = useState(null);
   const [content, setContent] = useState(null);
-
-  const [wikiContentData, setWikiContentData] = useState(null);
 
   useEffect(() => {
     const wikiContent = async () => {
@@ -58,6 +58,8 @@ const WikiContainer = () => {
 
     wikiContent();
   }, []);
+
+  useEffect(() => {}, [wikiContentData]);
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>

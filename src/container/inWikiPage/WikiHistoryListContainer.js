@@ -50,56 +50,9 @@ const WikiHistoryListContainer = () => {
       }
     };
     wikiEditHistory();
-  });
+  }, []);
 
   useEffect(() => {}, [historyListData]);
-
-  // const WikiHistoryListDummyData = [
-  //   {
-  //     idx: "history_1",
-  //     content: "2024-02-29 16:58:36 쩡태은",
-  //   },
-  //   {
-  //     idx: "history_2",
-  //     content: "2024-02-29 16:54:11 김기쭈",
-  //   },
-  //   {
-  //     idx: "history_3",
-  //     content: "2024-02-29 16:51:41 쪼경은",
-  //   },
-  //   {
-  //     idx: "history_4",
-  //     content: "2024-02-29 16:39:44 최민썩",
-  //   },
-  //   {
-  //     idx: "history_5",
-  //     content: "2024-02-28 21:11:25 뱅준연",
-  //   },
-  //   {
-  //     idx: "history_6",
-  //     content: "2024-02-28 21:03:15 박해쭈",
-  //   },
-  //   {
-  //     idx: "history_7",
-  //     content: "2024-02-29 16:58:36 쩡태은",
-  //   },
-  //   {
-  //     idx: "history_8",
-  //     content: "2024-02-28 21:02:01 김기쭈",
-  //   },
-  //   {
-  //     idx: "history_9",
-  //     content: "2024-02-28 20:58:27 쪼경은",
-  //   },
-  //   {
-  //     idx: "history_10",
-  //     content: "2024-02-24 11:58:27 최민썩",
-  //   },
-  //   {
-  //     idx: "history_11",
-  //     content: "2024-02-24 09:28:30 뱅준연",
-  //   },
-  // ];
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
