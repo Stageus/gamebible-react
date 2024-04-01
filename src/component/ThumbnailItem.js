@@ -32,7 +32,7 @@ const ThumbnailItem = (props) => {
   const { idx, imgProps } = props.data;
   return (
     <ThumbnailContainer>
-      <ThumbnailWrapper to={`game/${idx}/community`}>
+      <ThumbnailWrapper to={`game/${idx}/community/page/1`}>
         <ThumbnailImg src={imgProps} />
       </ThumbnailWrapper>
     </ThumbnailContainer>

@@ -8,7 +8,7 @@ import ArrowRight from "../../img/arrowRight.svg";
 import ArrowLeft from "../../img/arrowLeft.svg";
 
 const PaginationContainer = (props) => {
-  const { totalItems, itemCountPerPage, pageCount, currentPage } = props;
+  const { idx, totalItems, itemCountPerPage, pageCount, currentPage } = props;
   const totalPages = Math.ceil(totalItems / itemCountPerPage);
   const [start, setStart] = useState(1);
   const noPrev = start === 1;
@@ -22,7 +22,7 @@ const PaginationContainer = (props) => {
   return (
     <Div $flex="h_center_center" $width="100%">
       {noPrev ? null : (
-        <Link to={`/CommunityPage/${start - 1}`}>
+        <Link to={`/game/${idx}/community/page/${start - 1}`}>
           <Img $padding="5px" src={ArrowLeft} alt="<" />
         </Link>
       )}
@@ -30,7 +30,7 @@ const PaginationContainer = (props) => {
       {[...Array(pageCount)].map((elem, idx) => {
         const pageNumber = start + idx;
         return (
-          <Link to={`/CommunityPage/${pageNumber}`} key={`pagiNation${idx}`}>
+          <Link to={`/game/${idx}/community/page/${pageNumber}`} key={`pagiNation${idx}`}>
             <Span
               $padding="5px"
               $color={currentPage === pageNumber ? "orange" : "white"}
@@ -43,7 +43,7 @@ const PaginationContainer = (props) => {
         );
       })}
       {noNext ? null : (
-        <Link to={`/CommunityPage/${start + pageCount}`}>
+        <Link to={`/game/${idx}/community/page/${start + pageCount}`}>
           <Img $padding="5px" src={ArrowRight} alt=">" />
         </Link>
       )}

@@ -32,7 +32,8 @@ const ButtonWrapper = styled(Div)`
 `;
 
 const CommunityContainer = () => {
-  const { idx } = useParams();
+  const { idx, pageIdx } = useParams();
+  console.log(idx, pageIdx);
   const navToggle = useRecoilValue(navToggleAtom);
 
   return (
@@ -52,7 +53,7 @@ const CommunityContainer = () => {
               커뮤니티
             </Span>
           </TabBtn>
-          <Link to="/game/:idx/wiki">
+          <Link to={`/game/${idx}/wiki`}>
             <TabBtn
               $width="150px"
               $height="50px"
@@ -99,7 +100,7 @@ const CommunityContainer = () => {
                 </Div>
               </Div>
             </CommunityTitleWrapper>
-            <PostListContainer />
+            <PostListContainer {...{ idx, pageIdx }} />
             <ButtonWrapper $width="100%" $flex="h_end_center" $padding="0 30px">
               <Link to={`/game/${idx}/writePost`}>
                 <Button
