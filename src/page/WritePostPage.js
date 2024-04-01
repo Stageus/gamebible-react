@@ -15,11 +15,9 @@ const ContainerWrapper = styled(Section)`
 `;
 
 const WritePostPage = () => {
-  const userIdx = "1";
-
   return (
     <>
-      <HeaderItem {...{ userIdx }} />
+      <HeaderItem />
       <GameListNavContainer />
       <ContainerWrapper $flex="v_center_center">
         <WritePostContainer />

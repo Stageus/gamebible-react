@@ -37,15 +37,15 @@ const PersonalInfoContainer = () => {
     if (cookies.token) {
       const getInfo = async () => {
         try {
-          const response = await fetch(`${process.env.REACT_APP_API_KEY}/post`, {
+          const response = await fetch(`${process.env.REACT_APP_API_KEY}/account/info`, {
+            method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: cookies.token,
+              Authorization: `Bearer ${cookies.token}`,
             },
           });
           const result = await response.json();
           setData(result);
-          console.log(response);
           if (response.status === 200) {
             console.log(result);
           }
@@ -63,7 +63,8 @@ const PersonalInfoContainer = () => {
     const result = window.confirm("정말로 탈퇴하시겠습니까?");
     if (result) {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_KEY}/post`, {
+        const response = await fetch(`${process.env.REACT_APP_API_KEY}/account`, {
+          method: "DELETE",
           headers: {
             "Content-Type": "application/json",
             Authorization: cookies.token,

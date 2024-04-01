@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { styled } from "styled-components";
 import { Div, Article, Section } from "../../style/LayoutStyle";
@@ -32,6 +32,7 @@ const ButtonWrapper = styled(Div)`
 `;
 
 const CommunityContainer = () => {
+  const { idx } = useParams();
   const navToggle = useRecoilValue(navToggleAtom);
 
   return (
@@ -100,7 +101,7 @@ const CommunityContainer = () => {
             </CommunityTitleWrapper>
             <PostListContainer />
             <ButtonWrapper $width="100%" $flex="h_end_center" $padding="0 30px">
-              <Link to="/game/:idx/writePost">
+              <Link to={`/game/${idx}/writePost`}>
                 <Button
                   $color="white"
                   $backgroundColor="orange"

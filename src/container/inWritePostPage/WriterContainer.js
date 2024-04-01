@@ -11,7 +11,8 @@ import { Img } from "../../style/ImgStyle";
 import { setColor } from "../../style/SetStyle";
 
 import { useInput } from "../../hook/useInput";
-import { useCookies } from "react-cookie";
+import { Cookies, useCookies } from "react-cookie";
+import { useParams } from "react-router-dom";
 
 const EditorWrapper = styled(Div)`
   border-radius: 4px;
@@ -32,7 +33,10 @@ const WriterContainer = () => {
   const { value: title, onChangeEvent: onChangeTitltEvent } = useInput("");
   const [image, setImage] = useState([]);
   const [content, setContent] = useState("");
+  const [cookies] = useCookies(["token"]);
   const contentContainer = useRef(null);
+  const { idx } = useParams();
+  console.log(cookies.token);
 
   const regex = /^\s*$/;
 
@@ -55,21 +59,20 @@ const WriterContainer = () => {
   };
 
   const postSubmitEvent = async () => {
-    const [cookies] = useCookies["token"];
+    console.log(cookies);
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_KEY}/post`, {
+      const response = await fetch(`http://192.168.0.18:3000/post/?gameidx=${idx}`, {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: cookies.token,
+          Authorization: `Bearer ${cookies.token}`,
         },
         body: JSON.stringify({
           title: title,
           content: content,
         }),
-        path: {},
         query: {
-          gameidx: "int",
-          useridx: "int",
+          gameidx: { idx },
         },
       });
       if (response.status === 200) {
