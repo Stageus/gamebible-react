@@ -1,6 +1,6 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { useRecoilValue } from "recoil";
 import navToggleAtom from "../../recoil/navToggleAtom";
@@ -35,12 +35,39 @@ const GameContentLayout = styled(Section)`
 const WikiHistoryContentContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
 
+  let { idx, historyIdx } = useParams();
+
+  const [historyContentData, setHistoryContentData] = useState(null);
+  const [writer, setWriter] = useState(null);
+  const [content, setContent] = useState(null);
+  const [createdAt, setCreatedAt] = useState(null);
+
+  useEffect(() => {
+    const wikiEditHistoryContent = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_KEY}/game/${idx}/history/${historyIdx}`
+      );
+      const result = await response.json();
+      setWriter(result.data[0].user_idx);
+      setContent(result.data[0].content);
+      setCreatedAt(result.data[0].created_at);
+
+      if (response.status === 200) {
+        setHistoryContentData(result.data);
+        console.log("result.data: ", result.data);
+      } else {
+        alert(result.message);
+      }
+    };
+    wikiEditHistoryContent();
+  }, []);
+
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
       <BannerImgItem />
       <Section $flex="v_center_start" $width="100%">
         <SwitchTabLayout $flex="h_center_center">
-          <Link to="/game/:idx/community">
+          <Link to={`/game/${idx}/community`}>
             <TabBtn
               $width="150px"
               $height="50px"
@@ -74,8 +101,8 @@ const WikiHistoryContentContainer = () => {
                 <GameTitleLayout $width="60%" $fontWeight="bold">
                   리그오브레전드(League of legends)
                 </GameTitleLayout>
-                <Link to={`../game/:idx/wiki/history`}>
-                  <Div $flex="h_end_start" $width="30%">
+                <Link to={`../game/${idx}/wiki/history`}>
+                  <Div $flex="h_end_start">
                     <ImgTextBtnUtil
                       img={backImg}
                       text={"BACK"}
@@ -92,12 +119,10 @@ const WikiHistoryContentContainer = () => {
                 $fontSize="large"
                 $margin="0 0 20px 0"
               >
-                2024-02-29 16:51:41 쪼경은
+                {`${createdAt} ${writer}`}
               </HistoryWriterLayout>
               <HistoryContentLayout $flex="v_center_start" $width="100%">
-                리그 오브 레전드에서는 1년이 1시즌이다. 이는 다른 게임들과 비교하면 긴 기간이다.
-                배치를 받은 후 시즌이 끝날 때까지 랭크를 올리는 것이 랭크 게임의 주 플레이 목적으로,
-                시즌 종료후 다음 시즌이 시작되면 다시 배치 게임을 치러야 한다.
+                {`${content}`}
               </HistoryContentLayout>
             </Article>
           </Section>

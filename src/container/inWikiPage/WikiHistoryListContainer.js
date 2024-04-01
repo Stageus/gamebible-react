@@ -45,6 +45,7 @@ const WikiHistoryListContainer = () => {
 
       if (response.status === 200) {
         setHistoryListData(result.data);
+        console.log("result.data: ", result.data);
       } else {
         alert(result.message);
       }
@@ -94,7 +95,7 @@ const WikiHistoryListContainer = () => {
                   리그오브레전드(League of legends)
                 </GameTitleLayout>
                 <Link to={`/game/${idx}/wiki`}>
-                  <Div $flex="h_end_start" $width="30%">
+                  <Div $flex="h_end_start">
                     <ImgTextBtnUtil
                       img={backImg}
                       text={"BACK"}

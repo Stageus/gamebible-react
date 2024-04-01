@@ -100,14 +100,16 @@ const WikiContainer = () => {
                 <GameTitleLayout $width="60%" $fontWeight="bold">
                   {title}
                 </GameTitleLayout>
-                <Div $flex="h_between_start" $width="30%">
+                <Div $flex="h_between_start">
                   <Link to="./history">
-                    <ImgTextBtnUtil
-                      img={historyImg}
-                      text={"HISTORY"}
-                      color={"major"}
-                      backgroundColor={"white"}
-                    />
+                    <Div $margin="0 20px 0 0">
+                      <ImgTextBtnUtil
+                        img={historyImg}
+                        text={"HISTORY"}
+                        color={"major"}
+                        backgroundColor={"white"}
+                      />
+                    </Div>
                   </Link>
                   <Link to="./edit">
                     <ImgTextBtnUtil
