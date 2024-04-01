@@ -23,48 +23,58 @@ const FullWideLink = styled(Link)`
 `;
 
 const EditPersonalInfoContainer = () => {
-  const { data, error, status, request } = useFetch();
   const [cookies] = useCookies(["token"]);
   const [emailValue, setEmailValue] = useState("");
   const [nicknameValue, setNicknameValue] = useState("");
+
+  // const { data, error, status, request } = useFetch();
+  const [data, setData] = useState(null);
+
   const { value: newEmailValue, onChangeEvent: newEmailOnChangeEvent } = useInput("");
   const { value: newNicknameValue, onChangeEvent: newNicknameOnChangeEvent } = useInput("");
   const navigate = useNavigate();
 
-  const getInfo = useCallback(async () => {
-    if (cookies.token) {
-      await request("/account/info/", "GET", null, {
-        Authorization: cookies,
-      });
-    } else {
-      navigate("/");
-    }
-  }, [cookies.token]);
-
-  const saveSubmitEvent = async () => {
-    await request(
-      "/account/info",
-      "PUT",
-      {
-        email: emailValue,
-        nickname: nicknameValue,
-      },
-      {
-        Authorization: cookies.token,
-      }
-    );
-  };
-
   useEffect(() => {
-    getInfo();
-    setEmailValue(data);
-    setNicknameValue(data);
-  }, [data, error]);
+    const fetchData = async () => {
+      if (cookies.token) {
+        try {
+          const response = await fetch(`${process.env.REACT_APP_API_KEY}/account/info`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${cookies.token}`,
+            },
+          });
+          const result = await response.json();
+          setData(result.data);
+          if (response.status === 200) {
+            setEmailValue(result.data.email);
+            setNicknameValue(result.data.nickname);
+          }
+        } catch (error) {
+          console.log(`Error: ${error.message}`);
+        }
+      } else {
+        navigate("/");
+      }
+    };
+    fetchData();
+  }, []);
+
+  const saveSubmitEvent = async () => {};
+
+  // useEffect(() => {
+  //   getInfo();
+  //   setEmailValue(data);
+  //   setNicknameValue(data);
+  // }, [data, error]);
 
   const inputEmailData = {
-    key: "email",
-    label: "이메일",
-    placeholder: emailValue,
+    email: {
+      key: "email",
+      label: "이메일",
+      placeholder: emailValue,
+    },
   };
   const inputNicknameData = {
     nickName: {

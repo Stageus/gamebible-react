@@ -39,7 +39,7 @@ const App = () => {
             <Route path="/resetPW" element={<ResetPWPage />} />
             <Route path="/changePW" element={<ChangePWPage />} />
             <Route path="/game/:idx/community" element={<CommunityPage />} />
-            <Route path="/game/:idx/wiki" element={<WikiPage />} />
+            <Route path="/game/:idx/wiki/" element={<WikiPage />} />
             <Route path="/alarm" element={<NotificationPage />} />
             <Route path="/game/:idx/community/post/:idx" element={<ReadPostPage />} />
             <Route path="/searchResults" element={<SearchResultsPage />} />

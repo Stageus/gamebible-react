@@ -24,7 +24,6 @@ const FullWideLink = styled(Link)`
 
 const PersonalInfoContainer = () => {
   const navigate = useNavigate();
-  const [idInfo, setIdInfo] = useState("");
   const [emailInfo, setEmailInfo] = useState("");
   const [nicknameInfo, setNicknameInfo] = useState("");
 
@@ -32,10 +31,9 @@ const PersonalInfoContainer = () => {
   const [data, setData] = useState("");
 
   const [cookies, removeCookie] = useCookies(["token"]);
-
   useEffect(() => {
-    if (cookies.token) {
-      const getInfo = async () => {
+    const fetchData = async () => {
+      if (cookies.token) {
         try {
           const response = await fetch(`${process.env.REACT_APP_API_KEY}/account/info`, {
             method: "GET",
@@ -45,19 +43,21 @@ const PersonalInfoContainer = () => {
             },
           });
           const result = await response.json();
-          setData(result);
+          setData(result.data);
           if (response.status === 200) {
-            console.log(result);
+            setEmailInfo(result.data.email);
+            setNicknameInfo(result.data.nickname);
           }
         } catch (error) {
-          alert(`Error: ${error.message}`);
+          console.log(`Error: ${error.message}`);
         }
-      };
-      getInfo();
-    } else if (!cookies.token) {
-      navigate("/");
-    }
-  }, [cookies.token]);
+      } else {
+        navigate("/");
+      }
+    };
+
+    fetchData();
+  }, [cookies.token, navigate]);
 
   const DeleteClickEvent = async () => {
     const result = window.confirm("정말로 탈퇴하시겠습니까?");
@@ -84,11 +84,6 @@ const PersonalInfoContainer = () => {
   };
 
   const labelTextData = {
-    id: {
-      key: "id",
-      label: "아이디",
-      text: idInfo,
-    },
     email: {
       key: "email",
       label: "이메일",

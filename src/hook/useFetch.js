@@ -4,12 +4,13 @@ const useFetch = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(0);
+  const [loading, setLoading] = useState(null);
 
-  const request = async (path, method, body) => {
+  const request = async (path, method, body, headers) => {
     try {
       const option = {
         method: method,
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...headers },
       };
       if (body) {
         option.body = JSON.stringify(body);
