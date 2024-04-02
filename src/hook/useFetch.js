@@ -4,7 +4,6 @@ const useFetch = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(0);
-  const [loading, setLoading] = useState(null);
 
   const request = async (path, method, body, headers) => {
     try {

@@ -40,7 +40,7 @@ const ResetPWContainer = () => {
   }, [data, error, status]);
   const resetPwSubmitEvent = async () => {
     if (emailValueValidation(emailValue)) {
-      await request("/account/pw", "PUT", { email: emailValue });
+      await request("/account/pw/email", "PUT", { email: emailValue });
     }
     console.log("비밀번호 찾기 API 호출");
   };

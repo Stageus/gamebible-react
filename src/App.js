@@ -41,7 +41,10 @@ const App = () => {
             <Route path="/game/:idx/community/page/:pageIdx" element={<CommunityPage />} />
             <Route path="/game/:idx/wiki/" element={<WikiPage />} />
             <Route path="/alarm" element={<NotificationPage />} />
-            <Route path="/game/:idx/community/post/:idx" element={<ReadPostPage />} />
+            <Route
+              path="/game/:idx/community/page/:pageIdx/post/:postIdx"
+              element={<ReadPostPage />}
+            />
             <Route path="/searchResults" element={<SearchResultsPage />} />
             <Route path="/game/:idx/writePost" element={<WritePostPage />} />
             <Route path="/game/:idx/wiki/history" element={<WikiHistoryPage />} />

@@ -27,8 +27,8 @@ const EditPersonalInfoContainer = () => {
   const [emailValue, setEmailValue] = useState("");
   const [nicknameValue, setNicknameValue] = useState("");
 
-  // const { data, error, status, request } = useFetch();
-  const [data, setData] = useState(null);
+  const { data, error, status, request } = useFetch();
+  const [initialdata, setInitialData] = useState(null);
 
   const { value: newEmailValue, onChangeEvent: newEmailOnChangeEvent } = useInput("");
   const { value: newNicknameValue, onChangeEvent: newNicknameOnChangeEvent } = useInput("");
@@ -46,7 +46,7 @@ const EditPersonalInfoContainer = () => {
             },
           });
           const result = await response.json();
-          setData(result.data);
+          setInitialData(result.data);
           if (response.status === 200) {
             setEmailValue(result.data.email);
             setNicknameValue(result.data.nickname);
@@ -61,13 +61,31 @@ const EditPersonalInfoContainer = () => {
     fetchData();
   }, []);
 
-  const saveSubmitEvent = async () => {};
+  const saveSubmitEvent = async () => {
+    await request(
+      "/account/info",
+      "PUT",
+      {
+        email: emailValue,
+        nickname: nicknameValue,
+      },
+      { Authorization: `Bearer ${cookies.token}` }
+    );
+  };
 
-  // useEffect(() => {
-  //   getInfo();
-  //   setEmailValue(data);
-  //   setNicknameValue(data);
-  // }, [data, error]);
+  useEffect(() => {
+    console.log(data);
+    if (status === 200) {
+      alert("수정되었습니다");
+      navigate("/personalInfo");
+    }
+    if (status === 400) {
+      alert("요청이 유효하지 않습니다.");
+    }
+    if (status === 401) {
+      alert("토큰이 만료되었습니다.");
+    }
+  }, [data, error]);
 
   const inputEmailData = {
     email: {
