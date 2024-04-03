@@ -66,14 +66,14 @@ const EditingContainer = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  let { gameidx, historyidx } = useParams();
-  console.log("historyIdx: ", historyidx);
-  console.log("gameIdx: ", gameidx);
+  let { gameIdx, historyIdx } = useParams();
+  console.log("historyIdx: ", historyIdx);
+  console.log("gameIdx: ", gameIdx);
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        `${process.env.REACT_APP_API_KEY}/game/${gameidx}/wiki/${historyidx}`,
+        `${process.env.REACT_APP_API_KEY}/game/${gameIdx}/wiki/${historyIdx}`,
         {
           method: "PUT",
           headers: {

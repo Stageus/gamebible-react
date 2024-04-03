@@ -14,7 +14,6 @@ import { useInput } from "../../hook/useInput";
 import { useCookies } from "react-cookie";
 import { useParams, useNavigate } from "react-router-dom";
 
-
 const EditorWrapper = styled(Div)`
   border-radius: 4px;
 `;
@@ -31,7 +30,7 @@ const EditorContainer = styled(Div)`
 `;
 
 const WriterContainer = () => {
-  const { value: title, onChangeEvent: onChangeTitltEvent } = useInput("");
+  const { value: title, onChangeEvent: onChangeTitleEvent } = useInput("");
   const [image, setImage] = useState([]);
   const [content, setContent] = useState("");
   const [cookies] = useCookies(["token"]);
@@ -48,7 +47,6 @@ const WriterContainer = () => {
   }, [cookies.token]);
 
   const postClickEvent = () => {
-
     if (regex.test(title)) {
       alert("제목을 입력해주세요");
       return;
@@ -79,35 +77,9 @@ const WriterContainer = () => {
           gameidx: { idx },
         },
       });
+
       if (response.status === 200) {
         navigate(`/game/${idx}`);
-      }
-    } catch (error) {
-      alert(`Error: ${error.message}`);
-    }
-
-  };
-
-  const postSubmitEvent = async () => {
-    const [cookies] = useCookies["token"];
-    try {
-      const response = await fetch(`${process.env.REACT_APP_API_KEY}/post`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: cookies.token,
-        },
-        body: JSON.stringify({
-          title: title,
-          content: content,
-        }),
-        path: {},
-        query: {
-          gameidx: "int",
-          useridx: "int",
-        },
-      });
-      if (response.status === 200) {
-        console.log("응 성공");
       }
     } catch (error) {
       alert(`Error: ${error.message}`);
@@ -123,7 +95,7 @@ const WriterContainer = () => {
           $fontSize="large"
           placeholder="제목"
           type="text"
-          onChange={onChangeTitltEvent}
+          onChange={onChangeTitleEvent}
           value={title}
         />
         <Div $width="100%" $height="1px" $backgroundColor="black" $margin="2% 0" />
