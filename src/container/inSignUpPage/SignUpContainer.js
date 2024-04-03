@@ -21,15 +21,6 @@ import KakaoLoginBtn from "../../img/kakaoLoginMediumWide.svg";
 import { pwValueValidation } from "../../util/ValidationUtil";
 import TermsServiceContainer from "./TermsServiceContainer";
 
-const pwData = {
-  pw: {
-    key: "pw",
-    type: "pw",
-    label: "비밀번호",
-    placeholder: "8 ~ 20글자 제한",
-  },
-};
-
 const KakaoLoginStyleBtn = styled(Img)`
   width: 100%;
 `;
@@ -64,42 +55,13 @@ const SignUpContainer = () => {
   // /인증 체크
 
   useEffect(() => {
-    if (data) {
-      if (status === 200) {
-        console.log(data);
-      } else {
-        return;
-      }
+    if (status === 200) {
+      alert("회원가입에 성공하셨습니다.");
+      navigate("/signIn");
+    } else {
+      console.log(error);
     }
   }, [data, error, status, navigate]);
-
-  const [ddata, setDdata] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${process.env.REACT_APP_API_KEY}/account`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            id: idValue,
-            pw: pwValue,
-            email: emailValue,
-          }),
-        });
-        const result = await response.json();
-        setDdata(result.data);
-        if (response.status === 200) {
-          console.log(result);
-        }
-      } catch (error) {
-        console.log(`Error: ${error.message}`);
-      }
-    };
-    fetchData();
-  }, []);
 
   const submitSignUpEvent = async () => {
     if (!idCheck) {
@@ -117,7 +79,12 @@ const SignUpContainer = () => {
     if (!pwValueValidation(pwValue)) {
       return;
     }
-    await request("/account", "POST", { id: idValue, pw: pwValue, email: emailValue });
+    await request("/account", "POST", {
+      id: idValue,
+      pw: pwValue,
+      email: emailValue,
+      nickname: nicknameValue,
+    });
   };
 
   return (
@@ -142,7 +109,10 @@ const SignUpContainer = () => {
           {/* 비밀번호 인풋 */}
           <InputItem
             {...{
-              dummyInputData: pwData,
+              key: "pw",
+              type: "pw",
+              label: "비밀번호",
+              placeholder: "8 ~ 20글자 제한",
               inputValue: pwValue,
               inputChangeEvent: onChangePwEvent,
             }}

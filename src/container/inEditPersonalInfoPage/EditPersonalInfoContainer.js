@@ -9,7 +9,7 @@ import { Div } from "../../style/LayoutStyle";
 import { Img } from "../../style/ImgStyle";
 import { Link } from "react-router-dom";
 import useFetch from "../../hook/useFetch";
-import { Cookies, useCookies } from "react-cookie";
+import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { useInput } from "../../hook/useInput";
 
@@ -24,10 +24,11 @@ const FullWideLink = styled(Link)`
 
 const EditPersonalInfoContainer = () => {
   const [cookies] = useCookies(["token"]);
+  const { data, error, status, request } = useFetch();
   const [emailValue, setEmailValue] = useState("");
   const [nicknameValue, setNicknameValue] = useState("");
-  const { data, error, status, request } = useFetch();
-  const [initialdata, setInitialData] = useState(null);
+  const [initialData, setInitialData] = useState("");
+
   const { value: newEmailValue, onChangeEvent: newEmailOnChangeEvent } = useInput("");
   const { value: newNicknameValue, onChangeEvent: newNicknameOnChangeEvent } = useInput("");
   const navigate = useNavigate();
@@ -59,65 +60,50 @@ const EditPersonalInfoContainer = () => {
     fetchData();
   }, []);
 
+  //로그인 했을 때 리코일로 돌려라 준연아
 
   const saveSubmitEvent = async () => {
     await request(
       "/account/info",
       "PUT",
       {
-        email: emailValue,
-        nickname: nicknameValue,
+        email: newEmailValue,
+        nickname: newNicknameValue,
       },
       { Authorization: `Bearer ${cookies.token}` }
-
     );
   };
 
-  useEffect(() => {
-    console.log(data);
-    if (status === 200) {
-      alert("수정되었습니다");
-      navigate("/personalInfo");
-    }
-    if (status === 400) {
-      alert("요청이 유효하지 않습니다.");
-    }
-    if (status === 401) {
-      alert("토큰이 만료되었습니다.");
-    }
-  }, [data, error]);
+  // useEffect(() => {
+  //   if (status === 200) {
+  //     alert("수정되었습니다");
+  //     navigate("/personalInfo");
+  //   }
+  //   if (status === 400) {
+  //     alert("요청이 유효하지 않습니다.");
+  //   }
+  //   if (status === 401) {
+  //     alert("토큰이 만료되었습니다.");
+  //   }
+  // }, [data, error]);
 
-  const inputEmailData = {
-    email: {
-      key: "email",
-      label: "이메일",
-      placeholder: emailValue,
-    },
-
-  };
-  const inputNicknameData = {
-    nickName: {
-      key: "nickName",
-      label: "닉네임",
-      placeholder: nicknameValue,
-    },
-  };
   return (
     <EditPersonalInfoWrapper $flex="v_center_center" $width="350px">
       <Img $margin="0 0 20px 0" src={MainLogo} alt="MainLogo" />
+
       <InputItem
-        {...{
-          dummyInputData: inputEmailData,
-          inputValue: newEmailValue,
-          inputChangeEvent: newEmailOnChangeEvent,
-        }}
+        key="email"
+        label="이메일"
+        placeholder={emailValue}
+        inputValue={newEmailValue}
+        inputChangeEvent={newEmailOnChangeEvent}
       />
       <InputItem
-        {...{
-          dummyInputData: inputNicknameData,
-          inputValue: newNicknameValue,
-          inputChangeEvent: newNicknameOnChangeEvent,
-        }}
+        key="nickname"
+        label="닉네임"
+        placeholder={nicknameValue}
+        inputValue={newNicknameValue}
+        inputChangeEvent={newNicknameOnChangeEvent}
       />
       <Button
         $flex="h_center_center"
