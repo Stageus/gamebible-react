@@ -23,12 +23,17 @@ import WikiHistoryPage from "./page/WikiHistoryPage";
 import WikiHistoryContentPage from "./page/WikiHistoryContentPage";
 import EditWikiPage from "./page/EditWikiPage";
 
+import HeaderItem from "./component/HeaderItem";
+import GameListContainer from "./container/GameListNavContainer";
+
 const App = () => {
   return (
     <>
       <RecoilRoot>
         <BrowserRouter>
           <GlobalStyle />
+          <HeaderItem />
+          <GameListContainer />
           <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/signUp" element={<SignUpPage />} />
@@ -38,7 +43,7 @@ const App = () => {
             <Route path="/findID" element={<FindIDPage />} />
             <Route path="/resetPW" element={<ResetPWPage />} />
             <Route path="/changePW" element={<ChangePWPage />} />
-            <Route path="/game/:idx/community/page/:pageIdx" element={<CommunityPage />} />
+            <Route path="/game/:gameIdx/community/page/:pageIdx" element={<CommunityPage />} />
             <Route path="/game/:gameIdx/wiki" element={<WikiPage />} />
             <Route path="/alarm" element={<NotificationPage />} />
             <Route
