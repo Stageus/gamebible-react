@@ -59,14 +59,8 @@ const EditPersonalInfoContainer = () => {
     };
     fetchData();
   }, []);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     await request(`/account/info`, "GET", null, {
-  //       Authorization: `Bearer ${cookies.token}`,
-  //     });
-  //   };
-  //   fetchData();
-  // }, []);
+
+  //로그인 했을 때 리코일로 돌려라 준연아
 
   const saveSubmitEvent = async () => {
     await request(

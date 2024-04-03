@@ -34,8 +34,9 @@ const WriterContainer = () => {
   const [image, setImage] = useState([]);
   const [content, setContent] = useState("");
   const [cookies] = useCookies(["token"]);
+  const [data, setData] = useState(null);
   const contentContainer = useRef(null);
-  const { gameIdx } = useParams();
+  const { postIdx, gameIdx } = useParams();
   const navigate = useNavigate();
 
   const regex = /^\s*$/;
@@ -57,33 +58,47 @@ const WriterContainer = () => {
     postSubmitEvent();
   };
 
+  //처음 들어왔을 때 임시저장을 만들고
+  //그것을 리코일로 보내서 저장해놓기
+  //그리고 피니시 버튼을 누를 때 다시 api 호출
+
   const postContentChangeEvent = () => {
     setContent(contentContainer.current);
   };
 
   const postSubmitEvent = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_KEY}/post/?gameidx=${gameIdx}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${cookies.token}`,
-        },
-        body: JSON.stringify({
-          title: title,
-          content: `${content}`,
-        }),
-        query: {
-          gameidx: { gameIdx },
-        },
-      });
-      if (response.status === 200) {
-        navigate(`/game/${gameIdx}`);
-      }
+      const response = await fetch(
+        `${process.env.REACT_APP_API_KEY}/post/${postIdx}/?gameidx=${gameIdx}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${cookies.token}`,
+          },
+          body: JSON.stringify({
+            title: title,
+            content: `${content}`,
+          }),
+          query: {
+            gameidx: { gameIdx },
+          },
+        }
+      );
+      const result = await response.json();
+      console.log(result);
+      setData(result);
     } catch (error) {
       alert(`Error: ${error.message}`);
     }
   };
+
+  useEffect(() => {
+    // if (Result.status === 200) {
+    //   navigate(`/game/${gameIdx}`);
+    // }
+    console.log(data);
+  }, [data]);
 
   return (
     <EditorWrapper $backgroundColor="white" $width="100%" $height="100%" $padding="50px">

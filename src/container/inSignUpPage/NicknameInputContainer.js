@@ -4,16 +4,6 @@ import { nicknameValueValidation } from "../../util/ValidationUtil";
 
 import InputItem from "../../component/InputItem";
 
-const nicknameData = {
-  name: {
-    key: "nickname",
-    type: "nickname",
-    label: "닉네임",
-    placeholder: "2 ~ 20글자 제한",
-    button: "중복확인",
-  },
-};
-
 const NickInputContainer = (props) => {
   const { nicknameValue, onChangeNicknameEvent, nicknameCheck, setNicknameCheck } = props;
   const { data, error, status, request } = useFetch();
@@ -56,7 +46,11 @@ const NickInputContainer = (props) => {
       {/* 닉네임 인풋 */}
       <InputItem
         {...{
-          dummyInputData: nicknameData,
+          key: "nickname",
+          type: "nickname",
+          label: "닉네임",
+          placeholder: "2 ~ 20글자 제한",
+          button: "중복확인",
           inputValue: nicknameValue,
           inputChangeEvent: onChangeNicknameEvent,
           verificationCheckValue: nicknameCheck,

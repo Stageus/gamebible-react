@@ -7,16 +7,6 @@ import InputItem from "../../component/InputItem";
 
 import { emailValueValidation } from "../../util/ValidationUtil";
 
-const dummyEmailData = {
-  email: {
-    key: "email",
-    type: "email",
-    label: "이메일",
-    button: "인증전송",
-    placeholder: "이메일 주소 입력",
-  },
-};
-
 const EmailInputContainer = (props) => {
   const { data, error, status, request } = useFetch();
 
@@ -54,7 +44,11 @@ const EmailInputContainer = (props) => {
       {/* 이메일 인풋 */}
       <InputItem
         {...{
-          dummyInputData: dummyEmailData,
+          key: "email",
+          type: "email",
+          label: "이메일",
+          button: "인증전송",
+          placeholder: "이메일 주소 입력",
           inputValue: emailValue,
           inputChangeEvent: onChangeEmailEvent,
           verificationCheckValue: emailCheck,

@@ -11,14 +11,6 @@ import { Button } from "../../style/ButtonStyle";
 import { Div } from "../../style/LayoutStyle";
 import { Img } from "../../style/ImgStyle";
 
-const emailData = {
-  pw: {
-    key: "email",
-    label: "이메일",
-    placeholder: "가입된 이메일 주소 입력",
-  },
-};
-
 const FindIDWarpper = styled(Div)`
   position: relative;
   top: 70px;
@@ -50,7 +42,9 @@ const FindIDContainer = () => {
       <Img $margin="0 0 20px 0" src={MainLogo} alt="MainLogo" />
       <InputItem
         {...{
-          dummyInputData: emailData,
+          key: "email",
+          label: "이메일",
+          placeholder: "가입된 이메일 주소 입력",
           inputValue: emailValue,
           inputChangeEvent: onChangeEmailEvent,
         }}

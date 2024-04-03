@@ -21,15 +21,6 @@ import KakaoLoginBtn from "../../img/kakaoLoginMediumWide.svg";
 import { pwValueValidation } from "../../util/ValidationUtil";
 import TermsServiceContainer from "./TermsServiceContainer";
 
-const pwData = {
-  pw: {
-    key: "pw",
-    type: "pw",
-    label: "비밀번호",
-    placeholder: "8 ~ 20글자 제한",
-  },
-};
-
 const KakaoLoginStyleBtn = styled(Img)`
   width: 100%;
 `;
@@ -118,7 +109,10 @@ const SignUpContainer = () => {
           {/* 비밀번호 인풋 */}
           <InputItem
             {...{
-              dummyInputData: pwData,
+              key: "pw",
+              type: "pw",
+              label: "비밀번호",
+              placeholder: "8 ~ 20글자 제한",
               inputValue: pwValue,
               inputChangeEvent: onChangePwEvent,
             }}
