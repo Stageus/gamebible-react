@@ -33,16 +33,6 @@ const SearchResultsPage = () => {
       <HeaderItem />
       <GameListContainer />
       {searchResultData ? (
-        <NoResultSection
-          $flex="v_center_center"
-          $margin="100px 0 0 0"
-          $padding="0 60px"
-          $width="100vw"
-          $height="80vh"
-        >
-          <NoResultNoGameContainer />
-        </NoResultSection>
-      ) : (
         <YesResultSection
           $flex="v_center_center"
           $margin={navToggle ? "100px 0 0 300px" : "100px 0 0 0"}
@@ -52,6 +42,16 @@ const SearchResultsPage = () => {
         >
           <YesResultContainer />
         </YesResultSection>
+      ) : (
+        <NoResultSection
+          $flex="v_center_center"
+          $margin="100px 0 0 0"
+          $padding="0 60px"
+          $width="100vw"
+          $height="80vh"
+        >
+          <NoResultNoGameContainer />
+        </NoResultSection>
       )}
       <FooterWrapper>
         <FooterItem />
