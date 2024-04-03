@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import LabelText from "../../component/LabelText";
-import useFetch from "../../hook/useFetch";
 
 import MainLogo from "../../img/HeaderLogo.svg";
 
