@@ -26,10 +26,8 @@ const EditPersonalInfoContainer = () => {
   const [cookies] = useCookies(["token"]);
   const [emailValue, setEmailValue] = useState("");
   const [nicknameValue, setNicknameValue] = useState("");
-
   const { data, error, status, request } = useFetch();
   const [initialdata, setInitialData] = useState(null);
-
   const { value: newEmailValue, onChangeEvent: newEmailOnChangeEvent } = useInput("");
   const { value: newNicknameValue, onChangeEvent: newNicknameOnChangeEvent } = useInput("");
   const navigate = useNavigate();
@@ -61,6 +59,7 @@ const EditPersonalInfoContainer = () => {
     fetchData();
   }, []);
 
+
   const saveSubmitEvent = async () => {
     await request(
       "/account/info",
@@ -70,6 +69,7 @@ const EditPersonalInfoContainer = () => {
         nickname: nicknameValue,
       },
       { Authorization: `Bearer ${cookies.token}` }
+
     );
   };
 
@@ -93,6 +93,7 @@ const EditPersonalInfoContainer = () => {
       label: "이메일",
       placeholder: emailValue,
     },
+
   };
   const inputNicknameData = {
     nickName: {

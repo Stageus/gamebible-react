@@ -1,16 +1,19 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
+
 import { styled } from "styled-components";
-import { H1 } from "../style/TextStyle";
+import { H1, P } from "../style/TextStyle";
 import { Aside, Div, Nav, Section } from "../style/LayoutStyle";
+
 import GameListItem from "../component/GameListItem";
+
 import { useRecoilValue } from "recoil";
 import navToggleAtom from "../recoil/navToggleAtom";
+
 import { Link } from "react-router-dom";
 
 const GameListContainer = styled(Aside)`
   z-index: 100;
   position: fixed;
-  // left: 30px;
   top: 0;
   box-shadow: 5px 0 5px rgba(0, 0, 0, 0.2);
 `;
@@ -24,108 +27,26 @@ const NavSection = styled(Section)`
 const GameListNavContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
 
-  const GameListData = [
-    {
-      id: "1",
-      name: "리그오브레전드(League of Legends)",
-    },
-    {
-      id: "2",
-      name: "피파 온라인(FIFA online)",
-    },
-    {
-      id: "3",
-      name: "오버워치(Overwatch)",
-    },
-    {
-      id: "4",
-      name: "Game_4",
-    },
-    {
-      id: "5",
-      name: "Game_5",
-    },
-    {
-      id: "6",
-      name: "Game_6",
-    },
-    {
-      id: "7",
-      name: "Game_7",
-    },
-    {
-      id: "8",
-      name: "Game_8",
-    },
-    {
-      id: "9",
-      name: "Game_9",
-    },
-    {
-      id: "10",
-      name: "Game_10",
-    },
-    {
-      id: "11",
-      name: "Game_11",
-    },
-    {
-      id: "12",
-      name: "Game_12",
-    },
-    {
-      id: "13",
-      name: "Game_13",
-    },
-    {
-      id: "14",
-      name: "Game_14",
-    },
-    {
-      id: "15",
-      name: "Game_15",
-    },
-    {
-      id: "16",
-      name: "Game_16",
-    },
-    {
-      id: "17",
-      name: "Game_17",
-    },
-    {
-      id: "18",
-      name: "Game_18",
-    },
-    {
-      id: "19",
-      name: "Game_19",
-    },
-    {
-      id: "20",
-      name: "Game_20",
-    },
-    {
-      id: "21",
-      name: "Game_21",
-    },
-    {
-      id: "22",
-      name: "Game_22",
-    },
-    {
-      id: "23",
-      name: "Game_23",
-    },
-    {
-      id: "Game_24",
-      name: "Game_24",
-    },
-    {
-      id: "Game_25",
-      name: "Game_25",
-    },
-  ];
+  const [gameListData, setGameListData] = useState(null);
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    const gameList = async () => {
+      const response = await fetch(`${process.env.REACT_APP_API_KEY}/game?page=${page}`);
+      const result = await response.json();
+
+      if (response.status === 200) {
+        setGameListData(result.data.gameList);
+      } else {
+        alert(result.message);
+      }
+    };
+    gameList();
+  }, []);
+
+  useEffect(() => {
+    setPage(page + 1);
+  }, [gameListData]);
 
   return (
     navToggle && (
@@ -140,16 +61,16 @@ const GameListNavContainer = () => {
           </H1>
         </Div>
         <GameListNav
-          $flex="v_center_center"
+          $flex="h_start_center"
           $width="100%"
           $backgroundColor="white"
           $padding="0 0 0 30px"
         >
-          <NavSection $width="100%">
-            {GameListData.map((elem) => {
+          <NavSection $width="100%" $height="100%">
+            {gameListData?.map((elem) => {
               return (
-                <Link key={`${elem.id}`} to={`/game/${elem.id}/community`}>
-                  <GameListItem key={elem.id} data={elem} />
+                <Link key={`${elem.idx}`} to={`/game/${elem.idx}/community`}>
+                  <GameListItem key={elem.idx} data={elem} />
                 </Link>
               );
             })}

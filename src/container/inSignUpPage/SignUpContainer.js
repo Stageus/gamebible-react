@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import useFetch from "../../hook/useFetch";
-import useConfirm from "../../hook/useConfirm";
 import { useInput } from "../../hook/useInput";
 import { useClick } from "../../hook/useClick";
 import { useNavigate } from "react-router-dom";

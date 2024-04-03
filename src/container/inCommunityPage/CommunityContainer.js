@@ -27,9 +27,7 @@ const GameContentLayout = styled(Section)`
   width: calc(100vw - 120px);
   transition: padding 0.1s ease;
 `;
-const ButtonWrapper = styled(Div)`
-  // border: 2px solid red;
-`;
+const ButtonWrapper = styled(Div)``;
 
 const CommunityContainer = () => {
   const { idx, pageIdx } = useParams();
@@ -57,6 +55,31 @@ const CommunityContainer = () => {
   }, [pageIdx]);
 
   const navToggle = useRecoilValue(navToggleAtom);
+
+  const { idx, pageIdx } = useParams();
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_API_KEY}/post?gameidx=${idx}&page=${pageIdx}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const result = await response.json();
+        setData(result);
+        console.log(result);
+      } catch (error) {
+        console.log(`Error: ${error.message}`);
+      }
+    };
+    fetchData();
+  }, [pageIdx]);
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>

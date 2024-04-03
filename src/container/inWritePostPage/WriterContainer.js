@@ -14,6 +14,7 @@ import { useInput } from "../../hook/useInput";
 import { useCookies } from "react-cookie";
 import { useParams, useNavigate } from "react-router-dom";
 
+
 const EditorWrapper = styled(Div)`
   border-radius: 4px;
 `;
@@ -47,6 +48,7 @@ const WriterContainer = () => {
   }, [cookies.token]);
 
   const postClickEvent = () => {
+
     if (regex.test(title)) {
       alert("제목을 입력해주세요");
       return;
@@ -79,6 +81,33 @@ const WriterContainer = () => {
       });
       if (response.status === 200) {
         navigate(`/game/${idx}`);
+      }
+    } catch (error) {
+      alert(`Error: ${error.message}`);
+    }
+
+  };
+
+  const postSubmitEvent = async () => {
+    const [cookies] = useCookies["token"];
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_KEY}/post`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: cookies.token,
+        },
+        body: JSON.stringify({
+          title: title,
+          content: content,
+        }),
+        path: {},
+        query: {
+          gameidx: "int",
+          useridx: "int",
+        },
+      });
+      if (response.status === 200) {
+        console.log("응 성공");
       }
     } catch (error) {
       alert(`Error: ${error.message}`);

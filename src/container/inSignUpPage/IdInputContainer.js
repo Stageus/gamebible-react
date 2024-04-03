@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useFetch from "../../hook/useFetch";
+
 import { idValueValidation } from "../../util/ValidationUtil";
 
 import InputItem from "../../component/InputItem";
@@ -17,6 +18,7 @@ const dummyIdData = {
 const IdInputContainer = (props) => {
   const { idValue, onChangeIdEvent, idCheck, setIdCheck } = props;
   const { data, error, status, request } = useFetch();
+
 
   useEffect(() => {
     if (status === 200) {

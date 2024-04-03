@@ -15,10 +15,10 @@ const useFetch = () => {
         option.body = JSON.stringify(body);
       }
       const response = await fetch(`${process.env.REACT_APP_API_KEY}${path}`, option);
-
       setStatus(response.status);
       const result = await response.json();
       setData(result);
+      
     } catch (error) {
       console.log(error);
       setError(error);
