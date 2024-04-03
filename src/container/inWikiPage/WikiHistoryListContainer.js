@@ -1,6 +1,6 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { useRecoilValue } from "recoil";
 import navToggleAtom from "../../recoil/navToggleAtom";
@@ -34,59 +34,33 @@ const GameContentLayout = styled(Section)`
 const WikiHistoryListContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
 
-  const WikiHistoryListDummyData = [
-    {
-      idx: "history_1",
-      content: "2024-02-29 16:58:36 쩡태은",
-    },
-    {
-      idx: "history_2",
-      content: "2024-02-29 16:54:11 김기쭈",
-    },
-    {
-      idx: "history_3",
-      content: "2024-02-29 16:51:41 쪼경은",
-    },
-    {
-      idx: "history_4",
-      content: "2024-02-29 16:39:44 최민썩",
-    },
-    {
-      idx: "history_5",
-      content: "2024-02-28 21:11:25 뱅준연",
-    },
-    {
-      idx: "history_6",
-      content: "2024-02-28 21:03:15 박해쭈",
-    },
-    {
-      idx: "history_7",
-      content: "2024-02-29 16:58:36 쩡태은",
-    },
-    {
-      idx: "history_8",
-      content: "2024-02-28 21:02:01 김기쭈",
-    },
-    {
-      idx: "history_9",
-      content: "2024-02-28 20:58:27 쪼경은",
-    },
-    {
-      idx: "history_10",
-      content: "2024-02-24 11:58:27 최민썩",
-    },
-    {
-      idx: "history_11",
-      content: "2024-02-24 09:28:30 뱅준연",
-    },
-  ];
+  let { gameIdx } = useParams();
+
+  const [historyListData, setHistoryListData] = useState(null);
+
+  useEffect(() => {
+    const wikiEditHistory = async () => {
+      const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/${gameIdx}/history`);
+      const result = await response.json();
+
+      if (response.status === 200) {
+        setHistoryListData(result.data);
+        console.log("result.data: ", result.data);
+      } else {
+        alert(result.message);
+      }
+    };
+    wikiEditHistory();
+  }, []);
+
+  useEffect(() => {}, [historyListData]);
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
       <BannerImgItem />
       <Section $flex="v_center_start" $width="100%">
         <SwitchTabLayout $flex="h_center_center">
-          <Link to="/game/:idx/community">
+          <Link to={`/game/${gameIdx}/community`}>
             <TabBtn
               $width="150px"
               $height="50px"
@@ -120,8 +94,8 @@ const WikiHistoryListContainer = () => {
                 <GameTitleLayout $width="60%" $fontWeight="bold">
                   리그오브레전드(League of legends)
                 </GameTitleLayout>
-                <Link to={`../game/:idx/wiki`}>
-                  <Div $flex="h_end_start" $width="30%">
+                <Link to={`/game/${gameIdx}/wiki`}>
+                  <Div $flex="h_end_start">
                     <ImgTextBtnUtil
                       img={backImg}
                       text={"BACK"}
@@ -132,10 +106,10 @@ const WikiHistoryListContainer = () => {
                 </Link>
               </Div>
               <HistoryListLayout $flex="v_center_start" $width="100%">
-                {WikiHistoryListDummyData.map((elem) => {
+                {historyListData?.map((elem) => {
                   return (
                     <Link key={`${elem.idx}`} to={`./${elem.idx}`}>
-                      <li>{elem.content}</li>
+                      <li>{elem.title}</li>
                     </Link>
                   );
                 })}
