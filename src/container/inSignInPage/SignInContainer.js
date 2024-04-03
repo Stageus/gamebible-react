@@ -49,18 +49,17 @@ const SignInContainer = () => {
   }, [cookies.token, navigate]);
 
   useEffect(() => {
-    if (data) {
-      if (status === 400) {
-        alert("유효하지 않은 아이디 입니다.");
-      }
-      if (status === 401) {
-        alert("유효하지 않은 비밀번호 입니다.");
-      }
+    if (status === 400) {
+      alert("유효하지 않은 아이디 입니다.");
+    }
+    if (status === 401) {
+      alert("유효하지 않은 비밀번호 입니다.");
     } else if (data && data.token) {
       setCookies("token", data.token, { path: "/" });
       navigate("/");
     }
   }, [data, error, status, setCookies, navigate]);
+
 
   const submitData = async () => {
     if (!idValueValidation(idValue)) {

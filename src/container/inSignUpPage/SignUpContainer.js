@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import useFetch from "../../hook/useFetch";
-import useConfirm from "../../hook/useConfirm";
 import { useInput } from "../../hook/useInput";
 import { useClick } from "../../hook/useClick";
 import { useNavigate } from "react-router-dom";
@@ -14,37 +13,15 @@ import { Section } from "../../style/LayoutStyle";
 import IdInputContainer from "./IdInputContainer.js";
 import EmailInputContainer from "../../container/inSignUpPage/EmailInputContainer";
 import EmailAuthInputContainer from "../../container/inSignUpPage/EmailAuthInputContainer";
+import NicknameInputContainer from "../../container/inSignUpPage/NicknameInputContainer.js";
 import InputItem from "../../component/InputItem";
 import MainLogo from "../../img/HeaderLogo.svg";
 import KakaoLoginBtn from "../../img/kakaoLoginMediumWide.svg";
 
-import {
-  idValueValidation,
-  pwValueValidation,
-  emailValueValidation,
-  nicknameValueValidation,
-} from "../../util/ValidationUtil";
+import { pwValueValidation } from "../../util/ValidationUtil";
 import TermsServiceContainer from "./TermsServiceContainer";
 
-const dummyVerificationData = {
-  verificationCond: {
-    key: "verificationCode",
-    type: "verificationCode",
-    label: "인증번호",
-    button: "인증확인",
-  },
-};
-
-const nicknameData = {
-  name: {
-    key: "nickname",
-    type: "nickname",
-    label: "닉네임",
-    placeholder: "2 ~ 20글자 제한",
-  },
-};
-
-const dummyPWData = {
+const pwData = {
   pw: {
     key: "pw",
     type: "pw",
@@ -71,6 +48,7 @@ const SignUpContainer = () => {
   const [idCheck, setIdCheck] = useState(false);
   const [emailCheck, setEmailCheck] = useState(false);
   const [emailAuthCheck, setEmailAuthCheck] = useState(false);
+  const [nicknameCheck, setNicknameCheck] = useState(false);
   // /인증 체크
 
   const {
@@ -88,15 +66,44 @@ const SignUpContainer = () => {
   useEffect(() => {
     if (data) {
       if (status === 200) {
+        console.log(data);
       } else {
         return;
       }
     }
   }, [data, error, status, navigate]);
 
+  const [ddata, setDdata] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_KEY}/account`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: idValue,
+            pw: pwValue,
+            email: emailValue,
+          }),
+        });
+        const result = await response.json();
+        setDdata(result.data);
+        if (response.status === 200) {
+          console.log(result);
+        }
+      } catch (error) {
+        console.log(`Error: ${error.message}`);
+      }
+    };
+    fetchData();
+  }, []);
+
   const submitSignUpEvent = async () => {
     if (!idCheck) {
-      return alert("아이디 중복 인증을 확인해주세요.");
+      return alert("아이디 중복을 확인해주세요.");
     }
     if (!emailCheck) {
       return alert("이메일 인증을 확인해주세요");
@@ -104,10 +111,10 @@ const SignUpContainer = () => {
     if (!emailAuthCheck) {
       return alert("이메일 인증을 확인해주세요");
     }
-    if (!pwValueValidation(pwValue)) {
-      return;
+    if (!nicknameCheck) {
+      return alert("닉네임 중복을 확인해주세요");
     }
-    if (!nicknameValueValidation(nicknameValue)) {
+    if (!pwValueValidation(pwValue)) {
       return;
     }
     await request("/account", "POST", { id: idValue, pw: pwValue, email: emailValue });
@@ -128,18 +135,14 @@ const SignUpContainer = () => {
           <EmailAuthInputContainer {...{ emailAuthCheck, setEmailAuthCheck }} />
           {/* /이메일 인증번호 인풋 */}
           {/* 닉네임 인풋 */}
-          <InputItem
-            {...{
-              dummyInputData: nicknameData,
-              inputValue: nicknameValue,
-              inputChangeEvent: onChangeNicknameEvent,
-            }}
-          ></InputItem>
+          <NicknameInputContainer
+            {...{ nicknameValue, onChangeNicknameEvent, nicknameCheck, setNicknameCheck }}
+          />
           {/* /닉네임 인풋 */}
           {/* 비밀번호 인풋 */}
           <InputItem
             {...{
-              dummyInputData: dummyPWData,
+              dummyInputData: pwData,
               inputValue: pwValue,
               inputChangeEvent: onChangePwEvent,
             }}

@@ -18,6 +18,7 @@ const useFetch = () => {
       setStatus(response.status);
       const result = await response.json();
       setData(result);
+      
     } catch (error) {
       console.log(error);
       setError(error);

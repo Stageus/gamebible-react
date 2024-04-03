@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import LabelText from "../../component/LabelText";
-import useFetch from "../../hook/useFetch";
 
 import MainLogo from "../../img/HeaderLogo.svg";
 
@@ -24,46 +23,66 @@ const FullWideLink = styled(Link)`
 
 const PersonalInfoContainer = () => {
   const navigate = useNavigate();
-  const [idInfo, setIdInfo] = useState("");
   const [emailInfo, setEmailInfo] = useState("");
   const [nicknameInfo, setNicknameInfo] = useState("");
 
-  const { data, error, status, request } = useFetch();
+  // const { data, error, status, request } = useFetch();
+  const [data, setData] = useState("");
 
-  const [cookies] = useCookies(["token"]);
+  const [cookies, removeCookie] = useCookies(["token"]);
+  useEffect(() => {
+    const fetchData = async () => {
+      if (cookies.token) {
+        try {
+          const response = await fetch(`${process.env.REACT_APP_API_KEY}/account/info`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${cookies.token}`,
+            },
+          });
+          const result = await response.json();
+          setData(result.data);
+          if (response.status === 200) {
+            setEmailInfo(result.data.email);
+            setNicknameInfo(result.data.nickname);
+          }
+        } catch (error) {
+          console.log(`Error: ${error.message}`);
+        }
+      } else {
+        navigate("/");
+      }
+    };
+
+    fetchData();
+  }, [cookies.token, navigate]);
 
   const DeleteClickEvent = async () => {
     const result = window.confirm("정말로 탈퇴하시겠습니까?");
     if (result) {
-      await request("/account", "DELETE", null, { Authorization: cookies });
-      navigate("/");
-    } else {
-      return;
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_KEY}/account`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: cookies.token,
+          },
+        });
+        const result = await response.json();
+        setData(result);
+        if (response.status === 200) {
+          alert("탈퇴가 완료 되었습니다.");
+          removeCookie("token");
+          navigate("/");
+        }
+      } catch (error) {
+        alert(`Error: ${error.message}`);
+      }
     }
   };
-  const getInfo = async () => {
-    if (cookies.token) {
-      await request("/account/info", "GET", null, { Authorization: cookies });
-    } else {
-      navigate("/");
-    }
-  };
-
-  useEffect(() => {
-    getInfo();
-    if (data) {
-      setIdInfo(data.id);
-      setEmailInfo(data.email);
-      setNicknameInfo(data.nickname);
-    }
-  }, [cookies.token, navigate, data]);
 
   const labelTextData = {
-    id: {
-      key: "id",
-      label: "아이디",
-      text: idInfo,
-    },
     email: {
       key: "email",
       label: "이메일",

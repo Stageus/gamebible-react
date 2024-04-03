@@ -128,7 +128,7 @@ const HeaderItem = () => {
               $margin="0 10% 0 0"
               $borderRadius="5px"
             >
-              <WhiteColorLink to="/SignInPage">로그인</WhiteColorLink>
+              <WhiteColorLink to="/signIn">로그인</WhiteColorLink>
             </Button>
             <Button
               $padding="0 10px"
@@ -138,7 +138,7 @@ const HeaderItem = () => {
               $margin="0 10% 0 0"
               $borderRadius="5px"
             >
-              <WhiteColorLink to="/SignUpPage">회원가입</WhiteColorLink>
+              <WhiteColorLink to="/signUp">회원가입</WhiteColorLink>
             </Button>
           </>
         )}

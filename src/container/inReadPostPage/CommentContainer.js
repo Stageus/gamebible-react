@@ -6,6 +6,7 @@ import { Span } from "../../style/TextStyle";
 import { Div } from "../../style/LayoutStyle";
 import { Button } from "../../style/ButtonStyle";
 import CommentListItem from "../../component/CommentListItem";
+import { useParams } from "react-router-dom";
 
 const CommentInput = styled(Input)`
   &:focus {
@@ -24,10 +25,11 @@ const OverFlowDiv = styled(Div)`
   overflow: auto;
 `;
 
-const dummyUserData = { userName: "홍길금" };
-
 const CommentContainer = () => {
   const [commentListData, setCommentListData] = useState([]);
+  const [lastidx, setLastIdx] = useState(0);
+  const { pageIdx } = useParams();
+  console.log(pageIdx);
 
   useEffect(() => {
     setCommentListData([
@@ -62,6 +64,31 @@ const CommentContainer = () => {
         createdAt: "작성일_5",
       },
     ]);
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_KEY}/comment`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          query: {
+            lastidx: lastidx,
+            postidx: pageIdx,
+          },
+        });
+        const result = await response.json();
+        console.log(result);
+        if (response.status === 200) {
+          console.log("확인");
+        }
+      } catch (error) {
+        console.log(`Error: ${error.message}`);
+      }
+    };
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -122,9 +149,7 @@ const CommentContainer = () => {
         </Span>
       </Div>
       <Div $flex="h_center_center" $width="100%">
-        <Span $width="10%" $color="white">
-          {dummyUserData.userName}
-        </Span>
+        <Span $width="10%" $color="white"></Span>
         <CommentInput
           type="text"
           $color="white"

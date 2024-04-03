@@ -1,13 +1,11 @@
 import React from "react";
-
+import { useNavigate } from "react-router-dom";
 import HeaderItem from "../component/HeaderItem";
 import SignInContainer from "../container/inSignInPage/SignInContainer";
 import FooterItem from "../component/FooterItem";
 
 import styled from "styled-components";
 import { Div } from "../style/LayoutStyle";
-
-const userIdx = "null";
 
 const CenterDiv = styled(Div)`
   position: relative;
@@ -17,7 +15,7 @@ const CenterDiv = styled(Div)`
 const SignInPage = () => {
   return (
     <>
-      <HeaderItem {...{ userIdx }} />
+      <HeaderItem />
       <CenterDiv $width="100vw" $height="100vh" $flex="h_center_center">
         <SignInContainer />
       </CenterDiv>

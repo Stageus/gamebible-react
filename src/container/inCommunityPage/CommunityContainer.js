@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Link, useParams } from "react-router-dom";
 
@@ -30,6 +30,30 @@ const GameContentLayout = styled(Section)`
 const ButtonWrapper = styled(Div)``;
 
 const CommunityContainer = () => {
+  const { idx, pageIdx } = useParams();
+  const [data, setData] = useState({});
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_API_KEY}/post?gameidx=${idx}&page=${pageIdx}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const result = await response.json();
+        setData(result);
+        console.log(result);
+      } catch (error) {
+        console.log(`Error: ${error.message}`);
+      }
+    };
+    fetchData();
+  }, [pageIdx]);
+
   const navToggle = useRecoilValue(navToggleAtom);
 
   const { idx, pageIdx } = useParams();
@@ -121,7 +145,7 @@ const CommunityContainer = () => {
                 </Div>
               </Div>
             </CommunityTitleWrapper>
-            <PostListContainer />
+            <PostListContainer {...{ idx, pageIdx }} />
             <ButtonWrapper $width="100%" $flex="h_end_center" $padding="0 30px">
               <Link to={`/game/${idx}/writePost`}>
                 <Button
