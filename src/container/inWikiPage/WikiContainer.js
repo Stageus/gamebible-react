@@ -35,7 +35,7 @@ const GameContentLayout = styled(Section)`
 const WikiContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
 
-  let { idx } = useParams();
+  let { gameIdx } = useParams();
 
   const [wikiContentData, setWikiContentData] = useState(null);
 
@@ -44,7 +44,7 @@ const WikiContainer = () => {
 
   useEffect(() => {
     const wikiContent = async () => {
-      const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/${idx}/wiki`);
+      const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/${gameIdx}/wiki`);
       const result = await response.json();
       setTitle(result.data[0].title);
       setContent(result.data[0].content);
@@ -66,7 +66,7 @@ const WikiContainer = () => {
       <BannerImgItem />
       <Section $flex="v_center_start" $width="100%">
         <SwitchTabLayout $flex="h_center_center">
-          <Link to={`/game/${idx}/community`}>
+          <Link to={`/game/${gameIdx}/community`}>
             <TabBtn
               $width="150px"
               $height="50px"

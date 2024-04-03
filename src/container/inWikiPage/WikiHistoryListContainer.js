@@ -34,13 +34,13 @@ const GameContentLayout = styled(Section)`
 const WikiHistoryListContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
 
-  let { idx } = useParams();
+  let { gameIdx } = useParams();
 
   const [historyListData, setHistoryListData] = useState(null);
 
   useEffect(() => {
     const wikiEditHistory = async () => {
-      const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/${idx}/history`);
+      const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/${gameIdx}/history`);
       const result = await response.json();
 
       if (response.status === 200) {
@@ -60,7 +60,7 @@ const WikiHistoryListContainer = () => {
       <BannerImgItem />
       <Section $flex="v_center_start" $width="100%">
         <SwitchTabLayout $flex="h_center_center">
-          <Link to={`/game/${idx}/community`}>
+          <Link to={`/game/${gameIdx}/community`}>
             <TabBtn
               $width="150px"
               $height="50px"
@@ -94,7 +94,7 @@ const WikiHistoryListContainer = () => {
                 <GameTitleLayout $width="60%" $fontWeight="bold">
                   리그오브레전드(League of legends)
                 </GameTitleLayout>
-                <Link to={`/game/${idx}/wiki`}>
+                <Link to={`/game/${gameIdx}/wiki`}>
                   <Div $flex="h_end_start">
                     <ImgTextBtnUtil
                       img={backImg}

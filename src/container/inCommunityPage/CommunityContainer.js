@@ -1,6 +1,6 @@
-import React from "react";
+import { React, useEffect, useState } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { styled } from "styled-components";
 import { Div, Article, Section } from "../../style/LayoutStyle";
@@ -13,8 +13,6 @@ import navToggleAtom from "../../recoil/navToggleAtom";
 
 import BannerImgItem from "../../component/BannerImgItem";
 import PostListContainer from "../inGamePage/PostListContainer";
-
-import { useParams } from "react-router-dom";
 
 const TabBtn = styled(Button)`
   border-right: 1px solid ${setColor("major")};
@@ -34,7 +32,30 @@ const ButtonWrapper = styled(Div)``;
 const CommunityContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
 
-  let { idx } = useParams();
+  const { idx, pageIdx } = useParams();
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_API_KEY}/post?gameidx=${idx}&page=${pageIdx}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const result = await response.json();
+        setData(result);
+        console.log(result);
+      } catch (error) {
+        console.log(`Error: ${error.message}`);
+      }
+    };
+    fetchData();
+  }, [pageIdx]);
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>

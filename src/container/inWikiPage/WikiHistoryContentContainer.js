@@ -35,7 +35,7 @@ const GameContentLayout = styled(Section)`
 const WikiHistoryContentContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
 
-  let { idx, historyIdx } = useParams();
+  let { gameIdx, historyIdx } = useParams();
 
   const [historyContentData, setHistoryContentData] = useState(null);
   const [writer, setWriter] = useState(null);
@@ -45,7 +45,7 @@ const WikiHistoryContentContainer = () => {
   useEffect(() => {
     const wikiEditHistoryContent = async () => {
       const response = await fetch(
-        `${process.env.REACT_APP_API_KEY}/game/${idx}/history/${historyIdx}`
+        `${process.env.REACT_APP_API_KEY}/game/${gameIdx}/history/${historyIdx}`
       );
       const result = await response.json();
       setWriter(result.data[0].user_idx);
@@ -54,7 +54,7 @@ const WikiHistoryContentContainer = () => {
 
       if (response.status === 200) {
         setHistoryContentData(result.data);
-        console.log("result.data: ", result.data);
+        // console.log("result.data: ", result.data);
       } else {
         alert(result.message);
       }
@@ -67,7 +67,7 @@ const WikiHistoryContentContainer = () => {
       <BannerImgItem />
       <Section $flex="v_center_start" $width="100%">
         <SwitchTabLayout $flex="h_center_center">
-          <Link to={`/game/${idx}/community`}>
+          <Link to={`/game/${gameIdx}/community`}>
             <TabBtn
               $width="150px"
               $height="50px"
@@ -101,7 +101,7 @@ const WikiHistoryContentContainer = () => {
                 <GameTitleLayout $width="60%" $fontWeight="bold">
                   리그오브레전드(League of legends)
                 </GameTitleLayout>
-                <Link to={`../game/${idx}/wiki/history`}>
+                <Link to={`../game/${gameIdx}/wiki/history`}>
                   <Div $flex="h_end_start">
                     <ImgTextBtnUtil
                       img={backImg}

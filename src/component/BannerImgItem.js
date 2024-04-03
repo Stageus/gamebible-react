@@ -11,7 +11,7 @@ const BannerImg = styled(Img)`
 `;
 
 const BannerImgItem = () => {
-  let { idx } = useParams();
+  let { gameIdx } = useParams();
 
   const [bannerImgData, setBannerImgData] = useState(null);
 
@@ -19,7 +19,7 @@ const BannerImgItem = () => {
 
   useEffect(() => {
     const bannerImgItem = async () => {
-      const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/${idx}/banner`);
+      const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/${gameIdx}/banner`);
       const result = await response.json();
       setBannerImg(result.data[0].imgPath);
 
