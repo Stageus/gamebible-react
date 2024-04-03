@@ -38,9 +38,10 @@ const WikiHistoryContentContainer = () => {
   let { gameIdx, historyIdx } = useParams();
 
   const [historyContentData, setHistoryContentData] = useState(null);
-  const [writer, setWriter] = useState(null);
+  const [writer, setWriter] = useState("");
   const [content, setContent] = useState(null);
   const [createdAt, setCreatedAt] = useState(null);
+  const [title, setTitle] = useState("");
 
   useEffect(() => {
     const wikiEditHistoryContent = async () => {
@@ -54,12 +55,20 @@ const WikiHistoryContentContainer = () => {
 
       if (response.status === 200) {
         setHistoryContentData(result.data);
-        // console.log("result.data: ", result.data);
       } else {
         alert(result.message);
       }
     };
+    const getTitle = async () => {
+      const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/${gameIdx}/wiki`);
+      const result = await response.json();
+
+      if (response.status === 200) {
+        setTitle(result.data[0].title);
+      }
+    };
     wikiEditHistoryContent();
+    getTitle();
   }, []);
 
   return (
@@ -99,7 +108,7 @@ const WikiHistoryContentContainer = () => {
             <Article $width="100%">
               <Div $flex="h_between_start" $width="100%" $margin="0 0 20px 0">
                 <GameTitleLayout $width="60%" $fontWeight="bold">
-                  리그오브레전드(League of legends)
+                  {title}
                 </GameTitleLayout>
                 <Link to={`../game/${gameIdx}/wiki/history`}>
                   <Div $flex="h_end_start">
@@ -122,7 +131,7 @@ const WikiHistoryContentContainer = () => {
                 {`${createdAt} ${writer}`}
               </HistoryWriterLayout>
               <HistoryContentLayout $flex="v_center_start" $width="100%">
-                {`${content}`}
+                {content}
               </HistoryContentLayout>
             </Article>
           </Section>
