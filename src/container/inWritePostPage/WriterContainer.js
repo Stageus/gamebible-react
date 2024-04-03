@@ -30,7 +30,7 @@ const EditorContainer = styled(Div)`
 `;
 
 const WriterContainer = () => {
-  const { value: title, onChangeEvent: onChangeTitltEvent } = useInput("");
+  const { value: title, onChangeEvent: onChangeTitleEvent } = useInput("");
   const [image, setImage] = useState([]);
   const [content, setContent] = useState("");
   const [cookies] = useCookies(["token"]);
@@ -77,6 +77,7 @@ const WriterContainer = () => {
           gameidx: { idx },
         },
       });
+
       if (response.status === 200) {
         navigate(`/game/${idx}`);
       }
@@ -94,7 +95,7 @@ const WriterContainer = () => {
           $fontSize="large"
           placeholder="제목"
           type="text"
-          onChange={onChangeTitltEvent}
+          onChange={onChangeTitleEvent}
           value={title}
         />
         <Div $width="100%" $height="1px" $backgroundColor="black" $margin="2% 0" />

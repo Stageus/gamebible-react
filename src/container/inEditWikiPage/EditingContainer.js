@@ -30,29 +30,20 @@ const EditPersonalInfoContainer = () => {
   const { data, error, status, request } = useFetch();
   const [initialdata, setInitialData] = useState(null);
 
-  const { value: newEmailValue, onChangeEvent: newEmailOnChangeEvent } = useInput("");
-  const { value: newNicknameValue, onChangeEvent: newNicknameOnChangeEvent } = useInput("");
-  const navigate = useNavigate();
+  let { gameIdx, historyIdx } = useParams();
+  console.log("historyIdx: ", historyIdx);
+  console.log("gameIdx: ", gameIdx);
 
   useEffect(() => {
     const fetchData = async () => {
-      if (cookies.token) {
-        try {
-          const response = await fetch(`${process.env.REACT_APP_API_KEY}/account/info`, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${cookies.token}`,
-            },
-          });
-          const result = await response.json();
-          setInitialData(result.data);
-          if (response.status === 200) {
-            setEmailValue(result.data.email);
-            setNicknameValue(result.data.nickname);
-          }
-        } catch (error) {
-          console.log(`Error: ${error.message}`);
+      const response = await fetch(
+        `${process.env.REACT_APP_API_KEY}/game/${gameIdx}/wiki/${historyIdx}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${cookies.token}`,
+          },
         }
       } else {
         navigate("/");

@@ -37,6 +37,7 @@ const WikiHistoryListContainer = () => {
   let { gameIdx } = useParams();
 
   const [historyListData, setHistoryListData] = useState(null);
+  const [title, setTitle] = useState(null);
 
   useEffect(() => {
     const wikiEditHistory = async () => {
@@ -50,7 +51,16 @@ const WikiHistoryListContainer = () => {
         alert(result.message);
       }
     };
+    const getTitle = async () => {
+      const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/${gameIdx}/wiki`);
+      const result = await response.json();
+
+      if (response.status === 200) {
+        setTitle(result.data[0].title);
+      }
+    };
     wikiEditHistory();
+    getTitle();
   }, []);
 
   useEffect(() => {}, [historyListData]);
@@ -92,7 +102,7 @@ const WikiHistoryListContainer = () => {
             <Article $width="100%">
               <Div $flex="h_between_start" $width="100%" $margin="0 0 20px 0">
                 <GameTitleLayout $width="60%" $fontWeight="bold">
-                  리그오브레전드(League of legends)
+                  {title}
                 </GameTitleLayout>
                 <Link to={`/game/${gameIdx}/wiki`}>
                   <Div $flex="h_end_start">
