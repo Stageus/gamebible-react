@@ -35,7 +35,7 @@ const GameContentLayout = styled(Section)`
 const WikiContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
 
-  let { gameIdx } = useParams();
+  let { gameIdx, pageIdx } = useParams();
 
   const [wikiContentData, setWikiContentData] = useState(null);
 
@@ -66,7 +66,7 @@ const WikiContainer = () => {
       <BannerImgItem />
       <Section $flex="v_center_start" $width="100%">
         <SwitchTabLayout $flex="h_center_center">
-          <Link to={`/game/${gameIdx}/community`}>
+          <Link to={`/game/${gameIdx}/community/page/${pageIdx}`}>
             <TabBtn
               $width="150px"
               $height="50px"

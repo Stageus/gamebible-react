@@ -57,7 +57,8 @@ const MenuNullUrl = [
   "/alarm",
 ];
 
-const HeaderItem = () => {
+const HeaderItem = (props) => {
+  const { inputValue, onChangeEvent, onSearchEvent } = props;
   const location = useLocation();
   const [navToggle, setNavToggle] = useRecoilState(navToggleAtom);
   const menuIconClickEvent = () => {
@@ -89,6 +90,8 @@ const HeaderItem = () => {
           $backgroundColor="lightGray"
           $fontSize="small"
           $padding="0 2%"
+          value={inputValue}
+          onChange={onChangeEvent}
         />
         <CursorPointerDiv>
           <SearchIconImg src={SearchIcon} alt="SearchIcon" $height="60%" />

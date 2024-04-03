@@ -25,8 +25,9 @@ const BannerImgItem = () => {
 
       if (response.status === 200) {
         setBannerImgData(result.data);
-      } else {
-        alert(result.message);
+      }
+      if (response.status === 500) {
+        console.log(result.message);
       }
     };
     bannerImgItem();

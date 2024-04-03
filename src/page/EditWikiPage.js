@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import HeaderItem from "../component/HeaderItem";
-import GameListNavContainer from "../container/GameListNavContainer";
 import EditWikiContainer from "../container/inEditWikiPage/EditWikiContainer";
 import FooterItem from "../component/FooterItem";
 
@@ -15,12 +13,8 @@ const ContainerWrapper = styled(Section)`
 `;
 
 const EditWikiPage = () => {
-  const userIdx = "1";
-
   return (
     <>
-      <HeaderItem {...{ userIdx }} />
-      <GameListNavContainer />
       <ContainerWrapper $flex="v_center_center">
         <EditWikiContainer />
       </ContainerWrapper>
