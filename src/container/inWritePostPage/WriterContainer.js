@@ -35,7 +35,7 @@ const WriterContainer = () => {
   const [content, setContent] = useState("");
   const [cookies] = useCookies(["token"]);
   const contentContainer = useRef(null);
-  const { idx } = useParams();
+  const { gameIdx } = useParams();
   const navigate = useNavigate();
 
   const regex = /^\s*$/;
@@ -63,7 +63,7 @@ const WriterContainer = () => {
 
   const postSubmitEvent = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_KEY}/post/?gameidx=${idx}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_KEY}/post/?gameidx=${gameIdx}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -74,11 +74,11 @@ const WriterContainer = () => {
           content: `${content}`,
         }),
         query: {
-          gameidx: { idx },
+          gameidx: { gameIdx },
         },
       });
       if (response.status === 200) {
-        navigate(`/game/${idx}`);
+        navigate(`/game/${gameIdx}`);
       }
     } catch (error) {
       alert(`Error: ${error.message}`);

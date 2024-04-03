@@ -27,7 +27,6 @@ const EmailInputContainer = (props) => {
   // /인풋 상태
 
   useEffect(() => {
-    console.log(data);
     if (status === 200) {
       alert("이메일을 전송했습니다.");
       setEmailCheck(true);

@@ -31,28 +31,6 @@ const ButtonWrapper = styled(Div)``;
 
 const CommunityContainer = () => {
   const { gameIdx, pageIdx } = useParams();
-  const [data, setData] = useState({});
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_API_KEY}/post?gameidx=${gameIdx}&page=${pageIdx}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        const result = await response.json();
-        setData(result);
-        console.log(result);
-      } catch (error) {
-        console.log(`Error: ${error.message}`);
-      }
-    };
-    fetchData();
-  }, [pageIdx]);
 
   const navToggle = useRecoilValue(navToggleAtom);
 

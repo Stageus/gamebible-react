@@ -17,37 +17,35 @@ const PostListItemLayout = styled(Article)`
 // `;
 
 const PostListItem = (props) => {
-  const { idx, title, nickname, view, createdAt } = props.data;
+  const { title, nickname, view, createdAt } = props.data;
 
   return (
-    <Link to={`./post/${idx}`}>
-      <PostListItemLayout
-        $flex="h_center_center"
-        $width="100%"
-        $height="40px"
-        $padding="10px 40px 10px 40px"
-        $margin="0 0 20px 0"
-      >
-        {/* <FullWideLink> */}
-        <Div $flex="h_between_center" $width="100%">
-          <Div $flex="h_start_center" $width="50%">
-            {title}
+    <PostListItemLayout
+      $flex="h_center_center"
+      $width="100%"
+      $height="40px"
+      $padding="10px 40px 10px 40px"
+      $margin="0 0 20px 0"
+    >
+      {/* <FullWideLink> */}
+      <Div $flex="h_between_center" $width="100%">
+        <Div $flex="h_start_center" $width="50%">
+          {title}
+        </Div>
+        <Div $flex="h_end_center" $width="50%">
+          <Div $flex="h_center_center" $width="33.33%">
+            {nickname}
           </Div>
-          <Div $flex="h_end_center" $width="50%">
-            <Div $flex="h_center_center" $width="33.33%">
-              {nickname}
-            </Div>
-            <Div $flex="h_center_center" $width="33.33%">
-              {view}
-            </Div>
-            <Div $flex="h_center_center" $width="33.33%">
-              {createdAt}
-            </Div>
+          <Div $flex="h_center_center" $width="33.33%">
+            {view}
+          </Div>
+          <Div $flex="h_center_center" $width="33.33%">
+            {createdAt}
           </Div>
         </Div>
-        {/* </FullWideLink> */}
-      </PostListItemLayout>
-    </Link>
+      </Div>
+      {/* </FullWideLink> */}
+    </PostListItemLayout>
   );
 };
 

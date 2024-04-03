@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { styled } from "styled-components";
 import { setColor } from "../../style/SetStyle";
@@ -26,16 +26,8 @@ const GameContentLayout = styled(Section)`
 `;
 
 const ReadPostContainer = () => {
-  const [cookies] = useCookies(["token"]);
   const navToggle = useRecoilValue(navToggleAtom);
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!cookies.token) {
-      alert("게시글 보기는 회원만 이용 가능합니다.");
-      navigate("/");
-      return;
-    }
-  }, []);
+
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
       <BannerImgItem />
