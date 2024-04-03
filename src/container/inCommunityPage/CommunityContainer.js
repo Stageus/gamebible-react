@@ -30,13 +30,13 @@ const GameContentLayout = styled(Section)`
 const ButtonWrapper = styled(Div)``;
 
 const CommunityContainer = () => {
-  const { idx, pageIdx } = useParams();
+  const { gameIdx, pageIdx } = useParams();
   const [data, setData] = useState({});
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_API_KEY}/post?gameidx=${idx}&page=${pageIdx}`,
+          `${process.env.REACT_APP_API_KEY}/post?gameidx=${gameIdx}&page=${pageIdx}`,
           {
             method: "GET",
             headers: {
@@ -56,31 +56,6 @@ const CommunityContainer = () => {
 
   const navToggle = useRecoilValue(navToggleAtom);
 
-  const { idx, pageIdx } = useParams();
-  const [data, setData] = useState({});
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_API_KEY}/post?gameidx=${idx}&page=${pageIdx}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        const result = await response.json();
-        setData(result);
-        console.log(result);
-      } catch (error) {
-        console.log(`Error: ${error.message}`);
-      }
-    };
-    fetchData();
-  }, [pageIdx]);
-
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
       <BannerImgItem />
@@ -98,7 +73,7 @@ const CommunityContainer = () => {
               커뮤니티
             </Span>
           </TabBtn>
-          <Link to={`/game/${idx}/wiki`}>
+          <Link to={`/game/${gameIdx}/wiki`}>
             <TabBtn
               $width="150px"
               $height="50px"
@@ -145,9 +120,9 @@ const CommunityContainer = () => {
                 </Div>
               </Div>
             </CommunityTitleWrapper>
-            <PostListContainer {...{ idx, pageIdx }} />
+            <PostListContainer {...{ gameIdx, pageIdx }} />
             <ButtonWrapper $width="100%" $flex="h_end_center" $padding="0 30px">
-              <Link to={`/game/${idx}/writePost`}>
+              <Link to={`/game/${gameIdx}/writePost`}>
                 <Button
                   $color="white"
                   $backgroundColor="orange"
