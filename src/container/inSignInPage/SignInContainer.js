@@ -16,20 +16,6 @@ import useFetch from "../../hook/useFetch";
 const KakaoLoginStyleBtn = styled(Img)`
   width: 100%;
 `;
-const dummyIdData = {
-  id: {
-    key: "id",
-    type: "id",
-    placeholder: "아이디",
-  },
-};
-const dummyPWData = {
-  pw: {
-    key: "pw",
-    type: "pw",
-    placeholder: "비밀번호",
-  },
-};
 
 const SignInContainer = () => {
   const { data, error, status, request } = useFetch();
@@ -60,7 +46,6 @@ const SignInContainer = () => {
     }
   }, [data, error, status, setCookies, navigate]);
 
-
   const submitData = async () => {
     if (!idValueValidation(idValue)) {
       return;
@@ -79,14 +64,18 @@ const SignInContainer = () => {
       <Img src={HeaderLogo} alt="HeaderLogo" />
       <InputItem
         {...{
-          dummyInputData: dummyIdData,
+          key: "id",
+          type: "id",
+          placeholder: "아이디",
           inputValue: idValue,
           inputChangeEvent: onChangeIdValue,
         }}
       ></InputItem>
       <InputItem
         {...{
-          dummyInputData: dummyPWData,
+          key: "pw",
+          type: "pw",
+          placeholder: "비밀번호",
           inputValue: pwValue,
           inputChangeEvent: onChangePwValue,
         }}

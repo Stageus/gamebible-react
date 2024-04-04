@@ -12,14 +12,6 @@ import { Button } from "../../style/ButtonStyle";
 import { Div } from "../../style/LayoutStyle";
 import { Img } from "../../style/ImgStyle";
 
-const dummyEmailData = {
-  pw: {
-    key: "email",
-    label: "이메일",
-    placeholder: "가입된 이메일 주소 입력",
-  },
-};
-
 const PositionDiv = styled(Div)`
   position: relative;
   top: 70px;
@@ -32,6 +24,7 @@ const ResetPWContainer = () => {
   useEffect(() => {
     if (status === 200) {
       alert("가입된 이메일에 비밀번호 변경 링크를 전송했습니다.");
+      console.log(data);
     } else if (status === 400) {
       alert("올바른 값이 아닙니다.");
     } else if (status === 409) {
@@ -40,16 +33,17 @@ const ResetPWContainer = () => {
   }, [data, error, status]);
   const resetPwSubmitEvent = async () => {
     if (emailValueValidation(emailValue)) {
-      await request("/account/pw/email", "PUT", { email: emailValue });
+      await request("/account/pw/email", "POST", { email: emailValue });
     }
-    console.log("비밀번호 찾기 API 호출");
   };
   return (
     <PositionDiv $flex="v_center_center" $width="350px">
       <Img $margin="0 0 20px 0" src={MainLogo} alt="MainLogo" />
       <InputItem
         {...{
-          dummyInputData: dummyEmailData,
+          key: "email",
+          label: "이메일",
+          placeholder: "가입된 이메일 주소 입력",
           inputValue: emailValue,
           inputChangeEvent: onChangeEmailEvent,
         }}

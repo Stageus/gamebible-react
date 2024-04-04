@@ -5,20 +5,9 @@ import { idValueValidation } from "../../util/ValidationUtil";
 
 import InputItem from "../../component/InputItem";
 
-const dummyIdData = {
-  id: {
-    key: "id",
-    type: "id",
-    label: "아이디",
-    button: "중복확인",
-    placeholder: "4 ~ 20글자 제한",
-  },
-};
-
 const IdInputContainer = (props) => {
   const { idValue, onChangeIdEvent, idCheck, setIdCheck } = props;
   const { data, error, status, request } = useFetch();
-
 
   useEffect(() => {
     if (status === 200) {
@@ -58,7 +47,11 @@ const IdInputContainer = (props) => {
       {/* 아이디 인풋 */}
       <InputItem
         {...{
-          dummyInputData: dummyIdData,
+          key: "id",
+          type: "id",
+          label: "아이디",
+          button: "중복확인",
+          placeholder: "4 ~ 20글자 제한",
           inputValue: idValue,
           inputChangeEvent: onChangeIdEvent,
           verificationCheckValue: idCheck,

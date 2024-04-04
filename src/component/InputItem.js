@@ -37,7 +37,11 @@ const Label = styled.label`
 
 const InputItem = (props) => {
   const {
-    dummyInputData,
+    key,
+    label,
+    type,
+    placeholder,
+    button,
     inputValue,
     inputChangeEvent,
     verificationCheckValue,
@@ -51,51 +55,49 @@ const InputItem = (props) => {
 
   return (
     <>
-      {Object.values(dummyInputData).map((data) => (
-        <Div key={data.key} $width="100%" $flex="v_start_start" $margin="0 0 20px 0">
-          {/* 라벨 유무에 따라 출력 결정 */}
-          {data.label && <Label htmlFor={data.key}>{data.label}</Label>}
-          {/* /라벨 유무에 따라 출력 결정 */}
+      <Div key={key} $width="100%" $flex="v_start_start" $margin="0 0 20px 0">
+        {/* 라벨 유무에 따라 출력 결정 */}
+        {label && <Label htmlFor={key}>{label}</Label>}
+        {/* /라벨 유무에 따라 출력 결정 */}
+        <RelativeDiv $width="100%">
           <RelativeDiv $width="100%">
-            <RelativeDiv $width="100%">
-              <BorderStyleInput
-                id={data.key}
-                $width="100%"
-                $height="50px"
-                $padding="0 3%"
-                onChange={(e) => inputChangeEvent(e)}
-                type={data.type === "pw" && !toggle ? "password" : "text"}
-                $backgroundColor={verificationCheckValue ? "lightGray" : "white"}
-                disabled={verificationCheckValue}
-                placeholder={data.placeholder}
-                value={inputValue}
-              />
-              {/* 버튼 유무에 따라 출력 결정 */}
-              {data.button && (
-                <AbsoluteBtn
-                  onClick={() => verificationClickEvent(inputValue)}
-                  $color="white"
-                  $fontSize="smail"
-                  $padding="6px 8px"
-                  $borderRadius="8px"
-                >
-                  {data.button}
-                </AbsoluteBtn>
-              )}
-              {/* /버튼 유무에 따라 출력 결정 */}
-            </RelativeDiv>
-            {/* 타입 pw일 때 eye 아이콘 출력 */}
-            {data.type === "pw" && (
-              <EyeIconBtn onClick={toggleClickEvent}>
-                <Div $height="24px">
-                  {!toggle ? <Img src={VisibleIcon} /> : <Img src={UnVisibleIcon} />}
-                </Div>
-              </EyeIconBtn>
+            <BorderStyleInput
+              id={key}
+              $width="100%"
+              $height="50px"
+              $padding="0 3%"
+              onChange={(e) => inputChangeEvent(e)}
+              type={type === "pw" && !toggle ? "password" : "text"}
+              $backgroundColor={verificationCheckValue ? "lightGray" : "white"}
+              disabled={verificationCheckValue}
+              placeholder={placeholder}
+              value={inputValue}
+            />
+            {/* 버튼 유무에 따라 출력 결정 */}
+            {button && (
+              <AbsoluteBtn
+                onClick={() => verificationClickEvent(inputValue)}
+                $color="white"
+                $fontSize="smail"
+                $padding="6px 8px"
+                $borderRadius="8px"
+              >
+                {button}
+              </AbsoluteBtn>
             )}
-            {/* /타입 pw일 때 eye 아이콘 출력 */}
+            {/* /버튼 유무에 따라 출력 결정 */}
           </RelativeDiv>
-        </Div>
-      ))}
+          {/* 타입 pw일 때 eye 아이콘 출력 */}
+          {type === "pw" && (
+            <EyeIconBtn onClick={toggleClickEvent}>
+              <Div $height="24px">
+                {!toggle ? <Img src={VisibleIcon} /> : <Img src={UnVisibleIcon} />}
+              </Div>
+            </EyeIconBtn>
+          )}
+          {/* /타입 pw일 때 eye 아이콘 출력 */}
+        </RelativeDiv>
+      </Div>
     </>
   );
 };

@@ -30,12 +30,13 @@ const EditorContainer = styled(Div)`
 `;
 
 const WriterContainer = () => {
-  const { value: title, onChangeEvent: onChangeTitleEvent } = useInput("");
+  const { value: title, onChangeEvent: onChangeTitltEvent } = useInput("");
   const [image, setImage] = useState([]);
   const [content, setContent] = useState("");
   const [cookies] = useCookies(["token"]);
+  const [data, setData] = useState(null);
   const contentContainer = useRef(null);
-  const { idx } = useParams();
+  const { postIdx, gameIdx } = useParams();
   const navigate = useNavigate();
 
   const regex = /^\s*$/;
@@ -57,34 +58,47 @@ const WriterContainer = () => {
     postSubmitEvent();
   };
 
+  //처음 들어왔을 때 임시저장을 만들고
+  //그것을 리코일로 보내서 저장해놓기
+  //그리고 피니시 버튼을 누를 때 다시 api 호출
+
   const postContentChangeEvent = () => {
     setContent(contentContainer.current);
   };
 
   const postSubmitEvent = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_KEY}/post/?gameidx=${idx}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${cookies.token}`,
-        },
-        body: JSON.stringify({
-          title: title,
-          content: `${content}`,
-        }),
-        query: {
-          gameidx: { idx },
-        },
-      });
-
-      if (response.status === 200) {
-        navigate(`/game/${idx}`);
-      }
+      const response = await fetch(
+        `${process.env.REACT_APP_API_KEY}/post/${postIdx}/?gameidx=${gameIdx}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${cookies.token}`,
+          },
+          body: JSON.stringify({
+            title: title,
+            content: `${content}`,
+          }),
+          query: {
+            gameidx: { gameIdx },
+          },
+        }
+      );
+      const result = await response.json();
+      console.log(result);
+      setData(result);
     } catch (error) {
       alert(`Error: ${error.message}`);
     }
   };
+
+  useEffect(() => {
+    // if (Result.status === 200) {
+    //   navigate(`/game/${gameIdx}`);
+    // }
+    console.log(data);
+  }, [data]);
 
   return (
     <EditorWrapper $backgroundColor="white" $width="100%" $height="100%" $padding="50px">
@@ -95,7 +109,7 @@ const WriterContainer = () => {
           $fontSize="large"
           placeholder="제목"
           type="text"
-          onChange={onChangeTitleEvent}
+          onChange={onChangeTitltEvent}
           value={title}
         />
         <Div $width="100%" $height="1px" $backgroundColor="black" $margin="2% 0" />

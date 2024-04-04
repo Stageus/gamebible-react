@@ -4,15 +4,6 @@ import { useInput } from "../../hook/useInput";
 
 import InputItem from "../../component/InputItem";
 
-const EmailAuthData = {
-  verificationCond: {
-    key: "emailAuthCode",
-    type: "emailAuthCode",
-    label: "인증번호",
-    button: "인증확인",
-  },
-};
-
 const EmailAuthInputContainer = (props) => {
   const { data, error, status, request } = useFetch();
   const { value: emailAuthValue, onChangeEvent: onChangeEmailAuthEvent } = useInput("");
@@ -39,10 +30,6 @@ const EmailAuthInputContainer = (props) => {
     }
   }, [data, status, error]);
 
-  // 인증 타입에 따른 인풋 비활성화
-
-  // /인증 타입에 따른 인풋 비활성화
-
   const submitEmailAuthEvent = async () => {
     await request("/account/id/check", "POST", { id: emailAuthValue });
   };
@@ -52,7 +39,10 @@ const EmailAuthInputContainer = (props) => {
       {/* 이메일 인증 인풋 */}
       <InputItem
         {...{
-          dummyInputData: EmailAuthData,
+          key: "emailAuthCode",
+          type: "emailAuthCode",
+          label: "인증번호",
+          button: "인증확인",
           inputValue: emailAuthValue,
           inputChangeEvent: onChangeEmailAuthEvent,
           verificationCheckValue: emailAuthCheck,
