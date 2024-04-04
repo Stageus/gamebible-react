@@ -9,7 +9,7 @@ import { setColor } from "../../style/SetStyle";
 import { useRecoilValue } from "recoil";
 import navToggleAtom from "../../recoil/navToggleAtom";
 
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import BannerImgItem from "../../component/BannerImgItem";
 import EditingContainer from "./EditingContainer";
@@ -27,12 +27,14 @@ const SwitchTabLayout = styled(Div)``;
 const EditWikiContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
 
+  const { gameIdx } = useParams();
+
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
       <BannerImgItem />
       <Section $flex="v_center_start" $width="100%">
         <SwitchTabLayout $flex="h_center_center">
-          <Link to="/game/:idx/community">
+          <Link to={`/game/${gameIdx}/community/page/1`}>
             <TabBtn
               $width="150px"
               $height="50px"

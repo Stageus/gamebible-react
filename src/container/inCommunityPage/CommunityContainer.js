@@ -46,7 +46,6 @@ const CommunityContainer = () => {
         );
         const result = await response.json();
         setData(result);
-        console.log(result);
       } catch (error) {
         console.log(`Error: ${error.message}`);
       }

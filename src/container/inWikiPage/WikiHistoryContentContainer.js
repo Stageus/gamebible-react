@@ -52,6 +52,7 @@ const WikiHistoryContentContainer = () => {
       setWriter(result.data[0].user_idx);
       setContent(result.data[0].content);
       setCreatedAt(result.data[0].created_at);
+      console.log("result.data[0].created_at: ", result.data[0].created_at);
 
       if (response.status === 200) {
         setHistoryContentData(result.data);
@@ -59,6 +60,7 @@ const WikiHistoryContentContainer = () => {
         alert(result.message);
       }
     };
+
     const getTitle = async () => {
       const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/${gameIdx}/wiki`);
       const result = await response.json();
@@ -67,6 +69,7 @@ const WikiHistoryContentContainer = () => {
         setTitle(result.data[0].title);
       }
     };
+
     wikiEditHistoryContent();
     getTitle();
   }, []);
@@ -76,7 +79,7 @@ const WikiHistoryContentContainer = () => {
       <BannerImgItem />
       <Section $flex="v_center_start" $width="100%">
         <SwitchTabLayout $flex="h_center_center">
-          <Link to={`/game/${gameIdx}/community`}>
+          <Link to={`/game/${gameIdx}/community/page/1`}>
             <TabBtn
               $width="150px"
               $height="50px"
@@ -128,7 +131,7 @@ const WikiHistoryContentContainer = () => {
                 $fontSize="large"
                 $margin="0 0 20px 0"
               >
-                {`${createdAt} ${writer}`}
+                {`작성일: ${createdAt} 작성자: ${writer}`}
               </HistoryWriterLayout>
               <HistoryContentLayout $flex="v_center_start" $width="100%">
                 {content}
