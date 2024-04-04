@@ -246,6 +246,8 @@ const NotificationListContainer = (props) => {
     //   )}
     // </OverFlowDiv>
 
+    //----------------------------------------------------------------------
+
     // 관리자 알림만 보기
     // <Div $flex="v_start_center" $width="1320px">
     //   <Div $flex="h_start_center" $width="100%">
@@ -259,6 +261,8 @@ const NotificationListContainer = (props) => {
     //     })}
     //   </NotiListLayout>
     // </Div>
+
+    //----------------------------------------------------------------------
 
     // 일반사용자 알림만 보기
     <Div $flex="v_start_center" $width="1320px">
