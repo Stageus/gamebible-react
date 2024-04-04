@@ -13,6 +13,8 @@ import ApproveIcon from "../img/approveIcon.svg";
 import { useClick } from "../hook/useClick";
 import GameImgSettingContainer from "../container/inNotificationPage/GameImgSettingContainer";
 
+import { useCookies } from "react-cookie";
+
 const BorderStyleArticle = styled(Article)`
   border-radius: 5px;
 `;
@@ -22,6 +24,25 @@ const NotificationListItem = (props) => {
   const { isAdmin } = props;
 
   const { click: acceptGame, ClickEvent: setGameImgEvent } = useClick(false);
+
+  const [cookies] = useCookies();
+
+  useEffect(() => {
+    const deleteAlarmEvent = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_KEY}/account/notification/${notificationId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${cookies.token}`,
+          },
+        }
+      );
+      const result = await response.json();
+    };
+    deleteAlarmEvent();
+  }, []);
 
   return (
     <Div $flex="v_start_start" $width="100%" $margin="70px 0 0 0">
@@ -55,7 +76,13 @@ const NotificationListItem = (props) => {
             />
           </Div>
         ) : (
-          <ImgTextBtnUtil img={DeleteIcon} text="DELETE" color="major" backgroundColor="default" />
+          <ImgTextBtnUtil
+            img={DeleteIcon}
+            text="DELETE"
+            color="major"
+            backgroundColor="default"
+            onClick="deleteAlarmEvent()"
+          />
         )}
       </BorderStyleArticle>
       {acceptGame && <GameImgSettingContainer {...{ setGameImgEvent }} />}
