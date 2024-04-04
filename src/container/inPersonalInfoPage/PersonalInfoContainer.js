@@ -10,6 +10,8 @@ import { Img } from "../../style/ImgStyle";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import { useRecoilState } from "recoil";
+import userInfoAtom from "../../recoil/userInfoAtom";
 
 const PersonalInfoWrapper = styled(Div)`
   position: relative;
@@ -23,40 +25,17 @@ const FullWideLink = styled(Link)`
 
 const PersonalInfoContainer = () => {
   const navigate = useNavigate();
-  const [emailInfo, setEmailInfo] = useState("");
-  const [nicknameInfo, setNicknameInfo] = useState("");
-
+  const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
   // const { data, error, status, request } = useFetch();
   const [data, setData] = useState("");
 
   const [cookies, removeCookie] = useCookies(["token"]);
-  useEffect(() => {
-    const fetchData = async () => {
-      if (cookies.token) {
-        try {
-          const response = await fetch(`${process.env.REACT_APP_API_KEY}/account/info`, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${cookies.token}`,
-            },
-          });
-          const result = await response.json();
-          setData(result.data);
-          if (response.status === 200) {
-            setEmailInfo(result.data.email);
-            setNicknameInfo(result.data.nickname);
-          }
-        } catch (error) {
-          console.log(`Error: ${error.message}`);
-        }
-      } else {
-        navigate("/");
-      }
-    };
 
-    fetchData();
-  }, [cookies.token, navigate]);
+  useEffect(() => {
+    if (!cookies.token) {
+      navigate("/");
+    }
+  }, [cookies]);
 
   const DeleteClickEvent = async () => {
     const result = window.confirm("정말로 탈퇴하시겠습니까?");
@@ -86,18 +65,18 @@ const PersonalInfoContainer = () => {
     email: {
       key: "email",
       label: "이메일",
-      text: emailInfo,
+      text: userInfo.email,
     },
     nickname: {
       key: "nickname",
       label: "닉네임",
-      text: nicknameInfo,
+      text: userInfo.nickname,
     },
   };
   return (
     <PersonalInfoWrapper $flex="v_center_center" $width="350px">
       <Img $margin="0 0 20px 0" src={MainLogo} alt="MainLogo" />
-      <LabelText {...{ dummyTextData: labelTextData }}></LabelText>
+      <LabelText {...{ labelTextData }}></LabelText>
       <FullWideLink to="/editPersonalInfo">
         <Button
           $width="100%"

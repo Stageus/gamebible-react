@@ -5,11 +5,11 @@ import { P } from "../style/TextStyle";
 import { H1 } from "../style/TextStyle";
 
 const LabelText = (props) => {
-  const { dummyTextData } = props;
+  const { labelTextData } = props;
 
   return (
     <>
-      {Object.values(dummyTextData).map((data) => (
+      {Object.values(labelTextData).map((data) => (
         <Div key={data.key} $width="100%" $flex="v_start_start" $margin="0 0 20px 0">
           <H1 $fontWeight="bold" $margin="0 0 10px 0">
             {data.label}

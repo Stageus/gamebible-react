@@ -13,6 +13,9 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { useInput } from "../../hook/useInput";
 
+import { useRecoilState } from "recoil";
+import userInfoAtom from "../../recoil/userInfoAtom";
+
 const EditPersonalInfoWrapper = styled(Div)`
   position: relative;
   top: 70px;
@@ -24,41 +27,12 @@ const FullWideLink = styled(Link)`
 
 const EditPersonalInfoContainer = () => {
   const [cookies] = useCookies(["token"]);
+  const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
   const { data, error, status, request } = useFetch();
-  const [emailValue, setEmailValue] = useState("");
-  const [nicknameValue, setNicknameValue] = useState("");
-  const [initialData, setInitialData] = useState("");
 
   const { value: newEmailValue, onChangeEvent: newEmailOnChangeEvent } = useInput("");
   const { value: newNicknameValue, onChangeEvent: newNicknameOnChangeEvent } = useInput("");
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (cookies.token) {
-        try {
-          const response = await fetch(`${process.env.REACT_APP_API_KEY}/account/info`, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${cookies.token}`,
-            },
-          });
-          const result = await response.json();
-          setInitialData(result.data);
-          if (response.status === 200) {
-            setEmailValue(result.data.email);
-            setNicknameValue(result.data.nickname);
-          }
-        } catch (error) {
-          console.log(`Error: ${error.message}`);
-        }
-      } else {
-        navigate("/");
-      }
-    };
-    fetchData();
-  }, []);
 
   //로그인 했을 때 리코일로 돌려라 준연아
 
@@ -74,18 +48,28 @@ const EditPersonalInfoContainer = () => {
     );
   };
 
-  // useEffect(() => {
-  //   if (status === 200) {
-  //     alert("수정되었습니다");
-  //     navigate("/personalInfo");
-  //   }
-  //   if (status === 400) {
-  //     alert("요청이 유효하지 않습니다.");
-  //   }
-  //   if (status === 401) {
-  //     alert("토큰이 만료되었습니다.");
-  //   }
-  // }, [data, error]);
+  useEffect(() => {
+    if (!cookies.token) {
+      navigate("/");
+    }
+  }, [cookies]);
+
+  useEffect(() => {
+    if (status === 200) {
+      setUserInfo({
+        email: newEmailValue,
+        nickname: newNicknameValue,
+      });
+      alert("수정되었습니다");
+      navigate("/personalInfo");
+    }
+    if (status === 400) {
+      alert("요청이 유효하지 않습니다.");
+    }
+    if (status === 401) {
+      alert("토큰이 만료되었습니다.");
+    }
+  }, [data, error]);
 
   return (
     <EditPersonalInfoWrapper $flex="v_center_center" $width="350px">
@@ -94,14 +78,14 @@ const EditPersonalInfoContainer = () => {
       <InputItem
         key="email"
         label="이메일"
-        placeholder={emailValue}
+        placeholder={userInfo.email}
         inputValue={newEmailValue}
         inputChangeEvent={newEmailOnChangeEvent}
       />
       <InputItem
         key="nickname"
         label="닉네임"
-        placeholder={nicknameValue}
+        placeholder={userInfo.nickname}
         inputValue={newNicknameValue}
         inputChangeEvent={newNicknameOnChangeEvent}
       />
