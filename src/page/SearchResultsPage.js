@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 
 import { styled } from "styled-components";
 import { Div, Section } from "../style/LayoutStyle";
@@ -9,6 +9,8 @@ import YesResultContainer from "../container/inSearchResultsPage/YesResultContai
 
 import { useRecoilValue } from "recoil";
 import navToggleAtom from "../recoil/navToggleAtom";
+
+import { useSearchParams, useLocation } from "react-router-dom";
 
 const PageWrapper = styled(Div)`
   min-height: 100vh;
@@ -24,7 +26,32 @@ const FooterWrapper = styled(Div)`
 const SearchResultsPage = () => {
   const navToggle = useRecoilValue(navToggleAtom);
 
-  const searchResultData = [];
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchTerm = searchParams.get("q");
+  console.log("searchTerm: ", searchTerm);
+
+  const [searchResultData, setSearchResultData] = useState("");
+
+  useEffect(() => {
+    const getSearchResult = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_KEY}/game/search?search=${searchTerm}`
+      );
+      const result = await response.json();
+      setSearchResultData(result.data);
+      console.log("result.data: ", result);
+
+      if (response.status == 200) {
+        setSearchResultData(result.data);
+      } else if (response.status == 400) {
+        alert(result.errors);
+      } else if (response.status == 500) {
+        alert(result.message);
+      }
+    };
+
+    getSearchResult();
+  }, []);
 
   return (
     <PageWrapper>

@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 
 import styled from "styled-components";
 import { Span } from "../style/TextStyle";
@@ -27,22 +27,22 @@ const NotificationListItem = (props) => {
 
   const [cookies] = useCookies();
 
-  useEffect(() => {
-    const deleteAlarmEvent = async () => {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_KEY}/account/notification/${notificationId}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${cookies.token}`,
-          },
-        }
-      );
-      const result = await response.json();
-    };
-    deleteAlarmEvent();
-  }, []);
+  // useEffect(() => {
+  //   const deleteAlarmEvent = async () => {
+  //     const response = await fetch(
+  //       `${process.env.REACT_APP_API_KEY}/account/notification/${notificationId}`,
+  //       {
+  //         method: "DELETE",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${cookies.token}`,
+  //         },
+  //       }
+  //     );
+  //     const result = await response.json();
+  //   };
+  //   deleteAlarmEvent();
+  // }, []);
 
   return (
     <Div $flex="v_start_start" $width="100%" $margin="70px 0 0 0">

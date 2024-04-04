@@ -1,8 +1,12 @@
-import React from "react";
+import { React, useState } from "react";
+
 import { useCookies } from "react-cookie";
-import { Link, useLocation } from "react-router-dom";
+
+import { Link, useLocation, useNavigate } from "react-router-dom";
+
 import navToggleAtom from "../recoil/navToggleAtom";
 import { useRecoilState } from "recoil";
+
 import HeaderLogo from "../img/HeaderLogo.svg";
 import SearchIcon from "../img/searchIcon.svg";
 import MenuIcon from "../img/menuIcon.svg";
@@ -57,14 +61,35 @@ const MenuNullUrl = [
   "/alarm",
 ];
 
-const HeaderItem = (props) => {
-  const { inputValue, onChangeEvent, onSearchEvent } = props;
-  const location = useLocation();
+const HeaderItem = () => {
+  // 네비게이션 토글
   const [navToggle, setNavToggle] = useRecoilState(navToggleAtom);
   const menuIconClickEvent = () => {
     setNavToggle(!navToggle);
   };
+
+  // 검색 관련
+  const navigate = useNavigate();
+  const [searchValue, setSearchValue] = useState("");
+  // console.log("searchValue: ", searchValue);
+  // 검색결과 받기
+  const onChangeEvent = (event) => {
+    setSearchValue(event.target.value);
+  };
+  // 검색하기 클릭
+  const onSearchClickEvent = () => {
+    if (searchValue == "") {
+      navigate("./");
+    } else {
+      navigate(`/searchResults?q=${searchValue}`);
+    }
+  };
+
+  const location = useLocation();
+
   const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+
+  // 로그아웃
   const logoutClickEvent = () => {
     removeCookie("token");
   };
@@ -83,6 +108,7 @@ const HeaderItem = (props) => {
           </Link>
         </CursorPointerDiv>
       </Div>
+
       <CenterDiv $width="40%">
         <CenterInput
           $width="100%"
@@ -90,13 +116,14 @@ const HeaderItem = (props) => {
           $backgroundColor="lightGray"
           $fontSize="small"
           $padding="0 2%"
-          value={inputValue}
+          value={searchValue}
           onChange={onChangeEvent}
         />
-        <CursorPointerDiv>
+        <CursorPointerDiv onClick={onSearchClickEvent}>
           <SearchIconImg src={SearchIcon} alt="SearchIcon" $height="60%" />
         </CursorPointerDiv>
       </CenterDiv>
+
       <Div $width="30%" $flex="h_end_center">
         {cookies.token ? (
           <BtnLayout $flex="h_between_center" $width="210px">
