@@ -57,7 +57,7 @@ const App = () => {
               path="/game/:gameIdx/wiki/history/:historyIdx"
               element={<WikiHistoryContentPage />}
             />
-            <Route path="/game/:idx/wiki/edit" element={<EditWikiPage />} />
+            <Route path="/game/:gameIdx/wiki/edit" element={<EditWikiPage />} />
           </Routes>
         </BrowserRouter>
       </RecoilRoot>

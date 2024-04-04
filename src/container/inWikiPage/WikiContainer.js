@@ -35,13 +35,14 @@ const GameContentLayout = styled(Section)`
 const WikiContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
 
-  let { gameIdx, pageIdx } = useParams();
+  let { gameIdx } = useParams();
 
   const [wikiContentData, setWikiContentData] = useState(null);
 
   const [title, setTitle] = useState(null);
   const [content, setContent] = useState(null);
 
+  // 데이터(게임제목, 기존위키내용) 가져오기 GET
   useEffect(() => {
     const wikiContent = async () => {
       const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/${gameIdx}/wiki`);
@@ -59,14 +60,12 @@ const WikiContainer = () => {
     wikiContent();
   }, []);
 
-  useEffect(() => {}, [wikiContentData]);
-
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
       <BannerImgItem />
       <Section $flex="v_center_start" $width="100%">
         <SwitchTabLayout $flex="h_center_center">
-          <Link to={`/game/${gameIdx}/community/page/${pageIdx}`}>
+          <Link to={`/game/${gameIdx}/community/page/1`}>
             <TabBtn
               $width="150px"
               $height="50px"
@@ -126,7 +125,9 @@ const WikiContainer = () => {
                 $width="100%"
                 $margin="20px 0 0 0"
                 dangerouslySetInnerHTML={{ __html: content }}
-              />
+              >
+                {/* {content} */}
+              </MainContentLayout>
             </Article>
           </Section>
         </Article>
