@@ -19,62 +19,62 @@ const BorderStyleArticle = styled(Article)`
   border-radius: 5px;
 `;
 
-const NotificationListItem = (props) => {
-  const { date, content } = props.data;
+const NotificationListItem = () => {
+  // const { date, content } = props.data;
   const { isAdmin } = props;
 
   const { click: acceptGame, ClickEvent: setGameImgEvent } = useClick(false);
 
   const [cookies] = useCookies("token");
 
-  // (일반사용자) 알림 삭제하기 DELETE
-  const deleteAlarmEvent = async () => {
-    const response = await fetch(
-      `${process.env.REACT_APP_API_KEY}/account/notification/${notificationId}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${cookies.token}`,
-        },
-      }
-    );
-    const result = await response.json();
-    if (response.status === 400) {
-      alert(result.message);
-    } else if (response.status === 401) {
-      alert(result.message);
-    } else if (response.status === 500) {
-      alert(result.message);
-    }
-  };
+  // // (일반사용자) 알림 삭제하기 DELETE
+  // const deleteAlarmEvent = async () => {
+  //   const response = await fetch(
+  //     `${process.env.REACT_APP_API_KEY}/account/notification/${notificationId}`,
+  //     {
+  //       method: "DELETE",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${cookies.token}`,
+  //       },
+  //     }
+  //   );
+  //   const result = await response.json();
+  //   if (response.status === 400) {
+  //     alert(result.message);
+  //   } else if (response.status === 401) {
+  //     alert(result.message);
+  //   } else if (response.status === 500) {
+  //     alert(result.message);
+  //   }
+  // };
 
-  // (관리자) 게임 승인요청 거부하기 DELETE
-  const rejectRequestEvent = async () => {
-    const response = await fetch(
-      `${process.env.REACT_APP_API_KEY}/admin/game/request/${requestidx}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${cookies.token}`,
-        },
-      }
-    );
+  // // (관리자) 게임 승인요청 거부하기 DELETE
+  // const rejectRequestEvent = async () => {
+  //   const response = await fetch(
+  //     `${process.env.REACT_APP_API_KEY}/admin/game/request/${requestIdx}`,
+  //     {
+  //       method: "DELETE",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${cookies.token}`,
+  //       },
+  //     }
+  //   );
 
-    const result = await response.json();
-    if (response.status === 400) {
-      alert(result.message);
-    } else if (response.status === 401) {
-      alert(result.message);
-    } else if (response.status === 500) {
-      alert(result.message);
-    }
-  };
+  //   const result = await response.json();
+  //   if (response.status === 400) {
+  //     alert(result.message);
+  //   } else if (response.status === 401) {
+  //     alert(result.message);
+  //   } else if (response.status === 500) {
+  //     alert(result.message);
+  //   }
+  // };
 
   return (
     <Div $flex="v_start_start" $width="100%" $margin="70px 0 0 0">
-      <Span $margin="0 0 10px 0">{date}</Span>
+      <Span $margin="0 0 10px 0">{createdAt}</Span>
       <BorderStyleArticle
         $flex="h_between_center"
         $width="100%"
@@ -83,9 +83,10 @@ const NotificationListItem = (props) => {
         $padding="0 3%"
       >
         <Div>
-          <Span $fontWeight="bold">{content}</Span>
+          <Span $fontWeight="bold">{title}</Span>
         </Div>
         {isAdmin ? (
+          // (관리자) 알람 하나
           <Div $flex="h_between_center" $width="30%">
             <ImgTextBtnUtil
               key="Reject"
@@ -105,6 +106,7 @@ const NotificationListItem = (props) => {
             />
           </Div>
         ) : (
+          // (일반사용자) 알람 하나
           <ImgTextBtnUtil
             img={DeleteIcon}
             text="DELETE"

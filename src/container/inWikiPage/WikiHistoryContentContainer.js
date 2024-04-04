@@ -38,7 +38,7 @@ const WikiHistoryContentContainer = () => {
   let { gameIdx, historyIdx } = useParams();
 
   const [historyContentData, setHistoryContentData] = useState(null);
-  const [writer, setWriter] = useState("");
+  const [nickname, setNickname] = useState("");
   const [content, setContent] = useState(null);
   const [createdAt, setCreatedAt] = useState(null);
   const [title, setTitle] = useState("");
@@ -49,10 +49,9 @@ const WikiHistoryContentContainer = () => {
         `${process.env.REACT_APP_API_KEY}/game/${gameIdx}/history/${historyIdx}`
       );
       const result = await response.json();
-      setWriter(result.data[0].user_idx);
+      setNickname(result.data[0].nickname);
       setContent(result.data[0].content);
-      setCreatedAt(result.data[0].created_at);
-      console.log("result.data[0].created_at: ", result.data[0].created_at);
+      setCreatedAt(result.data[0].createdAt);
 
       if (response.status === 200) {
         setHistoryContentData(result.data);
@@ -131,7 +130,7 @@ const WikiHistoryContentContainer = () => {
                 $fontSize="large"
                 $margin="0 0 20px 0"
               >
-                {`작성일: ${createdAt} 작성자: ${writer}`}
+                {`작성일: ${createdAt} | 작성자: ${nickname}`}
               </HistoryWriterLayout>
               <HistoryContentLayout $flex="v_center_start" $width="100%">
                 {content}

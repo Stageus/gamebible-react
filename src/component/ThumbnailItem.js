@@ -28,7 +28,7 @@ const ThumbnailImg = styled(Img)`
 `;
 
 const ThumbnailItem = (props) => {
-  const { idx, title, post_count, imgPath } = props.data;
+  const { idx, title, postCount, imgPath } = props.data;
   return (
     <ThumbnailContainer>
       <ThumbnailWrapper to={`../game/${idx}/community/page/1`}>
