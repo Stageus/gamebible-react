@@ -39,7 +39,7 @@ const NotificationListContainer = (props) => {
 
       const result = await response.json();
 
-      if (response.status == 200) {
+      if (response.status === 200) {
         setAdminNotiListData(result.data);
         console.log("result.data: ", result.data);
       } else {
@@ -68,7 +68,7 @@ const NotificationListContainer = (props) => {
 
       const result = await response.json();
 
-      if (response.status == 200) {
+      if (response.status === 200) {
         setNotiListData(result.data);
         console.log("result.data: ", result.data);
       } else {

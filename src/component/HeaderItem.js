@@ -118,6 +118,11 @@ const HeaderItem = () => {
           $padding="0 2%"
           value={searchValue}
           onChange={onChangeEvent}
+          onKeyPress={(event) => {
+            if (event.key === "Enter") {
+              onSearchClickEvent();
+            }
+          }}
         />
         <CursorPointerDiv onClick={onSearchClickEvent}>
           <SearchIconImg src={SearchIcon} alt="SearchIcon" $height="60%" />

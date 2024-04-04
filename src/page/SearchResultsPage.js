@@ -10,7 +10,7 @@ import YesResultContainer from "../container/inSearchResultsPage/YesResultContai
 import { useRecoilValue } from "recoil";
 import navToggleAtom from "../recoil/navToggleAtom";
 
-import { useSearchParams, useLocation } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 const PageWrapper = styled(Div)`
   min-height: 100vh;
@@ -41,17 +41,17 @@ const SearchResultsPage = () => {
       setSearchResultData(result.data);
       console.log("result.data: ", result);
 
-      if (response.status == 200) {
+      if (response.status === 200) {
         setSearchResultData(result.data);
-      } else if (response.status == 400) {
+      } else if (response.status === 400) {
         alert(result.errors);
-      } else if (response.status == 500) {
+      } else if (response.status === 500) {
         alert(result.message);
       }
     };
 
     getSearchResult();
-  }, []);
+  }, [searchTerm]);
 
   return (
     <PageWrapper>
