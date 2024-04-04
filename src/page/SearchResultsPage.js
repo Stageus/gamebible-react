@@ -27,22 +27,23 @@ const SearchResultsPage = () => {
   const navToggle = useRecoilValue(navToggleAtom);
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const searchTerm = searchParams.get("q");
+  const searchTerm = searchParams.get("title");
   console.log("searchTerm: ", searchTerm);
 
-  const [searchResultData, setSearchResultData] = useState("");
+  // 게임 검색하기 GET
+  const [searchGameData, setSearchGameData] = useState([]);
 
   useEffect(() => {
-    const getSearchResult = async () => {
+    const getGameResult = async () => {
       const response = await fetch(
-        `${process.env.REACT_APP_API_KEY}/game/search?search=${searchTerm}`
+        `${process.env.REACT_APP_API_KEY}/game/search?title=${searchTerm}`
       );
       const result = await response.json();
-      setSearchResultData(result.data);
-      console.log("result.data: ", result);
+      setSearchGameData(result.data);
+      console.log("result.data: ", result.data);
 
       if (response.status === 200) {
-        setSearchResultData(result.data);
+        setSearchGameData(result.data);
       } else if (response.status === 400) {
         alert(result.errors);
       } else if (response.status === 500) {
@@ -50,12 +51,41 @@ const SearchResultsPage = () => {
       }
     };
 
-    getSearchResult();
+    getGameResult();
   }, [searchTerm]);
+
+  // 게시글 검색하기 GET
+  const [searchPostData, setSearchPostData] = useState([]);
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    const getPostResult = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_KEY}/post/search?title=${searchTerm}&page=${page}`
+      );
+      const result = await response.json();
+      setSearchPostData(result.data);
+      console.log("게시글 검색 결과: ", result.data);
+
+      if (response.status === 200) {
+        setSearchPostData(result.data);
+      } else if (response.status === 400) {
+        alert(result.errors);
+      } else if (response.status === 500) {
+        alert(result.message);
+      }
+    };
+
+    getPostResult();
+  }, [searchTerm]);
+
+  // useEffect(() => {
+  //   setPage(page + 1);
+  // });
 
   return (
     <PageWrapper>
-      {searchResultData ? (
+      {searchGameData ? (
         <YesResultSection
           $flex="v_center_center"
           $margin={navToggle ? "100px 0 0 300px" : "100px 0 0 0"}
@@ -63,7 +93,7 @@ const SearchResultsPage = () => {
           $width={navToggle ? "80vw" : "100vw"}
           $backgroundColor="major"
         >
-          <YesResultContainer />
+          <YesResultContainer {...{ searchGameData, searchPostData }} />
         </YesResultSection>
       ) : (
         <NoResultSection

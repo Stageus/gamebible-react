@@ -81,7 +81,7 @@ const HeaderItem = () => {
     if (searchValue == "") {
       navigate("/");
     } else {
-      navigate(`/searchResults?q=${searchValue}`);
+      navigate(`/searchResults?title=${searchValue}`);
     }
   };
 

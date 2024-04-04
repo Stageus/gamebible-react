@@ -47,7 +47,7 @@ const GameImgSettingContainer = (props) => {
         </Div>
         <Section $flex="v_between_center" $margin="40px 0">
           <Div $margin="0 0 20px 0">
-            <Div>게임 썸네일 이미지</Div>
+            <Div>게임 배너 이미지</Div>
             <Input type="file" />
           </Div>
           <Div $margin="0 0 40px 0">

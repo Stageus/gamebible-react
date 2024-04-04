@@ -6,7 +6,6 @@ import { Div } from "../style/LayoutStyle";
 import { Link } from "react-router-dom";
 
 const ThumbnailContainer = styled(Div)`
-  // flex-basis: 23%;
   flex-basis: 250px;
   margin: 1%;
   width: 250px;
@@ -32,8 +31,8 @@ const ThumbnailItem = (props) => {
   const { idx, title, post_count, imgPath } = props.data;
   return (
     <ThumbnailContainer>
-      <ThumbnailWrapper to={`game/${idx}/community/page/1`}>
-        <ThumbnailImg src={imgPath} />
+      <ThumbnailWrapper to={`../game/${idx}/community/page/1`}>
+        <ThumbnailImg src={imgPath} alt={title} />
       </ThumbnailWrapper>
     </ThumbnailContainer>
   );
