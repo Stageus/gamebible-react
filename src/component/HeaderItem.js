@@ -79,7 +79,7 @@ const HeaderItem = () => {
   // 검색하기 클릭
   const onSearchClickEvent = () => {
     if (searchValue == "") {
-      navigate("./");
+      navigate("/");
     } else {
       navigate(`/searchResults?q=${searchValue}`);
     }
@@ -103,7 +103,7 @@ const HeaderItem = () => {
           )}
         </CursorPointerDiv>
         <CursorPointerDiv $height="50px">
-          <Link to="/">
+          <Link to="/" onClick={() => setSearchValue("")}>
             <Img src={HeaderLogo} alt="HeaderLogo" />
           </Link>
         </CursorPointerDiv>
