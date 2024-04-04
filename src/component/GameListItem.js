@@ -18,7 +18,7 @@ const GameListItemName = styled.p`
 `;
 
 const GameListItem = (props) => {
-  const { idx, user_idx, title, content, created_at, deleted_at } = props.data;
+  const { idx, userIdx, title, content, created_at } = props.data;
 
   // ------------------- 호버 이벤트 -------------------
   const [isHovered, gameBtnHoverEvent, gameBtnHoverOutEvent] = useHover(false);

@@ -40,17 +40,19 @@ const WikiHistoryListContainer = () => {
   const [title, setTitle] = useState(null);
 
   useEffect(() => {
+    // 게임 수정 기록 받기
     const wikiEditHistory = async () => {
       const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/${gameIdx}/history`);
       const result = await response.json();
 
       if (response.status === 200) {
         setHistoryListData(result.data);
-        console.log("result.data: ", result.data);
       } else {
         alert(result.message);
       }
     };
+
+    // 게임 제목 받기
     const getTitle = async () => {
       const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/${gameIdx}/wiki`);
       const result = await response.json();
@@ -70,7 +72,7 @@ const WikiHistoryListContainer = () => {
       <BannerImgItem />
       <Section $flex="v_center_start" $width="100%">
         <SwitchTabLayout $flex="h_center_center">
-          <Link to={`/game/${gameIdx}/community`}>
+          <Link to={`/game/${gameIdx}/community/page/1`}>
             <TabBtn
               $width="150px"
               $height="50px"

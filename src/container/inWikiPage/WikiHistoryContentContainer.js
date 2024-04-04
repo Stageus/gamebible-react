@@ -38,7 +38,7 @@ const WikiHistoryContentContainer = () => {
   let { gameIdx, historyIdx } = useParams();
 
   const [historyContentData, setHistoryContentData] = useState(null);
-  const [writer, setWriter] = useState("");
+  const [nickname, setNickname] = useState("");
   const [content, setContent] = useState(null);
   const [createdAt, setCreatedAt] = useState(null);
   const [title, setTitle] = useState("");
@@ -49,9 +49,9 @@ const WikiHistoryContentContainer = () => {
         `${process.env.REACT_APP_API_KEY}/game/${gameIdx}/history/${historyIdx}`
       );
       const result = await response.json();
-      setWriter(result.data[0].user_idx);
+      setNickname(result.data[0].nickname);
       setContent(result.data[0].content);
-      setCreatedAt(result.data[0].created_at);
+      setCreatedAt(result.data[0].createdAt);
 
       if (response.status === 200) {
         setHistoryContentData(result.data);
@@ -59,6 +59,7 @@ const WikiHistoryContentContainer = () => {
         alert(result.message);
       }
     };
+
     const getTitle = async () => {
       const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/${gameIdx}/wiki`);
       const result = await response.json();
@@ -67,6 +68,7 @@ const WikiHistoryContentContainer = () => {
         setTitle(result.data[0].title);
       }
     };
+
     wikiEditHistoryContent();
     getTitle();
   }, []);
@@ -76,7 +78,7 @@ const WikiHistoryContentContainer = () => {
       <BannerImgItem />
       <Section $flex="v_center_start" $width="100%">
         <SwitchTabLayout $flex="h_center_center">
-          <Link to={`/game/${gameIdx}/community`}>
+          <Link to={`/game/${gameIdx}/community/page/1`}>
             <TabBtn
               $width="150px"
               $height="50px"
@@ -128,7 +130,7 @@ const WikiHistoryContentContainer = () => {
                 $fontSize="large"
                 $margin="0 0 20px 0"
               >
-                {`${createdAt} ${writer}`}
+                {`작성일: ${createdAt} | 작성자: ${nickname}`}
               </HistoryWriterLayout>
               <HistoryContentLayout $flex="v_center_start" $width="100%">
                 {content}

@@ -69,7 +69,7 @@ const GameListNavContainer = () => {
           <NavSection $width="100%" $height="100%">
             {gameListData?.map((elem) => {
               return (
-                <Link key={`${elem.idx}`} to={`/game/${elem.idx}/community`}>
+                <Link key={`${elem.idx}`} to={`/game/${elem.idx}/community/page/1`}>
                   <GameListItem key={elem.idx} data={elem} />
                 </Link>
               );
