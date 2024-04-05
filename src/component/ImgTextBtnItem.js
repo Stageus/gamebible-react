@@ -4,7 +4,7 @@ import { Div } from "../style/LayoutStyle";
 import { Img } from "../style/ImgStyle";
 import { setColor } from "../style/SetStyle";
 
-const ImgTextBtnUtil = ({ img, text, color, backgroundColor, onClick }) => {
+const ImgTextBtnItem = ({ img, text, color, backgroundColor, onClick }) => {
   return (
     <Button
       $flex="h_center_center"
@@ -25,4 +25,4 @@ const ImgTextBtnUtil = ({ img, text, color, backgroundColor, onClick }) => {
   );
 };
 
-export default ImgTextBtnUtil;
+export default ImgTextBtnItem;

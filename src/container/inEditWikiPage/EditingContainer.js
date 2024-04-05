@@ -7,7 +7,7 @@ import { H1 } from "../../style/TextStyle";
 import { setColor } from "../../style/SetStyle";
 
 import AddPhotoBtnItem from "../../component/AddPhotoBtnItem";
-import ImgTextBtnUtil from "../../util/ImgTextBtnUtil";
+import ImgTextBtnItem from "../../component/ImgTextBtnItem";
 import finishImg from "../../img/finishImg.svg";
 
 import { useInput } from "../../hook/useInput";
@@ -175,7 +175,7 @@ const EditingContainer = () => {
           <Div $flex="h_between_center" $margin="0 0 2% 0">
             <AddPhotoBtnItem {...{ setImage }} />
             <Div $margin="0 0 0 20px">
-              <ImgTextBtnUtil
+              <ImgTextBtnItem
                 img={finishImg}
                 text={"FINISH"}
                 color={"white"}

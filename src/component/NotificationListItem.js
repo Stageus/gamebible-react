@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Span } from "../style/TextStyle";
 import { Div, Article } from "../style/LayoutStyle";
 
-import ImgTextBtnUtil from "../util/ImgTextBtnUtil";
+import ImgTextBtnItem from "./ImgTextBtnItem";
 
 import DeleteIcon from "../img/deleteIcon.svg";
 import RejectIcon from "../img/rejectIcon.svg";
@@ -88,7 +88,7 @@ const NotificationListItem = () => {
         {isAdmin ? (
           // (관리자) 알람 하나
           <Div $flex="h_between_center" $width="30%">
-            <ImgTextBtnUtil
+            <ImgTextBtnItem
               key="Reject"
               img={RejectIcon}
               text="REJECT"
@@ -96,7 +96,7 @@ const NotificationListItem = () => {
               backgroundColor="default"
               onClick={() => rejectRequestEvent(requestIdx)}
             />
-            <ImgTextBtnUtil
+            <ImgTextBtnItem
               key="Approve"
               img={ApproveIcon}
               text="APPROVE"
@@ -107,7 +107,7 @@ const NotificationListItem = () => {
           </Div>
         ) : (
           // (일반사용자) 알람 하나
-          <ImgTextBtnUtil
+          <ImgTextBtnItem
             img={DeleteIcon}
             text="DELETE"
             color="major"

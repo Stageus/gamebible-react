@@ -12,8 +12,9 @@ import { Article, Section, Div } from "../../style/LayoutStyle";
 import { H1, P, Span } from "../../style/TextStyle";
 
 import backImg from "../../img/backImg.svg";
-import ImgTextBtnUtil from "../../util/ImgTextBtnUtil";
+import ImgTextBtnItem from "../../component/ImgTextBtnItem";
 import BannerImgItem from "../../component/BannerImgItem";
+import timestampConversion from "../../util/TimestampUtil";
 
 const TabBtn = styled(Button)`
   border-right: 1px solid ${setColor("major")};
@@ -38,10 +39,10 @@ const WikiHistoryContentContainer = () => {
   let { gameIdx, historyIdx } = useParams();
 
   const [historyContentData, setHistoryContentData] = useState(null);
-  const [nickname, setNickname] = useState("");
-  const [content, setContent] = useState(null);
-  const [createdAt, setCreatedAt] = useState(null);
-  const [title, setTitle] = useState("");
+  const [nickname, setNickname] = useState(""); // 작성자 닉네임
+  const [content, setContent] = useState(null); // 작성 내용
+  const [createdAt, setCreatedAt] = useState(null); // 작성일
+  const [title, setTitle] = useState(""); // 게임명
 
   useEffect(() => {
     const wikiEditHistoryContent = async () => {
@@ -51,7 +52,7 @@ const WikiHistoryContentContainer = () => {
       const result = await response.json();
       setNickname(result.data[0].nickname);
       setContent(result.data[0].content);
-      setCreatedAt(result.data[0].createdAt);
+      setCreatedAt(timestampConversion(result.data[0].createdAt));
 
       if (response.status === 200) {
         setHistoryContentData(result.data);
@@ -114,7 +115,7 @@ const WikiHistoryContentContainer = () => {
                 </GameTitleLayout>
                 <Link to={`../game/${gameIdx}/wiki/history`}>
                   <Div $flex="h_end_start">
-                    <ImgTextBtnUtil
+                    <ImgTextBtnItem
                       img={backImg}
                       text={"BACK"}
                       color={"major"}

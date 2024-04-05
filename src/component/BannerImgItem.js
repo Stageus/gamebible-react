@@ -5,8 +5,13 @@ import { styled } from "styled-components";
 import { Img } from "../style/ImgStyle";
 import { Div } from "../style/LayoutStyle";
 
+const BannerLayout = styled(Div)`
+  width: 100%;
+  background-size: cover;
+`;
 const BannerImg = styled(Img)`
   width: 100%;
+  aspect-ratio: 1546 / 423;
 `;
 
 const BannerImgItem = () => {
@@ -20,8 +25,11 @@ const BannerImgItem = () => {
     const bannerImgItem = async () => {
       const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/${gameIdx}/banner`);
       const result = await response.json();
-      setBannerImg(result.data[0].imgPath);
-
+      if (result.data.length > 0) {
+        setBannerImg(result.data[0].imgPath);
+      } else {
+        console.log("이미지를 찾을 수 없습니다.");
+      }
       if (response.status === 200) {
         setBannerImgData(result.data);
       }
@@ -33,9 +41,9 @@ const BannerImgItem = () => {
   }, []);
 
   return (
-    <Div $width="100%">
+    <BannerLayout $width="100%">
       <BannerImg src={bannerImg} />
-    </Div>
+    </BannerLayout>
   );
 };
 

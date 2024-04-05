@@ -1,7 +1,7 @@
 import { React, useEffect, useRef, useState } from "react";
 
 import AddPhotoBtnItem from "../../component/AddPhotoBtnItem";
-import ImgTextBtnUtil from "../../util/ImgTextBtnUtil";
+import ImgTextBtnItem from "../../component/ImgTextBtnItem";
 import finishImg from "../../img/finishImg.svg";
 
 import styled from "styled-components";
@@ -118,7 +118,7 @@ const WriterContainer = () => {
         <Div $flex="h_between_center" $margin="0 0 2% 0">
           <AddPhotoBtnItem {...{ setImage }} />
           <Div $margin="0 0 0 20px">
-            <ImgTextBtnUtil
+            <ImgTextBtnItem
               img={finishImg}
               text={"FINISH"}
               color={"white"}

@@ -6,7 +6,7 @@ import { H1, Span } from "../../style/TextStyle";
 import { Button } from "../../style/ButtonStyle";
 import { setColor } from "../../style/SetStyle";
 
-import ImgTextBtnUtil from "../../util/ImgTextBtnUtil";
+import ImgTextBtnItem from "../../component/ImgTextBtnItem";
 import historyImg from "../../img/historyImg.svg";
 import editImg from "../../img/editImg.svg";
 import BannerImgItem from "../../component/BannerImgItem";
@@ -47,8 +47,12 @@ const WikiContainer = () => {
     const wikiContent = async () => {
       const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/${gameIdx}/wiki`);
       const result = await response.json();
-      setTitle(result.data[0].title);
-      setContent(result.data[0].content);
+      if (result.data.length > 0) {
+        setTitle(result.data[0].title);
+        setContent(result.data[0].content);
+      } else {
+        console.log("타이틀을 찾을 수 없습니다.");
+      }
 
       if (response.status === 200) {
         setWikiContentData(result.data);
@@ -102,7 +106,7 @@ const WikiContainer = () => {
                 <Div $flex="h_between_start">
                   <Link to="./history">
                     <Div $margin="0 20px 0 0">
-                      <ImgTextBtnUtil
+                      <ImgTextBtnItem
                         img={historyImg}
                         text={"HISTORY"}
                         color={"major"}
@@ -111,7 +115,7 @@ const WikiContainer = () => {
                     </Div>
                   </Link>
                   <Link to="./edit">
-                    <ImgTextBtnUtil
+                    <ImgTextBtnItem
                       img={editImg}
                       text={"EDIT"}
                       color={"major"}
@@ -125,9 +129,7 @@ const WikiContainer = () => {
                 $width="100%"
                 $margin="20px 0 0 0"
                 dangerouslySetInnerHTML={{ __html: content }}
-              >
-                {/* {content} */}
-              </MainContentLayout>
+              />
             </Article>
           </Section>
         </Article>
