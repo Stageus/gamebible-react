@@ -5,10 +5,10 @@ import { Div, Article } from "../../style/LayoutStyle";
 import { Img } from "../../style/ImgStyle";
 import { setSize } from "../../style/SetStyle";
 
-import PostListContainer from "../inGamePage/PostListContainer";
 import NoResultNoGameContainer from "./NoResultNoGameContainer";
 import noPostImg from "../../img/noPostImg.svg";
 import YesGameContainer from "./YesGameContainer";
+import YesPostContainer from "./YesPostContainer";
 
 import { useRecoilValue } from "recoil";
 import navToggleAtom from "../../recoil/navToggleAtom";
@@ -24,8 +24,9 @@ const YesResultContainer = (props) => {
   const navToggle = useRecoilValue(navToggleAtom);
 
   const { searchGameData, searchPostData } = props;
-  console.log("전달받은 검색 게시글 결과: ", searchPostData.length);
-  console.log("전달받은 검색 게임 결과: ", searchGameData.length);
+  // console.log("searchPostData: ", searchPostData);
+  // console.log("전달받은 검색 게시글 결과: ", searchPostData.length);
+  // console.log("전달받은 검색 게임 결과: ", searchGameData.length);
 
   return (
     <>
@@ -60,20 +61,30 @@ const YesResultContainer = (props) => {
         >
           연관 게시글
         </ArticleLabel>
-        <ArticleContentLayout
-          $width="100%"
-          $height="556px"
-          $backgroundColor="white"
-          $flex="v_center_center"
-        >
-          {searchPostData.length == 0 ? (
+
+        {searchPostData.length == 0 ? (
+          <ArticleContentLayout
+            $width="100%"
+            $height="556px"
+            $backgroundColor="white"
+            $flex="v_center_center"
+          >
             <Div $width="100%" $flex="h_center_center">
               <Img src={noPostImg} />
             </Div>
-          ) : (
-            <PostListContainer searchPostData={searchPostData} />
-          )}
-        </ArticleContentLayout>
+          </ArticleContentLayout>
+        ) : (
+          <ArticleContentLayout
+            $width="100%"
+            $height="556px"
+            $backgroundColor="white"
+            $flex="v_start_center"
+          >
+            <Div $width="100%" $padding="30px">
+              <YesPostContainer searchPostData={searchPostData} />
+            </Div>
+          </ArticleContentLayout>
+        )}
       </Article>
     </>
   );

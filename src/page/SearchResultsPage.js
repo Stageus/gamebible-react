@@ -85,7 +85,7 @@ const SearchResultsPage = () => {
 
   return (
     <PageWrapper>
-      {searchGameData ? (
+      {searchGameData || searchPostData ? (
         <YesResultSection
           $flex="v_center_center"
           $margin={navToggle ? "100px 0 0 300px" : "100px 0 0 0"}

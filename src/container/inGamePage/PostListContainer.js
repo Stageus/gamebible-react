@@ -11,6 +11,7 @@ const PostListContainer = (props) => {
   const [data, setData] = useState([]);
   const [totalPosts, setTotalPosts] = useState(0);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -34,7 +35,7 @@ const PostListContainer = (props) => {
     };
 
     fetchData();
-    console.log(data);
+    // console.log(data);
   }, [gameIdx, pageIdx, loading]);
 
   const pageinationProps = {
@@ -42,6 +43,7 @@ const PostListContainer = (props) => {
     pageCount: 10,
     currentPage: { pageIdx },
   };
+
   return (
     <Section $width="100%">
       <Div $width="100%" $padding="30px 30px 0 30px">
