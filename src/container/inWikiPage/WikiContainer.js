@@ -47,8 +47,12 @@ const WikiContainer = () => {
     const wikiContent = async () => {
       const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/${gameIdx}/wiki`);
       const result = await response.json();
-      setTitle(result.data[0].title);
-      setContent(result.data[0].content);
+      if (result.data.length > 0) {
+        setTitle(result.data[0].title);
+        setContent(result.data[0].content);
+      } else {
+        console.log("타이틀을 찾을 수 없습니다.");
+      }
 
       if (response.status === 200) {
         setWikiContentData(result.data);
