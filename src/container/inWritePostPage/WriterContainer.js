@@ -13,6 +13,7 @@ import { setColor } from "../../style/SetStyle";
 import { useInput } from "../../hook/useInput";
 import { useCookies } from "react-cookie";
 import { useParams, useNavigate } from "react-router-dom";
+import useFetch from "../../hook/useFetch";
 
 const EditorWrapper = styled(Div)`
   border-radius: 4px;
@@ -31,12 +32,13 @@ const EditorContainer = styled(Div)`
 
 const WriterContainer = () => {
   const { value: title, onChangeEvent: onChangeTitltEvent } = useInput("");
+  const { data, error, status, request } = useFetch();
+  const [postIdx, setPostIdx] = useState(0);
   const [image, setImage] = useState([]);
   const [content, setContent] = useState("");
   const [cookies] = useCookies(["token"]);
-  const [data, setData] = useState(null);
   const contentContainer = useRef(null);
-  const { postIdx, gameIdx } = useParams();
+  const { gameIdx } = useParams();
   const navigate = useNavigate();
 
   const regex = /^\s*$/;
@@ -55,7 +57,6 @@ const WriterContainer = () => {
       alert("내용을 입력해주세요");
       return;
     }
-    postSubmitEvent();
   };
 
   //처음 들어왔을 때 임시저장을 만들고
@@ -66,38 +67,24 @@ const WriterContainer = () => {
     setContent(contentContainer.current);
   };
 
-  const postSubmitEvent = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_KEY}/post/${postIdx}/?gameidx=${gameIdx}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${cookies.token}`,
-          },
-          body: JSON.stringify({
-            title: title,
-            content: `${content}`,
-          }),
-          query: {
-            gameidx: { gameIdx },
-          },
-        }
-      );
-      const result = await response.json();
-      console.log(result);
-      setData(result);
-    } catch (error) {
-      alert(`Error: ${error.message}`);
-    }
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await request(`/post?gameidx=${gameIdx}`, "POST", null, {
+          Authorization: `Bearer ${cookies.token}`,
+        });
+      } catch (error) {
+        alert(`Error: ${error.message}`);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
-    // if (Result.status === 200) {
-    //   navigate(`/game/${gameIdx}`);
-    // }
-    console.log(data);
+    if (data && data.data) {
+      setPostIdx(data.data.idx);
+    }
   }, [data]);
 
   return (
@@ -133,17 +120,7 @@ const WriterContainer = () => {
           contentEditable="true"
           $width="100%"
           $padding="4%"
-        >
-          {image.map((imageData) => (
-            <Img
-              key={imageData.id}
-              src={imageData.imageURL}
-              $height="300px"
-              $margin="10px"
-              alt={imageData.file.name}
-            />
-          ))}
-        </EditorContainer>
+        ></EditorContainer>
       </Div>
     </EditorWrapper>
   );

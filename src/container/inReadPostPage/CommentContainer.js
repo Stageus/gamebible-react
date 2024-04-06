@@ -29,7 +29,6 @@ const CommentContainer = () => {
   const [commentListData, setCommentListData] = useState([]);
   const [lastidx, setLastIdx] = useState(0);
   const { pageIdx } = useParams();
-  console.log(pageIdx);
 
   useEffect(() => {
     setCommentListData([

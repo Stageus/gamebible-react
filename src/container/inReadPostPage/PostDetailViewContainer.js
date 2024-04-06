@@ -25,7 +25,7 @@ const PostContentDiv = styled(Div)`
 
 const PostDetailViewContainer = (props) => {
   const [cookies] = useCookies(["token"]);
-  const { gameIdx, postIdx } = useParams();
+  const { postIdx } = useParams();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -37,19 +37,15 @@ const PostDetailViewContainer = (props) => {
     } else {
       const fetchData = async () => {
         try {
-          const response = await fetch(
-            `${process.env.REACT_APP_API_KEY}/post/${postIdx}/?gameidx=${gameIdx}`,
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${cookies.token}`,
-              },
-            }
-          );
+          const response = await fetch(`${process.env.REACT_APP_API_KEY}/post/${postIdx}`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${cookies.token}`,
+            },
+          });
           const result = await response.json();
-          setData(result.data[0]);
-          console.log(result.data[0]);
+          setData(result.data);
         } catch (error) {
           console.log(`ReadPOst 에러임${error}`);
         }

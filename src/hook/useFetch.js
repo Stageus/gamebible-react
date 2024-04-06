@@ -20,7 +20,7 @@ const useFetch = () => {
       const result = await response.json();
       setData(result);
     } catch (error) {
-      console.log(`내정보 수정 에러 : ${error}`);
+      console.log(`fetchERROR : ${error}`);
       setError(error);
     }
   };
