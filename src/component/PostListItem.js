@@ -12,9 +12,6 @@ const PostListItemLayout = styled(Article)`
   border-radius: 5px;
   cursor: pointer;
 `;
-// const FullWideLink = styled(Link)`
-//   width: 100%;
-// `;
 
 const PostListItem = (props) => {
   const { title, nickname, view, createdAt } = props.data;

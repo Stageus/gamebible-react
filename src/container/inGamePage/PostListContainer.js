@@ -34,7 +34,6 @@ const PostListContainer = (props) => {
     };
 
     fetchData();
-    console.log(data);
   }, [gameIdx, pageIdx, loading]);
 
   const pageinationProps = {

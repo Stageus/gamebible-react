@@ -36,8 +36,6 @@ const EditPersonalInfoContainer = () => {
   );
   const navigate = useNavigate();
 
-  //로그인 했을 때 리코일로 돌려라 준연아
-
   const saveSubmitEvent = async () => {
     await request(
       "/account/info",
