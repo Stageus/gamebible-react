@@ -12,14 +12,15 @@ const PostListContainer = (props) => {
   const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
-    const fetch = async () => {
+    const fetchData = async () => {
       try {
-        request(`/post?gameidx=${gameIdx}&page=${pageIdx}`, "GET");
+        request(`/post/all?gameidx=${gameIdx}&page=${pageIdx}`, "GET");
+        console.log(data);
       } catch (error) {
         console.log(error);
       }
     };
-    fetch();
+    fetchData();
   }, [gameIdx, pageIdx]);
 
   useEffect(() => {
@@ -35,8 +36,8 @@ const PostListContainer = (props) => {
           data.data.map((elem) => {
             return (
               <Link
-                key={`post${elem.idx}`}
-                to={`/game/${gameIdx}/community/page/${pageIdx}/post/${elem.idx}`}
+                key={`post${elem.postIdx}`}
+                to={`/game/${gameIdx}/community/page/${pageIdx}/post/${elem.postIdx}`}
               >
                 <PostListItem data={elem} />
               </Link>

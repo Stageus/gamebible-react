@@ -6,6 +6,7 @@ import { Span } from "../../style/TextStyle";
 import { Div } from "../../style/LayoutStyle";
 import { Button } from "../../style/ButtonStyle";
 import CommentListItem from "../../component/CommentListItem";
+import PostCommentContainer from "../../container/inReadPostPage/PostCommentContainer";
 import { useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { useInput } from "../../hook/useInput";
@@ -37,32 +38,18 @@ const OverFlowDiv = styled(Div)`
 const CommentContainer = () => {
   const [commentListData, setCommentListData] = useState([]);
   const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
-  const { data, error, status, request } = useFetch();
   const [lastidx, setLastIdx] = useState(0);
+  const { data, error, status, request } = useFetch();
+
   const { gameIdx, pageIdx, postIdx } = useParams();
   const { value: contentValue, onChangeEvent: contentOnChangeEvent } = useInput("");
   const [cookies] = useCookies(["token"]);
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_API_KEY}/comment/lastidx/${lastidx}/postidx/${postIdx}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        const result = await response.json();
-        console.log(result);
-        if (response.status === 200) {
-          console.log("확인");
-        }
-      } catch (error) {
-        console.log(`Error: ${error.message}`);
-      }
+      await request(`/comment/all?postidx=${postIdx}&lastidx=${lastidx}`, "GET", null, {
+        Authorization: `Bearer ${cookies.token}`,
+      });
     };
     fetchData();
   }, []);
@@ -80,25 +67,13 @@ const CommentContainer = () => {
     };
   }, [commentListData]);
 
-  const commentClickEvent = async () => {
-    await request(
-      `/comment/gameidx/${gameIdx}/postidx/${postIdx}`,
-      "POST",
-      {
-        postidx: postIdx,
-        content: contentValue,
-      },
-      { Authorization: `Bearer ${cookies.token}` }
-    );
-  };
-
-  useEffect(() => {
-    if (status === 200) {
-      console.log(data);
-    } else {
-      console.log(data);
-    }
-  }, [status]);
+  console.log(contentValue);
+  // useEffect(() => {
+  //   if (status === 200) {
+  //     console.log(data.data);
+  //   } else {
+  //   }
+  // }, [status]);
 
   // const addDummyData = () => {
   //   const newData = [
@@ -136,40 +111,20 @@ const CommentContainer = () => {
 
   //   setCommentListData((prevData) => [...prevData, ...newData]);
   // };
-
   return (
     <Div $width="100%" $height="100%">
       <Div>
         <Span $fontSize="large" $color="white">
-          댓글: {commentListData.length}개
+          댓글: {data?.data.length}개
         </Span>
       </Div>
       <Div $flex="h_center_center" $width="100%">
         <NicknameSpan $color="white">{userInfo.nickname}</NicknameSpan>
-        <CommentInput
-          type="text"
-          $color="white"
-          $margin="3% 1%"
-          $width="85%"
-          $height="40px"
-          $backgroundColor="none"
-          value={contentValue}
-          onChange={contentOnChangeEvent}
-        />
-        <StyleBtn
-          $flex="h_center_center"
-          $width="10%"
-          $height="40px"
-          $backgroundColor="white"
-          $margin="0 0 0 1%"
-          onClick={commentClickEvent}
-        >
-          댓글 추가
-        </StyleBtn>
+        <PostCommentContainer />
       </Div>
       <OverFlowDiv $width="100%" $height="100%">
-        {commentListData.map((elem, idx) => {
-          return <CommentListItem key={elem.id + idx} data={elem} />;
+        {data?.data.map((elem) => {
+          return <CommentListItem key={elem.idx} data={elem} />;
         })}
       </OverFlowDiv>
     </Div>

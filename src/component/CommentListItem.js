@@ -31,7 +31,7 @@ const CommentListItem = (props) => {
     >
       <Div $flex="h_between_center" $width="100%">
         <Span $flex="h_start_center" $width="70%">
-          {data.title}
+          {data.content}
         </Span>
         <Div $flex="h_end_center" $width="30%">
           <Span $flex="h_center_center" $width="33.33%">

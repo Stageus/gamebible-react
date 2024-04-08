@@ -36,11 +36,8 @@ const CommunityContainer = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        await request(`/post?gameidx=${gameIdx}&page=${pageIdx}`, "GET", null);
-      } catch (error) {
-        console.log(error);
-      }
+      await request(`/post/all?gameidx=${gameIdx}&page=${pageIdx}`, "GET", null);
+      console.log(data);
     };
     fetchData();
   }, [pageIdx]);
