@@ -28,7 +28,7 @@ const SearchResultsPage = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const searchTerm = searchParams.get("title");
-  console.log("searchTerm: ", searchTerm);
+  console.log("검색어: ", searchTerm);
 
   // 게임 검색하기 GET
   const [searchGameData, setSearchGameData] = useState([]);
@@ -40,7 +40,7 @@ const SearchResultsPage = () => {
       );
       const result = await response.json();
       setSearchGameData(result.data);
-      console.log("result.data: ", result.data);
+      console.log("게임 검색 결과: ", result.data);
 
       if (response.status === 200) {
         setSearchGameData(result.data);
@@ -64,11 +64,11 @@ const SearchResultsPage = () => {
         `${process.env.REACT_APP_API_KEY}/post/search?title=${searchTerm}&page=${page}`
       );
       const result = await response.json();
-      setSearchPostData(result.data);
-      console.log("게시글 검색 결과: ", result.data);
+      setSearchPostData(result);
+      console.log("가져올 때 게시글 검색 결과: ", result);
 
       if (response.status === 200) {
-        setSearchPostData(result.data);
+        setSearchPostData(result);
       } else if (response.status === 400) {
         alert(result.errors);
       } else if (response.status === 500) {

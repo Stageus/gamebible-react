@@ -24,9 +24,6 @@ const YesResultContainer = (props) => {
   const navToggle = useRecoilValue(navToggleAtom);
 
   const { searchGameData, searchPostData } = props;
-  // console.log("searchPostData: ", searchPostData);
-  // console.log("전달받은 검색 게시글 결과: ", searchPostData.length);
-  // console.log("전달받은 검색 게임 결과: ", searchGameData.length);
 
   return (
     <>

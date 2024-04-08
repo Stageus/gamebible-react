@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState } from "react";
 
 import styled from "styled-components";
 import { Img } from "../../style/ImgStyle";
@@ -9,6 +9,9 @@ import { P } from "../../style/TextStyle";
 import { Input } from "../../style/InputStyle";
 
 import MainLogo from "../../img/HeaderLogo.svg";
+
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 
 const RelativeSection = styled(Section)`
   position: fixed;
@@ -30,7 +33,29 @@ const RightButton = styled(Button)`
 `;
 
 const SuggestGameContainer = (props) => {
-  const { suggestGameEvent } = props;
+  const { suggestNewGameEvent } = props;
+  const cookies = useCookies();
+  const navigate = useNavigate();
+
+  const [gameTitle, setGameTitle] = useState("");
+
+  const suggestGameClickEvent = async () => {
+    const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/request`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${cookies.token}`,
+      },
+      body: JSON.stringify({ title: gameTitle }),
+    });
+
+    const result = await response.json();
+    if (response.status === 200) {
+      navigate("/");
+    } else {
+      alert(result.message);
+    }
+  };
 
   return (
     <RelativeSection $flex="h_center_center" $width="100vw" $height="100vh">
@@ -41,7 +66,7 @@ const SuggestGameContainer = (props) => {
           $flex="h_center_center"
           $backgroundColor="none"
           $borderStyle={`1px solid ${setColor("black")}`}
-          onClick={suggestGameEvent}
+          onClick={suggestNewGameEvent}
         >
           ❌
         </RightButton>
@@ -51,7 +76,18 @@ const SuggestGameContainer = (props) => {
         <OverFlowAutoSection $flex="v_center_center" $padding="20px 10px">
           <P $fontWeight="bold">생성하고 싶은 게임의 정확한 이름을 입력해주세요</P>
           <Div $flex="h_center_center" $height="30px" $margin="20px">
-            <Input type="text" $padding="5px" $width="250px" $height="100%" />
+            <Input
+              type="text"
+              $padding="5px"
+              $width="250px"
+              $height="100%"
+              onChange={(e) => setGameTitle(e.target.value)}
+              onKeyPress={(event) => {
+                if (event.key === "Enter") {
+                  suggestGameClickEvent();
+                }
+              }}
+            />
             <Button
               $flex="h_center_center"
               $margin="0 10px"
@@ -60,6 +96,7 @@ const SuggestGameContainer = (props) => {
               $borderRadius="5px"
               $backgroundColor="minorDark"
               $color="white"
+              onClick={suggestGameClickEvent}
             >
               생성
             </Button>

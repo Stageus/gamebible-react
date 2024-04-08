@@ -71,7 +71,6 @@ const HeaderItem = () => {
   // 검색 관련
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
-  // console.log("searchValue: ", searchValue);
   // 검색결과 받기
   const onChangeEvent = (event) => {
     setSearchValue(event.target.value);

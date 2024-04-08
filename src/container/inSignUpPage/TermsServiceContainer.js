@@ -21,6 +21,8 @@ const TermsServiceContainer = (props) => {
   } = props;
 
   const { click: termsReadMore, clickEvent: termsReadMoreEvent } = useClick(false);
+  console.log("termsReadMoreEvent: ", termsReadMoreEvent);
+  console.log("termsReadMore: ", termsReadMore);
   const { click: privacyReadMore, clickEvent: privacyReadMoreEvent } = useClick(false);
 
   const [isAllChecked, setIsAllChecked] = useState(false);

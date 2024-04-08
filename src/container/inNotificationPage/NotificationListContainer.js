@@ -9,6 +9,8 @@ import noAlarmImg from "../../img/noAlarmImg.svg";
 import NotificationListItem from "../../component/NotificationListItem";
 
 import { useCookies } from "react-cookie";
+import { useRecoilState } from "recoil";
+import userInfoAtom from "../../recoil/userInfoAtom";
 
 const OverFlowDiv = styled(Section)`
   overflow: auto;
@@ -19,12 +21,13 @@ const NotiListLayout = styled(Article)`
 `;
 
 const NotificationListContainer = (props) => {
-  const { isAdmin } = props;
   const [cookies] = useCookies(["token"]);
+  const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
+  console.log("userInfo: ", userInfo);
 
   const [page, setPage] = useState(1);
-  const [adminNotiListData, setAdminNotiListData] = useState([]);
-  const [notiListData, setNotiListData] = useState([]);
+  const [adminNotiListData, setAdminNotiListData] = useState([]); //관리자알림
+  const [notiListData, setNotiListData] = useState([]); //사용자알림
 
   // 관리자 승인요청 온 게임 목록보기 GET
   useEffect(() => {
@@ -38,9 +41,17 @@ const NotificationListContainer = (props) => {
       });
 
       const result = await response.json();
+      if (result.data) {
+        setUserInfo({
+          is_admin: result.data.is_admin,
+        });
+      }
 
       if (response.status === 200) {
         setAdminNotiListData(result.data);
+        setUserInfo({
+          is_admin: result.data.is_admin,
+        });
         console.log("승인요청온 게임 목록: ", result.data);
       } else {
         alert(result.message);
@@ -55,29 +66,29 @@ const NotificationListContainer = (props) => {
     setPage(page + 1);
   }, [adminNotiListData]);
 
-  // // 일반사용자 알림 목록보기 GET
-  // useEffect(() => {
-  //   const getNotiListData = async () => {
-  //     const response = await fetch(`${process.env.REACT_APP_API_KEY}/account/notification`, {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${cookies.token}`,
-  //       },
-  //     });
+  // 일반사용자 알림 목록보기 GET
+  useEffect(() => {
+    const getNotiListData = async () => {
+      const response = await fetch(`${process.env.REACT_APP_API_KEY}/account/notification`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${cookies.token}`,
+        },
+      });
 
-  //     const result = await response.json();
+      const result = await response.json();
 
-  //     if (response.status === 200) {
-  //       setNotiListData(result.data);
-  //       console.log("result.data: ", result.data);
-  //     } else {
-  //       alert(result.message);
-  //     }
-  //   };
+      if (response.status === 200) {
+        setNotiListData(result.data);
+        console.log("result.data: ", result.data);
+      } else {
+        alert(result.message);
+      }
+    };
 
-  //   getNotiListData();
-  // }, []);
+    getNotiListData();
+  }, []);
 
   // 일반사용자 알림 목록 백엔드 state가 업데이트 될 때 마다, page를 1 증가시키기
   useEffect(() => {
@@ -204,63 +215,63 @@ const NotificationListContainer = (props) => {
   // };
 
   return (
-    // <OverFlowDiv $height="100%" $flex="v_start_center" $margin="100px 0 0 0" $width="100vw">
-    //   {isAdmin ? (
-    //     <Div $flex="v_start_center" $width="1320px">
-    //       <Div $flex="h_start_center" $width="100%">
-    //         <H1 $fontSize="large" $fontWeight="bold">
-    //           관리자 알림함
-    //         </H1>
-    //       </Div>
-    //       <NotiListLayout $flex="v_center_center">
-    //         {adminNotiListData.length > 0 ? (
-    //           adminNotiListData.map((elem) => {
-    //             return <NotificationListItem key={elem.id} data={elem} isAdmin />;
-    //           })
-    //         ) : (
-    //           <Div>
-    //             <Img src={noAlarmImg} alt="no alarm" />
-    //           </Div>
-    //         )}
-    //       </NotiListLayout>
-    //     </Div>
-    //   ) : (
-    // <Div $flex="v_start_center" $width="1320px">
-    //   <Div $flex="h_start_center" $width="100%">
-    //     <H1 $fontSize="large" $fontWeight="bold">
-    //       알림함
-    //     </H1>
-    //   </Div>
-    //   <NotiListLayout $flex="v_center_center">
-    //     {notiListData.length > 0 ? (
-    //       notiListData.map((elem) => {
-    //         return <NotificationListItem key={elem.id} data={elem} />;
-    //       })
-    //     ) : (
-    //       <Div>
-    //         <Img src={noAlarmImg} alt="no alarm" />
-    //       </Div>
-    //     )}
-    //   </NotiListLayout>
-    // </Div>
-    //   )}
-    // </OverFlowDiv>
+    <OverFlowDiv $height="100%" $flex="v_start_center" $margin="100px 0 0 0" $width="100vw">
+      {is_admin ? (
+        <Div $flex="v_start_center" $width="1320px">
+          <Div $flex="h_start_center" $width="100%">
+            <H1 $fontSize="large" $fontWeight="bold">
+              관리자 알림함
+            </H1>
+          </Div>
+          <NotiListLayout $flex="v_center_center">
+            {adminNotiListData.length > 0 ? (
+              adminNotiListData.map((elem) => {
+                return <NotificationListItem key={elem.id} data={elem} isAdmin />;
+              })
+            ) : (
+              <Div>
+                <Img src={noAlarmImg} alt="no alarm" />
+              </Div>
+            )}
+          </NotiListLayout>
+        </Div>
+      ) : (
+        <Div $flex="v_start_center" $width="1320px">
+          <Div $flex="h_start_center" $width="100%">
+            <H1 $fontSize="large" $fontWeight="bold">
+              알림함
+            </H1>
+          </Div>
+          <NotiListLayout $flex="v_center_center">
+            {notiListData.length > 0 ? (
+              notiListData.map((elem) => {
+                return <NotificationListItem key={elem.id} data={elem} />;
+              })
+            ) : (
+              <Div>
+                <Img src={noAlarmImg} alt="no alarm" />
+              </Div>
+            )}
+          </NotiListLayout>
+        </Div>
+      )}
+    </OverFlowDiv>
 
     //----------------------------------------------------------------------
 
-    // 관리자 알림만 보기
-    <Div $flex="v_start_center" $width="1320px">
-      <Div $flex="h_start_center" $width="100%">
-        <H1 $fontSize="large" $fontWeight="bold">
-          관리자 알림함
-        </H1>
-      </Div>
-      <NotiListLayout $flex="v_center_center">
-        {adminNotiListData.map((elem) => {
-          return <NotificationListItem key={elem.id} data={elem} />;
-        })}
-      </NotiListLayout>
-    </Div>
+    // // 관리자 알림만 보기
+    // <Div $flex="v_start_center" $width="1320px">
+    //   <Div $flex="h_start_center" $width="100%">
+    //     <H1 $fontSize="large" $fontWeight="bold">
+    //       관리자 알림함
+    //     </H1>
+    //   </Div>
+    //   <NotiListLayout $flex="v_center_center">
+    //     {adminNotiListData.map((elem) => {
+    //       return <NotificationListItem key={elem.id} data={elem} />;
+    //     })}
+    //   </NotiListLayout>
+    // </Div>
 
     //----------------------------------------------------------------------
 

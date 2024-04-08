@@ -16,6 +16,14 @@ const MoveToReadPost = styled(Link)`
 `;
 
 const YesPostContainer = ({ searchPostData }) => {
+  console.log("진짜!!searchPostData: ", searchPostData.data[0]);
+  // const gameIdx = searchPostData.data[0].gameIdx;
+  // console.log("gameIdx: ", gameIdx);
+  // const postIdx = searchPostData.data[0].postIdx;
+  // console.log("postIdx: ", postIdx);
+  // const page = searchPostData.page;
+  // console.log("page: ", page);
+
   return (
     <SearchPostLayout $width="100%" $flex="v_center_center">
       <Article $flex="h_between_center" $width="100%" $height="40px" $padding="10px 40px 10px 40px">
@@ -35,14 +43,13 @@ const YesPostContainer = ({ searchPostData }) => {
         </Div>
       </Article>
       <Article $flex="v_center_center" $width="100%">
-        {searchPostData.map((elem) => {
+        {searchPostData.data.map((elem) => {
           return (
             <MoveToReadPost
               key={`${elem.idx}`}
-              //수정 필요!!!
-              to={`/game/${elem.idx}/community/page/${elem.idx}/post/${elem.idx}`}
+              to={`/game/${gameIdx}/community/page/${page}/post/${postIdx}`}
             >
-              <PostListItem key={elem.idx} data={elem} />
+              <PostListItem key={elem.idx} />
             </MoveToReadPost>
           );
         })}
