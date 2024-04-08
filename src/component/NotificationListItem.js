@@ -19,16 +19,16 @@ import { useCookies } from "react-cookie";
 import { useRecoilState } from "recoil";
 import userInfoAtom from "../recoil/userInfoAtom";
 
+import timestampConversion from "../util/TimestampUtil";
+
 const BorderStyleArticle = styled(Article)`
   border-radius: 5px;
 `;
 
 const NotificationListItem = (props) => {
-  // const { date, content } = props.data;
-  const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
-  console.log("userInfo: ", userInfo);
+  const { idx, userIdx, title, isConfirmed, createdAt } = props.data;
 
-  const { notificationId } = props;
+  const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
 
   // const { isAdmin } = props;
   const navigate = useNavigate();
@@ -36,40 +36,35 @@ const NotificationListItem = (props) => {
   const { click: acceptGame, clickEvent: setGameImgEvent } = useClick(false);
 
   const [cookies] = useCookies("token");
+  const timestamp = timestampConversion(createdAt);
 
-  // (일반사용자) 알림 삭제하기 DELETE
-  const deleteAlarmEvent = async () => {
-    const response = await fetch(
-      `${process.env.REACT_APP_API_KEY}/account/notification/${notificationId}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${cookies.token}`,
-        },
-      }
-    );
-    const result = await response.json();
-    if (response.status === 200) {
-      alert(result.message);
-      navigate("/");
-    } else {
-      alert(result.message);
-    }
-  };
+  // // (일반사용자) 알림 삭제하기 DELETE
+  // const deleteAlarmEvent = async () => {
+  //   const response = await fetch(`${process.env.REACT_APP_API_KEY}/account/notification/${idx}`, {
+  //     method: "DELETE",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${cookies.token}`,
+  //     },
+  //   });
+  //   const result = await response.json();
+  //   if (response.status === 200) {
+  //     alert(result.message);
+  //     navigate("/");
+  //   } else {
+  //     alert(result.message);
+  //   }
+  // };
 
   // (관리자) 게임 승인요청 거부하기 DELETE
   const rejectRequestEvent = async () => {
-    const response = await fetch(
-      `${process.env.REACT_APP_API_KEY}/admin/game/request/${requestIdx}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${cookies.token}`,
-        },
-      }
-    );
+    const response = await fetch(`${process.env.REACT_APP_API_KEY}/admin/game/request/${idx}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${cookies.token}`,
+      },
+    });
 
     const result = await response.json();
     if (response.status === 400) {
@@ -82,8 +77,56 @@ const NotificationListItem = (props) => {
   };
 
   return (
+    //   <Div $flex="v_start_start" $width="100%" $margin="70px 0 0 0">
+    //     <Span $margin="0 0 10px 0">{createdAt}</Span>
+    //     <BorderStyleArticle
+    //       $flex="h_between_center"
+    //       $width="100%"
+    //       $backgroundColor="lightGray"
+    //       $height="100px"
+    //       $padding="0 3%"
+    //     >
+    //       <Div>
+    //         <Span $fontWeight="bold">{title}</Span>
+    //       </Div>
+    //       {isAdmin ? (
+    //         // (관리자) 알람 하나
+    //         <Div $flex="h_between_center" $width="30%">
+    //           <ImgTextBtnItem
+    //             key="Reject"
+    //             img={RejectIcon}
+    //             text="REJECT"
+    //             color="major"
+    //             backgroundColor="default"
+    //             onClick={() => rejectRequestEvent(requestIdx)}
+    //           />
+    //           <ImgTextBtnItem
+    //             key="Approve"
+    //             img={ApproveIcon}
+    //             text="APPROVE"
+    //             color="major"
+    //             backgroundColor="default"
+    //             onClick={setGameImgEvent}
+    //           />
+    //         </Div>
+    //       ) : (
+    //         // (일반사용자) 알람 하나
+    //         <ImgTextBtnItem
+    //           img={DeleteIcon}
+    //           text="DELETE"
+    //           color="major"
+    //           backgroundColor="default"
+    //           onClick={() => deleteAlarmEvent(notificationId)}
+    //         />
+    //       )}
+    //     </BorderStyleArticle>
+    //     {acceptGame && <GameImgSettingContainer {...{ setGameImgEvent }} />}
+    //   </Div>
+    // );
+
+    // 관리자 알람 하나
     <Div $flex="v_start_start" $width="100%" $margin="70px 0 0 0">
-      <Span $margin="0 0 10px 0">{createdAt}</Span>
+      <Span $margin="0 0 10px 0">{timestamp}</Span>
       <BorderStyleArticle
         $flex="h_between_center"
         $width="100%"
@@ -92,38 +135,26 @@ const NotificationListItem = (props) => {
         $padding="0 3%"
       >
         <Div>
-          <Span $fontWeight="bold">{title}</Span>
+          <Span $fontWeight="bold">새로운 게임 "{title}" 생성이 요청되었습니다.</Span>
         </Div>
-        {isAdmin ? (
-          // (관리자) 알람 하나
-          <Div $flex="h_between_center" $width="30%">
-            <ImgTextBtnItem
-              key="Reject"
-              img={RejectIcon}
-              text="REJECT"
-              color="major"
-              backgroundColor="default"
-              onClick={() => rejectRequestEvent(requestIdx)}
-            />
-            <ImgTextBtnItem
-              key="Approve"
-              img={ApproveIcon}
-              text="APPROVE"
-              color="major"
-              backgroundColor="default"
-              onClick={setGameImgEvent}
-            />
-          </Div>
-        ) : (
-          // (일반사용자) 알람 하나
+        <Div $flex="h_between_center" $width="30%">
           <ImgTextBtnItem
-            img={DeleteIcon}
-            text="DELETE"
+            key="Reject"
+            img={RejectIcon}
+            text="REJECT"
             color="major"
             backgroundColor="default"
-            onClick={() => deleteAlarmEvent(notificationId)}
+            onClick={() => rejectRequestEvent(idx)}
           />
-        )}
+          <ImgTextBtnItem
+            key="Approve"
+            img={ApproveIcon}
+            text="APPROVE"
+            color="major"
+            backgroundColor="default"
+            onClick={setGameImgEvent}
+          />
+        </Div>
       </BorderStyleArticle>
       {acceptGame && <GameImgSettingContainer {...{ setGameImgEvent }} />}
     </Div>

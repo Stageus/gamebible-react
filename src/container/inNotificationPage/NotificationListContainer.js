@@ -18,8 +18,8 @@ const NotiListLayout = styled(Article)`
   min-height: 700px;
 `;
 
-const NotificationListContainer = (props) => {
-  const { isAdmin } = props;
+const NotificationListContainer = () => {
+  const { isAdmin } = { isAdmin: true };
   const [cookies] = useCookies(["token"]);
 
   const [page, setPage] = useState(1);
@@ -42,6 +42,7 @@ const NotificationListContainer = (props) => {
       if (response.status === 200) {
         setAdminNotiListData(result.data);
         console.log("승인요청온 게임 목록: ", result.data);
+        console.log("승인요청온 게임 목록 길이: ", result.data.length);
       } else {
         alert(result.message);
       }
@@ -56,28 +57,28 @@ const NotificationListContainer = (props) => {
   }, [adminNotiListData]);
 
   // // 일반사용자 알림 목록보기 GET
-  // useEffect(() => {
-  //   const getNotiListData = async () => {
-  //     const response = await fetch(`${process.env.REACT_APP_API_KEY}/account/notification`, {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${cookies.token}`,
-  //       },
-  //     });
+  useEffect(() => {
+    const getNotiListData = async () => {
+      const response = await fetch(`${process.env.REACT_APP_API_KEY}/account/notification`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${cookies.token}`,
+        },
+      });
 
-  //     const result = await response.json();
+      const result = await response.json();
 
-  //     if (response.status === 200) {
-  //       setNotiListData(result.data);
-  //       console.log("result.data: ", result.data);
-  //     } else {
-  //       alert(result.message);
-  //     }
-  //   };
+      if (response.status === 200) {
+        setNotiListData(result.data);
+        console.log("result.data: ", result.data);
+      } else {
+        alert(result.message);
+      }
+    };
 
-  //   getNotiListData();
-  // }, []);
+    getNotiListData();
+  }, []);
 
   // 일반사용자 알림 목록 백엔드 state가 업데이트 될 때 마다, page를 1 증가시키기
   useEffect(() => {
@@ -215,7 +216,7 @@ const NotificationListContainer = (props) => {
           <NotiListLayout $flex="v_center_center">
             {adminNotiListData.length > 0 ? (
               adminNotiListData.map((elem) => {
-                return <NotificationListItem key={elem.id} data={elem} isAdmin />;
+                return <NotificationListItem key={elem.idx} data={elem} isAdmin />;
               })
             ) : (
               <Div>
@@ -232,7 +233,7 @@ const NotificationListContainer = (props) => {
             </H1>
           </Div>
           <NotiListLayout $flex="v_center_center">
-            {notiListData.length > 0 ? (
+            {/* {notiListData.length > 0 ? (
               notiListData.map((elem) => {
                 return <NotificationListItem key={elem.id} data={elem} />;
               })
@@ -240,7 +241,7 @@ const NotificationListContainer = (props) => {
               <Div>
                 <Img src={noAlarmImg} alt="no alarm" />
               </Div>
-            )}
+            )} */}
           </NotiListLayout>
         </Div>
       )}
