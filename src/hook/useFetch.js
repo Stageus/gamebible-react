@@ -15,22 +15,11 @@ const useFetch = () => {
         option.body = JSON.stringify(body);
       }
       const response = await fetch(`${process.env.REACT_APP_API_KEY}${path}`, option);
-
-      // const response = await fetch(`${process.env.REACT_APP_API_KEY}${path}`, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(body),
-      // });
-
-      // console.log(response);
-
       setStatus(response.status);
       const result = await response.json();
       setData(result);
     } catch (error) {
-      console.log(`내정보 수정 에러 : ${error}`);
+      console.log(`fetchERROR : ${error}`);
       setError(error);
     }
   };

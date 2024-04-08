@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import useFetch from "../../hook/useFetch";
 
 import { Link, useParams } from "react-router-dom";
 
@@ -31,25 +32,12 @@ const ButtonWrapper = styled(Div)``;
 
 const CommunityContainer = () => {
   const { gameIdx, pageIdx } = useParams();
+  const { data, error, status, request } = useFetch();
 
-  const [data, setData] = useState({});
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_API_KEY}/post?gameidx=${gameIdx}&page=${pageIdx}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        const result = await response.json();
-        setData(result);
-      } catch (error) {
-        console.log(`Error: ${error.message}`);
-      }
+      await request(`/post/all?gameidx=${gameIdx}&page=${pageIdx}`, "GET", null);
+      console.log(data);
     };
     fetchData();
   }, [pageIdx]);

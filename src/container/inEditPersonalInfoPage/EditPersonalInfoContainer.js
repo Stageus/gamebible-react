@@ -30,11 +30,11 @@ const EditPersonalInfoContainer = () => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
   const { data, error, status, request } = useFetch();
 
-  const { value: newEmailValue, onChangeEvent: newEmailOnChangeEvent } = useInput("");
-  const { value: newNicknameValue, onChangeEvent: newNicknameOnChangeEvent } = useInput("");
+  const { value: newEmailValue, onChangeEvent: newEmailOnChangeEvent } = useInput(userInfo.email);
+  const { value: newNicknameValue, onChangeEvent: newNicknameOnChangeEvent } = useInput(
+    userInfo.nickname
+  );
   const navigate = useNavigate();
-
-  //로그인 했을 때 리코일로 돌려라 준연아
 
   const saveSubmitEvent = async () => {
     await request(
@@ -78,14 +78,12 @@ const EditPersonalInfoContainer = () => {
       <InputItem
         key="email"
         label="이메일"
-        placeholder={userInfo.email}
         inputValue={newEmailValue}
         inputChangeEvent={newEmailOnChangeEvent}
       />
       <InputItem
         key="nickname"
         label="닉네임"
-        placeholder={userInfo.nickname}
         inputValue={newNicknameValue}
         inputChangeEvent={newNicknameOnChangeEvent}
       />

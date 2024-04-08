@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import useFetch from "../../hook/useFetch";
 import { Link, useParams } from "react-router-dom";
 import PostListItem from "../../component/PostListItem";
 import PaginationContainer from "./PaginationContainer";
@@ -8,63 +8,43 @@ import { Section, Div } from "../../style/LayoutStyle";
 
 const PostListContainer = (props) => {
   const { gameIdx, pageIdx } = useParams();
-  const [data, setData] = useState([]);
-  const [totalPosts, setTotalPosts] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const { data, error, status, request } = useFetch();
+  const [totalPages, setTotalPages] = useState(0);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          `${process.env.REACT_APP_API_KEY}/post?gameidx=${gameIdx}&page=${pageIdx}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        const result = await response.json();
-        setData(result.data);
-        setTotalPosts(result.totalPosts);
-        setLoading(false);
+        request(`/post/all?gameidx=${gameIdx}&page=${pageIdx}`, "GET");
+        console.log(data);
       } catch (error) {
-        console.log(`Error: ${error.message}`);
-        setLoading(false);
+        console.log(error);
       }
     };
-
     fetchData();
-    console.log(data);
-  }, [gameIdx, pageIdx, loading]);
+  }, [gameIdx, pageIdx]);
 
-  const pageinationProps = {
-    itemCountPerPage: 10,
-    pageCount: 10,
-    currentPage: { pageIdx },
-  };
+  useEffect(() => {
+    if (data) {
+      setTotalPages(Math.ceil(data.totalPosts / 20));
+    }
+  }, [data]);
+
   return (
     <Section $width="100%">
       <Div $width="100%" $padding="30px 30px 0 30px">
         {data &&
-          data.map((elem) => {
+          data.data.map((elem) => {
             return (
               <Link
-                key={`post${elem.idx}`}
-                to={`/game/${gameIdx}/community/page/${pageIdx}/post/${elem.idx}`}
+                key={`post${elem.postIdx}`}
+                to={`/game/${gameIdx}/community/page/${pageIdx}/post/${elem.postIdx}`}
               >
                 <PostListItem data={elem} />
               </Link>
             );
           })}
 
-        <PaginationContainer
-          {...{
-            totalItems: totalPosts,
-            itemCountPerPage: pageinationProps.itemCountPerPage,
-            pageCount: pageinationProps.pageCount,
-            currentPage: parseInt(pageinationProps.currentPage.pageIdx),
-          }}
-        />
+        <PaginationContainer {...{ totalPages, pageIdx }} />
       </Div>
     </Section>
   );
