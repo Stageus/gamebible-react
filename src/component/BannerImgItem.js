@@ -5,8 +5,13 @@ import { styled } from "styled-components";
 import { Img } from "../style/ImgStyle";
 import { Div } from "../style/LayoutStyle";
 
+const BannerLayout = styled(Div)`
+  width: 100%;
+  background-size: cover;
+`;
 const BannerImg = styled(Img)`
   width: 100%;
+  aspect-ratio: 1546 / 423;
 `;
 
 const BannerImgItem = () => {
@@ -36,9 +41,9 @@ const BannerImgItem = () => {
   }, []);
 
   return (
-    <Div $width="100%">
+    <BannerLayout $width="100%">
       <BannerImg src={bannerImg} />
-    </Div>
+    </BannerLayout>
   );
 };
 

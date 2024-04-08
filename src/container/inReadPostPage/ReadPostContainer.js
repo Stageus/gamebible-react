@@ -27,6 +27,7 @@ const GameContentLayout = styled(Section)`
 
 const ReadPostContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
+  let { gameIdx } = useParams();
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
@@ -45,7 +46,7 @@ const ReadPostContainer = () => {
               커뮤니티
             </Span>
           </TabBtn>
-          <Link to="/game/:idx/wiki">
+          <Link to={`/game/${gameIdx}/wiki`}>
             <TabBtn
               $width="150px"
               $height="50px"

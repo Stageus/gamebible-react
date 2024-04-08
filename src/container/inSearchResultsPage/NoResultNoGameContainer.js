@@ -4,7 +4,7 @@ import { useClick } from "../../hook/useClick";
 import { Div } from "../../style/LayoutStyle";
 import { Img } from "../../style/ImgStyle";
 
-import ImgTextBtnUtil from "../../util/ImgTextBtnUtil";
+import ImgTextBtnItem from "../../component/ImgTextBtnItem";
 import SuggestGameContainer from "./SuggestGameContainer";
 
 import noGameImg from "../../img/noGameImg.svg";
@@ -16,7 +16,7 @@ const NoResultNoGameContainer = () => {
   return (
     <Div $flex="v_center_center">
       <Img src={noGameImg} $margin="0 0 30px 0" />
-      <ImgTextBtnUtil
+      <ImgTextBtnItem
         img={addGameImg}
         text={"새로운 게임 요청하기"}
         color={"white"}

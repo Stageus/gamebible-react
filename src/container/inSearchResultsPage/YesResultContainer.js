@@ -40,7 +40,9 @@ const YesResultContainer = (props) => {
         </ArticleLabel>
         <ArticleContentLayout $width="100%" $height="556px" $backgroundColor="white">
           {searchGameData.length == 0 ? (
-            <NoResultNoGameContainer />
+            <Div $width="100%" $height="100%" $flex="h_center_center">
+              <NoResultNoGameContainer />
+            </Div>
           ) : (
             <Div $padding="30px">
               <YesGameContainer searchGameData={searchGameData} />

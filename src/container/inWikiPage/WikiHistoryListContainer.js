@@ -12,7 +12,7 @@ import { Article, Section, Div } from "../../style/LayoutStyle";
 import { H1, P, Span } from "../../style/TextStyle";
 
 import backImg from "../../img/backImg.svg";
-import ImgTextBtnUtil from "../../util/ImgTextBtnUtil";
+import ImgTextBtnItem from "../../component/ImgTextBtnItem";
 import BannerImgItem from "../../component/BannerImgItem";
 
 const TabBtn = styled(Button)`
@@ -108,7 +108,7 @@ const WikiHistoryListContainer = () => {
                 </GameTitleLayout>
                 <Link to={`/game/${gameIdx}/wiki`}>
                   <Div $flex="h_end_start">
-                    <ImgTextBtnUtil
+                    <ImgTextBtnItem
                       img={backImg}
                       text={"BACK"}
                       color={"major"}
