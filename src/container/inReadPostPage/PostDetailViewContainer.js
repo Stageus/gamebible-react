@@ -27,7 +27,6 @@ const PostDetailViewContainer = (props) => {
   const [cookies] = useCookies(["token"]);
   const { postIdx } = useParams();
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   useEffect(() => {
     if (!cookies.token) {

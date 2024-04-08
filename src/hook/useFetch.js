@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const useFetch = () => {
   const [data, setData] = useState(null);
@@ -14,10 +14,16 @@ const useFetch = () => {
       if (body) {
         option.body = JSON.stringify(body);
       }
-      const response = await fetch(`${process.env.REACT_APP_API_KEY}${path}`, option);
+      const response = await fetch(`http://192.168.0.18:3000${path}`, option);
+      // const response = await fetch(`${process.env.REACT_APP_API_KEY}${path}`, option);
       setStatus(response.status);
-      const result = await response.json();
-      setData(result);
+
+      const responseContentType = response.headers.get("Content-Type")?.split(";")[0];
+
+      if (responseContentType === "application/json") {
+        const result = await response.json();
+        setData(result);
+      }
     } catch (error) {
       console.log(`fetchERROR : ${error}`);
       setError(error);

@@ -32,7 +32,7 @@ const ButtonWrapper = styled(Div)``;
 
 const CommunityContainer = () => {
   const { gameIdx, pageIdx } = useParams();
-  const { data, error, status, request } = useFetch();
+  const { data, request } = useFetch();
 
   useEffect(() => {
     const fetchData = async () => {

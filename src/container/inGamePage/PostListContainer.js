@@ -15,7 +15,6 @@ const PostListContainer = (props) => {
     const fetchData = async () => {
       try {
         request(`/post/all?gameidx=${gameIdx}&page=${pageIdx}`, "GET");
-        console.log(data);
       } catch (error) {
         console.log(error);
       }
