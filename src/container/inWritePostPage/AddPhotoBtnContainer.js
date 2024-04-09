@@ -5,6 +5,7 @@ import { useCookies } from "react-cookie";
 
 const AddPhotoBtnContainer = (props) => {
   const [image, setImage] = useState([]);
+  const [preview, setPreview] = useState([]);
   const [cookies] = useCookies(["token"]);
   const { postIdx } = props;
   const [data, setData] = useState(null);
@@ -37,9 +38,12 @@ const AddPhotoBtnContainer = (props) => {
   };
 
   useEffect(() => {
-    console.log(data);
+    if (data) {
+      const imageURL = URL.createObjectURL(data.data);
+      setPreview((previews) => [...previews, { imageURL, id: data.data }]);
+    }
   }, [data]);
-
+  console.log(preview);
   return (
     <>
       <AddPhotoBtnItem {...{ setImage, addPhotoClickEvent, fileInput, fileChangeEvent }} />;

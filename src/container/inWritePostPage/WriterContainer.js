@@ -51,7 +51,7 @@ const WriterContainer = (props) => {
     }
   }, [cookies.token]);
 
-  const postClickEvent = () => {
+  const postClickEvent = async () => {
     if (regex.test(title)) {
       alert("제목을 입력해주세요");
       return;
@@ -59,14 +59,42 @@ const WriterContainer = (props) => {
       alert("내용을 입력해주세요");
       return;
     }
+    await request(
+      `/post/${postIdx}`,
+      "POST",
+      {
+        title: title,
+        content: content,
+      },
+      {
+        Authorization: `Bearer ${cookies.token}`,
+      }
+    );
   };
+
+  useEffect(() => {
+    if (status === 200) {
+      alert("게시글 작성 완료");
+      navigate(`/game/${gameIdx}community/page/1`);
+    }
+  }, [status]);
+  console.log(status);
 
   //처음 들어왔을 때 임시저장을 만들고
   //그것을 리코일로 보내서 저장해놓기
   //그리고 피니시 버튼을 누를 때 다시 api 호출
 
+  function nodeToString(node) {
+    var tmpNode = document.createElement("div");
+    tmpNode.appendChild(node.cloneNode(true));
+    var str = tmpNode.innerHTML;
+    tmpNode = node = null; // prevent memory leaks in IE
+    return str;
+  }
+
   const postContentChangeEvent = () => {
-    setContent(contentContainer.current);
+    const str = nodeToString(contentContainer.current);
+    setContent(str);
   };
 
   return (
