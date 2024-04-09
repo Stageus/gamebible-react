@@ -58,6 +58,7 @@ const CommentContainer = () => {
   useEffect(() => {
     if (status === 200) {
       const newData = data.data;
+      console.log(data);
       setCommentListData((prevData) => [...prevData, ...newData]);
       setLastIdx(data.lastIdx);
     } else {
@@ -65,7 +66,7 @@ const CommentContainer = () => {
       console.log(status);
     }
   }, [data]);
-
+  console.log(lastidx);
   return (
     <Div $width="100%" $height="100%">
       <Div>

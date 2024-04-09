@@ -14,6 +14,7 @@ import { useInput } from "../../hook/useInput";
 import { useCookies } from "react-cookie";
 import { useParams, useNavigate } from "react-router-dom";
 import useFetch from "../../hook/useFetch";
+import AddPhotoBtnContainer from "./AddPhotoBtnContainer";
 
 const EditorWrapper = styled(Div)`
   border-radius: 4px;
@@ -30,10 +31,11 @@ const EditorContainer = styled(Div)`
   line-height: 30px;
 `;
 
-const WriterContainer = () => {
+const WriterContainer = (props) => {
+  const { postIdx } = props;
   const { value: title, onChangeEvent: onChangeTitltEvent } = useInput("");
   const { data, error, status, request } = useFetch();
-  const [postIdx, setPostIdx] = useState(0);
+
   const [image, setImage] = useState([]);
   const [content, setContent] = useState("");
   const [cookies] = useCookies(["token"]);
@@ -67,26 +69,6 @@ const WriterContainer = () => {
     setContent(contentContainer.current);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await request(`/post?gameidx=${gameIdx}`, "POST", null, {
-          Authorization: `Bearer ${cookies.token}`,
-        });
-      } catch (error) {
-        alert(`Error: ${error.message}`);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    if (data && data.data) {
-      setPostIdx(data.data.idx);
-    }
-  }, [data]);
-
   return (
     <EditorWrapper $backgroundColor="white" $width="100%" $height="100%" $padding="50px">
       <Div $margin="0 0 20px 0" $width="100%">
@@ -103,7 +85,7 @@ const WriterContainer = () => {
       </Div>
       <Div $width="100%" $flex="v_center_end">
         <Div $flex="h_between_center" $margin="0 0 2% 0">
-          <AddPhotoBtnItem {...{ setImage }} />
+          <AddPhotoBtnContainer {...{ setImage, postIdx }} />
           <Div $margin="0 0 0 20px">
             <ImgTextBtnItem
               img={finishImg}

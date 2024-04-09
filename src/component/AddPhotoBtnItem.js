@@ -12,22 +12,7 @@ import addPhotoImg from "../img/addPhotoImg.svg";
 const AddPhotoBtnItemLayout = styled(Button)``;
 
 const AddPhotoBtnItem = (props) => {
-  const { setImage } = props;
-  const fileInput = React.useRef(null);
-  const [uniqueId, setUniqueId] = useState(Date.now());
-
-  const handleBtnClick = () => {
-    setUniqueId(Date.now());
-    fileInput.current.click();
-  };
-
-  const handleChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const imageURL = URL.createObjectURL(file);
-      setImage((prevImages) => [...prevImages, { file, imageURL, id: uniqueId + 1 }]);
-    }
-  };
+  const { setImage, addPhotoClickEvent, fileInput, fileChangeEvent } = props;
 
   return (
     <>
@@ -36,7 +21,7 @@ const AddPhotoBtnItem = (props) => {
         accept="image/*"
         style={{ display: "none" }}
         ref={fileInput}
-        onChange={handleChange}
+        onChange={fileChangeEvent}
       />
 
       <AddPhotoBtnItemLayout
@@ -48,7 +33,7 @@ const AddPhotoBtnItem = (props) => {
         $fontWeight="bold"
         $borderRadius="20px"
         $borderStyle={`1px solid ${setColor("black")}`}
-        onClick={handleBtnClick}
+        onClick={addPhotoClickEvent}
       >
         <Div $margin="0 10px 0 0" $height="24px">
           <Img src={addPhotoImg} alt="사진 업로드하기" />

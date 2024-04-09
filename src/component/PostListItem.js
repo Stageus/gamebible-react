@@ -13,7 +13,6 @@ const PostListItemLayout = styled(Article)`
 
 const PostListItem = (props) => {
   const { title, nickname, view, createdAt } = props.data;
-  console.log(createdAt);
 
   return (
     <PostListItemLayout

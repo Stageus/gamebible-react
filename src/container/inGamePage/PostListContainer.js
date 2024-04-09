@@ -8,7 +8,7 @@ import { Section, Div } from "../../style/LayoutStyle";
 
 const PostListContainer = (props) => {
   const { gameIdx, pageIdx } = useParams();
-  const { data, error, status, request } = useFetch();
+  const { data, request } = useFetch();
   const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
