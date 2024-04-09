@@ -41,8 +41,8 @@ const NotificationListContainer = () => {
 
       if (response.status === 200) {
         setAdminNotiListData(result.data);
-        console.log("승인요청온 게임 목록: ", result.data);
-        console.log("승인요청온 게임 목록 길이: ", result.data.length);
+        // console.log("승인요청온 게임 목록: ", result.data);
+        // console.log("승인요청온 게임 목록 길이: ", result.data.length);
       } else {
         alert(result.message);
       }
@@ -71,7 +71,6 @@ const NotificationListContainer = () => {
 
       if (response.status === 200) {
         setNotiListData(result.data);
-        console.log("result.data: ", result.data);
       } else {
         alert(result.message);
       }
@@ -233,7 +232,7 @@ const NotificationListContainer = () => {
             </H1>
           </Div>
           <NotiListLayout $flex="v_center_center">
-            {/* {notiListData.length > 0 ? (
+            {notiListData.length > 0 ? (
               notiListData.map((elem) => {
                 return <NotificationListItem key={elem.id} data={elem} />;
               })
@@ -241,7 +240,7 @@ const NotificationListContainer = () => {
               <Div>
                 <Img src={noAlarmImg} alt="no alarm" />
               </Div>
-            )} */}
+            )}
           </NotiListLayout>
         </Div>
       )}

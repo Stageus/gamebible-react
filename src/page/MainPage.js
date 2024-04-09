@@ -1,7 +1,6 @@
 import React from "react";
 
 import { styled } from "styled-components";
-import { useCookies } from "react-cookie";
 import { Div, Section } from "../style/LayoutStyle";
 
 import PopularGameListContainer from "../container/inMainPage/PopularGameListContainer";
