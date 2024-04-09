@@ -33,6 +33,7 @@ const WritePostContainer = () => {
   const [cookies] = useCookies(["token"]);
   const [postIdx, setPostIdx] = useState(0);
   const { gameIdx } = useParams();
+
   useEffect(() => {
     const fetchData = async () => {
       await request(`/post?gameidx=${gameIdx}`, "POST", null, {
@@ -47,6 +48,8 @@ const WritePostContainer = () => {
       setPostIdx(data.data.postIdx);
     }
   }, [data]);
+
+  console.log(postIdx);
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>

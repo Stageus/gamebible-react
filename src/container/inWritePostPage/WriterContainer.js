@@ -1,6 +1,5 @@
 import { React, useEffect, useRef, useState } from "react";
 
-import AddPhotoBtnItem from "../../component/AddPhotoBtnItem";
 import ImgTextBtnItem from "../../component/ImgTextBtnItem";
 import finishImg from "../../img/finishImg.svg";
 
@@ -36,7 +35,8 @@ const WriterContainer = (props) => {
   const { value: title, onChangeEvent: onChangeTitltEvent } = useInput("");
   const { data, error, status, request } = useFetch();
 
-  const [image, setImage] = useState([]);
+  const [preview, setPreview] = useState([]);
+
   const [content, setContent] = useState("");
   const [cookies] = useCookies(["token"]);
   const contentContainer = useRef(null);
@@ -75,28 +75,33 @@ const WriterContainer = (props) => {
   useEffect(() => {
     if (status === 200) {
       alert("게시글 작성 완료");
-      navigate(`/game/${gameIdx}community/page/1`);
+      navigate(`/game/${gameIdx}/community/page/1`);
     }
   }, [status]);
   console.log(status);
 
-  //처음 들어왔을 때 임시저장을 만들고
-  //그것을 리코일로 보내서 저장해놓기
-  //그리고 피니시 버튼을 누를 때 다시 api 호출
+  const nodeToString = (node) => {
+    // div
+    const tmpNode = document.createElement("div");
 
-  function nodeToString(node) {
-    var tmpNode = document.createElement("div");
+    // 노드 꾸겨넣기
     tmpNode.appendChild(node.cloneNode(true));
-    var str = tmpNode.innerHTML;
-    tmpNode = node = null; // prevent memory leaks in IE
+
+    // tmp안에 div조작하기
+    const tag = tmpNode.querySelector("div");
+
+    tag.contentEditable = false;
+
+    // div안에있는 모든 HTML
+    const str = tmpNode.innerHTML;
     return str;
-  }
+  };
 
   const postContentChangeEvent = () => {
     const str = nodeToString(contentContainer.current);
     setContent(str);
   };
-
+  console.log(preview);
   return (
     <EditorWrapper $backgroundColor="white" $width="100%" $height="100%" $padding="50px">
       <Div $margin="0 0 20px 0" $width="100%">
@@ -113,7 +118,7 @@ const WriterContainer = (props) => {
       </Div>
       <Div $width="100%" $flex="v_center_end">
         <Div $flex="h_between_center" $margin="0 0 2% 0">
-          <AddPhotoBtnContainer {...{ setImage, postIdx }} />
+          <AddPhotoBtnContainer {...{ setPreview, postIdx }} />
           <Div $margin="0 0 0 20px">
             <ImgTextBtnItem
               img={finishImg}
@@ -130,7 +135,21 @@ const WriterContainer = (props) => {
           contentEditable="true"
           $width="100%"
           $padding="4%"
-        ></EditorContainer>
+        >
+          {preview?.map((imageData) => (
+            <Img
+              key={imageData.id}
+              src={imageData.imageURL}
+              $margin="10px"
+              className="writerImg"
+              style={{
+                width: "30%",
+                display: "flex",
+                margin: "0 0 2% 0",
+              }}
+            />
+          ))}
+        </EditorContainer>
       </Div>
     </EditorWrapper>
   );

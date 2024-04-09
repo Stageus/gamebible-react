@@ -12,7 +12,7 @@ import addPhotoImg from "../img/addPhotoImg.svg";
 const AddPhotoBtnItemLayout = styled(Button)``;
 
 const AddPhotoBtnItem = (props) => {
-  const { setImage, addPhotoClickEvent, fileInput, fileChangeEvent } = props;
+  const { addPhotoClickEvent, fileInput, fileChangeEvent } = props;
 
   return (
     <>

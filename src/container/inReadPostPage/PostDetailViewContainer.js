@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
 import styled from "styled-components";
+import "../../css/imgStyle.css";
 import { H1, P } from "../../style/TextStyle";
 import { Div } from "../../style/LayoutStyle";
 import { Section } from "../../style/LayoutStyle";
@@ -17,17 +18,29 @@ const TitleDiv = styled(Div)`
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
-  // border: 2px solid green;
 `;
-const PostContentDiv = styled(Div)`
-  // border: 3px solid red;
-`;
+const PostContentDiv = styled(Div)``;
 
 const PostDetailViewContainer = (props) => {
   const [cookies] = useCookies(["token"]);
+  const { gameIdx } = useParams();
   const { postIdx } = useParams();
   const [data, setData] = useState(null);
   const navigate = useNavigate();
+  // useEffect(() => {
+  //   if (!cookies.token) {
+  //     alert("게시글 보기는 회원만 이용 가능합니다.");
+  //     navigate("/");
+  //     return;
+  //   } else {
+  //     const fetchFcn = async () => {
+  //       await request(`/post/${postIdx}`, "GET", null, {
+  //         Authorization: `Bearer ${cookies.token}`,
+  //       });
+  //     };
+  //     fetchFcn();
+  //   }
+  // }, []);
   useEffect(() => {
     if (!cookies.token) {
       alert("게시글 보기는 회원만 이용 가능합니다.");
@@ -43,6 +56,12 @@ const PostDetailViewContainer = (props) => {
               Authorization: `Bearer ${cookies.token}`,
             },
           });
+          console.log(response);
+          if (response.status === 404) {
+            alert("없습니다.");
+            navigate(`/game/${gameIdx}`);
+          }
+
           const result = await response.json();
           setData(result.data);
         } catch (error) {
@@ -52,6 +71,7 @@ const PostDetailViewContainer = (props) => {
       fetchData();
     }
   }, []);
+
   return (
     <>
       <TitleDiv $width="100%" $height="100px">
@@ -70,9 +90,13 @@ const PostDetailViewContainer = (props) => {
           </Div>
         </Div>
       </TitleDiv>
-      <hr />
       <PostContentDiv>
-        <Div $padding="5% 0" dangerouslySetInnerHTML={{ __html: data?.content }}></Div>
+        <Div
+          $width="100%"
+          $padding="5% 0"
+          dangerouslySetInnerHTML={{ __html: data?.content }}
+          contentEditable="false"
+        ></Div>
       </PostContentDiv>
       <CommentSection
         $width="100%"

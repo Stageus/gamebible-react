@@ -13,7 +13,6 @@ import navToggleAtom from "../../recoil/navToggleAtom";
 
 import BannerImgItem from "../../component/BannerImgItem";
 import PostDetailViewContainer from "./PostDetailViewContainer";
-import { useCookies } from "react-cookie";
 
 const TabBtn = styled(Button)`
   border-right: 1px solid ${setColor("major")};

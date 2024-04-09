@@ -4,10 +4,9 @@ import useFetch from "../../hook/useFetch";
 import { useCookies } from "react-cookie";
 
 const AddPhotoBtnContainer = (props) => {
+  const { postIdx, setPreview } = props;
   const [image, setImage] = useState([]);
-  const [preview, setPreview] = useState([]);
   const [cookies] = useCookies(["token"]);
-  const { postIdx } = props;
   const [data, setData] = useState(null);
   const fileInput = React.useRef(null);
   const formData = new FormData();
@@ -23,7 +22,7 @@ const AddPhotoBtnContainer = (props) => {
 
   const postPhoto = async () => {
     try {
-      const response = await fetch(`http://192.168.0.18:3000/post/${postIdx}/image`, {
+      const response = await fetch(`${process.env.REACT_APP_API_KEY}/post/${postIdx}/image`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${cookies.token}`,
@@ -39,11 +38,11 @@ const AddPhotoBtnContainer = (props) => {
 
   useEffect(() => {
     if (data) {
-      const imageURL = URL.createObjectURL(data.data);
+      const imageURL = data.data;
       setPreview((previews) => [...previews, { imageURL, id: data.data }]);
     }
+    console.log(data);
   }, [data]);
-  console.log(preview);
   return (
     <>
       <AddPhotoBtnItem {...{ setImage, addPhotoClickEvent, fileInput, fileChangeEvent }} />;
