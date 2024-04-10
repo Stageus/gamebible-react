@@ -28,31 +28,20 @@ const NavSection = styled(Section)`
 const GameListNavContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
 
-  const [gameListData, setGameListData] = useState(null);
+  // 데이터(ㄱㄴㄷ순 게임 목록) 가져오기 GET
+  const [gameListData, setGameListData] = useState([]);
   const [page, setPage] = useState(1);
-
-  // useEffect(() => {
-  //   const gameList = async () => {
-  //     const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/all?page=${page}`);
-  //     const result = await response.json();
-
-  //     if (response.status === 200) {
-  //       setGameListData(result.data.gameList);
-  //     } else {
-  //       alert(result.message);
-  //     }
-  //   };
-  //   gameList();
-  // }, []);
 
   const { data, error, status, request } = useFetch();
   useEffect(() => {
-    request(`${process.env.REACT_APP_API_KEY}/game/all?page=${page}`, "GET", null);
-  }, []);
+    request(`/game/all?page=${page}`, "GET", null);
+  }, [page]);
 
   useEffect(() => {
     if (status === 200) {
-      setGameListData(data);
+      setGameListData(data.data.gameList);
+    } else if (status === 204) {
+      console.log("게임목록이 존재하지 않습니다.");
     } else if (status === 400) {
       alert("유효하지 않은 요청입니다.");
     } else if (status === 500) {

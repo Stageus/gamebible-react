@@ -23,9 +23,9 @@ const MainSection = styled(Article)`
 const PopularGameListContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
 
-  const [page, setPage] = useState(1);
-
+  // 데이터(인기 게임 순 썸네일) 가져오기 GET
   const [popularityListData, setPopularityListData] = useState(null);
+  const [page, setPage] = useState(1);
 
   const { data, error, status, request } = useFetch();
   useEffect(() => {
