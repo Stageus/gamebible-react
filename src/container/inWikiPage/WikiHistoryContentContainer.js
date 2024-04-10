@@ -40,11 +40,8 @@ const WikiHistoryContentContainer = () => {
 
   let { gameIdx, historyIdx } = useParams();
 
-  // 초기값 렌더링 -> fetch -> set State -> 렌더링
-  // fetch -> set state -> 렌더링
-
   // 데이터(게임제목, 기존위키내용) 가져오기 GET
-  const [historyContentData, setHistoryContentData] = useState(null);
+  const [historyContentData, setHistoryContentData] = useState([]);
 
   const { data, error, status, request } = useFetch();
   useEffect(() => {

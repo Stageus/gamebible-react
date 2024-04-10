@@ -56,6 +56,10 @@ const WikiHistoryListContainer = () => {
     }
   }, [data]);
 
+  if (!data) return "...Loading";
+
+  if (error) return "Error";
+
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
       <BannerImgItem />
