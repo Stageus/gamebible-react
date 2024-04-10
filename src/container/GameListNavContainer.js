@@ -52,10 +52,13 @@ const GameListNavContainer = () => {
 
   useEffect(() => {
     if (status === 200) {
-      console.log(data);
       setGameListData(data);
+    } else if (status === 400) {
+      alert("유효하지 않은 요청입니다.");
+    } else if (status === 500) {
+      console.log("서버 내부 에러입니다.");
     }
-  });
+  }, [data]);
 
   useEffect(() => {
     setPage(page + 1);

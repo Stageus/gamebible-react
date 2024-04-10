@@ -27,21 +27,6 @@ const PopularGameListContainer = () => {
 
   const [popularityListData, setPopularityListData] = useState(null);
 
-  // useEffect(() => {
-  //   const gamePopular = async () => {
-  //     const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/popular?page=${page}`);
-  //     const result = await response.json();
-
-  //     if (response.status === 200) {
-  //       setPopularityListData(result.data.gameList);
-  //     } else {
-  //       alert(result.message);
-  //     }
-  //   };
-
-  //   gamePopular();
-  // }, []);
-
   const { data, error, status, request } = useFetch();
   useEffect(() => {
     request(`/game/popular?page=${page}`, "GET", null);
@@ -58,9 +43,9 @@ const PopularGameListContainer = () => {
     }
   }, [data]);
 
-  // useEffect(() => {
-  //   setPage(page + 1);
-  // }, [popularityListData]);
+  useEffect(() => {
+    setPage(page + 1);
+  }, [popularityListData]);
 
   // 백엔드 state가 업데이트 될 때 마다, 스크롤 이벤트를 refresh
   // useEffect(() => {
