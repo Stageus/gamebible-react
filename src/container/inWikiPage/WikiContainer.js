@@ -39,12 +39,9 @@ const WikiContainer = () => {
 
   let { gameIdx } = useParams();
 
-  const [wikiContentData, setWikiContentData] = useState(null);
-
-  const [title, setTitle] = useState(null);
-  const [content, setContent] = useState(null);
-
   // 데이터(게임제목, 기존위키내용) 가져오기 GET
+  const [wikiContentData, setWikiContentData] = useState([]);
+
   const { data, error, status, request } = useFetch();
   useEffect(() => {
     request(`/game/${gameIdx}/history`, "GET", null);
@@ -52,10 +49,8 @@ const WikiContainer = () => {
 
   useEffect(() => {
     if (status === 200) {
-      setWikiContentData(data);
-      console.log("제목가져오기", data?.data);
-      setTitle(data?.data[0].title);
-      setContent(data?.data[0].content);
+      setWikiContentData(data.data[0]);
+      // console.log("위키", data.data[0]);
     } else if (status === 400) {
       alert("유효하지 않은 요청입니다.");
     } else if (status === 500) {
@@ -100,7 +95,7 @@ const WikiContainer = () => {
             <Article $width="100%">
               <Div $flex="h_between_start" $width="100%" $margin="0 0 20px 0">
                 <GameTitleLayout $width="60%" $fontWeight="bold">
-                  {title}
+                  {wikiContentData.title}
                 </GameTitleLayout>
                 <Div $flex="h_between_start">
                   <Link to="./history">
@@ -127,7 +122,7 @@ const WikiContainer = () => {
                 $flex="v_start_start"
                 $width="100%"
                 $margin="20px 0 0 0"
-                dangerouslySetInnerHTML={{ __html: content }}
+                dangerouslySetInnerHTML={{ __html: wikiContentData.content }}
               />
             </Article>
           </Section>
