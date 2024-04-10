@@ -1,7 +1,10 @@
-import React from "react";
+import { React, useEffect } from "react";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { RecoilRoot } from "recoil";
+
+import { useCookies } from "react-cookie";
+import useFetch from "./hook/useFetch";
 
 import GlobalStyle from "./style/GlobalStyle";
 
@@ -27,6 +30,26 @@ import HeaderItem from "./component/HeaderItem";
 import GameListContainer from "./container/GameListNavContainer";
 
 const App = () => {
+  // useEffect 사용해서 1. Cookie 유무 파악 / 2. 쿠키가 있다면 내 정보 불러오기 api 호출
+  // ㄴ 이 useEffect의 구독 리스트에 쿠키를 넣음
+
+  // 쿠키를 만드는 건 login 성공할 때 함
+
+  // 로그아웃하면 atom에 들어있던 유저 정보 비워주기 useResetRecoilState()
+
+  // const [cookies, setCookies] = useCookies(["token"]);
+
+  // useEffect(() => {
+  //   if (cookies.token) {
+  //     console.log("토큰이 있습니다");
+  //   }
+  // }, []);
+
+  // const { data, error, status, request } = useFetch();
+  // useEffect(() => {
+  //   request(`/account/info`, "GET", null);
+  // }, [cookies.token]);
+
   return (
     <>
       <RecoilRoot>

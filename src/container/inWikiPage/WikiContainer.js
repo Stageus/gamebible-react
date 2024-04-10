@@ -16,6 +16,8 @@ import { Link, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import navToggleAtom from "../../recoil/navToggleAtom";
 
+import useFetch from "../../hook/useFetch";
+
 const TabBtn = styled(Button)`
   border-right: 1px solid ${setColor("major")};
   border-left: 1px solid ${setColor("major")};
@@ -43,26 +45,22 @@ const WikiContainer = () => {
   const [content, setContent] = useState(null);
 
   // 데이터(게임제목, 기존위키내용) 가져오기 GET
+  const { data, error, status, request } = useFetch();
   useEffect(() => {
-    const wikiContent = async () => {
-      const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/${gameIdx}/wiki`);
-      const result = await response.json();
-      if (result.data.length > 0) {
-        setTitle(result.data[0].title);
-        setContent(result.data[0].content);
-      } else {
-        console.log("타이틀을 찾을 수 없습니다.");
-      }
-
-      if (response.status === 200) {
-        setWikiContentData(result.data);
-      } else {
-        alert(result.message);
-      }
-    };
-
-    wikiContent();
+    request(`/game/${gameIdx}/history`, "GET", null);
   }, []);
+
+  useEffect(() => {
+    if (status === 200) {
+      setWikiContentData(data);
+      setTitle(data?.data[0].title);
+      setContent(data?.data[0].content);
+    } else if (status === 400) {
+      alert("유효하지 않은 요청입니다.");
+    } else if (status === 500) {
+      console.log("서버 내부 에러입니다.");
+    }
+  }, [data]);
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>

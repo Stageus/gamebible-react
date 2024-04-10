@@ -38,7 +38,7 @@ const SuggestGameContainer = (props) => {
   const navigate = useNavigate();
 
   const [gameTitle, setGameTitle] = useState("");
-  console.log("gameTitle: ", gameTitle);
+  // console.log("gameTitle: ", gameTitle);
 
   const suggestGameClickEvent = async () => {
     try {
@@ -50,7 +50,7 @@ const SuggestGameContainer = (props) => {
         },
         body: JSON.stringify({ title: gameTitle }),
       });
-      console.log(response.headers);
+      // console.log(response.headers);
       const responseContentType = response.headers.get("Content-Type")?.split(";")[0];
       if (responseContentType === "application/json") {
         const result = await response.json();

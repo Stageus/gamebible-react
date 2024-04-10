@@ -24,12 +24,14 @@ const NotificationListContainer = () => {
 
   const [page, setPage] = useState(1);
   const [adminNotiListData, setAdminNotiListData] = useState([]);
+  console.log("adminNotiListData: ", adminNotiListData);
   const [notiListData, setNotiListData] = useState([]);
+  console.log("notiListData: ", notiListData);
 
   // 관리자 승인요청 온 게임 목록보기 GET
   useEffect(() => {
     const getAdminNotiListData = async () => {
-      const response = await fetch(`${process.env.REACT_APP_API_KEY}/admin/game/request`, {
+      const response = await fetch(`${process.env.REACT_APP_API_KEY}/admin/game/request/all`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -41,8 +43,6 @@ const NotificationListContainer = () => {
 
       if (response.status === 200) {
         setAdminNotiListData(result.data);
-        // console.log("승인요청온 게임 목록: ", result.data);
-        // console.log("승인요청온 게임 목록 길이: ", result.data.length);
       } else {
         alert(result.message);
       }
@@ -205,7 +205,7 @@ const NotificationListContainer = () => {
 
   return (
     <OverFlowDiv $height="100%" $flex="v_start_center" $margin="100px 0 0 0" $width="100vw">
-      {isAdmin ? (
+      {/* {isAdmin ? (
         <Div $flex="v_start_center" $width="1320px">
           <Div $flex="h_start_center" $width="100%">
             <H1 $fontSize="large" $fontWeight="bold">
@@ -243,7 +243,19 @@ const NotificationListContainer = () => {
             )}
           </NotiListLayout>
         </Div>
-      )}
+      )} */}
+      <Div $flex="v_start_center" $width="1320px">
+        <Div $flex="h_start_center" $width="100%">
+          <H1 $fontSize="large" $fontWeight="bold">
+            알림함
+          </H1>
+        </Div>
+        <NotiListLayout $flex="v_center_center">
+          {notiListData.map((elem) => {
+            return <NotificationListItem key={elem.id} data={elem} />;
+          })}
+        </NotiListLayout>
+      </Div>
     </OverFlowDiv>
 
     //----------------------------------------------------------------------

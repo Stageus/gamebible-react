@@ -9,6 +9,8 @@ import navToggleAtom from "../../recoil/navToggleAtom";
 
 import ThumbnailItem from "../../component/ThumbnailItem";
 
+import useFetch from "../../hook/useFetch";
+
 const GameContentLayout = styled(Section)`
   width: calc(100vw - 120px);
   transition: padding 0.1s ease;
@@ -25,28 +27,40 @@ const PopularGameListContainer = () => {
 
   const [popularityListData, setPopularityListData] = useState(null);
 
+  // useEffect(() => {
+  //   const gamePopular = async () => {
+  //     const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/popular?page=${page}`);
+  //     const result = await response.json();
+
+  //     if (response.status === 200) {
+  //       setPopularityListData(result.data.gameList);
+  //     } else {
+  //       alert(result.message);
+  //     }
+  //   };
+
+  //   gamePopular();
+  // }, []);
+
+  const { data, error, status, request } = useFetch();
   useEffect(() => {
-    const gamePopular = async () => {
-      const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/popular?page=${page}`);
-      const result = await response.json();
+    request(`/game/popular?page=${page}`, "GET", null);
+  }, [page]);
 
-      if (response.status === 200) {
-        setPopularityListData(result.data.gameList);
-      } else {
-        alert(result.message);
-      }
-    };
-
-    gamePopular();
-  }, []);
-
-  // 백엔드 state가 업데이트 될 때 마다, page를 1 증가시킴
+  // Http Request 후처리
   useEffect(() => {
-    // 백엔드 통신이 끝나고, 이를 state까지 반영하고나서 해줄 것
-    // setGameListData(popularityListData?.gameList)   // 후처리 예시
+    if (status === 200) {
+      setPopularityListData(data?.data.gameList);
+    } else if (status === 400) {
+      alert("유효하지 않은 요청입니다.");
+    } else if (status === 500) {
+      console.log("서버 내부 에러입니다.");
+    }
+  }, [data]);
 
-    setPage(page + 1); // 필수
-  }, [popularityListData]);
+  // useEffect(() => {
+  //   setPage(page + 1);
+  // }, [popularityListData]);
 
   // 백엔드 state가 업데이트 될 때 마다, 스크롤 이벤트를 refresh
   // useEffect(() => {

@@ -10,6 +10,7 @@ import { useRecoilValue } from "recoil";
 import navToggleAtom from "../recoil/navToggleAtom";
 
 import { Link } from "react-router-dom";
+import useFetch from "../hook/useFetch";
 
 const GameListContainer = styled(Aside)`
   z-index: 100;
@@ -30,19 +31,31 @@ const GameListNavContainer = () => {
   const [gameListData, setGameListData] = useState(null);
   const [page, setPage] = useState(1);
 
-  useEffect(() => {
-    const gameList = async () => {
-      const response = await fetch(`${process.env.REACT_APP_API_KEY}/game?page=${page}`);
-      const result = await response.json();
+  // useEffect(() => {
+  //   const gameList = async () => {
+  //     const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/all?page=${page}`);
+  //     const result = await response.json();
 
-      if (response.status === 200) {
-        setGameListData(result.data.gameList);
-      } else {
-        alert(result.message);
-      }
-    };
-    gameList();
+  //     if (response.status === 200) {
+  //       setGameListData(result.data.gameList);
+  //     } else {
+  //       alert(result.message);
+  //     }
+  //   };
+  //   gameList();
+  // }, []);
+
+  const { data, error, status, request } = useFetch();
+  useEffect(() => {
+    request(`${process.env.REACT_APP_API_KEY}/game/all?page=${page}`, "GET", null);
   }, []);
+
+  useEffect(() => {
+    if (status === 200) {
+      console.log(data);
+      setGameListData(data);
+    }
+  });
 
   useEffect(() => {
     setPage(page + 1);
