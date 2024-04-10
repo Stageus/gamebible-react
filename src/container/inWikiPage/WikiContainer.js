@@ -53,6 +53,7 @@ const WikiContainer = () => {
   useEffect(() => {
     if (status === 200) {
       setWikiContentData(data);
+      console.log("제목가져오기", data?.data);
       setTitle(data?.data[0].title);
       setContent(data?.data[0].content);
     } else if (status === 400) {

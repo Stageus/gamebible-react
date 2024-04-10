@@ -38,23 +38,17 @@ const WikiHistoryListContainer = () => {
 
   let { gameIdx } = useParams();
 
-  // 게임 제목 가져오기
-  const [title, setTitle] = useState(null);
-  // 게임 수정 리스트 가져오기
-  const [historyListData, setHistoryListData] = useState(null);
+  // 게임제목, 위키 수정 리스트 가져오기 GET
+  const [historyListData, setHistoryListData] = useState([]);
 
-  // 게임제목, 히스토리 수정 리스트 가져오기 GET
   const { data, error, status, request } = useFetch();
   useEffect(() => {
     request(`/game/${gameIdx}/history/all`, "GET", null);
   }, []);
 
   useEffect(() => {
-    console.log("게임제목: ", data);
-
     if (status === 200) {
-      // setTitle();
-      setHistoryListData(data?.data);
+      setHistoryListData(data.data);
     } else if (status === 400) {
       alert("유효하지 않은 요청입니다.");
     } else if (status === 500) {
@@ -99,7 +93,7 @@ const WikiHistoryListContainer = () => {
             <Article $width="100%">
               <Div $flex="h_between_start" $width="100%" $margin="0 0 20px 0">
                 <GameTitleLayout $width="60%" $fontWeight="bold">
-                  {title}
+                  {historyListData.title}
                 </GameTitleLayout>
                 <Link to={`/game/${gameIdx}/wiki`}>
                   <Div $flex="h_end_start">
@@ -113,11 +107,13 @@ const WikiHistoryListContainer = () => {
                 </Link>
               </Div>
               <HistoryListLayout $flex="v_center_start" $width="100%">
-                {historyListData ? (
-                  historyListData.map((elem) => {
+                {historyListData.historyList ? (
+                  historyListData.historyList.map((elem) => {
                     return (
                       <Link key={`${elem.idx}`} to={`./${elem.idx}`}>
-                        <li>{elem.title}</li>
+                        <li>
+                          {elem.createdAt} | {elem.nickname}
+                        </li>
                       </Link>
                     );
                   })
