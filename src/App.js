@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import { RecoilRoot } from "recoil";
+import { useCookies } from "react-cookie";
+import useFetch from "./hook/useFetch";
 
 import GlobalStyle from "./style/GlobalStyle";
 
@@ -25,42 +27,63 @@ import EditWikiPage from "./page/EditWikiPage";
 
 import HeaderItem from "./component/HeaderItem";
 import GameListContainer from "./container/GameListNavContainer";
+import { useRecoilState } from "recoil";
+import userInfoAtom from "./recoil/userInfoAtom";
 
 const App = () => {
+  const { data, status, request } = useFetch();
+  const [cookies] = useCookies(["token"]);
+  const [, setUserInfo] = useRecoilState(userInfoAtom);
+
+  useEffect(() => {
+    request("/account/info", "GET", null, {
+      Authorization: `Bearer ${cookies.token}`,
+    });
+  }, [cookies]);
+
+  useEffect(() => {
+    if (data) {
+      setUserInfo({
+        email: data.data.email,
+        nickname: data.data.nickname,
+        is_admin: data.data.is_admin,
+        user_idx: data.data.user_idx,
+      });
+    }
+  }, [data]);
+
   return (
     <>
-      <RecoilRoot>
-        <BrowserRouter>
-          <GlobalStyle />
-          <HeaderItem />
-          <GameListContainer />
-          <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/signUp" element={<SignUpPage />} />
-            <Route path="/signIn" element={<SignInPage />} />
-            <Route path="/personalInfo" element={<PersonalInfoPage />} />
-            <Route path="/editPersonalInfo" element={<EditPersonalInfoPage />} />
-            <Route path="/findID" element={<FindIDPage />} />
-            <Route path="/resetPW" element={<ResetPWPage />} />
-            <Route path="/changePW" element={<ChangePWPage />} />
-            <Route path="/game/:gameIdx/community/page/:pageIdx" element={<CommunityPage />} />
-            <Route path="/game/:gameIdx/wiki" element={<WikiPage />} />
-            <Route path="/alarm" element={<NotificationPage />} />
-            <Route
-              path="/game/:gameIdx/community/page/:pageIdx/post/:postIdx"
-              element={<ReadPostPage />}
-            />
-            <Route path="/searchResults" element={<SearchResultsPage />} />
-            <Route path="/game/:gameIdx/writePost" element={<WritePostPage />} />
-            <Route path="/game/:gameIdx/wiki/history" element={<WikiHistoryPage />} />
-            <Route
-              path="/game/:gameIdx/wiki/history/:historyIdx"
-              element={<WikiHistoryContentPage />}
-            />
-            <Route path="/game/:gameIdx/wiki/edit" element={<EditWikiPage />} />
-          </Routes>
-        </BrowserRouter>
-      </RecoilRoot>
+      <BrowserRouter>
+        <GlobalStyle />
+        <HeaderItem />
+        <GameListContainer />
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/signUp" element={<SignUpPage />} />
+          <Route path="/signIn" element={<SignInPage />} />
+          <Route path="/personalInfo" element={<PersonalInfoPage />} />
+          <Route path="/editPersonalInfo" element={<EditPersonalInfoPage />} />
+          <Route path="/findID" element={<FindIDPage />} />
+          <Route path="/resetPW" element={<ResetPWPage />} />
+          <Route path="/changePW" element={<ChangePWPage />} />
+          <Route path="/game/:gameIdx/community/page/:pageIdx" element={<CommunityPage />} />
+          <Route path="/game/:gameIdx/wiki" element={<WikiPage />} />
+          <Route path="/alarm" element={<NotificationPage />} />
+          <Route
+            path="/game/:gameIdx/community/page/:pageIdx/post/:postIdx"
+            element={<ReadPostPage />}
+          />
+          <Route path="/searchResults" element={<SearchResultsPage />} />
+          <Route path="/game/:gameIdx/writePost" element={<WritePostPage />} />
+          <Route path="/game/:gameIdx/wiki/history" element={<WikiHistoryPage />} />
+          <Route
+            path="/game/:gameIdx/wiki/history/:historyIdx"
+            element={<WikiHistoryContentPage />}
+          />
+          <Route path="/game/:gameIdx/wiki/edit" element={<EditWikiPage />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 };

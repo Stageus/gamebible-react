@@ -60,7 +60,6 @@ const PersonalInfoContainer = () => {
       }
     }
   };
-  console.log(userInfo);
 
   const labelTextData = {
     email: {

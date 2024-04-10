@@ -14,17 +14,13 @@ import { idValueValidation, pwValueValidation } from "../../util/ValidationUtil"
 import KakaoLoginBtn from "../../img/kakaoLoginMediumWide.svg";
 import { useCookies } from "react-cookie";
 
-import { useRecoilState } from "recoil";
-import userInfoAtom from "../../recoil/userInfoAtom";
-
 import useFetch from "../../hook/useFetch";
 const KakaoLoginStyleBtn = styled(Img)`
   width: 100%;
 `;
 
 const SignInContainer = () => {
-  const { data, error, status, request } = useFetch();
-  const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
+  const { data, status, request } = useFetch();
 
   // 인풋 값
   const { value: idValue, onChangeEvent: onChangeIdValue } = useInput("");
@@ -42,11 +38,6 @@ const SignInContainer = () => {
 
   useEffect(() => {
     if (data && data.token) {
-      setUserInfo({
-        email: data.data.email,
-        nickname: data.data.nickname,
-        is_admin: data.data.is_admin,
-      });
       setCookies("token", data.token, { path: "/" });
       navigate("/");
       console.log(data);
@@ -57,7 +48,7 @@ const SignInContainer = () => {
     if (status === 401) {
       alert("유효하지 않은 비밀번호 입니다.");
     }
-  }, [data, error, status, navigate]);
+  }, [data]);
 
   const submitData = async () => {
     if (!idValueValidation(idValue)) {

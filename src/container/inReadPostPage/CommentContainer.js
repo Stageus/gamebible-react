@@ -23,9 +23,9 @@ const OverFlowDiv = styled(Div)`
 
 const CommentContainer = () => {
   const [commentListData, setCommentListData] = useState([]);
-  const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
+  const [userInfo, ,] = useRecoilState(userInfoAtom);
   const [lastidx, setLastIdx] = useState(0);
-  const { data, error, status, request } = useFetch();
+  const { data, status, request } = useFetch();
   const [upDateComment, setUpDateComment] = useState(false);
 
   const { postIdx } = useParams();
@@ -53,12 +53,10 @@ const CommentContainer = () => {
       window.removeEventListener("scroll", scrollDownEvent);
     };
   }, [lastidx]);
-  console.log(data);
 
   useEffect(() => {
     if (status === 200) {
       const newData = data.data;
-      console.log(data);
       setCommentListData((prevData) => [...prevData, ...newData]);
       setLastIdx(data.lastIdx);
     } else {
@@ -66,7 +64,15 @@ const CommentContainer = () => {
       console.log(status);
     }
   }, [data]);
-  console.log(lastidx);
+
+  const deleteClickEvent = async () => {
+    await request(`/comment/:commentidx`, "DELETE", null, {
+      Authorization: `Bearer ${cookies.token}`,
+    });
+  };
+
+  // console.log(userInfo.userIdx);
+
   return (
     <Div $width="100%" $height="100%">
       <Div>
@@ -80,7 +86,12 @@ const CommentContainer = () => {
       </Div>
       <OverFlowDiv $width="100%" $height="100%">
         {commentListData.map((elem) => {
-          return <CommentListItem key={elem.idx} data={elem} />;
+          return (
+            <CommentListItem
+              key={elem.idx}
+              {...{ data: elem, userIdx: userInfo.user_idx, deleteClickEvent }}
+            />
+          );
         })}
       </OverFlowDiv>
     </Div>
