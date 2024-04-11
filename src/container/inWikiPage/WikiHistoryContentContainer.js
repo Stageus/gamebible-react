@@ -16,6 +16,8 @@ import ImgTextBtnItem from "../../component/ImgTextBtnItem";
 import BannerImgItem from "../../component/BannerImgItem";
 import timestampConversion from "../../util/TimestampUtil";
 
+import useFetch from "../../hook/useFetch";
+
 const TabBtn = styled(Button)`
   border-right: 1px solid ${setColor("major")};
   border-left: 1px solid ${setColor("major")};
@@ -38,41 +40,27 @@ const WikiHistoryContentContainer = () => {
 
   let { gameIdx, historyIdx } = useParams();
 
-  const [historyContentData, setHistoryContentData] = useState(null);
-  const [nickname, setNickname] = useState(""); // 작성자 닉네임
-  const [content, setContent] = useState(null); // 작성 내용
-  const [createdAt, setCreatedAt] = useState(null); // 작성일
-  const [title, setTitle] = useState(""); // 게임명
+  // 데이터(게임제목, 기존위키내용) 가져오기 GET
+  const [historyContentData, setHistoryContentData] = useState([]);
+
+  const { data, error, status, request } = useFetch();
+  useEffect(() => {
+    request(`/game/${gameIdx}/history/${historyIdx}`, "GET", null);
+  }, []);
 
   useEffect(() => {
-    const wikiEditHistoryContent = async () => {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_KEY}/game/${gameIdx}/history/${historyIdx}`
-      );
-      const result = await response.json();
-      setNickname(result.data[0].nickname);
-      setContent(result.data[0].content);
-      setCreatedAt(timestampConversion(result.data[0].createdAt));
+    if (status === 200) {
+      setHistoryContentData(data?.data[0]);
+    } else if (status === 400) {
+      alert("유효하지 않은 요청입니다.");
+    } else if (status === 500) {
+      console.log("서버 내부 에러입니다.");
+    }
+  }, [data]);
 
-      if (response.status === 200) {
-        setHistoryContentData(result.data);
-      } else {
-        alert(result.message);
-      }
-    };
+  if (!data) return "...Loading";
 
-    const getTitle = async () => {
-      const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/${gameIdx}/wiki`);
-      const result = await response.json();
-
-      if (response.status === 200) {
-        setTitle(result.data[0].title);
-      }
-    };
-
-    wikiEditHistoryContent();
-    getTitle();
-  }, []);
+  if (error) return "Error";
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
@@ -111,7 +99,7 @@ const WikiHistoryContentContainer = () => {
             <Article $width="100%">
               <Div $flex="h_between_start" $width="100%" $margin="0 0 20px 0">
                 <GameTitleLayout $width="60%" $fontWeight="bold">
-                  {title}
+                  {historyContentData.title}
                 </GameTitleLayout>
                 <Link to={`../game/${gameIdx}/wiki/history`}>
                   <Div $flex="h_end_start">
@@ -131,10 +119,12 @@ const WikiHistoryContentContainer = () => {
                 $fontSize="large"
                 $margin="0 0 20px 0"
               >
-                {`작성일: ${createdAt} | 작성자: ${nickname}`}
+                {`작성일: ${timestampConversion(historyContentData.createdAt)} | 작성자: ${
+                  historyContentData.nickname
+                }`}
               </HistoryWriterLayout>
               <HistoryContentLayout $flex="v_center_start" $width="100%">
-                {content}
+                {historyContentData.content}
               </HistoryContentLayout>
             </Article>
           </Section>

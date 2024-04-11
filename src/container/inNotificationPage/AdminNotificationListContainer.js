@@ -6,7 +6,10 @@ import { H1 } from "../../style/TextStyle";
 import { Img } from "../../style/ImgStyle";
 
 import noAlarmImg from "../../img/noAlarmImg.svg";
-import NotificationListItem from "../../component/NotificationListItem";
+import AdminNotificationListItem from "../../component/AdminNotificationListItem";
+
+import userInfoAtom from "../../recoil/userInfoAtom";
+import { useRecoilValue } from "recoil";
 
 import useFetch from "../../hook/useFetch";
 
@@ -18,19 +21,23 @@ const NotiListLayout = styled(Article)`
   min-height: 700px;
 `;
 
-const NotificationListContainer = () => {
-  // 일반사용자 알림 목록보기 GET
-  const [notiListData, setNotiListData] = useState([]);
+const AdminNotificationListContainer = () => {
+  // 관리자임 확인
+  const userInfo = useRecoilValue(userInfoAtom).is_admin;
+  console.log("userInfo: ", userInfo);
+
+  // 관리자 승인요청 온 게임 목록보기 GET
+  const [adminNotiListData, setAdminNotiListData] = useState([]);
   const [page, setPage] = useState(1);
 
   const { data, error, status, request } = useFetch();
   useEffect(() => {
-    request(`/account/notification`, "GET", null);
+    request(`/admin/game/request/all`, "GET", null);
   }, []);
 
   useEffect(() => {
     if (status === 200) {
-      setNotiListData(data.data);
+      setAdminNotiListData(data.data);
     } else if (status === 400) {
       alert("유효하지 않은 요청입니다.");
     } else if (status === 401) {
@@ -40,25 +47,25 @@ const NotificationListContainer = () => {
     }
   }, [data]);
 
-  console.log("notiListData: ", notiListData);
+  console.log("adminNotiListData: ", adminNotiListData);
 
-  // 일반사용자 알림 목록 백엔드 state가 업데이트 될 때 마다, page를 1 증가시키기
+  // 관리자 승인요청 온 게임 목록 백엔드 state가 업데이트 될 때 마다, page를 1 증가시키기
   useEffect(() => {
     setPage(page + 1);
-  }, [notiListData]);
+  }, [adminNotiListData]);
 
   return (
     <OverFlowDiv $height="100%" $flex="v_start_center" $margin="100px 0 0 0" $width="100vw">
       <Div $flex="v_start_center" $width="1320px">
         <Div $flex="h_start_center" $width="100%">
           <H1 $fontSize="large" $fontWeight="bold">
-            알림함
+            관리자 알림함
           </H1>
         </Div>
         <NotiListLayout $flex="v_center_center">
-          {notiListData.length > 0 ? (
-            notiListData.map((elem) => {
-              return <NotificationListItem key={elem.idx} data={elem} />;
+          {adminNotiListData.length > 0 ? (
+            adminNotiListData.map((elem) => {
+              return <AdminNotificationListItem key={elem.idx} data={elem} />;
             })
           ) : (
             <Div>
@@ -71,4 +78,4 @@ const NotificationListContainer = () => {
   );
 };
 
-export default NotificationListContainer;
+export default AdminNotificationListContainer;

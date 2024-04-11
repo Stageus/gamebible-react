@@ -10,6 +10,7 @@ import { useRecoilValue } from "recoil";
 import navToggleAtom from "../recoil/navToggleAtom";
 
 import { Link } from "react-router-dom";
+import useFetch from "../hook/useFetch";
 
 const GameListContainer = styled(Aside)`
   z-index: 100;
@@ -27,22 +28,26 @@ const NavSection = styled(Section)`
 const GameListNavContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
 
-  const [gameListData, setGameListData] = useState(null);
+  // 데이터(ㄱㄴㄷ순 게임 목록) 가져오기 GET
+  const [gameListData, setGameListData] = useState([]);
   const [page, setPage] = useState(1);
 
+  const { data, error, status, request } = useFetch();
   useEffect(() => {
-    const gameList = async () => {
-      const response = await fetch(`${process.env.REACT_APP_API_KEY}/game?page=${page}`);
-      const result = await response.json();
+    request(`/game/all?page=${page}`, "GET", null);
+  }, [page]);
 
-      if (response.status === 200) {
-        setGameListData(result.data.gameList);
-      } else {
-        alert(result.message);
-      }
-    };
-    gameList();
-  }, []);
+  useEffect(() => {
+    if (status === 200) {
+      setGameListData(data.data.gameList);
+    } else if (status === 204) {
+      console.log("게임목록이 존재하지 않습니다.");
+    } else if (status === 400) {
+      alert("유효하지 않은 요청입니다.");
+    } else if (status === 500) {
+      console.log("서버 내부 에러입니다.");
+    }
+  }, [data]);
 
   useEffect(() => {
     setPage(page + 1);

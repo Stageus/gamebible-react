@@ -11,7 +11,7 @@ import noGameImg from "../../img/noGameImg.svg";
 import addGameImg from "../../img/addGameImg.svg";
 
 const NoResultNoGameContainer = () => {
-  const { click: suggestNewGame, ClickEvent: suggestGameEvent } = useClick(false);
+  const { click: suggestNewGame, clickEvent: suggestNewGameEvent } = useClick(false);
 
   return (
     <Div $flex="v_center_center">
@@ -21,9 +21,9 @@ const NoResultNoGameContainer = () => {
         text={"새로운 게임 요청하기"}
         color={"white"}
         backgroundColor={"major"}
-        onClick={suggestGameEvent}
+        onClick={suggestNewGameEvent}
       />
-      {suggestNewGame && <SuggestGameContainer {...{ suggestGameEvent }} />}
+      {suggestNewGame && <SuggestGameContainer {...{ suggestNewGameEvent }} />}
     </Div>
   );
 };

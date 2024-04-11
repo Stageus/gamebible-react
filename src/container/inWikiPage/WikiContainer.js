@@ -16,6 +16,8 @@ import { Link, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import navToggleAtom from "../../recoil/navToggleAtom";
 
+import useFetch from "../../hook/useFetch";
+
 const TabBtn = styled(Button)`
   border-right: 1px solid ${setColor("major")};
   border-left: 1px solid ${setColor("major")};
@@ -37,32 +39,27 @@ const WikiContainer = () => {
 
   let { gameIdx } = useParams();
 
-  const [wikiContentData, setWikiContentData] = useState(null);
-
-  const [title, setTitle] = useState(null);
-  const [content, setContent] = useState(null);
-
   // 데이터(게임제목, 기존위키내용) 가져오기 GET
+  const [wikiContentData, setWikiContentData] = useState([]);
+
+  const { data, error, status, request } = useFetch();
   useEffect(() => {
-    const wikiContent = async () => {
-      const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/${gameIdx}/wiki`);
-      const result = await response.json();
-      if (result.data.length > 0) {
-        setTitle(result.data[0].title);
-        setContent(result.data[0].content);
-      } else {
-        console.log("타이틀을 찾을 수 없습니다.");
-      }
-
-      if (response.status === 200) {
-        setWikiContentData(result.data);
-      } else {
-        alert(result.message);
-      }
-    };
-
-    wikiContent();
+    request(`/game/${gameIdx}/history`, "GET", null);
   }, []);
+
+  useEffect(() => {
+    if (status === 200) {
+      setWikiContentData(data.data[0]);
+    } else if (status === 400) {
+      alert("유효하지 않은 요청입니다.");
+    } else if (status === 500) {
+      console.log("서버 내부 에러입니다.");
+    }
+  }, [data]);
+
+  if (!data) return "...Loading";
+
+  if (error) return "Error";
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
@@ -101,7 +98,7 @@ const WikiContainer = () => {
             <Article $width="100%">
               <Div $flex="h_between_start" $width="100%" $margin="0 0 20px 0">
                 <GameTitleLayout $width="60%" $fontWeight="bold">
-                  {title}
+                  {wikiContentData.title}
                 </GameTitleLayout>
                 <Div $flex="h_between_start">
                   <Link to="./history">
@@ -128,7 +125,7 @@ const WikiContainer = () => {
                 $flex="v_start_start"
                 $width="100%"
                 $margin="20px 0 0 0"
-                dangerouslySetInnerHTML={{ __html: content }}
+                dangerouslySetInnerHTML={{ __html: wikiContentData.content }}
               />
             </Article>
           </Section>

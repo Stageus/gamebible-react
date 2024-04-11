@@ -15,6 +15,8 @@ import backImg from "../../img/backImg.svg";
 import ImgTextBtnItem from "../../component/ImgTextBtnItem";
 import BannerImgItem from "../../component/BannerImgItem";
 
+import useFetch from "../../hook/useFetch";
+
 const TabBtn = styled(Button)`
   border-right: 1px solid ${setColor("major")};
   border-left: 1px solid ${setColor("major")};
@@ -23,7 +25,7 @@ const SwitchTabLayout = styled(Div)``;
 const GameTitleLayout = styled(H1)`
   font-size: 45px;
 `;
-const HistoryListLayout = styled(P)`
+const HistoryListLayout = styled(Div)`
   line-height: 30px;
 `;
 const GameContentLayout = styled(Section)`
@@ -36,36 +38,27 @@ const WikiHistoryListContainer = () => {
 
   let { gameIdx } = useParams();
 
-  const [historyListData, setHistoryListData] = useState(null);
-  const [title, setTitle] = useState(null);
+  // 게임제목, 위키 수정 리스트 가져오기 GET
+  const [historyListData, setHistoryListData] = useState([]);
 
+  const { data, error, status, request } = useFetch();
   useEffect(() => {
-    // 게임 수정 기록 받기
-    const wikiEditHistory = async () => {
-      const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/${gameIdx}/history`);
-      const result = await response.json();
-
-      if (response.status === 200) {
-        setHistoryListData(result.data);
-      } else {
-        alert(result.message);
-      }
-    };
-
-    // 게임 제목 받기
-    const getTitle = async () => {
-      const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/${gameIdx}/wiki`);
-      const result = await response.json();
-
-      if (response.status === 200) {
-        setTitle(result.data[0].title);
-      }
-    };
-    wikiEditHistory();
-    getTitle();
+    request(`/game/${gameIdx}/history/all`, "GET", null);
   }, []);
 
-  useEffect(() => {}, [historyListData]);
+  useEffect(() => {
+    if (status === 200) {
+      setHistoryListData(data.data);
+    } else if (status === 400) {
+      alert("유효하지 않은 요청입니다.");
+    } else if (status === 500) {
+      console.log("서버 내부 에러입니다.");
+    }
+  }, [data]);
+
+  if (!data) return "...Loading";
+
+  if (error) return "Error";
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
@@ -104,7 +97,7 @@ const WikiHistoryListContainer = () => {
             <Article $width="100%">
               <Div $flex="h_between_start" $width="100%" $margin="0 0 20px 0">
                 <GameTitleLayout $width="60%" $fontWeight="bold">
-                  {title}
+                  {historyListData.title}
                 </GameTitleLayout>
                 <Link to={`/game/${gameIdx}/wiki`}>
                   <Div $flex="h_end_start">
@@ -118,13 +111,19 @@ const WikiHistoryListContainer = () => {
                 </Link>
               </Div>
               <HistoryListLayout $flex="v_center_start" $width="100%">
-                {historyListData?.map((elem) => {
-                  return (
-                    <Link key={`${elem.idx}`} to={`./${elem.idx}`}>
-                      <li>{elem.title}</li>
-                    </Link>
-                  );
-                })}
+                {historyListData.historyList ? (
+                  historyListData.historyList.map((elem) => {
+                    return (
+                      <Link key={`${elem.idx}`} to={`./${elem.idx}`}>
+                        <li>
+                          {elem.createdAt} | {elem.nickname}
+                        </li>
+                      </Link>
+                    );
+                  })
+                ) : (
+                  <P>수정 내역이 없습니다.</P>
+                )}
               </HistoryListLayout>
             </Article>
           </Section>

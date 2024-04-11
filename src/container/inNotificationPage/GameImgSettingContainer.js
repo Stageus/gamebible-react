@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState } from "react";
 
 import MainLogo from "../../img/HeaderLogo.svg";
 
@@ -43,7 +43,7 @@ const GameImgSettingContainer = (props) => {
         Authorization: `Bearer ${cookies.token}`,
       },
       body: {
-        requestIdx: `${requestIdx}`,
+        requestIdx: `${1}`,
         images: `${thumbnailImg} ${bannerImg}`,
       },
     });
@@ -64,7 +64,7 @@ const GameImgSettingContainer = (props) => {
   };
   const handleBannerImgChange = (event) => {
     const bannerFile = event.target.files[0];
-    setThumbnailImg(bannerFile);
+    setBannerImg(bannerFile);
   };
 
   return (

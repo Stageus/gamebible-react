@@ -4,6 +4,10 @@ import { styled } from "styled-components";
 import { Div } from "../style/LayoutStyle";
 
 import NotificationListContainer from "../container/inNotificationPage/NotificationListContainer";
+import AdminNotificationListContainer from "../container/inNotificationPage/AdminNotificationListContainer";
+
+import userInfoAtom from "../recoil/userInfoAtom";
+import { useRecoilValue } from "recoil";
 
 const PageWrapper = styled(Div)`
   min-height: 100vh;
@@ -11,9 +15,12 @@ const PageWrapper = styled(Div)`
 `;
 
 const NotificationPage = () => {
+  const userInfo = useRecoilValue(userInfoAtom);
+  console.log("관리자 유무 확인: ", userInfo.is_admin);
+
   return (
     <PageWrapper>
-      <NotificationListContainer />
+      {userInfo.is_admin ? <AdminNotificationListContainer /> : <NotificationListContainer />}
     </PageWrapper>
   );
 };
