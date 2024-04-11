@@ -44,7 +44,7 @@ const SearchResultsPage = () => {
     if (status === 200) {
       setSearchGameData(data.data[0]);
     } else if (status === 204) {
-      alert("검색결과가 없습니다.");
+      console.log("게임 검색결과가 없습니다.");
     } else if (status === 400) {
       alert("유효하지 않은 요청입니다.");
     } else if (status === 500) {
@@ -64,19 +64,19 @@ const SearchResultsPage = () => {
       const result = await response.json();
       setSearchPostData(result.data);
 
-      if (response.status === 200) {
+      if (status === 200) {
         setSearchPostData(result.data);
-      } else if (response.status === 400) {
-        alert(result.errors);
-      } else if (response.status === 500) {
-        alert(result.message);
+      } else if (status === 204) {
+        console.log("게시글 검색결과가 없습니다.");
+      } else if (status === 400) {
+        alert("유효하지 않은 요청입니다.");
+      } else if (status === 500) {
+        console.log("서버 내부 에러입니다.");
       }
     };
 
     getPostResult();
   }, [searchTerm]);
-
-  console.log("게시글 검색 결과: ", searchPostData);
 
   // useEffect(() => {
   //   setPage(page + 1);

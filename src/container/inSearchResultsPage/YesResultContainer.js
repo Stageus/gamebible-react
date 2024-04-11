@@ -25,7 +25,7 @@ const YesResultContainer = (props) => {
 
   const { searchGameData, searchPostData } = props;
   // console.log("전달받은 검색 게시글 결과: ", searchPostData.length);
-  // console.log("전달받은 검색 게임 결과: ", searchGameData.length);
+  console.log("전달받은 검색 게임 결과: ", searchGameData.length);
 
   return (
     <>
@@ -60,22 +60,28 @@ const YesResultContainer = (props) => {
         >
           연관 게시글
         </ArticleLabel>
-        <ArticleContentLayout
-          $width="100%"
-          $height="556px"
-          $backgroundColor="white"
-          $flex="v_start_center"
-        >
-          {searchPostData.length == 0 ? (
+
+        {searchPostData.length == 0 ? (
+          <ArticleContentLayout
+            $width="100%"
+            $height="556px"
+            $backgroundColor="white"
+            $flex="v_center_center"
+          >
             <Div $width="100%" $flex="h_center_center">
               <Img src={noPostImg} />
             </Div>
-          ) : (
-            // <Layout $width="100%" $flex="h_center_center">
+          </ArticleContentLayout>
+        ) : (
+          <ArticleContentLayout
+            $width="100%"
+            $height="556px"
+            $backgroundColor="white"
+            $flex="v_start_center"
+          >
             <YesPostContainer searchPostData={searchPostData} />
-            // </Layout>
-          )}
-        </ArticleContentLayout>
+          </ArticleContentLayout>
+        )}
       </Article>
     </>
   );
