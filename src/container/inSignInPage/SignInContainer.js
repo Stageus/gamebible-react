@@ -64,7 +64,6 @@ const SignInContainer = () => {
       <Img src={HeaderLogo} alt="HeaderLogo" />
       <InputItem
         {...{
-          key: "id",
           type: "id",
           placeholder: "아이디",
           inputValue: idValue,
@@ -73,7 +72,6 @@ const SignInContainer = () => {
       ></InputItem>
       <InputItem
         {...{
-          key: "pw",
           type: "pw",
           placeholder: "비밀번호",
           inputValue: pwValue,

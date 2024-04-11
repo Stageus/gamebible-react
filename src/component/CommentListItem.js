@@ -38,7 +38,7 @@ const CommentListItem = (props) => {
           </Span>
           <CursorDiv $flex="h_center_center" $width="33.33%" $height="30px">
             {userIdx === data.userIdx ? (
-              <img src={deleteImg} alt="댓글 삭제하기" onClick={deleteClickEvent} />
+              <img src={deleteImg} alt="댓글 삭제하기" onClick={() => deleteClickEvent(data.idx)} />
             ) : null}
           </CursorDiv>
         </Div>

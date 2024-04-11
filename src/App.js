@@ -5,9 +5,6 @@ import { RecoilRoot } from "recoil";
 import { useCookies } from "react-cookie";
 import useFetch from "./hook/useFetch";
 
-import { useCookies } from "react-cookie";
-import useFetch from "./hook/useFetch";
-
 import GlobalStyle from "./style/GlobalStyle";
 
 import MainPage from "./page/MainPage";
@@ -46,9 +43,11 @@ const App = () => {
   const [, setUserInfo] = useRecoilState(userInfoAtom);
 
   useEffect(() => {
-    request("/account/info", "GET", null, {
-      Authorization: `Bearer ${cookies.token}`,
-    });
+    if (cookies.token) {
+      request("/account/info", "GET", null, {
+        Authorization: `Bearer ${cookies.token}`,
+      });
+    }
   }, [cookies]);
 
   useEffect(() => {

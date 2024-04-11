@@ -13,7 +13,6 @@ const useFetch = () => {
       };
       if (body) {
         option.body = JSON.stringify(body);
-        console.log(option.body);
       }
       // const response = await fetch(`http://192.168.0.18:3000${path}`, option);
       const response = await fetch(`${process.env.REACT_APP_API_KEY}${path}`, option);
