@@ -38,7 +38,6 @@ const SuggestGameContainer = (props) => {
   const navigate = useNavigate();
 
   const [gameTitle, setGameTitle] = useState("");
-  // console.log("gameTitle: ", gameTitle);
 
   const suggestGameClickEvent = async () => {
     try {

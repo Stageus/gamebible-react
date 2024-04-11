@@ -5,7 +5,7 @@ import { Div, Article } from "../../style/LayoutStyle";
 import { Img } from "../../style/ImgStyle";
 import { setSize } from "../../style/SetStyle";
 
-import PostListContainer from "../inGamePage/PostListContainer";
+import YesPostContainer from "./YesPostContainer";
 import NoResultNoGameContainer from "./NoResultNoGameContainer";
 import noPostImg from "../../img/noPostImg.svg";
 import YesGameContainer from "./YesGameContainer";
@@ -24,8 +24,8 @@ const YesResultContainer = (props) => {
   const navToggle = useRecoilValue(navToggleAtom);
 
   const { searchGameData, searchPostData } = props;
-  console.log("전달받은 검색 게시글 결과: ", searchPostData.length);
-  console.log("전달받은 검색 게임 결과: ", searchGameData.length);
+  // console.log("전달받은 검색 게시글 결과: ", searchPostData.length);
+  // console.log("전달받은 검색 게임 결과: ", searchGameData.length);
 
   return (
     <>
@@ -64,14 +64,16 @@ const YesResultContainer = (props) => {
           $width="100%"
           $height="556px"
           $backgroundColor="white"
-          $flex="v_center_center"
+          $flex="v_start_center"
         >
           {searchPostData.length == 0 ? (
             <Div $width="100%" $flex="h_center_center">
               <Img src={noPostImg} />
             </Div>
           ) : (
-            <PostListContainer searchPostData={searchPostData} />
+            // <Layout $width="100%" $flex="h_center_center">
+            <YesPostContainer searchPostData={searchPostData} />
+            // </Layout>
           )}
         </ArticleContentLayout>
       </Article>
