@@ -36,7 +36,7 @@ const NotificationListItem = (props) => {
 
   // (일반사용자) 알림 삭제하기 DELETE
   const deleteAlarmEvent = async () => {
-    const response = await fetch(`${process.env.REACT_APP_API_KEY}/account/notification/${idx}`, {
+    const response = await fetch(`${process.env.REACT_APP_API_KEY}/account/notification/:idx`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -71,7 +71,7 @@ const NotificationListItem = (props) => {
           text="DELETE"
           color="major"
           backgroundColor="default"
-          onClick={() => deleteAlarmEvent(idx)}
+          onClick={() => deleteAlarmEvent(":idx")}
         />
       </BorderStyleArticle>
       {acceptGame && <GameImgSettingContainer {...{ setGameImgEvent }} />}

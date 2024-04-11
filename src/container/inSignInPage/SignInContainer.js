@@ -38,13 +38,16 @@ const SignInContainer = () => {
       navigate("/");
       console.log(data);
     }
+    if (status === 204) {
+      alert("아이디 혹은 비밀번호가 존재하지 않습니다");
+    }
     if (status === 400) {
       alert("유효하지 않은 아이디 입니다.");
     }
     if (status === 401) {
       alert("유효하지 않은 비밀번호 입니다.");
     }
-  }, [data]);
+  }, [status, data]);
 
   const submitData = async () => {
     if (!idValueValidation(idValue)) {
@@ -64,7 +67,6 @@ const SignInContainer = () => {
       <Img src={HeaderLogo} alt="HeaderLogo" />
       <InputItem
         {...{
-          key: "id",
           type: "id",
           placeholder: "아이디",
           inputValue: idValue,
@@ -73,7 +75,6 @@ const SignInContainer = () => {
       ></InputItem>
       <InputItem
         {...{
-          key: "pw",
           type: "pw",
           placeholder: "비밀번호",
           inputValue: pwValue,

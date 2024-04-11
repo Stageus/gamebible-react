@@ -37,7 +37,6 @@ const Label = styled.label`
 
 const InputItem = (props) => {
   const {
-    key,
     label,
     type,
     placeholder,
@@ -48,21 +47,19 @@ const InputItem = (props) => {
     verificationClickEvent,
   } = props;
   const [toggle, setToggle] = useState(false);
-
+  console.log(verificationCheckValue);
   const toggleClickEvent = () => {
     setToggle(!toggle);
   };
-
   return (
     <>
-      <Div key={key} $width="100%" $flex="v_start_start" $margin="0 0 20px 0">
+      <Div key={type} $width="100%" $flex="v_start_start" $margin="0 0 20px 0">
         {/* 라벨 유무에 따라 출력 결정 */}
-        {label && <Label htmlFor={key}>{label}</Label>}
+        {label && <Label htmlFor={type}>{label}</Label>}
         {/* /라벨 유무에 따라 출력 결정 */}
         <RelativeDiv $width="100%">
           <RelativeDiv $width="100%">
             <BorderStyleInput
-              id={key}
               $width="100%"
               $height="50px"
               $padding="0 3%"
@@ -74,7 +71,8 @@ const InputItem = (props) => {
               value={inputValue}
             />
             {/* 버튼 유무에 따라 출력 결정 */}
-            {button && (
+
+            {button && !verificationCheckValue ? (
               <AbsoluteBtn
                 onClick={() => verificationClickEvent(inputValue)}
                 $color="white"
@@ -84,7 +82,7 @@ const InputItem = (props) => {
               >
                 {button}
               </AbsoluteBtn>
-            )}
+            ) : null}
             {/* /버튼 유무에 따라 출력 결정 */}
           </RelativeDiv>
           {/* 타입 pw일 때 eye 아이콘 출력 */}

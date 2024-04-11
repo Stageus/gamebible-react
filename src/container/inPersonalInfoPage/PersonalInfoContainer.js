@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import useFetch from "../../hook/useFetch";
 import LabelText from "../../component/LabelText";
 
 import MainLogo from "../../img/HeaderLogo.svg";
@@ -26,10 +27,10 @@ const FullWideLink = styled(Link)`
 const PersonalInfoContainer = () => {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
+  const { data, status, request } = useFetch();
   // const { data, error, status, request } = useFetch();
-  const [data, setData] = useState("");
 
-  const [cookies, removeCookie] = useCookies(["token"]);
+  const [cookies, , removeCookie] = useCookies(["token"]);
 
   useEffect(() => {
     if (!cookies.token) {
@@ -37,29 +38,24 @@ const PersonalInfoContainer = () => {
     }
   }, [cookies]);
 
-  const DeleteClickEvent = async () => {
-    const result = window.confirm("정말로 탈퇴하시겠습니까?");
-    if (result) {
-      try {
-        const response = await fetch(`${process.env.REACT_APP_API_KEY}/account`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: cookies.token,
-          },
-        });
-        const result = await response.json();
-        setData(result);
-        if (response.status === 200) {
-          alert("탈퇴가 완료 되었습니다.");
-          removeCookie("token");
-          navigate("/");
-        }
-      } catch (error) {
-        alert(`Error: ${error.message}`);
-      }
+  const DeleteClickEvent = () => {
+    const confirm = window.confirm("정말로 탈퇴하시겠습니까?");
+    if (confirm) {
+      request("/account", "DELETE", null, {
+        Authorization: `Bearer ${cookies.token}`,
+      });
+    } else {
+      return;
     }
   };
+
+  useEffect(() => {
+    if (status === 200) {
+      alert("탈퇴 되었습니다.");
+      removeCookie("token", { path: "/" });
+      window.location = "/";
+    }
+  }, [status]);
 
   const labelTextData = {
     email: {

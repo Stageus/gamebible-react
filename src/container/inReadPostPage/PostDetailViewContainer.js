@@ -39,8 +39,6 @@ const PostDetailViewContainer = (props) => {
   const [isAthor, setIsAthor] = useState(null);
   const navigate = useNavigate();
 
-  console.log(data);
-
   useEffect(() => {
     request(`/post/${postIdx}`, "GET", null, {
       Authorization: `Bearer ${cookies.token}`,

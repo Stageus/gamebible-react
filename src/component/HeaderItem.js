@@ -20,8 +20,6 @@ import { Input } from "../style/InputStyle";
 import { Button } from "../style/ButtonStyle";
 import { setColor } from "../style/SetStyle";
 
-import userInfoAtom from "../recoil/userInfoAtom";
-
 const FixedHeader = styled(Header)`
   position: fixed;
   top: 0;
