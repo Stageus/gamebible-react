@@ -50,7 +50,6 @@ const WikiContainer = () => {
   useEffect(() => {
     if (status === 200) {
       setWikiContentData(data.data[0]);
-      // console.log("위키", data.data[0]);
     } else if (status === 400) {
       alert("유효하지 않은 요청입니다.");
     } else if (status === 500) {

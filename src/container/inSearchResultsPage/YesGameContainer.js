@@ -8,10 +8,7 @@ import ThumbnailItem from "../../component/ThumbnailItem";
 const SearchGameLayout = styled(Section)`
   transition: padding 0.1s ease;
 `;
-const MainSection = styled(Article)`
-  // display: flex;
-  // flex-wrap: wrap;
-`;
+const MainSection = styled(Article)``;
 
 const YesGameContainer = ({ searchGameData }) => {
   return (
