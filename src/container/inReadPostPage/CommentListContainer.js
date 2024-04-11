@@ -5,11 +5,11 @@ import CommentListItem from "../../component/CommentListItem";
 import { useRecoilState } from "recoil";
 import userInfoAtom from "../../recoil/userInfoAtom";
 import useFetch from "../../hook/useFetch";
-import { cookies, useCookies } from "react-cookie";
+import { useCookies } from "react-cookie";
 
 const CommentListContainer = (props) => {
-  const { commentListData, deleteComment, setDeleteComment } = props;
-  const { data, status, request } = useFetch();
+  const { commentListData, deleteComment, setDeleteComment, getCommentFetch } = props;
+  const { request } = useFetch();
 
   const [userInfo, ,] = useRecoilState(userInfoAtom);
   const [cookies] = useCookies(["token"]);
@@ -19,6 +19,7 @@ const CommentListContainer = (props) => {
       Authorization: `Bearer ${cookies.token}`,
     });
     setDeleteComment(!deleteComment);
+    getCommentFetch();
   };
 
   return (

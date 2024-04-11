@@ -32,7 +32,7 @@ const OverFlowDiv = styled(Div)`
 `;
 
 const PostCommentContainer = (props) => {
-  const { upDateComment, setUpDateComment } = props;
+  const { getCommentFetch } = props;
   const { data, error, status, request } = useFetch();
   const { gameIdx, postIdx } = useParams();
   const {
@@ -52,7 +52,7 @@ const PostCommentContainer = (props) => {
       { Authorization: `Bearer ${cookies.token}` }
     );
     setContentValue("");
-    setUpDateComment(!upDateComment);
+    getCommentFetch();
   };
 
   return (

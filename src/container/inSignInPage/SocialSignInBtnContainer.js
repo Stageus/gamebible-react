@@ -16,31 +16,28 @@ const KakaoLoginStyleBtn = styled(Img)`
 const SocialSignInBtnContainer = () => {
   const { data, status, request } = useFetch();
 
-  const [code, setCode] = useState(null);
-
-  const [cookies, setCookies] = useCookies(["token"]);
   const navigate = useNavigate();
 
   const onClick = () => {
-    request("/account/auth/kakao", "get");
+    request("/account/auth/kakao", "GET");
   };
   useEffect(() => {
-    if (data) {
+    if (data && data.data) {
       window.location = data.data;
     }
   }, [data]);
 
-  useEffect(() => {
-    if (status === 200) {
-      window.location = data.data;
-    }
-    if (status === 400) {
-      alert("유효하지 않은 아이디 입니다.");
-    }
-    if (status === 401) {
-      alert("유효하지 않은 비밀번호 입니다.");
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (status === 200) {
+  //     window.location = data.data;
+  //   }
+  //   if (status === 400) {
+  //     alert("유효하지 않은 아이디 입니다.");
+  //   }
+  //   if (status === 401) {
+  //     alert("유효하지 않은 비밀번호 입니다.");
+  //   }
+  // }, [data]);
 
   return (
     <Button onClick={onClick} $width="100%" $borderRadius="4px">
