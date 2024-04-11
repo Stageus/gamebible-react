@@ -80,10 +80,6 @@ const NotificationListContainer = () => {
   }, [data]);
   console.log("notiListData: ", notiListData);
 
-  // if (!data) return "...Loading";
-
-  // if (error) return "Error";
-
   return (
     <OverFlowDiv $height="100%" $flex="v_start_center" $margin="100px 0 0 0" $width="100vw">
       {/* {isAdmin ? (
@@ -132,9 +128,15 @@ const NotificationListContainer = () => {
           </H1>
         </Div>
         <NotiListLayout $flex="v_center_center">
-          {notiListData.map((elem) => {
-            return <NotificationListItem key={elem.id} data={elem} />;
-          })}
+          {notiListData.length > 0 ? (
+            notiListData.map((elem) => {
+              return <NotificationListItem key={elem.id} data={elem} />;
+            })
+          ) : (
+            <Div>
+              <Img src={noAlarmImg} alt="no alarm" />
+            </Div>
+          )}
         </NotiListLayout>
       </Div>
     </OverFlowDiv>
