@@ -5,13 +5,10 @@ import { Input } from "../../style/InputStyle";
 import { Span } from "../../style/TextStyle";
 import { Div } from "../../style/LayoutStyle";
 import { Button } from "../../style/ButtonStyle";
-import GetCommentContainer from "../../container/inReadPostPage/GetCommentContainer";
 import { useParams } from "react-router-dom";
-import { useRecoilState } from "recoil";
 import { useInput } from "../../hook/useInput";
-import userInfoAtom from "../../recoil/userInfoAtom";
 import useFetch from "../../hook/useFetch";
-import { cookies, useCookies } from "react-cookie";
+import { useCookies } from "react-cookie";
 
 const CommentInput = styled(Input)`
   &:focus {
@@ -34,11 +31,15 @@ const OverFlowDiv = styled(Div)`
   overflow: auto;
 `;
 
-const PostCommentContainer = () => {
+const PostCommentContainer = (props) => {
+  const { upDateComment, setUpDateComment } = props;
   const { data, error, status, request } = useFetch();
-
   const { gameIdx, postIdx } = useParams();
-  const { value: contentValue, onChangeEvent: contentOnChangeEvent } = useInput("");
+  const {
+    value: contentValue,
+    onChangeEvent: contentOnChangeEvent,
+    setValue: setContentValue,
+  } = useInput("");
   const [cookies] = useCookies(["token"]);
 
   const commentClickEvent = async () => {
@@ -50,13 +51,9 @@ const PostCommentContainer = () => {
       },
       { Authorization: `Bearer ${cookies.token}` }
     );
+    setContentValue("");
+    setUpDateComment(!upDateComment);
   };
-
-  useEffect(() => {
-    if (status === 201) {
-      alert("댓글이 등록되었습니다.");
-    }
-  });
 
   return (
     <>

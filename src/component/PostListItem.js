@@ -1,7 +1,5 @@
 import React from "react";
 
-import { Link } from "react-router-dom";
-
 import { styled } from "styled-components";
 import { setColor } from "../style/SetStyle";
 import { Article, Div } from "../style/LayoutStyle";
@@ -15,7 +13,6 @@ const PostListItemLayout = styled(Article)`
 
 const PostListItem = (props) => {
   const { title, nickname, view, createdAt } = props.data;
-  console.log(createdAt);
 
   return (
     <PostListItemLayout

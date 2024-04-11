@@ -1,6 +1,5 @@
 import { React, useEffect, useRef, useState } from "react";
 
-import AddPhotoBtnItem from "../../component/AddPhotoBtnItem";
 import ImgTextBtnItem from "../../component/ImgTextBtnItem";
 import finishImg from "../../img/finishImg.svg";
 
@@ -14,6 +13,7 @@ import { useInput } from "../../hook/useInput";
 import { useCookies } from "react-cookie";
 import { useParams, useNavigate } from "react-router-dom";
 import useFetch from "../../hook/useFetch";
+import AddPhotoBtnContainer from "./AddPhotoBtnContainer";
 
 const EditorWrapper = styled(Div)`
   border-radius: 4px;
@@ -30,11 +30,13 @@ const EditorContainer = styled(Div)`
   line-height: 30px;
 `;
 
-const WriterContainer = () => {
+const WriterContainer = (props) => {
+  const { postIdx } = props;
   const { value: title, onChangeEvent: onChangeTitltEvent } = useInput("");
   const { data, error, status, request } = useFetch();
-  const [postIdx, setPostIdx] = useState(0);
-  const [image, setImage] = useState([]);
+
+  const [preview, setPreview] = useState([]);
+
   const [content, setContent] = useState("");
   const [cookies] = useCookies(["token"]);
   const contentContainer = useRef(null);
@@ -49,7 +51,7 @@ const WriterContainer = () => {
     }
   }, [cookies.token]);
 
-  const postClickEvent = () => {
+  const postClickEvent = async () => {
     if (regex.test(title)) {
       alert("제목을 입력해주세요");
       return;
@@ -57,36 +59,49 @@ const WriterContainer = () => {
       alert("내용을 입력해주세요");
       return;
     }
+    await request(
+      `/post/${postIdx}`,
+      "POST",
+      {
+        title: title,
+        content: content,
+      },
+      {
+        Authorization: `Bearer ${cookies.token}`,
+      }
+    );
   };
 
-  //처음 들어왔을 때 임시저장을 만들고
-  //그것을 리코일로 보내서 저장해놓기
-  //그리고 피니시 버튼을 누를 때 다시 api 호출
+  useEffect(() => {
+    if (status === 200) {
+      alert("게시글 작성 완료");
+      navigate(`/game/${gameIdx}/community/page/1`);
+    }
+  }, [status]);
+  console.log(status);
+
+  const nodeToString = (node) => {
+    // div
+    const tmpNode = document.createElement("div");
+
+    // 노드 꾸겨넣기
+    tmpNode.appendChild(node.cloneNode(true));
+
+    // tmp안에 div조작하기
+    const tag = tmpNode.querySelector("div");
+
+    tag.contentEditable = false;
+
+    // div안에있는 모든 HTML
+    const str = tmpNode.innerHTML;
+    return str;
+  };
 
   const postContentChangeEvent = () => {
-    setContent(contentContainer.current);
+    const str = nodeToString(contentContainer.current);
+    setContent(str);
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await request(`/post?gameidx=${gameIdx}`, "POST", null, {
-          Authorization: `Bearer ${cookies.token}`,
-        });
-      } catch (error) {
-        alert(`Error: ${error.message}`);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    if (data && data.data) {
-      setPostIdx(data.data.idx);
-    }
-  }, [data]);
-
+  console.log(preview);
   return (
     <EditorWrapper $backgroundColor="white" $width="100%" $height="100%" $padding="50px">
       <Div $margin="0 0 20px 0" $width="100%">
@@ -103,7 +118,7 @@ const WriterContainer = () => {
       </Div>
       <Div $width="100%" $flex="v_center_end">
         <Div $flex="h_between_center" $margin="0 0 2% 0">
-          <AddPhotoBtnItem {...{ setImage }} />
+          <AddPhotoBtnContainer {...{ setPreview, postIdx }} />
           <Div $margin="0 0 0 20px">
             <ImgTextBtnItem
               img={finishImg}
@@ -120,7 +135,21 @@ const WriterContainer = () => {
           contentEditable="true"
           $width="100%"
           $padding="4%"
-        ></EditorContainer>
+        >
+          {preview?.map((imageData) => (
+            <Img
+              key={imageData.id}
+              src={imageData.imageURL}
+              $margin="10px"
+              className="writerImg"
+              style={{
+                width: "30%",
+                display: "flex",
+                margin: "0 0 2% 0",
+              }}
+            />
+          ))}
+        </EditorContainer>
       </Div>
     </EditorWrapper>
   );

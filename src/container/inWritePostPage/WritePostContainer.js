@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { styled } from "styled-components";
 import { Div, Article, Section } from "../../style/LayoutStyle";
@@ -8,6 +8,9 @@ import { setColor } from "../../style/SetStyle";
 
 import { useRecoilValue } from "recoil";
 import navToggleAtom from "../../recoil/navToggleAtom";
+import useFetch from "../../hook/useFetch";
+import { useCookies } from "react-cookie";
+import { useParams } from "react-router-dom";
 
 import { Link } from "react-router-dom";
 
@@ -25,7 +28,28 @@ const GameContentLayout = styled(Section)`
 `;
 
 const WritePostContainer = () => {
+  const { data, error, status, request } = useFetch();
   const navToggle = useRecoilValue(navToggleAtom);
+  const [cookies] = useCookies(["token"]);
+  const [postIdx, setPostIdx] = useState(0);
+  const { gameIdx } = useParams();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await request(`/post?gameidx=${gameIdx}`, "POST", null, {
+        Authorization: `Bearer ${cookies.token}`,
+      });
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (data && data.data) {
+      setPostIdx(data.data.postIdx);
+    }
+  }, [data]);
+
+  console.log(postIdx);
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
@@ -60,7 +84,7 @@ const WritePostContainer = () => {
           </Link>
         </SwitchTabLayout>
         <Article $flex="v_center_center" $backgroundColor="major" $width="100%" $padding="50px">
-          <WriterContainer />
+          <WriterContainer {...{ postIdx }} />
         </Article>
       </Section>
     </GameContentLayout>
