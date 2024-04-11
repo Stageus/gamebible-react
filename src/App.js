@@ -1,7 +1,9 @@
 import { React, useEffect } from "react";
 
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import { RecoilRoot } from "recoil";
+import { useCookies } from "react-cookie";
+import useFetch from "./hook/useFetch";
 
 import { useCookies } from "react-cookie";
 import useFetch from "./hook/useFetch";
@@ -25,9 +27,12 @@ import WritePostPage from "./page/WritePostPage";
 import WikiHistoryPage from "./page/WikiHistoryPage";
 import WikiHistoryContentPage from "./page/WikiHistoryContentPage";
 import EditWikiPage from "./page/EditWikiPage";
+import Kakao from "./container/Kakao";
 
 import HeaderItem from "./component/HeaderItem";
 import GameListContainer from "./container/GameListNavContainer";
+import { useRecoilState } from "recoil";
+import userInfoAtom from "./recoil/userInfoAtom";
 
 const App = () => {
   // useEffect 사용해서 1. Cookie 유무 파악 / 2. 쿠키가 있다면 내 정보 불러오기 api 호출
@@ -36,54 +41,60 @@ const App = () => {
   // 쿠키를 만드는 건 login 성공할 때 함
 
   // 로그아웃하면 atom에 들어있던 유저 정보 비워주기 useResetRecoilState()
+  const { data, status, request } = useFetch();
+  const [cookies] = useCookies(["token"]);
+  const [, setUserInfo] = useRecoilState(userInfoAtom);
 
-  // const [cookies, setCookies] = useCookies(["token"]);
+  useEffect(() => {
+    request("/account/info", "GET", null, {
+      Authorization: `Bearer ${cookies.token}`,
+    });
+  }, [cookies]);
 
-  // useEffect(() => {
-  //   if (cookies.token) {
-  //     console.log("토큰이 있습니다");
-  //   }
-  // }, []);
-
-  // const { data, error, status, request } = useFetch();
-  // useEffect(() => {
-  //   request(`/account/info`, "GET", null);
-  // }, [cookies.token]);
+  useEffect(() => {
+    if (data) {
+      setUserInfo({
+        email: data.data.email,
+        nickname: data.data.nickname,
+        is_admin: data.data.is_admin,
+        user_idx: data.data.user_idx,
+      });
+    }
+  }, [data]);
 
   return (
     <>
-      <RecoilRoot>
-        <BrowserRouter>
-          <GlobalStyle />
-          <HeaderItem />
-          <GameListContainer />
-          <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/signUp" element={<SignUpPage />} />
-            <Route path="/signIn" element={<SignInPage />} />
-            <Route path="/personalInfo" element={<PersonalInfoPage />} />
-            <Route path="/editPersonalInfo" element={<EditPersonalInfoPage />} />
-            <Route path="/findID" element={<FindIDPage />} />
-            <Route path="/resetPW" element={<ResetPWPage />} />
-            <Route path="/changePW" element={<ChangePWPage />} />
-            <Route path="/game/:gameIdx/community/page/:pageIdx" element={<CommunityPage />} />
-            <Route path="/game/:gameIdx/wiki" element={<WikiPage />} />
-            <Route path="/alarm" element={<NotificationPage />} />
-            <Route
-              path="/game/:gameIdx/community/page/:pageIdx/post/:postIdx"
-              element={<ReadPostPage />}
-            />
-            <Route path="/searchResults" element={<SearchResultsPage />} />
-            <Route path="/game/:gameIdx/writePost" element={<WritePostPage />} />
-            <Route path="/game/:gameIdx/wiki/history" element={<WikiHistoryPage />} />
-            <Route
-              path="/game/:gameIdx/wiki/history/:historyIdx"
-              element={<WikiHistoryContentPage />}
-            />
-            <Route path="/game/:gameIdx/wiki/edit" element={<EditWikiPage />} />
-          </Routes>
-        </BrowserRouter>
-      </RecoilRoot>
+      <BrowserRouter>
+        <GlobalStyle />
+        <HeaderItem />
+        <GameListContainer />
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/signUp" element={<SignUpPage />} />
+          <Route path="/signIn" element={<SignInPage />} />
+          <Route path="/personalInfo" element={<PersonalInfoPage />} />
+          <Route path="/editPersonalInfo" element={<EditPersonalInfoPage />} />
+          <Route path="/findID" element={<FindIDPage />} />
+          <Route path="/resetPW" element={<ResetPWPage />} />
+          <Route path="/changePW" element={<ChangePWPage />} />
+          <Route path="/game/:gameIdx/community/page/:pageIdx" element={<CommunityPage />} />
+          <Route path="/game/:gameIdx/wiki" element={<WikiPage />} />
+          <Route path="/alarm" element={<NotificationPage />} />
+          <Route
+            path="/game/:gameIdx/community/page/:pageIdx/post/:postIdx"
+            element={<ReadPostPage />}
+          />
+          <Route path="/searchResults" element={<SearchResultsPage />} />
+          <Route path="/game/:gameIdx/writePost" element={<WritePostPage />} />
+          <Route path="/game/:gameIdx/wiki/history" element={<WikiHistoryPage />} />
+          <Route
+            path="/game/:gameIdx/wiki/history/:historyIdx"
+            element={<WikiHistoryContentPage />}
+          />
+          <Route path="/game/:gameIdx/wiki/edit" element={<EditWikiPage />} />
+          <Route path="/account/kakao/callback" element={<Kakao />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 };

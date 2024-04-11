@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 
 import { useCookies } from "react-cookie";
 
@@ -19,6 +19,8 @@ import { Img } from "../style/ImgStyle";
 import { Input } from "../style/InputStyle";
 import { Button } from "../style/ButtonStyle";
 import { setColor } from "../style/SetStyle";
+
+import userInfoAtom from "../recoil/userInfoAtom";
 
 const FixedHeader = styled(Header)`
   position: fixed;
@@ -87,11 +89,12 @@ const HeaderItem = () => {
 
   const location = useLocation();
 
-  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+  const [cookies, , removeCookie] = useCookies(["token"]);
 
   // 로그아웃
   const logoutClickEvent = () => {
-    removeCookie("token");
+    removeCookie("token", { path: "/" });
+    localStorage.removeItem("recoil-persist");
   };
 
   return (
@@ -154,7 +157,6 @@ const HeaderItem = () => {
           </BtnLayout>
         ) : (
           <>
-            {" "}
             <Button
               $padding="0 10px"
               $height="35px"

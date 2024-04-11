@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useInput } from "../../hook/useInput";
 
@@ -6,25 +6,17 @@ import InputItem from "../../component/InputItem";
 import HeaderLogo from "../../img/HeaderLogo.svg";
 
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 import { Img } from "../../style/ImgStyle";
 import { Div, Section } from "../../style/LayoutStyle";
 import { Button } from "../../style/ButtonStyle";
 import { idValueValidation, pwValueValidation } from "../../util/ValidationUtil";
-import KakaoLoginBtn from "../../img/kakaoLoginMediumWide.svg";
 import { useCookies } from "react-cookie";
 
-import { useRecoilState } from "recoil";
-import userInfoAtom from "../../recoil/userInfoAtom";
-
 import useFetch from "../../hook/useFetch";
-const KakaoLoginStyleBtn = styled(Img)`
-  width: 100%;
-`;
+import SocialSignInBtnContainer from "./SocialSignInBtnContainer";
 
 const SignInContainer = () => {
-  const { data, error, status, request } = useFetch();
-  const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
+  const { data, status, request } = useFetch();
 
   // 인풋 값
   const { value: idValue, onChangeEvent: onChangeIdValue } = useInput("");
@@ -42,11 +34,6 @@ const SignInContainer = () => {
 
   useEffect(() => {
     if (data && data.token) {
-      setUserInfo({
-        email: data.data.email,
-        nickname: data.data.nickname,
-        is_admin: data.data.is_admin,
-      });
       setCookies("token", data.token, { path: "/" });
       navigate("/");
       console.log(data);
@@ -57,7 +44,7 @@ const SignInContainer = () => {
     if (status === 401) {
       alert("유효하지 않은 비밀번호 입니다.");
     }
-  }, [data, error, status, navigate]);
+  }, [data]);
 
   const submitData = async () => {
     if (!idValueValidation(idValue)) {
@@ -111,9 +98,7 @@ const SignInContainer = () => {
           <Link to="/resetPW">비밀번호 찾기</Link>
         </Div>
       </Div>
-      <Button $width="100%" $borderRadius="4px">
-        <KakaoLoginStyleBtn src={KakaoLoginBtn} />
-      </Button>
+      <SocialSignInBtnContainer />
     </Section>
   );
 };

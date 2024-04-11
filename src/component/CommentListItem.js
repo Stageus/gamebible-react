@@ -14,12 +14,8 @@ const CursorDiv = styled(Div)`
   cursor: pointer;
 `;
 
-const users = {
-  id: ["admin", "작성자닉네임_2"],
-};
-
 const CommentListItem = (props) => {
-  const { data } = props;
+  const { data, userIdx, deleteClickEvent } = props;
 
   return (
     <CommentListItemLayout
@@ -41,7 +37,9 @@ const CommentListItem = (props) => {
             {data.createdAt}
           </Span>
           <CursorDiv $flex="h_center_center" $width="33.33%" $height="30px">
-            {users.id.includes(data.nickname) && <img src={deleteImg} alt="댓글 삭제하기" />}
+            {userIdx === data.userIdx ? (
+              <img src={deleteImg} alt="댓글 삭제하기" onClick={deleteClickEvent} />
+            ) : null}
           </CursorDiv>
         </Div>
       </Div>

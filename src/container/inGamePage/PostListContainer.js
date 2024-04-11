@@ -8,14 +8,13 @@ import { Section, Div } from "../../style/LayoutStyle";
 
 const PostListContainer = (props) => {
   const { gameIdx, pageIdx } = useParams();
-  const { data, error, status, request } = useFetch();
+  const { data, request } = useFetch();
   const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         request(`/post/all?gameidx=${gameIdx}&page=${pageIdx}`, "GET");
-        console.log(data);
       } catch (error) {
         console.log(error);
       }
