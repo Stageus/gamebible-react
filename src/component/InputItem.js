@@ -47,7 +47,7 @@ const InputItem = (props) => {
     verificationClickEvent,
   } = props;
   const [toggle, setToggle] = useState(false);
-
+  console.log(verificationCheckValue);
   const toggleClickEvent = () => {
     setToggle(!toggle);
   };
@@ -71,7 +71,8 @@ const InputItem = (props) => {
               value={inputValue}
             />
             {/* 버튼 유무에 따라 출력 결정 */}
-            {button && (
+
+            {button && !verificationCheckValue ? (
               <AbsoluteBtn
                 onClick={() => verificationClickEvent(inputValue)}
                 $color="white"
@@ -81,7 +82,7 @@ const InputItem = (props) => {
               >
                 {button}
               </AbsoluteBtn>
-            )}
+            ) : null}
             {/* /버튼 유무에 따라 출력 결정 */}
           </RelativeDiv>
           {/* 타입 pw일 때 eye 아이콘 출력 */}
