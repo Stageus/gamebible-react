@@ -24,6 +24,7 @@ import WritePostPage from "./page/WritePostPage";
 import WikiHistoryPage from "./page/WikiHistoryPage";
 import WikiHistoryContentPage from "./page/WikiHistoryContentPage";
 import EditWikiPage from "./page/EditWikiPage";
+import Kakao from "./container/Kakao";
 
 import HeaderItem from "./component/HeaderItem";
 import GameListContainer from "./container/GameListNavContainer";
@@ -82,6 +83,7 @@ const App = () => {
             element={<WikiHistoryContentPage />}
           />
           <Route path="/game/:gameIdx/wiki/edit" element={<EditWikiPage />} />
+          <Route path="/account/kakao/callback" element={<Kakao />} />
         </Routes>
       </BrowserRouter>
     </>
