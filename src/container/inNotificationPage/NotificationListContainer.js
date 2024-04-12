@@ -25,7 +25,7 @@ const NotificationListContainer = () => {
 
   const { data, error, status, request } = useFetch();
   useEffect(() => {
-    request(`/account/notification`, "GET", null);
+    request(`/account/notification?lastIdx=:lastIdx`, "GET", null);
   }, []);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const NotificationListContainer = () => {
     }
   }, [data]);
 
-  console.log("notiListData: ", notiListData);
+  console.log("notiListData lastIdx: ", notiListData.lastIdx);
 
   // 일반사용자 알림 목록 백엔드 state가 업데이트 될 때 마다, page를 1 증가시키기
   useEffect(() => {

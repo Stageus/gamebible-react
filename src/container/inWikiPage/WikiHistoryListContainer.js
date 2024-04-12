@@ -48,7 +48,7 @@ const WikiHistoryListContainer = () => {
 
   useEffect(() => {
     if (status === 200) {
-      setHistoryListData(data.data);
+      setHistoryListData(data?.data);
     } else if (status === 400) {
       alert("유효하지 않은 요청입니다.");
     } else if (status === 500) {
@@ -97,7 +97,7 @@ const WikiHistoryListContainer = () => {
             <Article $width="100%">
               <Div $flex="h_between_start" $width="100%" $margin="0 0 20px 0">
                 <GameTitleLayout $width="60%" $fontWeight="bold">
-                  {historyListData.title}
+                  {historyListData?.title}
                 </GameTitleLayout>
                 <Link to={`/game/${gameIdx}/wiki`}>
                   <Div $flex="h_end_start">
@@ -112,7 +112,7 @@ const WikiHistoryListContainer = () => {
               </Div>
               <HistoryListLayout $flex="v_center_start" $width="100%">
                 {historyListData.historyList ? (
-                  historyListData.historyList.map((elem) => {
+                  historyListData?.historyList?.map((elem) => {
                     return (
                       <Link key={`${elem.idx}`} to={`./${elem.idx}`}>
                         <li>

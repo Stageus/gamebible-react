@@ -31,23 +31,22 @@ const SearchResultGameContainer = () => {
 
   const { data, error, status, request } = useFetch();
   useEffect(() => {
-    // console.log(encodeURI(searchTerm));
     request(`/game/search?title=${encodeURI(searchTerm)}`, "GET", null);
-  }, []);
+  }, [searchParams]); // navigate는 새로고침이 아니기 때문에, 이 이펙트를 재실행하지 않음
 
   useEffect(() => {
+    console.log(status);
     if (status === 200) {
-      setSearchGameData(data.data[0]);
+      setSearchGameData(data?.data); // 백엔드에서 온 데이터는 그대로 저장해야 함
     } else if (status === 204) {
+      setSearchGameData(null); // 백엔드에서 데이터가 오지 않았을 떄 state를 비워줘야 함
       console.log("게임 검색결과가 없습니다.");
     } else if (status === 400) {
       alert("유효하지 않은 요청입니다.");
     } else if (status === 500) {
       console.log("서버 내부 에러입니다.");
     }
-  }, [searchTerm]);
-
-  console.log("searchGameData: ", searchGameData);
+  }, [data, status]); // status 달아줬어야 함 ( 204는 응답 body가 없어서 반응을 안함 )
 
   return (
     <Article $flex="v_center_start" $width={navToggle ? "90%" : "100%"} $margin="30px 0 30px 0">

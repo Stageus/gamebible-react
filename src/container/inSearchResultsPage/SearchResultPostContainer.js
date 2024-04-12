@@ -33,21 +33,20 @@ const SearchResultPostContainer = () => {
   const { data, error, status, request } = useFetch();
   useEffect(() => {
     request(`/post/search?title=${searchTerm}&page=${page}`, "GET", null);
-  }, []);
+  }, [searchParams]);
 
   useEffect(() => {
     if (status === 200) {
-      setSearchPostData(data.data[0]);
+      setSearchPostData(data?.data);
     } else if (status === 204) {
+      setSearchPostData(null);
       console.log("게임 검색결과가 없습니다.");
     } else if (status === 400) {
       alert("유효하지 않은 요청입니다.");
     } else if (status === 500) {
       console.log("서버 내부 에러입니다.");
     }
-  }, [searchTerm]);
-
-  //   console.log("searchPostData 개수: ", searchPostData.length);
+  }, [data, status]);
 
   return (
     <Article $flex="v_center_start" $width={navToggle ? "90%" : "100%"} $margin="0 0 30px 0">

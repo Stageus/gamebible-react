@@ -49,7 +49,7 @@ const WikiContainer = () => {
 
   useEffect(() => {
     if (status === 200) {
-      setWikiContentData(data.data[0]);
+      setWikiContentData(data?.data);
     } else if (status === 400) {
       alert("유효하지 않은 요청입니다.");
     } else if (status === 500) {
@@ -98,7 +98,7 @@ const WikiContainer = () => {
             <Article $width="100%">
               <Div $flex="h_between_start" $width="100%" $margin="0 0 20px 0">
                 <GameTitleLayout $width="60%" $fontWeight="bold">
-                  {wikiContentData.title}
+                  {wikiContentData[0]?.title}
                 </GameTitleLayout>
                 <Div $flex="h_between_start">
                   <Link to="./history">
@@ -125,7 +125,7 @@ const WikiContainer = () => {
                 $flex="v_start_start"
                 $width="100%"
                 $margin="20px 0 0 0"
-                dangerouslySetInnerHTML={{ __html: wikiContentData.content }}
+                dangerouslySetInnerHTML={{ __html: wikiContentData[0]?.content }}
               />
             </Article>
           </Section>

@@ -14,7 +14,7 @@ const YesGameContainer = ({ searchGameData }) => {
   return (
     <SearchGameLayout>
       <MainSection $flex="h_center_center" $width="100%">
-        {searchGameData.map((elem) => {
+        {searchGameData?.map((elem) => {
           return <ThumbnailItem key={elem.idx} data={elem} />;
         })}
       </MainSection>

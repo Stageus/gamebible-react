@@ -10,19 +10,11 @@ import PostListItem from "../../component/PostListItem";
 const SearchGameLayout = styled(Section)`
   transition: padding 0.1s ease;
 `;
-const CommunityTitleWrapper = styled(Div)`
-  //   border: none;
-  //   border-bottom: 1px solid ${setColor("white")};
-`;
-const MainSection = styled(Article)`
-  // display: flex;
-  // flex-wrap: wrap;
-`;
 
 const YesGameContainer = ({ searchPostData }) => {
   return (
     <SearchGameLayout $width="100%" $padding="30px">
-      <CommunityTitleWrapper
+      <Div
         $width="100%"
         $height="60px"
         $flex="h_center_center"
@@ -45,12 +37,13 @@ const YesGameContainer = ({ searchPostData }) => {
             </Span>
           </Div>
         </Div>
-      </CommunityTitleWrapper>
-      <MainSection $flex="v_center_center" $width="100%">
-        {searchPostData.map((elem) => {
-          return <PostListItem key={elem.idx} data={elem} />;
+      </Div>
+
+      <Article $flex="v_center_center" $width="100%">
+        {searchPostData?.map((elem) => {
+          return <PostListItem key={elem.postIdx} data={elem} />;
         })}
-      </MainSection>
+      </Article>
     </SearchGameLayout>
   );
 };

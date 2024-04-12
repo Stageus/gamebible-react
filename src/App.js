@@ -1,8 +1,6 @@
 import { React, useEffect } from "react";
 
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
-import useFetch from "./hook/useFetch";
 
 import { useCookies } from "react-cookie";
 import useFetch from "./hook/useFetch";
@@ -45,7 +43,7 @@ const App = () => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
 
   useEffect(() => {
-    if (cookies.token) {
+    if (cookies) {
       request("/account/info", "GET", null, {
         Authorization: `Bearer ${cookies.token}`,
       });
