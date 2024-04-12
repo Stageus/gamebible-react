@@ -1,7 +1,9 @@
 import { React, useEffect } from "react";
 
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
-import { RecoilRoot } from "recoil";
+import { useCookies } from "react-cookie";
+import useFetch from "./hook/useFetch";
+
 import { useCookies } from "react-cookie";
 import useFetch from "./hook/useFetch";
 
@@ -40,7 +42,7 @@ const App = () => {
   // 로그아웃하면 atom에 들어있던 유저 정보 비워주기 useResetRecoilState()
   const { data, status, request } = useFetch();
   const [cookies] = useCookies(["token"]);
-  const [, setUserInfo] = useRecoilState(userInfoAtom);
+  const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
 
   useEffect(() => {
     if (cookies.token) {

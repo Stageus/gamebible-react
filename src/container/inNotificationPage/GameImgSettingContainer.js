@@ -43,7 +43,7 @@ const GameImgSettingContainer = (props) => {
         Authorization: `Bearer ${cookies.token}`,
       },
       body: {
-        requestIdx: `${1}`,
+        // requestIdx: `${1}`,
         images: `${thumbnailImg} ${bannerImg}`,
       },
     });
