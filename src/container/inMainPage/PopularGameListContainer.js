@@ -1,4 +1,5 @@
 import { React, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { styled } from "styled-components";
 import { Section, Article } from "../../style/LayoutStyle";
@@ -22,15 +23,16 @@ const MainSection = styled(Article)`
 
 const PopularGameListContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
+  const navigate = useNavigate();
 
   // 데이터(인기 게임 순 썸네일) 가져오기 GET
   const [popularityListData, setPopularityListData] = useState(null);
   const [page, setPage] = useState(1);
 
-  const { data, error, status, request } = useFetch();
+  const { data, status, request } = useFetch();
   useEffect(() => {
     request(`/game/popular?page=${page}`, "GET", null);
-  }, [page]);
+  }, [page, navigate]);
 
   // Http Request 후처리
   useEffect(() => {
@@ -41,7 +43,7 @@ const PopularGameListContainer = () => {
     } else if (status === 500) {
       console.log("서버 내부 에러입니다.");
     }
-  }, [data]);
+  }, [data, status]);
 
   useEffect(() => {
     setPage(page + 1);
