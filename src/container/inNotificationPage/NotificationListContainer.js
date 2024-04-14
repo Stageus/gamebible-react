@@ -10,6 +10,11 @@ import NotificationListItem from "../../component/NotificationListItem";
 
 import useFetch from "../../hook/useFetch";
 
+import userInfoAtom from "../../recoil/userInfoAtom";
+import { useRecoilValue } from "recoil";
+
+import { useNavigate } from "react-router-dom";
+
 const OverFlowDiv = styled(Section)`
   overflow: auto;
 `;
@@ -19,9 +24,19 @@ const NotiListLayout = styled(Article)`
 `;
 
 const NotificationListContainer = () => {
+  const userAdminInfo = useRecoilValue(userInfoAtom).is_admin;
+  const navigate = useNavigate();
+  console.log("관리자 유무 확인: ", userAdminInfo);
+
+  if (userAdminInfo) {
+    alert("일반 사용자용 알람 페이지입니다.");
+    navigate("./");
+  }
+
   // 일반사용자 알림 목록보기 GET
   const [notiListData, setNotiListData] = useState([]);
   const [page, setPage] = useState(1);
+  const [lastIdx, setLastIdx] = useState(0);
 
   const { data, error, status, request } = useFetch();
   useEffect(() => {
@@ -30,7 +45,8 @@ const NotificationListContainer = () => {
 
   useEffect(() => {
     if (status === 200) {
-      setNotiListData(data.data);
+      setNotiListData(data?.data);
+      // setLastIdx(data?.data.lastIdx);
     } else if (status === 400) {
       alert("유효하지 않은 요청입니다.");
     } else if (status === 401) {
@@ -40,7 +56,8 @@ const NotificationListContainer = () => {
     }
   }, [data]);
 
-  console.log("notiListData lastIdx: ", notiListData.lastIdx);
+  console.log("notiListData: ", notiListData);
+  console.log("lastIdx: ", lastIdx);
 
   // 일반사용자 알림 목록 백엔드 state가 업데이트 될 때 마다, page를 1 증가시키기
   useEffect(() => {
@@ -56,8 +73,8 @@ const NotificationListContainer = () => {
           </H1>
         </Div>
         <NotiListLayout $flex="v_center_center">
-          {notiListData.length > 0 ? (
-            notiListData.map((elem) => {
+          {notiListData?.length > 0 ? (
+            notiListData?.map((elem) => {
               return <NotificationListItem key={elem.idx} data={elem} />;
             })
           ) : (

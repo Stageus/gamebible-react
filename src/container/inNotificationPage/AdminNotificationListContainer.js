@@ -13,6 +13,8 @@ import { useRecoilValue } from "recoil";
 
 import useFetch from "../../hook/useFetch";
 
+import { useNavigate } from "react-router-dom";
+
 const OverFlowDiv = styled(Section)`
   overflow: auto;
 `;
@@ -22,9 +24,14 @@ const NotiListLayout = styled(Article)`
 `;
 
 const AdminNotificationListContainer = () => {
-  // 관리자임 확인
-  const userInfo = useRecoilValue(userInfoAtom).is_admin;
-  console.log("userInfo: ", userInfo);
+  const userAdminInfo = useRecoilValue(userInfoAtom).is_admin;
+  const navigate = useNavigate();
+  console.log("관리자 유무 확인: ", userAdminInfo);
+
+  if (!userAdminInfo) {
+    alert("관리자용 알람 페이지입니다.");
+    navigate("./");
+  }
 
   // 관리자 승인요청 온 게임 목록보기 GET
   const [adminNotiListData, setAdminNotiListData] = useState([]);
@@ -37,7 +44,7 @@ const AdminNotificationListContainer = () => {
 
   useEffect(() => {
     if (status === 200) {
-      setAdminNotiListData(data.data);
+      setAdminNotiListData(data?.data);
     } else if (status === 400) {
       alert("유효하지 않은 요청입니다.");
     } else if (status === 401) {
