@@ -39,11 +39,14 @@ const AdminNotificationListItem = (props) => {
 
     if (response.status === 200) {
       window.location.reload();
-    } else if (response.status === 400) {
+    }
+    if (response.status === 400) {
       alert(response.message);
-    } else if (response.status === 401) {
+    }
+    if (response.status === 401) {
       alert(response.message);
-    } else if (response.status === 500) {
+    }
+    if (response.status === 500) {
       alert(response.message);
     }
   };

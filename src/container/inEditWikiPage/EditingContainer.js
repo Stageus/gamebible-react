@@ -31,14 +31,21 @@ const EditingContainer = () => {
   const [startEditingData, setStartEditingData] = useState(null);
   const [cookies] = useCookies(["token"]);
 
-  const [newData, setNewData] = useState("");
+  const [newWikiContentData, setNewWikiContentData] = useState("");
   const { change, changeEvent } = useInput("");
   const [image, setImage] = useState([]);
-  const contentContainer = useRef(null);
   const navigate = useNavigate();
+  const wikiContentContainer = useRef(null);
 
   // 탭이동을 위한 gameIdx 추출
   const { gameIdx } = useParams();
+
+  // 로그인 안 되어있으면 홈화면으로 이동
+  useEffect(() => {
+    if (!cookies.token) {
+      navigate("/");
+    }
+  }, [cookies.token]);
 
   // 임시위키 생성 POST (historyIdx 생성하기)
   useEffect(() => {
@@ -67,8 +74,15 @@ const EditingContainer = () => {
 
   // 새로운 데이터 저장하기 PUT
   const putWikiEvent = async () => {
-    console.log(newData);
-    console.log(typeof newData);
+    // 입력값이 아무것도 없을 때
+    if (!wikiContentContainer.current) {
+      alert("내용을 입력해주세요.");
+      return;
+    }
+
+    //
+    const formData = new FormData();
+    formData.append("newWikiContentData", newWikiContentData);
 
     const response = await fetch(
       `${process.env.REACT_APP_API_KEY}/game/${gameIdx}/wiki/${startEditingData.historyIdx}`,
@@ -79,7 +93,7 @@ const EditingContainer = () => {
           Authorization: `Bearer ${cookies.token}`,
         },
         body: {
-          content: newData,
+          content: formData,
         },
       }
     );
@@ -87,7 +101,7 @@ const EditingContainer = () => {
     const result = await response.json();
 
     if (response.status === 200) {
-      setStartEditingData(result?.data);
+      setStartEditingData(result.data);
     } else if (response.status === 400) {
       alert(`Request Error: ${result.message}`);
     } else if (response.status === 401) {
@@ -97,9 +111,23 @@ const EditingContainer = () => {
     }
   };
 
-  const postChangeEvent = (e) => {
-    console.log(contentContainer.current.innerText);
-    setNewData(contentContainer.current.innerHTML);
+  // 사용자가 수정입력한 내용(node 형태)을 string화 하기
+  const nodeToString = (node) => {
+    // div 태그 만들기
+    const tmpNode = document.createElement("div");
+    // 태그 안에 노드 집어넣기
+    tmpNode.appendChild(node.cloneNode(true));
+    // tmpNode 안에 있던 div를 'tag'로 골라서 조작하기
+    const tag = tmpNode.querySelector("div");
+    tag.contentEditable = false;
+    // div안에있는 모든 HTML
+    const str = tmpNode.innerHTML;
+    return str;
+  };
+
+  const wikiContentChangeEvent = (e) => {
+    const str = nodeToString(wikiContentContainer.current);
+    setNewWikiContentData(str);
   };
 
   return (
@@ -131,8 +159,8 @@ const EditingContainer = () => {
       {/* 위키 수정 입력 칸 */}
       <EditorContainer
         onChange={changeEvent}
-        onInput={postChangeEvent}
-        ref={contentContainer}
+        onInput={wikiContentChangeEvent}
+        ref={wikiContentContainer}
         contentEditable="true"
         $width="100%"
         $padding="4%"

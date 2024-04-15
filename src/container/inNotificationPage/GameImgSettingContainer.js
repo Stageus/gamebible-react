@@ -51,8 +51,8 @@ const GameImgSettingContainer = (props) => {
     // body 내 전달 데이터
     const formData = new FormData();
     formData.append("requestIdx", idx);
-    formData.append("thumbnailImg", thumbnailImg.current);
-    formData.append("bannerImg", bannerImg.current);
+    formData.append("thumbnail", thumbnailImg.current);
+    formData.append("banner", bannerImg.current);
 
     const response = await fetch(`${process.env.REACT_APP_API_KEY}/admin/game`, {
       method: "POST",
@@ -67,11 +67,14 @@ const GameImgSettingContainer = (props) => {
     if (response.status === 200) {
       alert("게임 승인이 완료되았습니다.");
       navigate("./");
-    } else if (response.status === 400) {
+    }
+    if (response.status === 400) {
       alert(result.message);
-    } else if (response.status === 409) {
+    }
+    if (response.status === 409) {
       alert(result.message);
-    } else if (response.status === 500) {
+    }
+    if (response.status === 500) {
       alert(result.message);
     }
   };
