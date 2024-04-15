@@ -62,7 +62,6 @@ const GameImgSettingContainer = (props) => {
       body: formData,
     });
 
-    // const result = await response.json();
     if (response.status === 200) {
       alert("게임 승인이 완료되았습니다.");
       navigate("./");
