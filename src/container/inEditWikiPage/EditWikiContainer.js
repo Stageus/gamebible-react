@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 
 import { styled } from "styled-components";
 import { Div, Article, Section } from "../../style/LayoutStyle";
@@ -14,6 +14,8 @@ import { Link, useParams } from "react-router-dom";
 import BannerImgItem from "../../component/BannerImgItem";
 import EditingContainer from "./EditingContainer";
 
+import useFetch from "../../hook/useFetch";
+
 const GameContentLayout = styled(Section)`
   width: calc(100vw - 120px);
   transition: padding 0.1s ease;
@@ -27,6 +29,7 @@ const SwitchTabLayout = styled(Div)``;
 const EditWikiContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
 
+  // 탭이동을 위한 gameIdx 추출
   const { gameIdx } = useParams();
 
   return (
