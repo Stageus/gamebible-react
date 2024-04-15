@@ -16,9 +16,6 @@ import GameImgSettingContainer from "../container/inNotificationPage/GameImgSett
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
-import { useRecoilState } from "recoil";
-import userInfoAtom from "../recoil/userInfoAtom";
-
 import timestampConversion from "../util/TimestampUtil";
 
 const BorderStyleArticle = styled(Article)`

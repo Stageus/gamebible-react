@@ -14,6 +14,7 @@ import { useRecoilValue } from "recoil";
 import useFetch from "../../hook/useFetch";
 
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 const OverFlowDiv = styled(Section)`
   overflow: auto;
@@ -26,12 +27,20 @@ const NotiListLayout = styled(Article)`
 const AdminNotificationListContainer = () => {
   const userAdminInfo = useRecoilValue(userInfoAtom).is_admin;
   const navigate = useNavigate();
-  console.log("관리자 유무 확인: ", userAdminInfo);
+  const [cookies] = useCookies(["token"]);
 
-  if (!userAdminInfo) {
-    alert("관리자용 알람 페이지입니다.");
-    navigate("./");
-  }
+  useEffect(() => {
+    // 관리자 / 일반사용자 파악
+    if (!userAdminInfo) {
+      alert("관리자용 알람 페이지입니다.");
+      navigate("/");
+    }
+
+    // 토큰 유무 파악
+    if (!cookies.token) {
+      navigate("/");
+    }
+  }, [userAdminInfo, cookies.token]);
 
   // 관리자 승인요청 온 게임 목록보기 GET
   const [adminNotiListData, setAdminNotiListData] = useState([]);
@@ -54,7 +63,9 @@ const AdminNotificationListContainer = () => {
     }
   }, [data]);
 
-  console.log("adminNotiListData: ", adminNotiListData);
+  useEffect(() => {
+    console.log("adminNotiListData: ", adminNotiListData);
+  });
 
   // 관리자 승인요청 온 게임 목록 백엔드 state가 업데이트 될 때 마다, page를 1 증가시키기
   useEffect(() => {
@@ -70,8 +81,8 @@ const AdminNotificationListContainer = () => {
           </H1>
         </Div>
         <NotiListLayout $flex="v_center_center">
-          {adminNotiListData.length > 0 ? (
-            adminNotiListData.map((elem) => {
+          {adminNotiListData?.length > 0 ? (
+            adminNotiListData?.map((elem) => {
               return <AdminNotificationListItem key={elem.idx} data={elem} />;
             })
           ) : (
