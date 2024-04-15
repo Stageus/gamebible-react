@@ -5,7 +5,7 @@ import { useCookies } from "react-cookie";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import navToggleAtom from "../recoil/navToggleAtom";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useResetRecoilState } from "recoil";
 
 import HeaderLogo from "../img/HeaderLogo.svg";
 import SearchIcon from "../img/searchIcon.svg";
@@ -19,6 +19,7 @@ import { Img } from "../style/ImgStyle";
 import { Input } from "../style/InputStyle";
 import { Button } from "../style/ButtonStyle";
 import { setColor } from "../style/SetStyle";
+import userInfoAtom from "../recoil/userInfoAtom";
 
 const FixedHeader = styled(Header)`
   position: fixed;
@@ -71,7 +72,6 @@ const HeaderItem = () => {
   // 검색 관련
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
-  // console.log("searchValue: ", searchValue);
   // 검색결과 받기
   const onChangeEvent = (event) => {
     setSearchValue(event.target.value);
@@ -89,10 +89,11 @@ const HeaderItem = () => {
 
   const [cookies, , removeCookie] = useCookies(["token"]);
 
+  const resetUserInfo = useResetRecoilState(userInfoAtom);
   // 로그아웃
   const logoutClickEvent = () => {
     removeCookie("token", { path: "/" });
-    localStorage.removeItem("recoil-persist");
+    resetUserInfo();
   };
 
   return (
