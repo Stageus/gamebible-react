@@ -35,7 +35,7 @@ const PopularGameListContainer = () => {
   // Http Request 후처리
   useEffect(() => {
     if (status === 200) {
-      setPopularityListData(data?.data.gameList);
+      setPopularityListData(data?.data?.gameList);
     } else if (status === 400) {
       alert("유효하지 않은 요청입니다.");
     } else if (status === 500) {
