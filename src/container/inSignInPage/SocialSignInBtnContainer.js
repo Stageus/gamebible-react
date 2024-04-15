@@ -16,8 +16,6 @@ const KakaoLoginStyleBtn = styled(Img)`
 const SocialSignInBtnContainer = () => {
   const { data, status, request } = useFetch();
 
-  const navigate = useNavigate();
-
   const onClick = () => {
     request("/account/auth/kakao", "GET");
   };
