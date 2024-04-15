@@ -57,7 +57,7 @@ const NotificationListItem = (props) => {
     url = `/game/${game_idx}/community/page/1/post/${post_idx}`;
   }
   if (type === 2) {
-    content = `사용자가 작성했던 "${game_title}" 위키가 다른 사용자에 의해 수정되었습니다. 어떻게 바꼈나 궁금하지 않으세요?`;
+    content = `사용자가 작성했던 "${game_title}" 위키가 다른 사용자에 의해 수정되었습니다. 어떻게 바뀌었나 궁금하지 않으세요?`;
     url = `/game/${game_idx}/wiki`;
   }
   if (type === 3) {
