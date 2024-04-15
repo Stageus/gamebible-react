@@ -83,19 +83,20 @@ const NotificationListContainer = () => {
             알림함
           </H1>
         </Div>
-        <NotiListLayout $flex="v_center_center">
-          {notiListData?.length > 0 ? (
-            // 알람 있을 때
-            notiListData?.map((elem) => {
+
+        {notiListData?.length > 0 ? (
+          // 알람 있을 때
+          <NotiListLayout $flex="v_start_center">
+            {notiListData?.map((elem) => {
               return <NotificationListItem key={elem.idx} data={elem} />;
-            })
-          ) : (
-            // 알람 없을 때
-            <Div>
-              <Img src={noAlarmImg} alt="no alarm" />
-            </Div>
-          )}
-        </NotiListLayout>
+            })}
+          </NotiListLayout>
+        ) : (
+          // 알람 없을 때
+          <NotiListLayout $flex="v_center_center">
+            <Img src={noAlarmImg} alt="no alarm" />
+          </NotiListLayout>
+        )}
       </Div>
     </OverFlowDiv>
   );

@@ -36,7 +36,7 @@ const AdminNotificationListContainer = () => {
       navigate("/");
     }
 
-    // 토큰 유무 파악
+    // 토큰 유무 파악을 통해 로그아웃 버튼 클릭 시 홈화면으로 이동
     if (!cookies.token) {
       navigate("/");
     }
@@ -80,17 +80,20 @@ const AdminNotificationListContainer = () => {
             관리자 알림함
           </H1>
         </Div>
-        <NotiListLayout $flex="v_center_center">
-          {adminNotiListData?.length > 0 ? (
-            adminNotiListData?.map((elem) => {
+
+        {adminNotiListData?.length > 0 ? (
+          // 알람 있을 때
+          <NotiListLayout $flex="v_start_center">
+            {adminNotiListData?.map((elem) => {
               return <AdminNotificationListItem key={elem.idx} data={elem} />;
-            })
-          ) : (
-            <Div>
-              <Img src={noAlarmImg} alt="no alarm" />
-            </Div>
-          )}
-        </NotiListLayout>
+            })}
+          </NotiListLayout>
+        ) : (
+          // 알람 없을 때
+          <NotiListLayout $flex="v_center_center">
+            <Img src={noAlarmImg} alt="no alarm" />
+          </NotiListLayout>
+        )}
       </Div>
     </OverFlowDiv>
   );
