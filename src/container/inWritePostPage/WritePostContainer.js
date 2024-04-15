@@ -28,7 +28,7 @@ const GameContentLayout = styled(Section)`
 `;
 
 const WritePostContainer = () => {
-  const { data, error, status, request } = useFetch();
+  const { data, status, request } = useFetch();
   const navToggle = useRecoilValue(navToggleAtom);
   const [cookies] = useCookies(["token"]);
   const [postIdx, setPostIdx] = useState(0);
@@ -47,9 +47,7 @@ const WritePostContainer = () => {
     if (data && data.data) {
       setPostIdx(data.data.postIdx);
     }
-  }, [data]);
-
-  console.log(postIdx);
+  }, [data, status]);
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>

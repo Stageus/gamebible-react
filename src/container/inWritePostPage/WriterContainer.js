@@ -33,7 +33,7 @@ const EditorContainer = styled(Div)`
 const WriterContainer = (props) => {
   const { postIdx } = props;
   const { value: title, onChangeEvent: onChangeTitltEvent } = useInput("");
-  const { data, error, status, request } = useFetch();
+  const { data, status, request } = useFetch();
 
   const [preview, setPreview] = useState([]);
 

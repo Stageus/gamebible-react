@@ -2,7 +2,7 @@ import { React, useEffect, useState } from "react";
 
 import { useCookies } from "react-cookie";
 
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 
 import navToggleAtom from "../recoil/navToggleAtom";
 import { useRecoilState, useResetRecoilState } from "recoil";
