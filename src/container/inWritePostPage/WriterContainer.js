@@ -33,7 +33,7 @@ const EditorContainer = styled(Div)`
 const WriterContainer = (props) => {
   const { postIdx } = props;
   const { value: title, onChangeEvent: onChangeTitltEvent } = useInput("");
-  const { data, status, request } = useFetch();
+  const { status, request } = useFetch();
 
   const [preview, setPreview] = useState([]);
 
@@ -44,12 +44,6 @@ const WriterContainer = (props) => {
   const navigate = useNavigate();
 
   const regex = /^\s*$/;
-
-  useEffect(() => {
-    if (!cookies.token) {
-      navigate("/");
-    }
-  }, [cookies.token]);
 
   const postClickEvent = async () => {
     if (regex.test(title)) {
