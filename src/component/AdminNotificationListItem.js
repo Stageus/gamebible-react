@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import React from "react";
 
 import styled from "styled-components";
 import { Span } from "../style/TextStyle";
@@ -6,7 +6,6 @@ import { Div, Article } from "../style/LayoutStyle";
 
 import ImgTextBtnItem from "./ImgTextBtnItem";
 
-import DeleteIcon from "../img/deleteIcon.svg";
 import RejectIcon from "../img/rejectIcon.svg";
 import ApproveIcon from "../img/approveIcon.svg";
 
@@ -39,7 +38,6 @@ const AdminNotificationListItem = (props) => {
     });
 
     if (response.status === 200) {
-      console.log("삭제에 성공했씁니다.");
       window.location.reload();
     } else if (response.status === 400) {
       alert(response.message);
@@ -82,7 +80,7 @@ const AdminNotificationListItem = (props) => {
           />
         </Div>
       </BorderStyleArticle>
-      {acceptGame && <GameImgSettingContainer {...{ setGameImgEvent }} />}
+      {acceptGame && <GameImgSettingContainer {...{ setGameImgEvent, idx }} />}
     </Div>
   );
 };

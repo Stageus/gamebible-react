@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useRef } from "react";
 
 import MainLogo from "../../img/HeaderLogo.svg";
 
@@ -11,6 +11,7 @@ import { Button } from "../../style/ButtonStyle";
 import { Section } from "../../style/LayoutStyle";
 
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 
 const RelativeDiv = styled(Div)`
   position: relative;
@@ -30,26 +31,43 @@ const RightButton = styled(Button)`
 `;
 
 const GameImgSettingContainer = (props) => {
-  const { setGameImgEvent } = props;
-  const cookies = useCookies();
-  const [thumbnailImg, setThumbnailImg] = useState(null);
-  const [bannerImg, setBannerImg] = useState(null);
+  const { setGameImgEvent, idx } = props;
+  const [cookies] = useCookies(["token"]);
+  const navigate = useNavigate();
+
+  const thumbnailImg = useRef();
+  console.log("thumbnailImg: ", thumbnailImg.current);
+
+  const bannerImg = useRef();
+  console.log("bannerImg: ", bannerImg.current);
 
   const approveGameEvent = async () => {
+    // 이미지 파일 선택 하지 않고 확인 버튼 클릭 시
+    if (!thumbnailImg.current || !bannerImg.current) {
+      alert("이미지를 선택하세요.");
+      return;
+    }
+
+    // body 내 전달 데이터
+    const formData = new FormData();
+    formData.append("requestIdx", idx);
+    formData.append("thumbnailImg", thumbnailImg.current);
+    formData.append("bannerImg", bannerImg.current);
+
     const response = await fetch(`${process.env.REACT_APP_API_KEY}/admin/game`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${cookies.token}`,
       },
-      body: {
-        // requestIdx: `${1}`,
-        images: `${thumbnailImg} ${bannerImg}`,
-      },
+      body: formData,
     });
 
     const result = await response.json();
-    if (response.status === 400) {
+    if (response.status === 200) {
+      alert("게임 승인이 완료되았습니다.");
+      navigate("./");
+    } else if (response.status === 400) {
       alert(result.message);
     } else if (response.status === 409) {
       alert(result.message);
@@ -59,12 +77,12 @@ const GameImgSettingContainer = (props) => {
   };
 
   const handleThumbnailImgChange = (event) => {
-    const thumbanilFile = event.target.files[0];
-    setThumbnailImg(thumbanilFile);
+    thumbnailImg.current = event.target.files[0];
+    console.log("thumbnailImg.current: ", thumbnailImg.current);
   };
   const handleBannerImgChange = (event) => {
-    const bannerFile = event.target.files[0];
-    setBannerImg(bannerFile);
+    bannerImg.current = event.target.files[0];
+    console.log("bannerImg.current: ", bannerImg.current);
   };
 
   return (
@@ -85,13 +103,14 @@ const GameImgSettingContainer = (props) => {
         </Div>
         <Section $flex="v_between_center" $margin="40px 0">
           <Div $margin="0 0 20px 0">
+            <Div $margin="0 0 40px 0">
+              <Div>게임 썸네일 이미지</Div>
+              <Input type="file" ref={thumbnailImg} onChange={handleThumbnailImgChange} />
+            </Div>
             <Div>게임 배너 이미지</Div>
-            <Input type="file" onChange={handleThumbnailImgChange} />
+            <Input type="file" ref={bannerImg} onChange={handleBannerImgChange} />
           </Div>
-          <Div $margin="0 0 40px 0">
-            <Div>게임 썸네일 이미지</Div>
-            <Input type="file" onChange={handleBannerImgChange} />
-          </Div>
+
           <Div $flex="h_between_center" $width="100%">
             <Button
               $padding="5px 10px"
