@@ -20,6 +20,7 @@ import KakaoLoginBtn from "../../img/kakaoLoginMediumWide.svg";
 
 import { pwValueValidation } from "../../util/ValidationUtil";
 import TermsServiceContainer from "./TermsServiceContainer";
+import { useCookies } from "react-cookie";
 
 const KakaoLoginStyleBtn = styled(Img)`
   width: 100%;
@@ -27,6 +28,7 @@ const KakaoLoginStyleBtn = styled(Img)`
 
 const SignUpContainer = () => {
   const { data, error, status, request } = useFetch();
+  const [cookies] = useCookies(["token"]);
 
   // 인풋 상태
   const { value: idValue, onChangeEvent: onChangeIdEvent } = useInput("");
@@ -53,6 +55,13 @@ const SignUpContainer = () => {
     clickEvent: privacyPolicyCheckedEvent,
   } = useClick(false);
   // /인증 체크
+
+  useEffect(() => {
+    if (cookies.token) {
+      alert("로그아웃 후 이용해주세요");
+      navigate("/");
+    }
+  }, [cookies, navigate]);
 
   useEffect(() => {
     if (status === 200) {

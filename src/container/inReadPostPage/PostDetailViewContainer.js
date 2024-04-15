@@ -25,8 +25,7 @@ const PostContentDiv = styled(Div)``;
 
 const PostDetailViewContainer = (props) => {
   const [cookies] = useCookies(["token"]);
-  const { gameIdx } = useParams();
-  const { postIdx } = useParams();
+  const { gameIdx, postIdx } = useParams();
   const { data, status, request } = useFetch();
   const [isAuthor, setIsAuthor] = useState(null);
   const navigate = useNavigate();
