@@ -57,25 +57,24 @@ const GameImgSettingContainer = (props) => {
     const response = await fetch(`${process.env.REACT_APP_API_KEY}/admin/game`, {
       method: "POST",
       headers: {
-        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${cookies.token}`,
       },
       body: formData,
     });
 
-    const result = await response.json();
+    // const result = await response.json();
     if (response.status === 200) {
       alert("게임 승인이 완료되았습니다.");
       navigate("./");
     }
     if (response.status === 400) {
-      alert(result.message);
+      alert(response.message);
     }
     if (response.status === 409) {
-      alert(result.message);
+      alert(response.message);
     }
     if (response.status === 500) {
-      alert(result.message);
+      alert(response.message);
     }
   };
 

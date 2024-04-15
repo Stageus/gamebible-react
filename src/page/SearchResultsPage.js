@@ -15,7 +15,6 @@ const PageWrapper = styled(Div)`
   min-height: 100vh;
   position: relative;
 `;
-const NoResultSection = styled(Section)``;
 const YesResultSection = styled(Section)``;
 const FooterWrapper = styled(Div)`
   position: absolute;

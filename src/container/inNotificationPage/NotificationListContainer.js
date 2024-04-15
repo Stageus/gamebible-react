@@ -16,38 +16,6 @@ import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
-class Notification {
-  /**
-   * @type {number}
-   */
-  idx;
-
-  /**
-   * @type {number}
-   */
-  user_idx;
-
-  /**
-   * @type {1 | 2 | 3}
-   */
-  type;
-
-  /**
-   * @type {string}
-   */
-  title;
-
-  /**
-   * @type {number | null}
-   */
-  postIdx;
-
-  /**
-   * @type {string}
-   */
-  createdAt;
-}
-
 const OverFlowDiv = styled(Section)`
   overflow: auto;
 `;
@@ -75,9 +43,7 @@ const NotificationListContainer = () => {
   }, [userAdminInfo, cookies.token]);
 
   // 일반사용자 알림 목록보기 GET
-  /**
-   * @type {[Notification[]]}
-   */
+
   const [notiListData, setNotiListData] = useState([]);
   const [page, setPage] = useState(1);
   const [lastIdx, setLastIdx] = useState(1);
@@ -89,8 +55,8 @@ const NotificationListContainer = () => {
 
   useEffect(() => {
     if (status === 200) {
-      setNotiListData(data.data);
-      setLastIdx(data.data.lastIdx);
+      setNotiListData(data?.notifications);
+      setLastIdx(data?.lastIdx);
     }
 
     if (status === 400) {
@@ -103,7 +69,7 @@ const NotificationListContainer = () => {
       console.log("서버 내부 에러입니다.");
     }
   }, [data]);
-  // console.log("lastIdx: ", lastIdx);
+  console.log("notiListData: ", notiListData);
 
   // 일반사용자 알림 목록 백엔드 state가 업데이트 될 때 마다, page를 1 증가시키기
   useEffect(() => {
@@ -118,9 +84,10 @@ const NotificationListContainer = () => {
             알림함
           </H1>
         </Div>
+
         {notiListData.length > 0 ? (
           // 알람 있을 때
-          <NotiListLayout $flex="v_start_center">
+          <NotiListLayout $flex="v_start_center" $width="100%">
             {notiListData.map((elem) => {
               return <NotificationListItem key={elem.idx} data={elem} />;
             })}

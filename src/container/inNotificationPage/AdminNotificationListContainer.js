@@ -54,11 +54,14 @@ const AdminNotificationListContainer = () => {
   useEffect(() => {
     if (status === 200) {
       setAdminNotiListData(data?.data);
-    } else if (status === 400) {
+    }
+    if (status === 400) {
       alert("유효하지 않은 요청입니다.");
-    } else if (status === 401) {
+    }
+    if (status === 401) {
       alert("권한이 없는 사용자입니다.");
-    } else if (status === 500) {
+    }
+    if (status === 500) {
       console.log("서버 내부 에러입니다.");
     }
   }, [data]);
@@ -81,7 +84,7 @@ const AdminNotificationListContainer = () => {
           </H1>
         </Div>
 
-        {adminNotiListData?.length > 0 ? (
+        {adminNotiListData.length > 0 ? (
           // 알람 있을 때
           <NotiListLayout $flex="v_start_center">
             {adminNotiListData?.map((elem) => {

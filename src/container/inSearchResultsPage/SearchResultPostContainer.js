@@ -40,7 +40,7 @@ const SearchResultPostContainer = () => {
       setSearchPostData(data?.data);
     } else if (status === 204) {
       setSearchPostData(null);
-      console.log("게임 검색결과가 없습니다.");
+      console.log("게시글 검색결과가 없습니다.");
     } else if (status === 400) {
       alert("유효하지 않은 요청입니다.");
     } else if (status === 500) {
