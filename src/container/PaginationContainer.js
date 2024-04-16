@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Div } from "../../style/LayoutStyle";
-import { Span } from "../../style/TextStyle";
-import { Img } from "../../style/ImgStyle";
+import { Div } from "../style/LayoutStyle";
+import { Span } from "../style/TextStyle";
+import { Img } from "../style/ImgStyle";
 import { Link, useParams } from "react-router-dom";
 
-import ArrowRight from "../../img/arrowRight.svg";
-import ArrowLeft from "../../img/arrowLeft.svg";
+import ArrowRight from "../img/arrowRight.svg";
+import ArrowLeft from "../img/arrowLeft.svg";
 
 const PaginationContainer = (props) => {
   const { gameIdx, pageIdx } = useParams();

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import useFetch from "../../hook/useFetch";
 import { Link, useParams } from "react-router-dom";
 import PostListItem from "../../component/PostListItem";
-import PaginationContainer from "./PaginationContainer";
+import PaginationContainer from "../PaginationContainer";
 
 import { Section, Div } from "../../style/LayoutStyle";
 
@@ -34,10 +34,7 @@ const PostListContainer = (props) => {
         {data &&
           data.data.map((elem) => {
             return (
-              <Link
-                key={`post${elem.postIdx}`}
-                to={`/game/${gameIdx}/community/page/${pageIdx}/post/${elem.postIdx}`}
-              >
+              <Link key={`post${elem.postIdx}`} to={`/game/${gameIdx}/post/${elem.postIdx}`}>
                 <PostListItem data={elem} />
               </Link>
             );

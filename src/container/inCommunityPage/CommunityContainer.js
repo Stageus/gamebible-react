@@ -13,7 +13,7 @@ import { useRecoilValue } from "recoil";
 import navToggleAtom from "../../recoil/navToggleAtom";
 
 import BannerImgItem from "../../component/BannerImgItem";
-import PostListContainer from "../inGamePage/PostListContainer";
+import PostListContainer from "./PostListContainer";
 
 const TabBtn = styled(Button)`
   border-right: 1px solid ${setColor("major")};
@@ -31,6 +31,8 @@ const GameContentLayout = styled(Section)`
 const ButtonWrapper = styled(Div)``;
 
 const CommunityContainer = () => {
+  const navToggle = useRecoilValue(navToggleAtom);
+
   const { gameIdx, pageIdx } = useParams();
   const { request } = useFetch();
 
@@ -40,8 +42,6 @@ const CommunityContainer = () => {
     };
     fetchData();
   }, [pageIdx]);
-
-  const navToggle = useRecoilValue(navToggleAtom);
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
@@ -60,7 +60,7 @@ const CommunityContainer = () => {
               커뮤니티
             </Span>
           </TabBtn>
-          <Link to={`/game/${gameIdx}/wiki`}>
+          <Link to={`/game/${gameIdx}`}>
             <TabBtn
               $width="150px"
               $height="50px"

@@ -49,9 +49,11 @@ const WikiHistoryListContainer = () => {
   useEffect(() => {
     if (status === 200) {
       setHistoryListData(data?.data);
-    } else if (status === 400) {
+    }
+    if (status === 400) {
       alert("유효하지 않은 요청입니다.");
-    } else if (status === 500) {
+    }
+    if (status === 500) {
       console.log("서버 내부 에러입니다.");
     }
   }, [data]);
@@ -65,7 +67,7 @@ const WikiHistoryListContainer = () => {
       <BannerImgItem />
       <Section $flex="v_center_start" $width="100%">
         <SwitchTabLayout $flex="h_center_center">
-          <Link to={`/game/${gameIdx}/community/page/1`}>
+          <Link to={`/game/${gameIdx}/community?page=1`}>
             <TabBtn
               $width="150px"
               $height="50px"
@@ -99,7 +101,7 @@ const WikiHistoryListContainer = () => {
                 <GameTitleLayout $width="60%" $fontWeight="bold">
                   {historyListData?.title}
                 </GameTitleLayout>
-                <Link to={`/game/${gameIdx}/wiki`}>
+                <Link to={`/game/${gameIdx}`}>
                   <Div $flex="h_end_start">
                     <ImgTextBtnItem
                       img={backImg}

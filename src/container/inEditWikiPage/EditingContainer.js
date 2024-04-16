@@ -2,7 +2,6 @@ import { React, useEffect, useRef, useState } from "react";
 
 import { styled } from "styled-components";
 import { Div, Article, Section } from "../../style/LayoutStyle";
-import { Img } from "../../style/ImgStyle";
 import { H1 } from "../../style/TextStyle";
 import { setColor } from "../../style/SetStyle";
 
@@ -62,9 +61,11 @@ const EditingContainer = () => {
 
       if (response.status === 201) {
         setStartEditingData(result?.data);
-      } else if (response.status === 400) {
+      }
+      if (response.status === 400) {
         alert(`Request Error: ${result.message}`);
-      } else if (response.status === 500) {
+      }
+      if (response.status === 500) {
         alert(`Server Error: ${result.message}`);
       }
     };
@@ -80,7 +81,6 @@ const EditingContainer = () => {
       return;
     }
 
-    //
     const formData = new FormData();
     formData.append("newWikiContentData", newWikiContentData);
 
@@ -102,11 +102,14 @@ const EditingContainer = () => {
 
     if (response.status === 200) {
       setStartEditingData(result.data);
-    } else if (response.status === 400) {
+    }
+    if (response.status === 400) {
       alert(`Request Error: ${result.message}`);
-    } else if (response.status === 401) {
+    }
+    if (response.status === 401) {
       alert(`User Error: ${result.message}`);
-    } else if (response.status === 500) {
+    }
+    if (response.status === 500) {
       alert(`Server Error: ${result.message}`);
     }
   };

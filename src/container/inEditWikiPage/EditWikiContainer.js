@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import React from "react";
 
 import { styled } from "styled-components";
 import { Div, Article, Section } from "../../style/LayoutStyle";
@@ -13,8 +13,6 @@ import { Link, useParams } from "react-router-dom";
 
 import BannerImgItem from "../../component/BannerImgItem";
 import EditingContainer from "./EditingContainer";
-
-import useFetch from "../../hook/useFetch";
 
 const GameContentLayout = styled(Section)`
   width: calc(100vw - 120px);
@@ -37,7 +35,7 @@ const EditWikiContainer = () => {
       <BannerImgItem />
       <Section $flex="v_center_start" $width="100%">
         <SwitchTabLayout $flex="h_center_center">
-          <Link to={`/game/${gameIdx}/community/page/1`}>
+          <Link to={`/game/${gameIdx}/community?page=1`}>
             <TabBtn
               $width="150px"
               $height="50px"

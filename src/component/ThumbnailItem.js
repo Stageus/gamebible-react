@@ -34,7 +34,7 @@ const ThumbnailItem = (props) => {
 
   return (
     <ThumbnailLayout>
-      <ThumbnailWrapper to={`../game/${idx}/community/page/1`}>
+      <ThumbnailWrapper to={`../game/${idx}/community?page=1`}>
         <ThumbnailImg src={imgPath} alt={title} />
       </ThumbnailWrapper>
     </ThumbnailLayout>

@@ -76,13 +76,10 @@ const App = () => {
           <Route path="/findID" element={<FindIDPage />} />
           <Route path="/resetPW" element={<ResetPWPage />} />
           <Route path="/changePW" element={<ChangePWPage />} />
-          <Route path="/game/:gameIdx/community/page/:pageIdx" element={<CommunityPage />} />
-          <Route path="/game/:gameIdx/wiki" element={<WikiPage />} />
+          <Route path="/game/:gameIdx/community" element={<CommunityPage />} />
+          <Route path="/game/:gameIdx" element={<WikiPage />} />
           <Route path="/alarm" element={<NotificationPage />} />
-          <Route
-            path="/game/:gameIdx/community/page/:pageIdx/post/:postIdx"
-            element={<ReadPostPage />}
-          />
+          <Route path="/game/:gameIdx/post/:postIdx" element={<ReadPostPage />} />
           <Route path="/searchResults" element={<SearchResultsPage />} />
           <Route path="/game/:gameIdx/writePost" element={<WritePostPage />} />
           <Route path="/game/:gameIdx/wiki/history" element={<WikiHistoryPage />} />
