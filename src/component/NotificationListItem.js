@@ -37,7 +37,6 @@ const NotificationListItem = (props) => {
 
     if (response.status === 200) {
       window.location.reload();
-      alert("선택하신 알림이 삭제되었습니다");
     }
     if (response.status === 400) {
       alert(response.message);
