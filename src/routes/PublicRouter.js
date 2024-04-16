@@ -2,8 +2,7 @@ import { React, useEffect } from "react";
 
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import HeaderItem from "../component/HeaderItem";
-import GameListNavContainer from "../container/GameListNavContainer";
+import HeaderNavContainer from "../container/HeaerNavContainer";
 
 import MainPage from "../page/MainPage";
 import SignInPage from "../page/SignInPage";
@@ -21,8 +20,7 @@ import Kakao from "../container/Kakao";
 const PubilcRouter = () => {
   return (
     <>
-      <HeaderItem />
-      <GameListNavContainer />
+      <HeaderNavContainer />
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/signUp" element={<SignUpPage />} />

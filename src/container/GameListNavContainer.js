@@ -6,10 +6,10 @@ import { Aside, Div, Nav, Section } from "../style/LayoutStyle";
 
 import GameListItem from "../component/GameListItem";
 
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import navToggleAtom from "../recoil/navToggleAtom";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import useFetch from "../hook/useFetch";
 
 const GameListContainer = styled(Aside)`
@@ -25,8 +25,10 @@ const NavSection = styled(Section)`
   overflow: auto;
 `;
 
-const GameListNavContainer = () => {
-  const navToggle = useRecoilValue(navToggleAtom);
+const GameListNavContainer = (props) => {
+  const [navToggle, setNavToggle] = useRecoilState(navToggleAtom);
+  const { MenuNullUrl } = props;
+  const location = useLocation();
 
   // 데이터(ㄱㄴㄷ순 게임 목록) 가져오기 GET
   const [gameListData, setGameListData] = useState([]);
@@ -55,6 +57,11 @@ const GameListNavContainer = () => {
   useEffect(() => {
     setPage(page + 1);
   }, [gameListData]);
+  useEffect(() => {
+    if (MenuNullUrl.includes(location.pathname)) {
+      setNavToggle(false);
+    }
+  }, [location]);
 
   return (
     navToggle && (
