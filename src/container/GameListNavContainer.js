@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useRef } from "react";
 
 import { styled } from "styled-components";
 import { H1, P } from "../style/TextStyle";
@@ -35,36 +35,50 @@ const GameListNavContainer = (props) => {
   const [page, setPage] = useState(1);
 
   const { data, status, request } = useFetch();
+  const navRef = useRef(null);
+
+  useEffect(() => {
+    // // 특정한 url nav토글 닫기
+    if (MenuNullUrl?.includes(location.pathname)) {
+      setNavToggle(false);
+    }
+  }, [location.pathname]);
 
   const getGameList = () => {
+    // 서버에서 데이터 가져오는 함수
     request(`/game/all?page=${page}`, "GET", null);
   };
 
   useEffect(() => {
+    // page가 갱신 될 때 실행
     getGameList();
   }, [page]);
 
   useEffect(() => {
-    setPage(page + 1);
-  }, [gameListData]);
-
-  useEffect(() => {
-    // 스크롤 다운 시 새롭게 호출
+    // 스크롤 위치에 따라 실행
+    // useRef로 DOM요소 특정, 해당 요소를 기준으로 스크롤 값 계산
+    // getGameList가 실행될 때 갱신
     const scrollDownEvent = () => {
-      const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
-      if (scrollTop + clientHeight >= scrollHeight) {
-        getGameList();
+      if (navRef.current) {
+        const { scrollTop, clientHeight, scrollHeight } = navRef.current;
+        if (scrollTop + clientHeight >= scrollHeight) {
+          setPage(page + 1);
+        }
       }
     };
-    window.addEventListener("scroll", scrollDownEvent);
+    if (navRef.current) {
+      navRef.current.addEventListener("scroll", scrollDownEvent);
+    }
     return () => {
-      window.removeEventListener("scroll", scrollDownEvent);
+      if (navRef.current) {
+        navRef.current.removeEventListener("scroll", scrollDownEvent);
+      }
     };
-  }, [page]);
+  }, [getGameList]);
 
   useEffect(() => {
-    if (status === 200) {
-      setGameListData(data?.data.gameList);
+    if (status === 200 && data?.data.gameList) {
+      setGameListData([...gameListData, ...data?.data.gameList]);
     }
     if (status === 204) {
       console.log("게임목록이 존재하지 않습니다.");
@@ -75,8 +89,7 @@ const GameListNavContainer = (props) => {
     if (status === 500) {
       console.log("서버 내부 에러입니다.");
     }
-  }, [data, status]);
-
+  }, [data]);
 
   return (
     navToggle && (
@@ -96,7 +109,7 @@ const GameListNavContainer = (props) => {
           $backgroundColor="white"
           $padding="0 0 0 30px"
         >
-          <NavSection $width="100%" $height="100%">
+          <NavSection $width="100%" $height="100%" ref={navRef}>
             {gameListData?.map((elem) => {
               return (
                 <Link key={`${elem.idx}`} to={`/game/${elem.idx}/community?page=1`}>

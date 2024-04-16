@@ -43,7 +43,6 @@ const PostDetailViewContainer = (props) => {
     }
     if (status === 200) {
       setIsAuthor(data.isAuthor);
-      console.log(data.isAuthor);
     }
   }, [data]);
 

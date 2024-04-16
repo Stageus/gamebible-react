@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 
 import styled from "styled-components";
-import { Input } from "../../style/InputStyle";
 import { Span } from "../../style/TextStyle";
 import { Div } from "../../style/LayoutStyle";
-import { Button } from "../../style/ButtonStyle";
 import PostCommentContainer from "../../container/inReadPostPage/PostCommentContainer";
 import { useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import userInfoAtom from "../../recoil/userInfoAtom";
 import useFetch from "../../hook/useFetch";
-import { cookies, useCookies } from "react-cookie";
+import { useCookies } from "react-cookie";
 import CommentListContainer from "./CommentListContainer";
 
 const NicknameSpan = styled(Span)`
@@ -27,14 +25,13 @@ const CommentContainer = () => {
   const [lastidx, setLastIdx] = useState(0);
   const { data, status, request } = useFetch();
   const [deleteComment, setDeleteComment] = useState(false);
-  const [upDateComment, setUpDateComment] = useState(false);
 
   const { postIdx } = useParams();
   const [cookies] = useCookies(["token"]);
 
-  const getCommentFetch = async () => {
+  const getCommentFetch = () => {
     // 댓글을 가져오는 함수
-    await request(`/comment/all?postidx=${postIdx}&lastidx=${lastidx}`, "GET", null, {
+    request(`/comment/all?postidx=${postIdx}&lastidx=${lastidx}`, "GET", null, {
       Authorization: `Bearer ${cookies.token}`,
     });
   };
@@ -42,32 +39,31 @@ const CommentContainer = () => {
   useEffect(() => {
     // 렌더링 시 호출
     getCommentFetch();
-  }, []);
+  }, [lastidx]);
 
   useEffect(() => {
     // 스크롤 다운 시 새롭게 호출
     const scrollDownEvent = () => {
       const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
       if (scrollTop + clientHeight >= scrollHeight) {
-        getCommentFetch();
+        setLastIdx(data?.lastIdx);
       }
     };
     window.addEventListener("scroll", scrollDownEvent);
     return () => {
       window.removeEventListener("scroll", scrollDownEvent);
     };
-  }, [lastidx]);
+  }, [getCommentFetch]);
 
   // 데이터 넣기
   useEffect(() => {
-    console.log(status);
-    if (status === 200) {
-      setCommentListData(data.data);
+    if (status === 200 && data?.data) {
+      setCommentListData([...commentListData, ...data?.data]);
     } else {
       // console.log(data);
       // console.log(status);
     }
-  }, [data, upDateComment]);
+  }, [data, status]);
 
   return (
     <Div $width="100%" $height="100%">
