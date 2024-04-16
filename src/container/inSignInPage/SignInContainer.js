@@ -28,9 +28,10 @@ const SignInContainer = () => {
 
   useEffect(() => {
     if (cookies.token) {
+      alert("이미 로그인 된 사용자입니다");
       navigate("/");
     }
-  }, [cookies.token, navigate]);
+  }, [cookies, navigate]);
 
   useEffect(() => {
     if (data && data.token) {

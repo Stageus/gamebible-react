@@ -13,25 +13,29 @@ const Kakao = () => {
   }, [code]);
 
   useEffect(() => {
-    request(`/account/kakao/callback?code=${code}`, "GET");
-    console.log("gdgd");
+    if (code) {
+      request(`/account/kakao/callback?code=${code}`, "GET");
+    }
   }, [code]);
 
   // useEffect(() => {
   //   const requestLogin = async (code) => {
-  //     const response = await fetch(`http://127.0.0.1/account/kakao/callback?code=${code}`);
-  //     const result = await response.json();
+  //     const response = await fetch(`http://127.0.0.1:3000/account/kakao/callback?code=${code}`);
+  //     const result = await response;
   //     if (response.status === 200) {
   //       console.log(result);
   //     }
   //   };
 
-  //   if (code) requestLogin(code);
-  // }, [code]);
+  //   if (code) {
+  //     console.log("gd");
 
+  //     requestLogin(code);
+  //   }
+  // }, [code]);
   useEffect(() => {
     console.log(data);
-    window.location = "/";
+    // window.location = "/";
   }, [data]);
 
   return <></>;

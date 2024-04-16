@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import deleteImg from "../../img/deleteImg.svg";
 import useFetch from "../../hook/useFetch";
 
 import styled from "styled-components";
 import { H1, P } from "../../style/TextStyle";
 import { Div } from "../../style/LayoutStyle";
 import { Section } from "../../style/LayoutStyle";
-import { Img } from "../../style/ImgStyle";
 
 import CommentContainer from "./CommentContainer";
-import { Button } from "../../style/ButtonStyle";
+import DeletePostContainer from "./DeletePostContainer";
 
 const CommentSection = styled(Section)`
   border-radius: 10px;
@@ -25,18 +23,11 @@ const TitleDiv = styled(Div)`
 `;
 const PostContentDiv = styled(Div)``;
 
-const DeleteBtn = styled(Button)`
-  position: absolute;
-  top: 0;
-  right: 0;
-`;
-
 const PostDetailViewContainer = (props) => {
   const [cookies] = useCookies(["token"]);
-  const { gameIdx } = useParams();
-  const { postIdx } = useParams();
+  const { gameIdx, postIdx } = useParams();
   const { data, status, request } = useFetch();
-  const [isAthor, setIsAthor] = useState(null);
+  const [isAuthor, setIsAuthor] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -50,11 +41,11 @@ const PostDetailViewContainer = (props) => {
       alert("해당 페이지가 존재하지 않거나 삭제되었습니다.");
       navigate(`/game/${gameIdx}`);
     }
+    if (status === 200) {
+      setIsAuthor(data.isAuthor);
+      console.log(data.isAuthor);
+    }
   }, [data]);
-
-  const deleteClickEvent = async () => {
-    await request(`/post/${postIdx}`, "DELETE", null, { Authorization: `Bearer ${cookies.token}` });
-  };
 
   return (
     <>
@@ -73,11 +64,7 @@ const PostDetailViewContainer = (props) => {
             </P>
           </Div>
         </Div>
-        {isAthor ? (
-          <DeleteBtn $backgroundColor="white" onClick={deleteClickEvent}>
-            <Img $height="30px" src={deleteImg} alt="댓글 삭제하기" />
-          </DeleteBtn>
-        ) : null}
+        {isAuthor ? <DeletePostContainer /> : null}
       </TitleDiv>
       <PostContentDiv>
         <Div
