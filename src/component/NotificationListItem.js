@@ -54,11 +54,11 @@ const NotificationListItem = (props) => {
   let content, url;
   if (type === 1) {
     content = `사용자의 "${post_title}" 게시글에 새로운 댓글이 달렸습니다. 어서 확인해보세요~!`;
-    url = `/game/${game_idx}/community/page/1/post/${post_idx}`;
+    url = `/game/${game_idx}/post/${post_idx}`;
   }
   if (type === 2) {
     content = `사용자가 작성했던 "${game_title}" 위키가 다른 사용자에 의해 수정되었습니다. 어떻게 바뀌었나 궁금하지 않으세요?`;
-    url = `/game/${game_idx}/wiki`;
+    url = `/game/${game_idx}`;
   }
   if (type === 3) {
     content = `요청하신 "${game_title}" 게임 생성이 거절되었습니다..ㅠㅠ `;
