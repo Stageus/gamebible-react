@@ -27,6 +27,7 @@ const SwitchTabLayout = styled(Div)``;
 const EditWikiContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
 
+  // 탭이동을 위한 gameIdx 추출
   const { gameIdx } = useParams();
 
   return (
@@ -34,7 +35,7 @@ const EditWikiContainer = () => {
       <BannerImgItem />
       <Section $flex="v_center_start" $width="100%">
         <SwitchTabLayout $flex="h_center_center">
-          <Link to={`/game/${gameIdx}/community/page/1`}>
+          <Link to={`/game/${gameIdx}/community?page=1`}>
             <TabBtn
               $width="150px"
               $height="50px"

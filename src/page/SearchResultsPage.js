@@ -15,7 +15,6 @@ const PageWrapper = styled(Div)`
   min-height: 100vh;
   position: relative;
 `;
-const NoResultSection = styled(Section)``;
 const YesResultSection = styled(Section)``;
 const FooterWrapper = styled(Div)`
   position: absolute;
@@ -27,6 +26,7 @@ const SearchResultsPage = () => {
 
   return (
     <PageWrapper>
+      {/* 검색 결과: 게임 && 게시글 */}
       <YesResultSection
         $flex="v_center_center"
         $margin={navToggle ? "100px 0 0 300px" : "100px 0 0 0"}
@@ -34,9 +34,14 @@ const SearchResultsPage = () => {
         $width={navToggle ? "80vw" : "100vw"}
         $backgroundColor="major"
       >
+        {/* 연관 게임 */}
         <SearchResultGameContainer />
+
+        {/* 연관 게시글 */}
         <SearchResultPostContainer />
       </YesResultSection>
+
+      {/* 푸터 */}
       <FooterWrapper>
         <FooterItem />
       </FooterWrapper>

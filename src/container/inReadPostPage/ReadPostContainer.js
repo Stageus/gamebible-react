@@ -45,7 +45,7 @@ const ReadPostContainer = () => {
               커뮤니티
             </Span>
           </TabBtn>
-          <Link to={`/game/${gameIdx}/wiki`}>
+          <Link to={`/game/${gameIdx}`}>
             <TabBtn
               $width="150px"
               $height="50px"

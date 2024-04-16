@@ -17,7 +17,7 @@ const ArticleLabel = styled(Div)`
   font-size: ${setSize("large")};
 `;
 const ArticleContentLayout = styled(Div)`
-  overflow: scroll;
+  overflow-y: scroll;
 `;
 
 const SearchResultPostContainer = () => {
@@ -33,21 +33,23 @@ const SearchResultPostContainer = () => {
   const { data, error, status, request } = useFetch();
   useEffect(() => {
     request(`/post/search?title=${searchTerm}&page=${page}`, "GET", null);
-  }, []);
+  }, [searchParams]);
 
   useEffect(() => {
     if (status === 200) {
-      setSearchPostData(data.data[0]);
-    } else if (status === 204) {
-      console.log("게임 검색결과가 없습니다.");
-    } else if (status === 400) {
+      setSearchPostData(data?.data);
+    }
+    if (status === 204) {
+      setSearchPostData(null);
+      console.log("게시글 검색결과가 없습니다.");
+    }
+    if (status === 400) {
       alert("유효하지 않은 요청입니다.");
-    } else if (status === 500) {
+    }
+    if (status === 500) {
       console.log("서버 내부 에러입니다.");
     }
-  }, [searchTerm]);
-
-  //   console.log("searchPostData 개수: ", searchPostData.length);
+  }, [data, status]);
 
   return (
     <Article $flex="v_center_start" $width={navToggle ? "90%" : "100%"} $margin="0 0 30px 0">
@@ -55,7 +57,8 @@ const SearchResultPostContainer = () => {
         연관 게시글
       </ArticleLabel>
 
-      {searchPostData ? (
+      {searchPostData?.length != 0 ? (
+        // 연관 게시글 있을 경우
         <ArticleContentLayout
           $width="100%"
           $height="556px"
@@ -65,6 +68,7 @@ const SearchResultPostContainer = () => {
           <YesPostContainer {...{ searchPostData }} />
         </ArticleContentLayout>
       ) : (
+        // 연관 게시글 없을 경우
         <ArticleContentLayout
           $width="100%"
           $height="556px"

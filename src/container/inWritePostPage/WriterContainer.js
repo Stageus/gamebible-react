@@ -92,6 +92,7 @@ const WriterContainer = (props) => {
   };
 
   const postContentChangeEvent = () => {
+    console.log(contentContainer.current);
     const str = nodeToString(contentContainer.current);
     setContent(str);
   };

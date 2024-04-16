@@ -49,10 +49,12 @@ const WikiContainer = () => {
 
   useEffect(() => {
     if (status === 200) {
-      setWikiContentData(data.data[0]);
-    } else if (status === 400) {
+      setWikiContentData(data?.data);
+    }
+    if (status === 400) {
       alert("유효하지 않은 요청입니다.");
-    } else if (status === 500) {
+    }
+    if (status === 500) {
       console.log("서버 내부 에러입니다.");
     }
   }, [data]);
@@ -66,7 +68,7 @@ const WikiContainer = () => {
       <BannerImgItem />
       <Section $flex="v_center_start" $width="100%">
         <SwitchTabLayout $flex="h_center_center">
-          <Link to={`/game/${gameIdx}/community/page/1`}>
+          <Link to={`/game/${gameIdx}/community?page=1`}>
             <TabBtn
               $width="150px"
               $height="50px"
@@ -98,10 +100,10 @@ const WikiContainer = () => {
             <Article $width="100%">
               <Div $flex="h_between_start" $width="100%" $margin="0 0 20px 0">
                 <GameTitleLayout $width="60%" $fontWeight="bold">
-                  {wikiContentData.title}
+                  {wikiContentData[0]?.title}
                 </GameTitleLayout>
                 <Div $flex="h_between_start">
-                  <Link to="./history">
+                  <Link to="./wiki/history">
                     <Div $margin="0 20px 0 0">
                       <ImgTextBtnItem
                         img={historyImg}
@@ -111,7 +113,7 @@ const WikiContainer = () => {
                       />
                     </Div>
                   </Link>
-                  <Link to="./edit">
+                  <Link to="./wiki/edit">
                     <ImgTextBtnItem
                       img={editImg}
                       text={"EDIT"}
@@ -125,7 +127,7 @@ const WikiContainer = () => {
                 $flex="v_start_start"
                 $width="100%"
                 $margin="20px 0 0 0"
-                dangerouslySetInnerHTML={{ __html: wikiContentData.content }}
+                dangerouslySetInnerHTML={{ __html: wikiContentData[0]?.content }}
               />
             </Article>
           </Section>

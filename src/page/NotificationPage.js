@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useEffect } from "react";
 
 import { styled } from "styled-components";
 import { Div } from "../style/LayoutStyle";
@@ -8,6 +8,8 @@ import AdminNotificationListContainer from "../container/inNotificationPage/Admi
 
 import userInfoAtom from "../recoil/userInfoAtom";
 import { useRecoilValue } from "recoil";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 
 const PageWrapper = styled(Div)`
   min-height: 100vh;
@@ -16,7 +18,14 @@ const PageWrapper = styled(Div)`
 
 const NotificationPage = () => {
   const userInfo = useRecoilValue(userInfoAtom);
-  console.log("관리자 유무 확인: ", userInfo.is_admin);
+  const navigate = useNavigate();
+  const [cookies] = useCookies(["token"]);
+
+  useEffect(() => {
+    if (!cookies.token) {
+      navigate("/");
+    }
+  }, [cookies.token]);
 
   return (
     <PageWrapper>

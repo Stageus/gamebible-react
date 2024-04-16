@@ -40,11 +40,14 @@ const GameListNavContainer = () => {
   useEffect(() => {
     if (status === 200) {
       setGameListData(data.data.gameList);
-    } else if (status === 204) {
+    }
+    if (status === 204) {
       console.log("게임목록이 존재하지 않습니다.");
-    } else if (status === 400) {
+    }
+    if (status === 400) {
       alert("유효하지 않은 요청입니다.");
-    } else if (status === 500) {
+    }
+    if (status === 500) {
       console.log("서버 내부 에러입니다.");
     }
   }, [data]);
@@ -74,7 +77,7 @@ const GameListNavContainer = () => {
           <NavSection $width="100%" $height="100%">
             {gameListData?.map((elem) => {
               return (
-                <Link key={`${elem.idx}`} to={`/game/${elem.idx}/community/page/1`}>
+                <Link key={`${elem.idx}`} to={`/game/${elem.idx}/community?page=1`}>
                   <GameListItem key={elem.idx} data={elem} />
                 </Link>
               );

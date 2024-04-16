@@ -13,6 +13,9 @@ import { useRecoilValue } from "recoil";
 
 import useFetch from "../../hook/useFetch";
 
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
+
 const OverFlowDiv = styled(Section)`
   overflow: auto;
 `;
@@ -22,9 +25,22 @@ const NotiListLayout = styled(Article)`
 `;
 
 const AdminNotificationListContainer = () => {
-  // 관리자임 확인
-  const userInfo = useRecoilValue(userInfoAtom).is_admin;
-  console.log("userInfo: ", userInfo);
+  const userAdminInfo = useRecoilValue(userInfoAtom).is_admin;
+  const navigate = useNavigate();
+  const [cookies] = useCookies(["token"]);
+
+  useEffect(() => {
+    // 관리자 / 일반사용자 파악
+    if (!userAdminInfo) {
+      alert("관리자용 알람 페이지입니다.");
+      navigate("/");
+    }
+
+    // 토큰 유무 파악을 통해 로그아웃 버튼 클릭 시 홈화면으로 이동
+    if (!cookies.token) {
+      navigate("/");
+    }
+  }, [userAdminInfo, cookies.token]);
 
   // 관리자 승인요청 온 게임 목록보기 GET
   const [adminNotiListData, setAdminNotiListData] = useState([]);
@@ -37,17 +53,22 @@ const AdminNotificationListContainer = () => {
 
   useEffect(() => {
     if (status === 200) {
-      setAdminNotiListData(data.data);
-    } else if (status === 400) {
+      setAdminNotiListData(data?.data);
+    }
+    if (status === 400) {
       alert("유효하지 않은 요청입니다.");
-    } else if (status === 401) {
+    }
+    if (status === 401) {
       alert("권한이 없는 사용자입니다.");
-    } else if (status === 500) {
+    }
+    if (status === 500) {
       console.log("서버 내부 에러입니다.");
     }
   }, [data]);
 
-  console.log("adminNotiListData: ", adminNotiListData);
+  useEffect(() => {
+    console.log("adminNotiListData: ", adminNotiListData);
+  });
 
   // 관리자 승인요청 온 게임 목록 백엔드 state가 업데이트 될 때 마다, page를 1 증가시키기
   useEffect(() => {
@@ -62,17 +83,20 @@ const AdminNotificationListContainer = () => {
             관리자 알림함
           </H1>
         </Div>
-        <NotiListLayout $flex="v_center_center">
-          {adminNotiListData.length > 0 ? (
-            adminNotiListData.map((elem) => {
+
+        {adminNotiListData.length > 0 ? (
+          // 알람 있을 때
+          <NotiListLayout $flex="v_start_center">
+            {adminNotiListData?.map((elem) => {
               return <AdminNotificationListItem key={elem.idx} data={elem} />;
-            })
-          ) : (
-            <Div>
-              <Img src={noAlarmImg} alt="no alarm" />
-            </Div>
-          )}
-        </NotiListLayout>
+            })}
+          </NotiListLayout>
+        ) : (
+          // 알람 없을 때
+          <NotiListLayout $flex="v_center_center">
+            <Img src={noAlarmImg} alt="no alarm" />
+          </NotiListLayout>
+        )}
       </Div>
     </OverFlowDiv>
   );
