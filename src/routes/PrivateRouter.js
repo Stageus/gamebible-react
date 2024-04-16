@@ -3,9 +3,10 @@ import { React, useEffect } from "react";
 import { Route, Routes, useNavigate, useLocation, useParams } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import useFetch from "../hook/useFetch";
-import HeaderItem from "../component/HeaderItem";
+import HeaderNavContainer from "../container/HeaerNavContainer";
 
 import AccessDeniedPage from "../page/AccessDeniedPage";
+
 import ReadPostPage from "../page/ReadPostPage";
 import NotificationPage from "../page/NotificationPage";
 import PersonalInfoPage from "../page/PersonalInfoPage";
@@ -20,7 +21,6 @@ const PrivateRouter = () => {
   const { data, request } = useFetch();
   const [cookies] = useCookies(["token"]);
   const [, setUserInfo] = useRecoilState(userInfoAtom);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (cookies.token) {
@@ -43,7 +43,7 @@ const PrivateRouter = () => {
 
   return (
     <>
-      <HeaderItem />
+      <HeaderNavContainer />
       <Routes>
         <Route
           path="/personalInfo"
