@@ -38,12 +38,15 @@ const SearchResultPostContainer = () => {
   useEffect(() => {
     if (status === 200) {
       setSearchPostData(data?.data);
-    } else if (status === 204) {
+    }
+    if (status === 204) {
       setSearchPostData(null);
       console.log("게시글 검색결과가 없습니다.");
-    } else if (status === 400) {
+    }
+    if (status === 400) {
       alert("유효하지 않은 요청입니다.");
-    } else if (status === 500) {
+    }
+    if (status === 500) {
       console.log("서버 내부 에러입니다.");
     }
   }, [data, status]);

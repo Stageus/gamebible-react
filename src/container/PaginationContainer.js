@@ -24,7 +24,7 @@ const PaginationContainer = (props) => {
   return (
     <Div $flex="h_center_center" $width="100%">
       {noPrev ? null : (
-        <Link to={`/game/${gameIdx}/community/page/${start - 1}`}>
+        <Link to={`/game/${gameIdx}/community?page=${start - 1}`}>
           <Img $padding="5px" src={ArrowLeft} alt="<" />
         </Link>
       )}
@@ -36,7 +36,7 @@ const PaginationContainer = (props) => {
         [...Array(Math.min(pageCount, totalPages + 1))].map((elem, idx) => {
           const pageNumber = start + idx;
           return (
-            <Link to={`/game/${gameIdx}/community/page/${pageNumber}`} key={`pagiNation${idx}`}>
+            <Link to={`/game/${gameIdx}/community?page=${pageNumber}`} key={`pagiNation${idx}`}>
               <Span
                 $padding="5px"
                 $color={currentIdx === pageNumber ? "orange" : "white"}
@@ -50,7 +50,7 @@ const PaginationContainer = (props) => {
         })
       )}
       {noNext ? null : (
-        <Link to={`/game/${gameIdx}/community/page/${start + pageCount}`}>
+        <Link to={`/game/${gameIdx}/community?page=${start + pageCount}`}>
           <Img $padding="5px" src={ArrowRight} alt=">" />
         </Link>
       )}

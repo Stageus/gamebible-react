@@ -103,7 +103,7 @@ const WikiContainer = () => {
                   {wikiContentData[0]?.title}
                 </GameTitleLayout>
                 <Div $flex="h_between_start">
-                  <Link to="./history">
+                  <Link to="./wiki/history">
                     <Div $margin="0 20px 0 0">
                       <ImgTextBtnItem
                         img={historyImg}
@@ -113,7 +113,7 @@ const WikiContainer = () => {
                       />
                     </Div>
                   </Link>
-                  <Link to="./edit">
+                  <Link to="./wiki/edit">
                     <ImgTextBtnItem
                       img={editImg}
                       text={"EDIT"}
