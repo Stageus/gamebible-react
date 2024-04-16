@@ -3,10 +3,10 @@ import { React, useEffect } from "react";
 import { Route, Routes, useNavigate, useLocation, useParams } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import useFetch from "../hook/useFetch";
-import HeaderItem from "../component/HeaderItem";
-import GameListNavContainer from "../container/GameListNavContainer";
+import HeaderNavContainer from "../container/HeaerNavContainer";
 
 import AccessDeniedPage from "../page/AccessDeniedPage";
+
 import ReadPostPage from "../page/ReadPostPage";
 import NotificationPage from "../page/NotificationPage";
 import PersonalInfoPage from "../page/PersonalInfoPage";
@@ -43,8 +43,7 @@ const PrivateRouter = () => {
 
   return (
     <>
-      <HeaderItem />
-      <GameListNavContainer />
+      <HeaderNavContainer />
 
       <Routes>
         <Route

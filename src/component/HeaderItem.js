@@ -52,17 +52,8 @@ const WhiteColorLink = styled(Link)`
   color: white;
 `;
 
-const MenuNullUrl = [
-  "/signIn",
-  "/signUp",
-  "/resetPW",
-  "/changePW",
-  "/personalInfo",
-  "/editPersonalInfo",
-  "/alarm",
-];
-
-const HeaderItem = () => {
+const HeaderItem = (props) => {
+  const { MenuNullUrl } = props;
   // 네비게이션 토글
   const [navToggle, setNavToggle] = useRecoilState(navToggleAtom);
   const menuIconClickEvent = () => {

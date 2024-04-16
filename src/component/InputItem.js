@@ -47,7 +47,6 @@ const InputItem = (props) => {
     verificationClickEvent,
   } = props;
   const [toggle, setToggle] = useState(false);
-  console.log(verificationCheckValue);
   const toggleClickEvent = () => {
     setToggle(!toggle);
   };

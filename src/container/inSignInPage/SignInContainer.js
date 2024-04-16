@@ -19,12 +19,17 @@ const SignInContainer = () => {
   const { data, status, request } = useFetch();
 
   // 인풋 값
-  const { value: idValue, onChangeEvent: onChangeIdValue } = useInput("");
-  const { value: pwValue, onChangeEvent: onChangePwValue } = useInput("");
+  const { value: idValue, setValue: setIdValue, onChangeEvent: onChangeIdValue } = useInput("");
+  const { value: pwValue, setValue: setPwValue, onChangeEvent: onChangePwValue } = useInput("");
   // /인풋 값
 
   const [cookies, setCookies] = useCookies(["token"]);
   const navigate = useNavigate();
+
+  const resetInputValue = () => {
+    setIdValue("");
+    setPwValue("");
+  };
 
   useEffect(() => {
     if (cookies.token) {
@@ -41,20 +46,25 @@ const SignInContainer = () => {
     }
     if (status === 204) {
       alert("아이디 혹은 비밀번호가 존재하지 않습니다");
+      resetInputValue();
     }
     if (status === 400) {
       alert("유효하지 않은 아이디 입니다.");
+      resetInputValue();
     }
     if (status === 401) {
       alert("유효하지 않은 비밀번호 입니다.");
+      resetInputValue();
     }
   }, [status, data]);
 
   const submitData = async () => {
     if (!idValueValidation(idValue)) {
+      resetInputValue();
       return;
     }
     if (!pwValueValidation(pwValue)) {
+      resetInputValue();
       return;
     }
     await request(`/account/auth`, "POST", {

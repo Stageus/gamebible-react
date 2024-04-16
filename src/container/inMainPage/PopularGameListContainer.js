@@ -37,7 +37,9 @@ const PopularGameListContainer = () => {
     getPopularGameList();
   }, [page]);
 
+
   useEffect(() => {
+    console.log(data);
     if (status === 200) {
       setPopularityListData(data?.data?.gameList);
     }
