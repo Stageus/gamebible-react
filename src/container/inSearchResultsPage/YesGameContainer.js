@@ -7,16 +7,16 @@ import ThumbnailItem from "../../component/ThumbnailItem";
 
 const SearchGameLayout = styled(Section)`
   transition: padding 0.1s ease;
-  border: 3px solid blue;
 `;
 const MainSection = styled(Article)`
-  border: 2px solid red;
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 const YesGameContainer = ({ searchGameData }) => {
   return (
-    <SearchGameLayout $width="100%">
-      <MainSection $flex="h_center_center">
+    <SearchGameLayout $width="100%" $height="100%">
+      <MainSection $flex="h_start_start" $width="100%" $height="100%">
         {searchGameData?.map((elem) => {
           return <ThumbnailItem key={elem.idx} data={elem} />;
         })}

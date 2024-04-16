@@ -16,13 +16,9 @@ import useFetch from "../../hook/useFetch";
 const ArticleLabel = styled(Div)`
   font-size: ${setSize("large")};
 `;
-const ArticleContentLayout = styled(Div)`
-  overflow: scroll;
-`;
+const ArticleContentLayout = styled(Div)``;
 
-const YesGameLayout = styled(Div)`
-  border: 3px solid purple;
-`;
+const YesGameLayout = styled(Div)``;
 
 const SearchResultGameContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
@@ -63,7 +59,7 @@ const SearchResultGameContainer = () => {
 
       <ArticleContentLayout $width="100%" $height="556px" $backgroundColor="white">
         {searchGameData ? (
-          <YesGameLayout $padding="30px" width="100%">
+          <YesGameLayout $padding="30px" width="100%" $height="100%">
             <YesGameContainer {...{ searchGameData }} />
           </YesGameLayout>
         ) : (
