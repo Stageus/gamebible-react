@@ -40,26 +40,35 @@ const SuggestGameContainer = (props) => {
   const [gameTitle, setGameTitle] = useState("");
 
   const suggestGameClickEvent = async () => {
-    try {
-      const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/request`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${cookies.token}`,
-        },
-        body: JSON.stringify({ title: gameTitle }),
-      });
-      const responseContentType = response.headers.get("Content-Type")?.split(";")[0];
-      if (responseContentType === "application/json") {
-        const result = await response.json();
-        console.log(result);
-      }
-      if (response.status === 200) {
-        alert("게임 생성 요청이 완료되었습니다.");
-        navigate("/");
-      }
-    } catch (error) {
-      console.log(error);
+    const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/request`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${cookies.token}`,
+      },
+      body: JSON.stringify({ title: gameTitle }),
+    });
+    const responseContentType = response.headers.get("Content-Type")?.split(";")[0];
+    if (responseContentType === "application/json") {
+      const result = await response.json();
+      console.log(result);
+    }
+    if (response.status === 200) {
+      alert("게임 생성 요청이 완료되었습니다.");
+      navigate("/");
+    }
+    if (response.status === 400) {
+      console.log("잘못된 요청입니다.");
+    }
+    if (response.status === 401) {
+      alert("로그인한 사용자만 가능한 요청입니다.");
+    }
+    if (response.status === 409) {
+      alert("이미 존재하는 게임입니다.");
+      navigate("/");
+    }
+    if (response.status === 500) {
+      console.log("서버 내부 오류입니다.");
     }
   };
 
