@@ -26,7 +26,7 @@ const FullWideLink = styled(Link)`
 `;
 
 const EditPersonalInfoContainer = () => {
-  const [cookies] = useCookies(["token"]);
+  const [cookies, , removeCookie] = useCookies(["token"]);
   const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
   const { data, error, status, request } = useFetch();
 
@@ -49,12 +49,6 @@ const EditPersonalInfoContainer = () => {
   };
 
   useEffect(() => {
-    if (!cookies.token) {
-      navigate("/");
-    }
-  }, [cookies]);
-
-  useEffect(() => {
     if (status === 200) {
       setUserInfo({
         email: newEmailValue,
@@ -66,8 +60,12 @@ const EditPersonalInfoContainer = () => {
     if (status === 400) {
       alert("요청이 유효하지 않습니다.");
     }
+    if (status === 409) {
+      alert("중복된 이메일입니다.");
+    }
     if (status === 401) {
       alert("토큰이 만료되었습니다.");
+      removeCookie("token", { path: "/" });
     }
   }, [data, error]);
 

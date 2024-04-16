@@ -29,7 +29,7 @@ const ChangePWContainer = () => {
     if (pwValueValidation(pwValue)) {
       request(
         "/account/pw",
-        "GET",
+        "PUT",
         { pw: pwValue },
         { Authorization: `Bearer ${cookies.resetPWToken}` }
       );
@@ -47,6 +47,7 @@ const ChangePWContainer = () => {
   useEffect(() => {
     if (status === 200) {
       removeCookie("resetPWToken", { path: "/changePW" });
+      navigate({ pathname: "/" });
       alert("비밀번호 변경이 완료되었습니다.");
     }
     if (status === 400) {

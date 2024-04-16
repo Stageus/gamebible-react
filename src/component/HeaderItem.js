@@ -54,7 +54,6 @@ const WhiteColorLink = styled(Link)`
 
 const HeaderItem = (props) => {
   const { MenuNullUrl } = props;
-  console.log(MenuNullUrl);
   // 네비게이션 토글
   const [navToggle, setNavToggle] = useRecoilState(navToggleAtom);
   const menuIconClickEvent = () => {

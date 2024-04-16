@@ -17,24 +17,24 @@ const FindIDWarpper = styled(Div)`
 `;
 
 const FindIDContainer = () => {
-  const { data, error, status, request } = useFetch();
+  const { data, status, request } = useFetch();
   const { value: emailValue, onChangeEvent: onChangeEmailEvent } = useInput("");
 
   useEffect(() => {
+    console.log(data);
     if (status === 200) {
-      alert(`가입된 아이디는 ${data.id}입니다.`);
+      alert(`가입된 아이디는 ${data?.id}입니다.`);
     } else if (status === 400) {
       alert("일치하는 사용자가 존재하지 않습니다");
     } else if (status === 409) {
       alert("일치하는 사용자가 존재하지 않습니다");
     }
-  }, [data, error, status]);
+  }, [data, status]);
 
-  const findIdClickEvent = async () => {
-    if (!emailValueValidation(emailValue)) {
-      return;
+  const findIdClickEvent = () => {
+    if (emailValueValidation(emailValue)) {
+      request(`/account/id?email=${emailValue}`, "GET");
     }
-    await request("/account/id", "GET");
   };
 
   return (
