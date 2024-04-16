@@ -3,6 +3,7 @@ import { React, useEffect } from "react";
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import HeaderItem from "../component/HeaderItem";
+import GameListNavContainer from "../container/GameListNavContainer";
 
 import MainPage from "../page/MainPage";
 import SignInPage from "../page/SignInPage";
@@ -21,6 +22,7 @@ const PubilcRouter = () => {
   return (
     <>
       <HeaderItem />
+      <GameListNavContainer />
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/signUp" element={<SignUpPage />} />
@@ -28,9 +30,8 @@ const PubilcRouter = () => {
         <Route path="/findID" element={<FindIDPage />} />
         <Route path="/resetPW" element={<ResetPWPage />} />
         <Route path="/changePW" element={<ChangePWPage />} />
-        <Route path="/game/:gameIdx/community/page/:pageIdx" element={<CommunityPage />} />
-
-        <Route path="/game/:gameIdx/wiki" element={<WikiPage />} />
+        <Route path="/game/:gameIdx/community" element={<CommunityPage />} />
+        <Route path="/game/:gameIdx" element={<WikiPage />} />
         <Route path="/searchResults" element={<SearchResultsPage />} />
         <Route path="/game/:gameIdx/wiki/history" element={<WikiHistoryPage />} />
         <Route

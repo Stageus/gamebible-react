@@ -58,7 +58,7 @@ const PrivateRouter = () => {
           element={cookies.token ? <NotificationPage /> : <AccessDeniedPage />}
         />
         <Route
-          path="/game/:gameIdx/community/page/:pageIdx/post/:postIdx"
+          path="/game/:gameIdx/post/:postIdx"
           element={cookies.token ? <ReadPostPage /> : <AccessDeniedPage />}
         />
         <Route

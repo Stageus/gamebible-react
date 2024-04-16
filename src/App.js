@@ -1,18 +1,16 @@
-
 import { React } from "react";
 import { BrowserRouter } from "react-router-dom";
 
 import GlobalStyle from "./style/GlobalStyle";
 import PrivateRouter from "./routes/PrivateRouter";
-import PubilcRouter from "./routes/PublicRouter";
+import PublicRouter from "./routes/PublicRouter";
 
 const App = () => {
-
   return (
     <>
       <GlobalStyle />
       <BrowserRouter>
-        <PubilcRouter />
+        <PublicRouter />
         <PrivateRouter />
       </BrowserRouter>
     </>
