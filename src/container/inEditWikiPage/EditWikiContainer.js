@@ -32,7 +32,7 @@ const EditWikiContainer = () => {
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
-      <BannerImgItem />
+      <BannerImgItem {...{ gameIdx }} />
       <Section $flex="v_center_start" $width="100%">
         <SwitchTabLayout $flex="h_center_center">
           <Link to={`/game/${gameIdx}/community?page=1`}>

@@ -36,8 +36,7 @@ const GameContentLayout = styled(Section)`
 
 const WikiContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
-
-  let { gameIdx } = useParams();
+  const { gameIdx } = useParams();
 
   // 데이터(게임제목, 기존위키내용) 가져오기 GET
   const [wikiContentData, setWikiContentData] = useState([]);
@@ -65,7 +64,7 @@ const WikiContainer = () => {
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
-      <BannerImgItem />
+      <BannerImgItem {...{ gameIdx }} />
       <Section $flex="v_center_start" $width="100%">
         <SwitchTabLayout $flex="h_center_center">
           <Link to={`/game/${gameIdx}/community?page=1`}>

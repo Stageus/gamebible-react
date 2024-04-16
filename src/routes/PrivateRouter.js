@@ -44,6 +44,7 @@ const PrivateRouter = () => {
   return (
     <>
       <HeaderNavContainer />
+
       <Routes>
         <Route
           path="/personalInfo"

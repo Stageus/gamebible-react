@@ -13,7 +13,7 @@ import { useInput } from "../../hook/useInput";
 import { useCookies } from "react-cookie";
 import { useParams, useNavigate } from "react-router-dom";
 import useFetch from "../../hook/useFetch";
-import AddPhotoBtnContainer from "./AddPhotoBtnContainer";
+import AddPhotoBtnContainer from "../AddPhotoBtnContainer";
 
 const EditorWrapper = styled(Div)`
   border-radius: 4px;
@@ -37,7 +37,7 @@ const WriterContainer = (props) => {
 
   const [preview, setPreview] = useState([]);
 
-  const [content, setContent] = useState("");
+  const [content, setContent] = useRef("");
   const [cookies] = useCookies(["token"]);
   const contentContainer = useRef(null);
   const { gameIdx } = useParams();
@@ -92,10 +92,11 @@ const WriterContainer = (props) => {
   };
 
   const postContentChangeEvent = () => {
-    console.log(contentContainer.current);
     const str = nodeToString(contentContainer.current);
     setContent(str);
   };
+
+  const POSTUrl = `${process.env.REACT_APP_API_KEY}/post/${postIdx}/image`;
   console.log(preview);
   return (
     <EditorWrapper $backgroundColor="white" $width="100%" $height="100%" $padding="50px">
@@ -113,7 +114,7 @@ const WriterContainer = (props) => {
       </Div>
       <Div $width="100%" $flex="v_center_end">
         <Div $flex="h_between_center" $margin="0 0 2% 0">
-          <AddPhotoBtnContainer {...{ setPreview, postIdx }} />
+          <AddPhotoBtnContainer {...{ setPreview, POSTUrl }} />
           <Div $margin="0 0 0 20px">
             <ImgTextBtnItem
               img={finishImg}

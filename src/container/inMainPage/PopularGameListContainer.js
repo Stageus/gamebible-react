@@ -28,18 +28,25 @@ const PopularGameListContainer = () => {
   const [page, setPage] = useState(1);
 
   const { data, status, request } = useFetch();
-  useEffect(() => {
-    request(`/game/popular?page=${page}`, "GET", null);
-  }, [page, status]);
 
-  // Http Request 후처리
+  const getPopularGameList = () => {
+    request(`/game/popular?page=${page}`, "GET", null);
+  };
+
+  useEffect(() => {
+    getPopularGameList();
+  }, [page]);
+
+
   useEffect(() => {
     console.log(data);
     if (status === 200) {
       setPopularityListData(data?.data?.gameList);
-    } else if (status === 400) {
+    }
+    if (status === 400) {
       alert("유효하지 않은 요청입니다.");
-    } else if (status === 500) {
+    }
+    if (status === 500) {
       console.log("서버 내부 에러입니다.");
     }
   }, [data, status]);
@@ -48,41 +55,19 @@ const PopularGameListContainer = () => {
     setPage(page + 1);
   }, [popularityListData]);
 
-  // 백엔드 state가 업데이트 될 때 마다, 스크롤 이벤트를 refresh
-  // useEffect(() => {
-  //   const scrollDownEvent = async () => {
-  //     const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
-  //     if (scrollTop + clientHeight >= scrollHeight) {
-  //       // 백엔드 통신을 다시 해서, 기존 backend state에 추가해주는 작업 필요
-  //       const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/popular?page=${page}`);
-  //       const result = await response.json();
-
-  //       if (response.status === 200) {
-  //         if (result.data.gameList.length !== 0) {
-  //           // 백엔드에서 보내주는 데이터의 길이가 0이 아닐 때만 동작
-  //           setPopularityListData([...popularityListData, ...result.data.gameList]);
-  //         }
-  //       }
-  //       else if (result.data.gameList.length !== 0) {
-  //         // popularityListData가 null인지 확인하고, 그렇다면 빈 배열로 초기화합니다.
-  //         setPopularityListData((prevData) => {
-  //           if (prevData === null) {
-  //             return [...result.data.gameList];
-  //           } else {
-  //             return [...prevData, ...result.data.gameList];
-  //           }
-  //         });
-  //       }
-  //       else {
-  //         alert(result.message);
-  //       }
-  //     }
-  //   };
-  //   window.addEventListener("scroll", scrollDownEvent);
-  //   return () => {
-  //     window.addEventListener("scroll", scrollDownEvent);
-  //   };
-  // });
+  useEffect(() => {
+    console.log("ㅎㅇ");
+    const scrollDownEvent = async () => {
+      const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+      if (scrollTop + clientHeight >= scrollHeight) {
+        getPopularGameList();
+      }
+    };
+    window.addEventListener("scroll", scrollDownEvent);
+    return () => {
+      window.removeEventListener("scroll", scrollDownEvent);
+    };
+  }, [page]);
 
   return (
     <GameContentLayout $flex="v_center_start" $padding={navToggle && "0 0 0 250px"}>

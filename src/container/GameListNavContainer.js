@@ -34,14 +34,37 @@ const GameListNavContainer = (props) => {
   const [gameListData, setGameListData] = useState([]);
   const [page, setPage] = useState(1);
 
-  const { data, error, status, request } = useFetch();
-  useEffect(() => {
+  const { data, status, request } = useFetch();
+
+  const getGameList = () => {
     request(`/game/all?page=${page}`, "GET", null);
+  };
+
+  useEffect(() => {
+    getGameList();
+  }, [page]);
+
+  useEffect(() => {
+    setPage(page + 1);
+  }, [gameListData]);
+
+  useEffect(() => {
+    // 스크롤 다운 시 새롭게 호출
+    const scrollDownEvent = () => {
+      const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+      if (scrollTop + clientHeight >= scrollHeight) {
+        getGameList();
+      }
+    };
+    window.addEventListener("scroll", scrollDownEvent);
+    return () => {
+      window.removeEventListener("scroll", scrollDownEvent);
+    };
   }, [page]);
 
   useEffect(() => {
     if (status === 200) {
-      setGameListData(data.data.gameList);
+      setGameListData(data?.data.gameList);
     }
     if (status === 204) {
       console.log("게임목록이 존재하지 않습니다.");
@@ -52,16 +75,8 @@ const GameListNavContainer = (props) => {
     if (status === 500) {
       console.log("서버 내부 에러입니다.");
     }
-  }, [data]);
+  }, [data, status]);
 
-  useEffect(() => {
-    setPage(page + 1);
-  }, [gameListData]);
-  useEffect(() => {
-    if (MenuNullUrl.includes(location.pathname)) {
-      setNavToggle(false);
-    }
-  }, [location]);
 
   return (
     navToggle && (
