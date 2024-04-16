@@ -1,5 +1,4 @@
 import { React, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 
 import { styled } from "styled-components";
 import { Img } from "../style/ImgStyle";
@@ -14,10 +13,10 @@ const BannerImg = styled(Img)`
   aspect-ratio: 1546 / 423;
 `;
 
-const BannerImgItem = () => {
-  let { gameIdx } = useParams();
+const BannerImgItem = (props) => {
+  const { gameIdx } = props;
 
-  const [bannerImgData, setBannerImgData] = useState(null);
+  const [, setBannerImgData] = useState(null);
 
   const [bannerImg, setBannerImg] = useState(null);
 
@@ -38,7 +37,7 @@ const BannerImgItem = () => {
       }
     };
     bannerImgItem();
-  }, []);
+  }, [gameIdx]);
 
   return (
     <BannerLayout $width="100%">

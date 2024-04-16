@@ -4,6 +4,7 @@ import { Route, Routes, useNavigate, useLocation, useParams } from "react-router
 import { useCookies } from "react-cookie";
 import useFetch from "../hook/useFetch";
 import HeaderItem from "../component/HeaderItem";
+import GameListNavContainer from "../container/GameListNavContainer";
 
 import AccessDeniedPage from "../page/AccessDeniedPage";
 import ReadPostPage from "../page/ReadPostPage";
@@ -20,7 +21,6 @@ const PrivateRouter = () => {
   const { data, request } = useFetch();
   const [cookies] = useCookies(["token"]);
   const [, setUserInfo] = useRecoilState(userInfoAtom);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (cookies.token) {
@@ -44,6 +44,8 @@ const PrivateRouter = () => {
   return (
     <>
       <HeaderItem />
+      <GameListNavContainer />
+
       <Routes>
         <Route
           path="/personalInfo"
