@@ -36,6 +36,7 @@ const SearchResultsPage = () => {
       >
         {/* 연관 게임 */}
         <SearchResultGameContainer />
+
         {/* 연관 게시글 */}
         <SearchResultPostContainer />
       </YesResultSection>

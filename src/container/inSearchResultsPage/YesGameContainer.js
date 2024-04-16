@@ -15,7 +15,7 @@ const MainSection = styled(Article)`
 
 const YesGameContainer = ({ searchGameData }) => {
   return (
-    <SearchGameLayout $width="100%" $height="100%">
+    <SearchGameLayout $width="100%" $height="100%" $padding="30px">
       <MainSection $flex="h_start_start" $width="100%" $height="100%">
         {searchGameData?.map((elem) => {
           return <ThumbnailItem key={elem.idx} data={elem} />;

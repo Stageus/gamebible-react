@@ -17,7 +17,7 @@ const ArticleLabel = styled(Div)`
   font-size: ${setSize("large")};
 `;
 const ArticleContentLayout = styled(Div)`
-  overflow: scroll;
+  overflow-y: scroll;
 `;
 
 const SearchResultPostContainer = () => {
@@ -57,7 +57,8 @@ const SearchResultPostContainer = () => {
         연관 게시글
       </ArticleLabel>
 
-      {searchPostData ? (
+      {searchPostData?.length != 0 ? (
+        // 연관 게시글 있을 경우
         <ArticleContentLayout
           $width="100%"
           $height="556px"
@@ -67,6 +68,7 @@ const SearchResultPostContainer = () => {
           <YesPostContainer {...{ searchPostData }} />
         </ArticleContentLayout>
       ) : (
+        // 연관 게시글 없을 경우
         <ArticleContentLayout
           $width="100%"
           $height="556px"

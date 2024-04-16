@@ -16,9 +16,6 @@ import useFetch from "../../hook/useFetch";
 const ArticleLabel = styled(Div)`
   font-size: ${setSize("large")};
 `;
-const ArticleContentLayout = styled(Div)``;
-
-const YesGameLayout = styled(Div)``;
 
 const SearchResultGameContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
@@ -57,17 +54,17 @@ const SearchResultGameContainer = () => {
         연관 게임
       </ArticleLabel>
 
-      <ArticleContentLayout $width="100%" $height="556px" $backgroundColor="white">
+      <Div $width="100%" $height="556px" $backgroundColor="white">
         {searchGameData ? (
-          <YesGameLayout $padding="30px" width="100%" $height="100%">
-            <YesGameContainer {...{ searchGameData }} />
-          </YesGameLayout>
+          // 연관 게임 있을 경우
+          <YesGameContainer {...{ searchGameData }} />
         ) : (
+          // 연관 게임 없을 경우
           <Div $width="100%" $height="100%" $flex="h_center_center">
             <NoResultNoGameContainer />
           </Div>
         )}
-      </ArticleContentLayout>
+      </Div>
     </Article>
   );
 };
