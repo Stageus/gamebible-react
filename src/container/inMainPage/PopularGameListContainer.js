@@ -24,24 +24,24 @@ const PopularGameListContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
 
   // 데이터(인기 게임 순 썸네일) 가져오기 GET
-  const [popularityListData, setPopularityListData] = useState(null);
+  const [popularityListData, setPopularityListData] = useState([]);
   const [page, setPage] = useState(1);
 
   const { data, status, request } = useFetch();
 
   const getPopularGameList = () => {
+    // 서버에서 데이터 가져오기
     request(`/game/popular?page=${page}`, "GET", null);
   };
 
   useEffect(() => {
+    // 실행
     getPopularGameList();
   }, [page]);
 
-
   useEffect(() => {
-    console.log(data);
-    if (status === 200) {
-      setPopularityListData(data?.data?.gameList);
+    if (status === 200 && data?.data.gameList) {
+      setPopularityListData([...popularityListData, ...data?.data?.gameList]);
     }
     if (status === 400) {
       alert("유효하지 않은 요청입니다.");
@@ -52,15 +52,13 @@ const PopularGameListContainer = () => {
   }, [data, status]);
 
   useEffect(() => {
-    setPage(page + 1);
-  }, [popularityListData]);
-
-  useEffect(() => {
-    console.log("ㅎㅇ");
-    const scrollDownEvent = async () => {
+    // 스크롤 위치에 따라 실행
+    // page 변할 때 갱신
+    // window를 기준으로 스크롤 값 계산 참일 시 page + 1
+    const scrollDownEvent = () => {
       const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
       if (scrollTop + clientHeight >= scrollHeight) {
-        getPopularGameList();
+        setPage(page + 1);
       }
     };
     window.addEventListener("scroll", scrollDownEvent);
