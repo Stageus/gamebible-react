@@ -11,6 +11,7 @@ import styled from "styled-components";
 import { Button } from "../../style/ButtonStyle";
 import { Div } from "../../style/LayoutStyle";
 import { Img } from "../../style/ImgStyle";
+import { useCookies } from "react-cookie";
 
 const PositionDiv = styled(Div)`
   position: relative;
@@ -18,11 +19,13 @@ const PositionDiv = styled(Div)`
 `;
 
 const ResetPWContainer = () => {
-  const { data, error, status, request } = useFetch();
+  const { data, status, request } = useFetch();
+  const [, setCookies] = useCookies(["resetPWToken"]);
   const { value: emailValue, onChangeEvent: onChangeEmailEvent } = useInput("");
 
   useEffect(() => {
     if (status === 200) {
+      setCookies("resetPWToken", data?.token, { path: "/changePW" });
       alert("가입된 이메일에 비밀번호 변경 링크를 전송했습니다.");
       console.log(data);
     } else if (status === 400) {
@@ -30,10 +33,10 @@ const ResetPWContainer = () => {
     } else if (status === 409) {
       alert("가입되지 않은 이메일입니다.");
     }
-  }, [data, error, status]);
-  const resetPwSubmitEvent = async () => {
+  }, [data, status]);
+  const resetPwSubmitEvent = () => {
     if (emailValueValidation(emailValue)) {
-      await request("/account/pw/email", "POST", { email: emailValue });
+      request("/account/pw/email", "POST", { email: emailValue });
     }
   };
   return (

@@ -11,6 +11,7 @@ import { Img } from "../../style/ImgStyle";
 import { pwValueValidation } from "../../util/ValidationUtil";
 import { useCookies } from "react-cookie";
 import useFetch from "../../hook/useFetch";
+import { useNavigate } from "react-router-dom";
 
 const ChangePWWrapper = styled(Div)`
   position: relative;
@@ -18,20 +19,34 @@ const ChangePWWrapper = styled(Div)`
 `;
 
 const ChangePWContainer = () => {
-  const [cookies] = useCookies(["token"]);
+  const [cookies, , removeCookie] = useCookies(["resetPWToken"]);
   const { data, status, request } = useFetch();
   const { value: pwValue, onChangeEvent: onChangePwEvent } = useInput("");
 
+  const navigate = useNavigate();
+
   const ChangePWClickEvent = () => {
     if (pwValueValidation(pwValue)) {
-      request("/account/pw", "GET", { pw: pwValue }, { Authorization: `Bearer ${cookies.token}` });
+      request(
+        "/account/pw",
+        "GET",
+        { pw: pwValue },
+        { Authorization: `Bearer ${cookies.resetPWToken}` }
+      );
     } else {
       alert("비밀번호는 8 ~ 20글자 제한입니다");
     }
   };
 
   useEffect(() => {
+    if (!cookies.resetPWToken) {
+      navigate("/");
+    }
+  }, []);
+
+  useEffect(() => {
     if (status === 200) {
+      removeCookie("resetPWToken", { path: "/changePW" });
       alert("비밀번호 변경이 완료되었습니다.");
     }
     if (status === 400) {
