@@ -3,9 +3,10 @@ import { React, useEffect, useRef, useState } from "react";
 import { styled } from "styled-components";
 import { Div, Article, Section } from "../../style/LayoutStyle";
 import { H1 } from "../../style/TextStyle";
+import { Img } from "../../style/ImgStyle";
 import { setColor } from "../../style/SetStyle";
 
-import AddPhotoBtnItem from "../../component/AddPhotoBtnItem";
+import AddPhotoBtnContainer from "../AddPhotoBtnContainer";
 import ImgTextBtnItem from "../../component/ImgTextBtnItem";
 import finishImg from "../../img/finishImg.svg";
 
@@ -30,9 +31,9 @@ const EditingContainer = () => {
   const [startEditingData, setStartEditingData] = useState(null);
   const [cookies] = useCookies(["token"]);
 
-  const [newWikiContentData, setNewWikiContentData] = useState("");
+  const [newWikiContentData, setNewWikiContentData] = useRef("");
   const { change, changeEvent } = useInput("");
-  const [image, setImage] = useState([]);
+  const [preview, setPreview] = useState([]);
   const navigate = useNavigate();
   const wikiContentContainer = useRef(null);
 
@@ -46,33 +47,6 @@ const EditingContainer = () => {
     }
   }, [cookies.token]);
 
-  // 임시위키 생성 POST (historyIdx 생성하기)
-  useEffect(() => {
-    const getWikiHistoryIdx = async () => {
-      const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/${gameIdx}/wiki`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${cookies.token}`,
-        },
-      });
-
-      const result = await response.json();
-
-      if (response.status === 201) {
-        setStartEditingData(result?.data);
-      }
-      if (response.status === 400) {
-        alert(`Request Error: ${result.message}`);
-      }
-      if (response.status === 500) {
-        alert(`Server Error: ${result.message}`);
-      }
-    };
-
-    getWikiHistoryIdx();
-  }, []);
-
   // 새로운 데이터 저장하기 PUT
   const putWikiEvent = async () => {
     // 입력값이 아무것도 없을 때
@@ -81,22 +55,15 @@ const EditingContainer = () => {
       return;
     }
 
-    const formData = new FormData();
-    formData.append("newWikiContentData", newWikiContentData);
-
-    const response = await fetch(
-      `${process.env.REACT_APP_API_KEY}/game/${gameIdx}/wiki/${startEditingData.historyIdx}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${cookies.token}`,
-        },
-        body: {
-          content: formData,
-        },
-      }
-    );
+    const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/${gameIdx}/wiki`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${cookies.token}`,
+      },
+      body: JSON.stringify({
+        content: newWikiContentData,
+      }),
+    });
 
     const result = await response.json();
 
@@ -131,7 +98,10 @@ const EditingContainer = () => {
   const wikiContentChangeEvent = (e) => {
     const str = nodeToString(wikiContentContainer.current);
     setNewWikiContentData(str);
+    console.log(str);
   };
+
+  const POSTUrl = `${process.env.REACT_APP_API_KEY}/game/${gameIdx}/wiki/${startEditingData.historyIdx}`;
 
   return (
     <Section $backgroundColor="white" $width="100%" $height="80%" $padding="40px">
@@ -144,7 +114,7 @@ const EditingContainer = () => {
 
           <Div $flex="h_between_center" $margin="0 0 2% 0">
             {/* 이미지 삽입 버튼 */}
-            <AddPhotoBtnItem {...{ setImage }} />
+            <AddPhotoBtnContainer {...{ setPreview, POSTUrl }} />
             {/* 작성 완료 버튼 */}
             <Div $margin="0 0 0 20px">
               <ImgTextBtnItem
@@ -168,7 +138,21 @@ const EditingContainer = () => {
         $width="100%"
         $padding="4%"
         dangerouslySetInnerHTML={{ __html: startEditingData?.content }}
-      />
+      >
+        {preview?.map((imageData) => (
+          <Img
+            key={imageData.id}
+            src={imageData.imageURL}
+            $margin="10px"
+            className="writerImg"
+            style={{
+              width: "30%",
+              display: "flex",
+              margin: "0 0 2% 0",
+            }}
+          />
+        ))}
+      </EditorContainer>
     </Section>
   );
 };

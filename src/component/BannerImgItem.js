@@ -24,7 +24,7 @@ const BannerImgItem = (props) => {
     const bannerImgItem = async () => {
       const response = await fetch(`${process.env.REACT_APP_API_KEY}/game/${gameIdx}/banner`);
       const result = await response.json();
-      if (result.data.length > 0) {
+      if (result.data?.length > 0) {
         setBannerImg(result.data[0].imgPath);
       } else {
         console.log("이미지를 찾을 수 없습니다.");

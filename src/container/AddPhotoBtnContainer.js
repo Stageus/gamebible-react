@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import AddPhotoBtnItem from "../../component/AddPhotoBtnItem";
-import useFetch from "../../hook/useFetch";
+import AddPhotoBtnItem from "../component/AddPhotoBtnItem";
+import useFetch from "../hook/useFetch";
 import { useCookies } from "react-cookie";
 
 const AddPhotoBtnContainer = (props) => {
-  const { postIdx, setPreview } = props;
+  const { setPreview, POSTUrl } = props;
   const [image, setImage] = useState([]);
   const [cookies] = useCookies(["token"]);
   const [data, setData] = useState(null);
@@ -22,7 +22,7 @@ const AddPhotoBtnContainer = (props) => {
 
   const postPhoto = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_KEY}/post/${postIdx}/image`, {
+      const response = await fetch(POSTUrl, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${cookies.token}`,
