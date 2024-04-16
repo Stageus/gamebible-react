@@ -40,18 +40,6 @@ const PopularGameListContainer = () => {
   }, [page]);
 
   useEffect(() => {
-    if (status === 200 && data?.data.gameList) {
-      setPopularityListData([...popularityListData, ...data?.data?.gameList]);
-    }
-    if (status === 400) {
-      alert("유효하지 않은 요청입니다.");
-    }
-    if (status === 500) {
-      console.log("서버 내부 에러입니다.");
-    }
-  }, [data, status]);
-
-  useEffect(() => {
     // 스크롤 위치에 따라 실행
     // page 변할 때 갱신
     // window를 기준으로 스크롤 값 계산 참일 시 page + 1
@@ -66,6 +54,18 @@ const PopularGameListContainer = () => {
       window.removeEventListener("scroll", scrollDownEvent);
     };
   }, [page]);
+
+  useEffect(() => {
+    if (status === 200 && data?.data.gameList) {
+      setPopularityListData([...popularityListData, ...data?.data?.gameList]);
+    }
+    if (status === 400) {
+      alert("유효하지 않은 요청입니다.");
+    }
+    if (status === 500) {
+      console.log("서버 내부 에러입니다.");
+    }
+  }, [data, status]);
 
   return (
     <GameContentLayout $flex="v_center_start" $padding={navToggle && "0 0 0 250px"}>

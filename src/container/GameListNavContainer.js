@@ -38,11 +38,10 @@ const GameListNavContainer = (props) => {
   const navRef = useRef(null);
 
   useEffect(() => {
-    // 특정한 url nav토글 닫기
-    if (MenuNullUrl.includes(location.pathname)) {
+    // // 특정한 url nav토글 닫기
+    if (MenuNullUrl?.includes(location.pathname)) {
       setNavToggle(false);
     }
-    console.log(MenuNullUrl);
   }, [location.pathname]);
 
   const getGameList = () => {
