@@ -100,7 +100,7 @@ const HeaderItem = (props) => {
     <FixedHeader $width="100%" $flex="h_between_center" $padding="15px 30px">
       {/* 좌측 */}
       <Div $width="30%" $height="40px" $flex="h_start_center">
-        {/* 페이지에 따른 삼단바, 사이드바 유무 결정 */}
+        {/* 페이지에 따른 삼단바 버튼 유무 결정 */}
         <CursorPointerDiv $height="30px">
           {MenuNullUrl.includes(location.pathname) ? null : (
             <Img src={MenuIcon} alt="MenuIcon" onClick={menuIconClickEvent} $margin="0 30px 0 0" />

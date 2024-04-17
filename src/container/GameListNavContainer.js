@@ -27,8 +27,16 @@ const NavSection = styled(Section)`
 
 const GameListNavContainer = (props) => {
   const [navToggle, setNavToggle] = useRecoilState(navToggleAtom);
+  // 사이드바 없는 페이지
   const { MenuNullUrl } = props;
   const location = useLocation();
+
+  // 페이지에 따른 사이드바 유무 결정
+  useEffect(() => {
+    if (MenuNullUrl?.includes(location.pathname)) {
+      setNavToggle(false);
+    }
+  }, [location.pathname]);
 
   // 데이터(ㄱㄴㄷ순 게임 목록) 가져오기 GET
   const [gameListData, setGameListData] = useState([]);
@@ -37,15 +45,8 @@ const GameListNavContainer = (props) => {
   const { data, status, request } = useFetch();
   const navRef = useRef(null);
 
-  useEffect(() => {
-    // // 특정한 url nav토글 닫기
-    if (MenuNullUrl?.includes(location.pathname)) {
-      setNavToggle(false);
-    }
-  }, [location.pathname]);
-
+  // 서버에서 데이터 가져오는 함수
   const getGameList = () => {
-    // 서버에서 데이터 가져오는 함수
     request(`/game/all?page=${page}`, "GET", null);
   };
 
@@ -56,25 +57,21 @@ const GameListNavContainer = (props) => {
 
   useEffect(() => {
     // 스크롤 위치에 따라 실행
-    // useRef로 DOM요소 특정, 해당 요소를 기준으로 스크롤 값 계산
-    // getGameList가 실행될 때 갱신
+    // page 변할 때 갱신
+    // window를 기준으로 스크롤 값 계산 참일 시 page + 1
     const scrollDownEvent = () => {
-      if (navRef.current) {
-        const { scrollTop, clientHeight, scrollHeight } = navRef.current;
-        if (scrollTop + clientHeight >= scrollHeight) {
-          setPage(page + 1);
-        }
+      const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+      if (scrollTop + clientHeight >= scrollHeight) {
+        setPage(page + 1);
       }
     };
-    if (navRef.current) {
-      navRef.current.addEventListener("scroll", scrollDownEvent);
-    }
+
+    window.addEventListener("scroll", scrollDownEvent);
+
     return () => {
-      if (navRef.current) {
-        navRef.current.removeEventListener("scroll", scrollDownEvent);
-      }
+      window.removeEventListener("scroll", scrollDownEvent);
     };
-  }, [getGameList]);
+  }, [page]);
 
   useEffect(() => {
     if (status === 200 && data?.data.gameList) {
@@ -84,12 +81,12 @@ const GameListNavContainer = (props) => {
       console.log("게임목록이 존재하지 않습니다.");
     }
     if (status === 400) {
-      alert("유효하지 않은 요청입니다.");
+      console.log("유효하지 않은 요청입니다.");
     }
     if (status === 500) {
       console.log("서버 내부 에러입니다.");
     }
-  }, [data]);
+  }, [data, status]);
 
   return (
     navToggle && (
