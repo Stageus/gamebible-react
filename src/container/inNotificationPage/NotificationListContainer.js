@@ -44,7 +44,6 @@ const NotificationListContainer = () => {
 
   // 일반사용자 알림 목록보기 GET
   const [notiListData, setNotiListData] = useState([]);
-  const [page, setPage] = useState(1);
   const [lastIdx, setLastIdx] = useState(1);
 
   const { data, status, request } = useFetch();
@@ -61,11 +60,11 @@ const NotificationListContainer = () => {
   useEffect(() => {
     // 스크롤 위치에 따라 실행
     // lastIdx 변할 때 갱신
-    // window를 기준으로 스크롤 값 계산 참일 시 lastIdx + 1
+    // window를 기준으로 스크롤 값 계산 참일 시 lastIdx - 1
     const scrollDownEvent = () => {
       const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
       if (scrollTop + clientHeight >= scrollHeight) {
-        setPage(page + 1);
+        setLastIdx(lastIdx - 1);
       }
     };
 
@@ -81,7 +80,6 @@ const NotificationListContainer = () => {
       setNotiListData([...notiListData, ...data?.notifications]);
       setLastIdx(data?.lastIdx);
     }
-
     if (status === 400) {
       return alert("유효하지 않은 요청입니다.");
     }
@@ -92,7 +90,6 @@ const NotificationListContainer = () => {
       console.log("서버 내부 에러입니다.");
     }
   }, [data]);
-  console.log("notiListData: ", notiListData);
 
   return (
     <OverFlowDiv $height="100%" $flex="v_start_center" $margin="100px 0 0 0" $width="100vw">

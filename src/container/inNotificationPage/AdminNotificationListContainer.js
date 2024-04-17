@@ -44,36 +44,51 @@ const AdminNotificationListContainer = () => {
 
   // 관리자 승인요청 온 게임 목록보기 GET
   const [adminNotiListData, setAdminNotiListData] = useState([]);
-  const [page, setPage] = useState(1);
+  const [lastIdx, setLastIdx] = useState(1);
 
-  const { data, error, status, request } = useFetch();
-  useEffect(() => {
+  const { data, status, request } = useFetch();
+  const getAdminNotiList = () => {
     request(`/admin/game/request/all`, "GET", null);
-  }, []);
+  };
 
   useEffect(() => {
-    if (status === 200) {
-      setAdminNotiListData(data?.data);
+    // lastIdx가 갱신 될 때 실행
+    getAdminNotiList();
+  }, [lastIdx]);
+
+  useEffect(() => {
+    // 스크롤 위치에 따라 실행
+    // lastIdx 변할 때 갱신
+    // window를 기준으로 스크롤 값 계산 참일 시 lastIdx - 1
+    const scrollDownEvent = () => {
+      const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+      if (scrollTop + clientHeight >= scrollHeight) {
+        setLastIdx(lastIdx - 1);
+      }
+    };
+
+    window.addEventListener("scroll", scrollDownEvent);
+
+    return () => {
+      window.removeEventListener("scroll", scrollDownEvent);
+    };
+  }, [lastIdx]);
+
+  useEffect(() => {
+    if (status === 200 && data?.data) {
+      setAdminNotiListData([...adminNotiListData, ...data?.data]);
+      setLastIdx(data?.lastIdx);
     }
     if (status === 400) {
-      alert("유효하지 않은 요청입니다.");
+      return alert("유효하지 않은 요청입니다.");
     }
     if (status === 401) {
-      alert("권한이 없는 사용자입니다.");
+      return alert("권한이 없는 사용자입니다.");
     }
     if (status === 500) {
       console.log("서버 내부 에러입니다.");
     }
   }, [data]);
-
-  useEffect(() => {
-    console.log("adminNotiListData: ", adminNotiListData);
-  });
-
-  // 관리자 승인요청 온 게임 목록 백엔드 state가 업데이트 될 때 마다, page를 1 증가시키기
-  useEffect(() => {
-    setPage(page + 1);
-  }, [adminNotiListData]);
 
   return (
     <OverFlowDiv $height="100%" $flex="v_start_center" $margin="100px 0 0 0" $width="100vw">

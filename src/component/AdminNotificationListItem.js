@@ -41,13 +41,13 @@ const AdminNotificationListItem = (props) => {
       window.location.reload();
     }
     if (response.status === 400) {
-      alert(response.message);
+      return alert("유효하지 않은 요청입니다.");
     }
     if (response.status === 401) {
-      alert(response.message);
+      return alert("권한이 없는 사용자입니다.");
     }
     if (response.status === 500) {
-      alert(response.message);
+      console.log("서버 내부 에러입니다.");
     }
   };
 
