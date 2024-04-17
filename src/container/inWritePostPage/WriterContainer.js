@@ -84,6 +84,7 @@ const WriterContainer = () => {
     const tag = tmpNode.querySelector("div");
 
     tag.contentEditable = false;
+    tag.style.border = "none";
 
     // div안에있는 모든 HTML
     const str = tmpNode.innerHTML;

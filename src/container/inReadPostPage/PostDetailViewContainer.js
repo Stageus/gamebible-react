@@ -4,6 +4,7 @@ import { useCookies } from "react-cookie";
 import useFetch from "../../hook/useFetch";
 
 import styled from "styled-components";
+import { setColor } from "../../style/SetStyle";
 import { H1, P } from "../../style/TextStyle";
 import { Div } from "../../style/LayoutStyle";
 import { Section } from "../../style/LayoutStyle";
@@ -22,10 +23,14 @@ const TitleDiv = styled(Div)`
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
+  border-bottom: 1px solid ${setColor("black")};
 `;
 const PostContentDiv = styled(Div)`
-  border: 1px solid black;
   border-radius: 10px;
+`;
+
+const ViewDiv = styled(Div)`
+  min-height: 500px;
 `;
 
 const PostDetailViewContainer = (props) => {
@@ -56,7 +61,7 @@ const PostDetailViewContainer = (props) => {
   return (
     <>
       {/* 게시글 메타 데이터(제목, 작성자, 작성일) */}
-      <TitleDiv $width="100%" $height="100px">
+      <TitleDiv $width="100%" $height="100px" $padding="0 0 5% 0">
         <Div $flex="h_start_start" $margin="0 0 20px 0">
           <P $fontSize="large">제목:&nbsp;</P>
           <H1 $fontSize="large" $fontWeight="bold">
@@ -78,7 +83,7 @@ const PostDetailViewContainer = (props) => {
 
       {/* 게시글 내용 */}
       <PostContentDiv $width="100%" $margin="30px 0 30px 0" $padding="10px">
-        <Div
+        <ViewDiv
           $width="100%"
           $padding="5% 0"
           dangerouslySetInnerHTML={{ __html: data?.data.content }}

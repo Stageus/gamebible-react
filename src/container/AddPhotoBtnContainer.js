@@ -45,7 +45,7 @@ const AddPhotoBtnContainer = (props) => {
   }, [data]);
   return (
     <>
-      <AddPhotoBtnItem {...{ setImage, addPhotoClickEvent, fileInput, fileChangeEvent }} />;
+      <AddPhotoBtnItem {...{ setImage, addPhotoClickEvent, fileInput, fileChangeEvent }} />
     </>
   );
 };

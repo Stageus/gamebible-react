@@ -29,13 +29,6 @@ const PaginationContainer = (props) => {
     }
   }, [currentIdx, pageRange, start]);
 
-  console.log(Math.min(pageRange, Math.abs(totalPages + 1 - start)));
-  console.log(`pageRange${pageRange}`);
-  console.log(`totalPages${totalPages}`);
-  console.log(`start${start}`);
-  console.log(`totalPages + 1 - start${totalPages + 1 - start}`);
-  console.log(`최소값 ${Math.min(pageRange, Math.abs(totalPages + 1 - start))}`);
-
   return (
     <Div $flex="h_center_center" $width="100%">
       {noPrev ? null : (
