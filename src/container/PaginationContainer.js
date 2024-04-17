@@ -2,15 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Div } from "../style/LayoutStyle";
 import { Span } from "../style/TextStyle";
 import { Img } from "../style/ImgStyle";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 
 import ArrowRight from "../img/arrowRight.svg";
 import ArrowLeft from "../img/arrowLeft.svg";
 
 const PaginationContainer = (props) => {
-  const { gameIdx, pageIdx } = useParams();
+  const location = useLocation();
+  const { gameIdx } = useParams();
+  const pageIdx = new URLSearchParams(location.search).get("page");
   const { totalPages } = props;
-  const currentIdx = parseInt(pageIdx);
+  const currentIdx = parseInt(pageIdx) || 1;
   const pageCount = Math.min(totalPages, 10);
   const [start, setStart] = useState(1);
   const noPrev = start === 1;
@@ -36,7 +38,10 @@ const PaginationContainer = (props) => {
         [...Array(Math.min(pageCount, totalPages + 1))].map((elem, idx) => {
           const pageNumber = start + idx;
           return (
-            <Link to={`/game/${gameIdx}/community?page=${pageNumber}`} key={`pagiNation${idx}`}>
+            <Link
+              to={`/game/${gameIdx}/community?page=${pageNumber}`}
+              key={`pagiNation${pageNumber}`}
+            >
               <Span
                 $padding="5px"
                 $color={currentIdx === pageNumber ? "orange" : "white"}
