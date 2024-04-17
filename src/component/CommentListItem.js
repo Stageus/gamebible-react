@@ -1,9 +1,13 @@
 import React from "react";
+
 import { styled } from "styled-components";
 import { setColor } from "../style/SetStyle";
 import { Span } from "../style/TextStyle";
 import { Div, Article } from "../style/LayoutStyle";
+
 import deleteImg from "../img/deleteImg.svg";
+
+import TimeStampUtil from "../util/TimeStampUtil";
 
 const CommentListItemLayout = styled(Article)`
   background-color: ${setColor("white")};
@@ -26,17 +30,25 @@ const CommentListItem = (props) => {
       $margin="0 0 20px 0"
     >
       <Div $flex="h_between_center" $width="100%">
-        <Span $flex="h_start_center" $width="70%">
+        {/* 댓글 내용 */}
+        <Span $flex="h_start_center" $width="50%">
           {data.content}
         </Span>
-        <Div $flex="h_end_center" $width="30%">
-          <Span $flex="h_center_center" $width="33.33%">
+
+        {/* 댓글 메타데이터 */}
+        <Div $flex="h_end_center" $width="50%">
+          {/* 댓글 작성자 */}
+          <Span $flex="h_center_center" $width="35%">
             {data.nickname}
           </Span>
-          <Span $flex="h_center_center" $width="33.33%">
-            {data.createdAt}
+
+          {/* 댓글 작성일 */}
+          <Span $flex="h_center_center" $width="25%">
+            {TimeStampUtil(data.createdAt)}
           </Span>
-          <CursorDiv $flex="h_center_center" $width="33.33%" $height="30px">
+
+          {/* 작성자==사용자 일치 시 삭제 버튼 출력 */}
+          <CursorDiv $flex="h_center_center" $width="10%" $height="30px">
             {userIdx === data.userIdx ? (
               <img src={deleteImg} alt="댓글 삭제하기" onClick={() => deleteClickEvent(data.idx)} />
             ) : null}
