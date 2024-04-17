@@ -62,7 +62,7 @@ const PopularGameListContainer = () => {
       setPopularityListData([...popularityListData, ...data?.data.gameList]);
     }
     if (status === 400) {
-      alert("유효하지 않은 요청입니다.");
+      return alert("유효하지 않은 요청입니다.");
     }
     if (status === 500) {
       console.log("서버 내부 에러입니다.");

@@ -43,19 +43,42 @@ const NotificationListContainer = () => {
   }, [userAdminInfo, cookies.token]);
 
   // 일반사용자 알림 목록보기 GET
-
   const [notiListData, setNotiListData] = useState([]);
   const [page, setPage] = useState(1);
   const [lastIdx, setLastIdx] = useState(1);
 
-  const { data, error, status, request } = useFetch();
-  useEffect(() => {
+  const { data, status, request } = useFetch();
+  // 서버에서 데이터 가져오는 함수
+  const getNotiList = () => {
     request(`/account/notification?lastIdx=${lastIdx}`, "GET", null);
-  }, []);
+  };
 
   useEffect(() => {
-    if (status === 200) {
-      setNotiListData(data?.notifications);
+    // lastIdx가 갱신 될 때 실행
+    getNotiList();
+  }, [lastIdx]);
+
+  useEffect(() => {
+    // 스크롤 위치에 따라 실행
+    // lastIdx 변할 때 갱신
+    // window를 기준으로 스크롤 값 계산 참일 시 lastIdx + 1
+    const scrollDownEvent = () => {
+      const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+      if (scrollTop + clientHeight >= scrollHeight) {
+        setPage(page + 1);
+      }
+    };
+
+    window.addEventListener("scroll", scrollDownEvent);
+
+    return () => {
+      window.removeEventListener("scroll", scrollDownEvent);
+    };
+  }, [lastIdx]);
+
+  useEffect(() => {
+    if (status === 200 && data?.notifications) {
+      setNotiListData([...notiListData, ...data?.notifications]);
       setLastIdx(data?.lastIdx);
     }
 
@@ -70,11 +93,6 @@ const NotificationListContainer = () => {
     }
   }, [data]);
   console.log("notiListData: ", notiListData);
-
-  // 일반사용자 알림 목록 백엔드 state가 업데이트 될 때 마다, page를 1 증가시키기
-  useEffect(() => {
-    setPage(page + 1);
-  }, [notiListData]);
 
   return (
     <OverFlowDiv $height="100%" $flex="v_start_center" $margin="100px 0 0 0" $width="100vw">
