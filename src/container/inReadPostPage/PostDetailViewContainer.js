@@ -23,7 +23,10 @@ const TitleDiv = styled(Div)`
   justify-content: space-evenly;
   flex-direction: column;
 `;
-const PostContentDiv = styled(Div)``;
+const PostContentDiv = styled(Div)`
+  border: 1px solid black;
+  border-radius: 10px;
+`;
 
 const PostDetailViewContainer = (props) => {
   const [cookies] = useCookies(["token"]);
@@ -49,10 +52,10 @@ const PostDetailViewContainer = (props) => {
       setIsAuthor(data.isAuthor);
     }
   }, [data]);
-  console.log("게시글 상세보기 data: ", data);
 
   return (
     <>
+      {/* 게시글 메타 데이터(제목, 작성자, 작성일) */}
       <TitleDiv $width="100%" $height="100px">
         <Div $flex="h_start_start" $margin="0 0 20px 0">
           <P $fontSize="large">제목:&nbsp;</P>
@@ -63,21 +66,28 @@ const PostDetailViewContainer = (props) => {
         <Div>
           <Div $flex="h_start_start">
             <P>작성자:&nbsp;</P>
-            <P $fontWeight="bold">
-              {data?.data.nickname} | {TimeStampUtil(data?.data.createdAt)}
-            </P>
+            <P $fontWeight="bold">{data?.data.nickname}</P>
+          </Div>
+          <Div $flex="h_start_start">
+            <P>작성일:&nbsp;</P>
+            <P $fontWeight="bold">{TimeStampUtil(data?.data.createdAt)}</P>
           </Div>
         </Div>
         {isAuthor ? <DeletePostContainer /> : null}
       </TitleDiv>
-      <PostContentDiv>
+
+      {/* 게시글 내용 */}
+      <PostContentDiv $width="100%" $margin="30px 0 30px 0" $padding="10px">
         <Div
           $width="100%"
           $padding="5% 0"
           dangerouslySetInnerHTML={{ __html: data?.data.content }}
           contentEditable="false"
-        ></Div>
+          $flex="h_start_start"
+        />
       </PostContentDiv>
+
+      {/* 댓글 목록 */}
       <CommentSection
         $width="100%"
         $padding="5% 30px"
