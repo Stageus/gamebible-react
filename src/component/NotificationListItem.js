@@ -9,21 +9,23 @@ import ImgTextBtnItem from "./ImgTextBtnItem";
 import DeleteIcon from "../img/deleteIcon.svg";
 
 import { useCookies } from "react-cookie";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import TimeStampUtil from "../util/TimeStampUtil";
 
 const BorderStyleArticle = styled(Article)`
   border-radius: 5px;
 `;
-const MoveLink = styled(Link)`
-  width: 100%;
-`;
 
 const NotificationListItem = (props) => {
   const { idx, user_idx, type, post_idx, game_idx, created_at, post_title, game_title } =
     props.data;
   const [cookies] = useCookies(["token"]);
+  const navigate = useNavigate();
+
+  const moveURLEvent = () => {
+    navigate(`${url}`);
+  };
 
   // (일반사용자) 알림 삭제하기 DELETE
   const deleteAlarmEvent = async (event) => {
@@ -72,27 +74,28 @@ const NotificationListItem = (props) => {
       <Span $margin="0 0 10px 0">{TimeStampUtil(created_at)}</Span>
 
       {/* 알람 내용, 알람 클릭 시 해당 url로 이동 */}
-      <MoveLink to={`${url}`}>
-        <BorderStyleArticle
-          $flex="h_between_center"
-          $width="100%"
-          $backgroundColor="lightGray"
-          $height="100px"
-          $padding="0 3%"
-        >
-          <Div>
-            <Span $fontWeight="bold">{content}</Span>
-          </Div>
+      {/* <MoveLink to={`${url}`}> */}
+      <BorderStyleArticle
+        $flex="h_between_center"
+        $width="100%"
+        $backgroundColor="lightGray"
+        $height="100px"
+        $padding="0 3%"
+        onClick={(e) => moveURLEvent(e)}
+      >
+        <Div>
+          <Span $fontWeight="bold">{content}</Span>
+        </Div>
 
-          <ImgTextBtnItem
-            img={DeleteIcon}
-            text="DELETE"
-            color="major"
-            backgroundColor="default"
-            onClick={(event) => deleteAlarmEvent(event, idx)}
-          />
-        </BorderStyleArticle>
-      </MoveLink>
+        <ImgTextBtnItem
+          img={DeleteIcon}
+          text="DELETE"
+          color="major"
+          backgroundColor="default"
+          onClick={(event) => deleteAlarmEvent(event, idx)}
+        />
+      </BorderStyleArticle>
+      {/* </MoveLink> */}
     </Div>
   );
 };
