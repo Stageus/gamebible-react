@@ -30,14 +30,13 @@ const EditorContainer = styled(Div)`
   line-height: 30px;
 `;
 
-const WriterContainer = (props) => {
-  const { postIdx } = props;
+const WriterContainer = () => {
   const { value: title, onChangeEvent: onChangeTitltEvent } = useInput("");
   const { status, request } = useFetch();
 
   const [preview, setPreview] = useState([]);
 
-  const [content, setContent] = useRef("");
+  const [content, setContent] = useState("");
   const [cookies] = useCookies(["token"]);
   const contentContainer = useRef(null);
   const { gameIdx } = useParams();
@@ -54,7 +53,7 @@ const WriterContainer = (props) => {
       return;
     }
     await request(
-      `/post/${postIdx}`,
+      `/post?gameidx=${gameIdx}`,
       "POST",
       {
         title: title,
@@ -69,7 +68,7 @@ const WriterContainer = (props) => {
   useEffect(() => {
     if (status === 200) {
       alert("게시글 작성 완료");
-      navigate(`/game/${gameIdx}/community/page/1`);
+      navigate(`/game/${gameIdx}/community?page=1`);
     }
   }, [status]);
   console.log(status);
@@ -96,8 +95,6 @@ const WriterContainer = (props) => {
     setContent(str);
   };
 
-  const POSTUrl = `${process.env.REACT_APP_API_KEY}/post/${postIdx}/image`;
-  console.log(preview);
   return (
     <EditorWrapper $backgroundColor="white" $width="100%" $height="100%" $padding="50px">
       <Div $margin="0 0 20px 0" $width="100%">
@@ -114,7 +111,7 @@ const WriterContainer = (props) => {
       </Div>
       <Div $width="100%" $flex="v_center_end">
         <Div $flex="h_between_center" $margin="0 0 2% 0">
-          <AddPhotoBtnContainer {...{ setPreview, POSTUrl }} />
+          <AddPhotoBtnContainer {...{ setPreview }} />
           <Div $margin="0 0 0 20px">
             <ImgTextBtnItem
               img={finishImg}
@@ -128,6 +125,7 @@ const WriterContainer = (props) => {
         <EditorContainer
           onInput={postContentChangeEvent}
           ref={contentContainer}
+          key="contentContainer"
           contentEditable="true"
           $width="100%"
           $padding="4%"

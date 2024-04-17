@@ -4,7 +4,7 @@ import useFetch from "../hook/useFetch";
 import { useCookies } from "react-cookie";
 
 const AddPhotoBtnContainer = (props) => {
-  const { setPreview, POSTUrl } = props;
+  const { setPreview } = props;
   const [image, setImage] = useState([]);
   const [cookies] = useCookies(["token"]);
   const [data, setData] = useState(null);
@@ -22,7 +22,7 @@ const AddPhotoBtnContainer = (props) => {
 
   const postPhoto = async () => {
     try {
-      const response = await fetch(POSTUrl, {
+      const response = await fetch(`${process.env.REACT_APP_API_KEY}/post/image`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${cookies.token}`,

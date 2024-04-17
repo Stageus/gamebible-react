@@ -108,7 +108,7 @@ const SignUpContainer = () => {
           <EmailInputContainer {...{ emailValue, onChangeEmailEvent, emailCheck, setEmailCheck }} />
           {/* /이메일 인풋 */}
           {/* 이메일 인증번호 인풋 */}
-          <EmailAuthInputContainer {...{ emailAuthCheck, setEmailAuthCheck }} />
+          <EmailAuthInputContainer {...{ emailAuthCheck, setEmailAuthCheck, emailValue }} />
           {/* /이메일 인증번호 인풋 */}
           {/* 닉네임 인풋 */}
           <NicknameInputContainer
