@@ -11,6 +11,8 @@ import { Section } from "../../style/LayoutStyle";
 import CommentContainer from "./CommentContainer";
 import DeletePostContainer from "./DeletePostContainer";
 
+import TimeStampUtil from "../../util/TimeStampUtil";
+
 const CommentSection = styled(Section)`
   border-radius: 10px;
 `;
@@ -25,10 +27,12 @@ const PostContentDiv = styled(Div)``;
 
 const PostDetailViewContainer = (props) => {
   const [cookies] = useCookies(["token"]);
+  const navigate = useNavigate();
+
   const { gameIdx, postIdx } = useParams();
+
   const { data, status, request } = useFetch();
   const [isAuthor, setIsAuthor] = useState(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     request(`/post/${postIdx}`, "GET", null, {
@@ -45,6 +49,7 @@ const PostDetailViewContainer = (props) => {
       setIsAuthor(data.isAuthor);
     }
   }, [data]);
+  console.log("게시글 상세보기 data: ", data);
 
   return (
     <>
@@ -57,9 +62,9 @@ const PostDetailViewContainer = (props) => {
         </Div>
         <Div>
           <Div $flex="h_start_start">
-            <P $fontSize="small">작성자:&nbsp;</P>
-            <P $fontSize="small" $fontWeight="bold">
-              {data?.data.nickname} | {data?.data.created_at}
+            <P>작성자:&nbsp;</P>
+            <P $fontWeight="bold">
+              {data?.data.nickname} | {TimeStampUtil(data?.data.createdAt)}
             </P>
           </Div>
         </Div>

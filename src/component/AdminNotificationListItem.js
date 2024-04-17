@@ -14,7 +14,7 @@ import GameImgSettingContainer from "../container/inNotificationPage/GameImgSett
 
 import { useCookies } from "react-cookie";
 
-import timestampConversion from "../util/TimestampUtil";
+import TimeStampUtil from "../util/TimeStampUtil";
 
 const BorderStyleArticle = styled(Article)`
   border-radius: 5px;
@@ -53,7 +53,7 @@ const AdminNotificationListItem = (props) => {
 
   return (
     <Div $flex="v_start_start" $width="100%" $margin="70px 0 0 0">
-      <Span $margin="0 0 10px 0">{timestampConversion(createdAt)}</Span>
+      <Span $margin="0 0 10px 0">{TimeStampUtil(createdAt)}</Span>
       <BorderStyleArticle
         $flex="h_between_center"
         $width="100%"

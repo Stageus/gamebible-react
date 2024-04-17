@@ -3,7 +3,7 @@ import React from "react";
 import { styled } from "styled-components";
 import { setColor } from "../style/SetStyle";
 import { Article, Div } from "../style/LayoutStyle";
-import timestampConversion from "../util/TimestampUtil";
+import TimeStampUtil from "../util/TimeStampUtil";
 
 const PostListItemLayout = styled(Article)`
   background-color: ${setColor("white")};
@@ -41,7 +41,7 @@ const PostListItem = (props) => {
             {view}
           </Div>
           <Div $flex="h_center_center" $width="33.33%">
-            {timestampConversion(createdAt)}
+            {TimeStampUtil(createdAt)}
           </Div>
         </Div>
       </Div>
