@@ -8,7 +8,7 @@ const EmailAuthInputContainer = (props) => {
   const { data, error, status, request } = useFetch();
   const { value: emailAuthValue, onChangeEvent: onChangeEmailAuthEvent } = useInput("");
 
-  const { emailAuthCheck, setEmailAuthCheck } = props;
+  const { emailAuthCheck, setEmailAuthCheck, emailValue } = props;
 
   useEffect(() => {
     if (status === 200) {
@@ -18,7 +18,7 @@ const EmailAuthInputContainer = (props) => {
         setEmailAuthCheck(false);
       }
     }
-    if (status === 401) {
+    if (status === 204) {
       alert("올바르지 않는 입력입니다.");
     }
     if (status === 400) {
@@ -31,7 +31,7 @@ const EmailAuthInputContainer = (props) => {
   }, [data, status, error]);
 
   const submitEmailAuthEvent = async () => {
-    await request("/account/id/check", "POST", { id: emailAuthValue });
+    await request("/account/email/auth", "POST", { email: emailValue, code: emailAuthValue });
   };
 
   return (
