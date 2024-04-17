@@ -67,7 +67,7 @@ const WriterContainer = () => {
 
   useEffect(() => {
     if (status === 200) {
-      alert("게시글 작성 완료");
+      alert("게시글 작성이 완료되었습니다.");
       navigate(`/game/${gameIdx}/community?page=1`);
     }
   }, [status]);

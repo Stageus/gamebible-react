@@ -12,7 +12,6 @@ import finishImg from "../../img/finishImg.svg";
 
 import { useInput } from "../../hook/useInput";
 import { useNavigate } from "react-router";
-// import { useCookies } from "react-cookie";
 import { useParams } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
@@ -31,14 +30,15 @@ const EditingContainer = () => {
   const [startEditingData, setStartEditingData] = useState(null);
   const [cookies] = useCookies(["token"]);
 
-  const [newWikiContentData, setNewWikiContentData] = useRef("");
+  const [newWikiContentData, setNewWikiContentData] = useState("");
+
   const { change, changeEvent } = useInput("");
   const [preview, setPreview] = useState([]);
   const navigate = useNavigate();
   const wikiContentContainer = useRef(null);
 
-  // 탭이동을 위한 gameIdx 추출
   const { gameIdx } = useParams();
+  console.log("gameIdx: ", gameIdx);
 
   // 로그인 안 되어있으면 홈화면으로 이동
   useEffect(() => {
@@ -69,6 +69,8 @@ const EditingContainer = () => {
 
     if (response.status === 200) {
       setStartEditingData(result.data);
+      navigate(`/game/${gameIdx}`);
+      return alert("위키 수정이 완료되었습니다.");
     }
     if (response.status === 400) {
       alert(`Request Error: ${result.message}`);
@@ -98,10 +100,7 @@ const EditingContainer = () => {
   const wikiContentChangeEvent = (e) => {
     const str = nodeToString(wikiContentContainer.current);
     setNewWikiContentData(str);
-    console.log(str);
   };
-
-  const POSTUrl = `${process.env.REACT_APP_API_KEY}/game/${gameIdx}/wiki/${startEditingData.historyIdx}`;
 
   return (
     <Section $backgroundColor="white" $width="100%" $height="80%" $padding="40px">
@@ -114,7 +113,7 @@ const EditingContainer = () => {
 
           <Div $flex="h_between_center" $margin="0 0 2% 0">
             {/* 이미지 삽입 버튼 */}
-            <AddPhotoBtnContainer {...{ setPreview, POSTUrl }} />
+            <AddPhotoBtnContainer {...{ setPreview }} />
             {/* 작성 완료 버튼 */}
             <Div $margin="0 0 0 20px">
               <ImgTextBtnItem

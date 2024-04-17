@@ -2,7 +2,7 @@ import { React, useEffect } from "react";
 
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import HeaderNavContainer from "../container/HeaerNavContainer";
+import HeaderNavContainer from "../container/HeaderNavContainer";
 
 import MainPage from "../page/MainPage";
 import SignInPage from "../page/SignInPage";

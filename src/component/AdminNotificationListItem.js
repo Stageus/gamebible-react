@@ -14,7 +14,7 @@ import GameImgSettingContainer from "../container/inNotificationPage/GameImgSett
 
 import { useCookies } from "react-cookie";
 
-import timestampConversion from "../util/TimestampUtil";
+import TimeStampUtil from "../util/TimeStampUtil";
 
 const BorderStyleArticle = styled(Article)`
   border-radius: 5px;
@@ -41,19 +41,19 @@ const AdminNotificationListItem = (props) => {
       window.location.reload();
     }
     if (response.status === 400) {
-      alert(response.message);
+      return alert("유효하지 않은 요청입니다.");
     }
     if (response.status === 401) {
-      alert(response.message);
+      return alert("권한이 없는 사용자입니다.");
     }
     if (response.status === 500) {
-      alert(response.message);
+      console.log("서버 내부 에러입니다.");
     }
   };
 
   return (
     <Div $flex="v_start_start" $width="100%" $margin="70px 0 0 0">
-      <Span $margin="0 0 10px 0">{timestampConversion(createdAt)}</Span>
+      <Span $margin="0 0 10px 0">{TimeStampUtil(createdAt)}</Span>
       <BorderStyleArticle
         $flex="h_between_center"
         $width="100%"
