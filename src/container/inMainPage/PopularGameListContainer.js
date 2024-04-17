@@ -45,7 +45,7 @@ const PopularGameListContainer = () => {
     // window를 기준으로 스크롤 값 계산 참일 시 page + 1
     const scrollDownEvent = () => {
       const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
-      if (scrollTop + clientHeight >= scrollHeight) {
+      if (scrollTop + clientHeight > scrollHeight) {
         setPage(page + 1);
       }
     };

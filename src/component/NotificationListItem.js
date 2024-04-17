@@ -26,7 +26,9 @@ const NotificationListItem = (props) => {
   const [cookies] = useCookies(["token"]);
 
   // (일반사용자) 알림 삭제하기 DELETE
-  const deleteAlarmEvent = async () => {
+  const deleteAlarmEvent = async (event) => {
+    event.stopPropagation(); // 이벤트 버블링 방지 (url 이동 막기 위함)
+
     const response = await fetch(`${process.env.REACT_APP_API_KEY}/account/notification/${idx}`, {
       method: "DELETE",
       headers: {
@@ -39,13 +41,13 @@ const NotificationListItem = (props) => {
       window.location.reload();
     }
     if (response.status === 400) {
-      alert(response.message);
+      return alert("유효하지 않은 요청입니다.");
     }
     if (response.status === 401) {
-      alert(response.message);
+      return alert("권한이 없는 사용자입니다.");
     }
     if (response.status === 500) {
-      alert(response.message);
+      console.log("서버 내부 에러입니다.");
     }
   };
 
@@ -87,7 +89,7 @@ const NotificationListItem = (props) => {
             text="DELETE"
             color="major"
             backgroundColor="default"
-            onClick={() => deleteAlarmEvent(idx)}
+            onClick={(event) => deleteAlarmEvent(event, idx)}
           />
         </BorderStyleArticle>
       </MoveLink>
