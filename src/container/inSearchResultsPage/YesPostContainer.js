@@ -3,15 +3,20 @@ import { React, useState, useEffect } from "react";
 import { styled } from "styled-components";
 import { Section, Article, Div } from "../../style/LayoutStyle";
 import { Span } from "../../style/TextStyle";
-import { setColor } from "../../style/SetStyle";
+import { Link } from "react-router-dom";
 
 import PostListItem from "../../component/PostListItem";
 
 const SearchGameLayout = styled(Section)`
   transition: padding 0.1s ease;
 `;
+const MoveToReadPost = styled(Link)`
+  width: 100%;
+`;
 
 const YesGameContainer = ({ searchPostData }) => {
+  console.log("searchPostData: ", searchPostData);
+
   return (
     <SearchGameLayout $width="100%" $padding="30px">
       <Div
@@ -41,7 +46,14 @@ const YesGameContainer = ({ searchPostData }) => {
 
       <Article $flex="v_center_center" $width="100%">
         {searchPostData?.map((elem) => {
-          return <PostListItem key={elem.postIdx} data={elem} />;
+          return (
+            <MoveToReadPost
+              key={`post${elem.postIdx}`}
+              to={`/game/${elem.gameIdx}/post/${elem.postIdx}`}
+            >
+              <PostListItem key={elem.postIdx} data={elem} />
+            </MoveToReadPost>
+          );
         })}
       </Article>
     </SearchGameLayout>
