@@ -23,13 +23,17 @@ const PaginationContainer = (props) => {
     if (currentIdx < start) setStart((prev) => prev - pageCount);
   }, [currentIdx, pageCount, start]);
 
+  console.log(currentIdx + "현재 페이지 번호");
+  console.log(noNext + "NoNext");
+
   return (
     <Div $flex="h_center_center" $width="100%">
-      {noPrev ? null : (
+      {noPrev ? null : ( //이전 버튼
         <Link to={`/game/${gameIdx}/community?page=${start - 1}`}>
           <Img $padding="5px" src={ArrowLeft} alt="<" />
         </Link>
       )}
+      {/* 마지막 페이지의 경우 */}
       {totalPages === currentIdx ? (
         <Span $padding="5px" $color="orange" $fontWeight="bold" $fontSize="large">
           {totalPages}
