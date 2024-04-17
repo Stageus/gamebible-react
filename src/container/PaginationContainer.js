@@ -12,54 +12,57 @@ const PaginationContainer = (props) => {
   const { gameIdx } = useParams();
   const pageIdx = new URLSearchParams(location.search).get("page");
   const { totalPages } = props;
+  const [pageRange, setPageRange] = useState(10); // 기본 페이지 범위를 10으로 설정
   const currentIdx = parseInt(pageIdx) || 1;
-  const pageCount = Math.min(totalPages, 10);
   const [start, setStart] = useState(1);
+  //변수 noPrev가 start === 1 이라면 true
+  //아니면 false
   const noPrev = start === 1;
-  const noNext = start + pageCount - 1 >= totalPages;
+  const noNext = start + pageRange - 1 >= totalPages;
 
   useEffect(() => {
-    if (currentIdx === start + pageCount) setStart((prev) => prev + pageCount);
-    if (currentIdx < start) setStart((prev) => prev - pageCount);
-  }, [currentIdx, pageCount, start]);
+    if (currentIdx === start + pageRange) {
+      setStart((prev) => prev + pageRange);
+    }
+    if (currentIdx < start) {
+      setStart((prev) => prev - pageRange);
+    }
+  }, [currentIdx, pageRange, start]);
 
-  console.log(currentIdx + "현재 페이지 번호");
-  console.log(noNext + "NoNext");
+  console.log(Math.min(pageRange, Math.abs(totalPages + 1 - start)));
+  console.log(`pageRange${pageRange}`);
+  console.log(`totalPages${totalPages}`);
+  console.log(`start${start}`);
+  console.log(`totalPages + 1 - start${totalPages + 1 - start}`);
+  console.log(`최소값 ${Math.min(pageRange, Math.abs(totalPages + 1 - start))}`);
 
   return (
     <Div $flex="h_center_center" $width="100%">
-      {noPrev ? null : ( //이전 버튼
+      {noPrev ? null : (
         <Link to={`/game/${gameIdx}/community?page=${start - 1}`}>
           <Img $padding="5px" src={ArrowLeft} alt="<" />
         </Link>
       )}
-      {/* 마지막 페이지의 경우 */}
-      {totalPages === currentIdx ? (
-        <Span $padding="5px" $color="orange" $fontWeight="bold" $fontSize="large">
-          {totalPages}
-        </Span>
-      ) : (
-        [...Array(Math.min(pageCount, totalPages + 1))].map((elem, idx) => {
-          const pageNumber = start + idx;
-          return (
-            <Link
-              to={`/game/${gameIdx}/community?page=${pageNumber}`}
-              key={`pagiNation${pageNumber}`}
+      {[...Array(Math.min(pageRange, Math.abs(totalPages - start + 1)))].map((elem, idx) => {
+        const pageNumber = start + idx;
+        return (
+          <Link
+            to={`/game/${gameIdx}/community?page=${pageNumber}`}
+            key={`pagiNation${pageNumber}`}
+          >
+            <Span
+              $padding="5px"
+              $color={currentIdx === pageNumber ? "orange" : "white"}
+              $fontWeight={currentIdx === pageNumber ? "bold" : "medium"}
+              $fontSize={currentIdx === pageNumber ? "large" : "normal"}
             >
-              <Span
-                $padding="5px"
-                $color={currentIdx === pageNumber ? "orange" : "white"}
-                $fontWeight={currentIdx === pageNumber ? "bold" : "medium"}
-                $fontSize={currentIdx === pageNumber ? "large" : "normal"}
-              >
-                {pageNumber}
-              </Span>
-            </Link>
-          );
-        })
-      )}
+              {pageNumber}
+            </Span>
+          </Link>
+        );
+      })}
       {noNext ? null : (
-        <Link to={`/game/${gameIdx}/community?page=${start + pageCount}`}>
+        <Link to={`/game/${gameIdx}/community?page=${start + pageRange}`}>
           <Img $padding="5px" src={ArrowRight} alt=">" />
         </Link>
       )}

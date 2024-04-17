@@ -40,12 +40,23 @@ const PersonalInfoContainer = () => {
 
   const DeleteClickEvent = () => {
     const confirm = window.confirm("정말로 탈퇴하시겠습니까?");
-    if (confirm) {
-      request("/account", "DELETE", null, {
-        Authorization: `Bearer ${cookies.token}`,
-      });
+
+    if (userInfo.kakao_key === null) {
+      if (confirm) {
+        request("/account", "DELETE", null, {
+          Authorization: `Bearer ${cookies.token}`,
+        });
+      } else {
+        return;
+      }
     } else {
-      return;
+      if (confirm) {
+        request("/account/auth/kakao", "DELETE", null, {
+          Authorization: `Bearer ${cookies.token}`,
+        });
+      } else {
+        return;
+      }
     }
   };
 
