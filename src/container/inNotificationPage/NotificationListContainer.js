@@ -63,7 +63,7 @@ const NotificationListContainer = () => {
     // window를 기준으로 스크롤 값 계산 참일 시 lastIdx 다시 가져오기
     const scrollDownEvent = () => {
       const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
-      if (scrollTop + clientHeight >= scrollHeight) {
+      if (scrollTop + clientHeight > scrollHeight) {
         setLastIdx(data?.lastIdx);
       }
     };
@@ -87,7 +87,7 @@ const NotificationListContainer = () => {
       return alert("권한이 없는 사용자입니다.");
     }
     if (status === 500) {
-      console.log("서버 내부 에러입니다.");
+      console.log("일반 서버 내부 에러입니다.");
     }
   }, [data, lastIdx]);
 

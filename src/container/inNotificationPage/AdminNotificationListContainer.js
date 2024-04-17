@@ -62,7 +62,7 @@ const AdminNotificationListContainer = () => {
     // window를 기준으로 스크롤 값 계산 참일 시 lastIdx 다시 가져오기
     const scrollDownEvent = () => {
       const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
-      if (scrollTop + clientHeight >= scrollHeight) {
+      if (scrollTop + clientHeight > scrollHeight) {
         setLastIdx(data?.data.lastIdx);
       }
     };
