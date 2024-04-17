@@ -21,6 +21,7 @@ import useFetch from "../../hook/useFetch";
 const TabBtn = styled(Button)`
   border-right: 1px solid ${setColor("major")};
   border-left: 1px solid ${setColor("major")};
+  border-top: 1px solid ${setColor("major")};
 `;
 const SwitchTabLayout = styled(Div)``;
 const MainContentLayout = styled(Div)`

@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import React from "react";
 
 import { styled } from "styled-components";
 import { Section, Article, Div } from "../../style/LayoutStyle";
@@ -14,7 +14,7 @@ const MoveToReadPost = styled(Link)`
   width: 100%;
 `;
 
-const YesGameContainer = ({ searchPostData }) => {
+const YesPostContainer = ({ searchPostData }) => {
   console.log("searchPostData: ", searchPostData);
 
   return (
@@ -60,4 +60,4 @@ const YesGameContainer = ({ searchPostData }) => {
   );
 };
 
-export default YesGameContainer;
+export default YesPostContainer;
