@@ -14,13 +14,14 @@ import { H1, P, Span } from "../../style/TextStyle";
 import backImg from "../../img/backImg.svg";
 import ImgTextBtnItem from "../../component/ImgTextBtnItem";
 import BannerImgItem from "../../component/BannerImgItem";
-import timestampConversion from "../../util/TimestampUtil";
+import TimeStampUtil from "../../util/TimeStampUtil";
 
 import useFetch from "../../hook/useFetch";
 
 const TabBtn = styled(Button)`
   border-right: 1px solid ${setColor("major")};
   border-left: 1px solid ${setColor("major")};
+  border-top: 1px solid ${setColor("major")};
 `;
 const SwitchTabLayout = styled(Div)``;
 const GameTitleLayout = styled(H1)`
@@ -121,7 +122,7 @@ const WikiHistoryContentContainer = () => {
                 $fontSize="large"
                 $margin="0 0 20px 0"
               >
-                {`작성일: ${timestampConversion(historyContentData.createdAt)} | 작성자: ${
+                {`작성일: ${TimeStampUtil(historyContentData.createdAt)} | 작성자: ${
                   historyContentData.nickname
                 }`}
               </HistoryWriterLayout>

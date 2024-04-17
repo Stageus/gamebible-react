@@ -17,6 +17,7 @@ const ThumbnailWrapper = styled(Link)`
   overflow: hidden;
   transition: transform 0.3s ease;
   position: relative;
+  border: 1px solid lightgray;
 
   &:hover {
     transform: scale(1.3);

@@ -3,7 +3,7 @@ import React from "react";
 import { styled } from "styled-components";
 import { setColor } from "../style/SetStyle";
 import { Article, Div } from "../style/LayoutStyle";
-import timestampConversion from "../util/TimestampUtil";
+import TimeStampUtil from "../util/TimeStampUtil";
 
 const PostListItemLayout = styled(Article)`
   background-color: ${setColor("white")};
@@ -13,6 +13,12 @@ const PostListItemLayout = styled(Article)`
 `;
 
 const PostTitleDiv = styled(Div)`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const MetaDataDiv = styled(Div)`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -30,18 +36,16 @@ const PostListItem = (props) => {
       $margin="0 0 20px 0"
     >
       <Div $flex="h_between_center" $width="100%">
-        <PostTitleDiv $flex="h_start_center" $width="50%">
-          {title}
-        </PostTitleDiv>
+        <PostTitleDiv $width="50%">{title}</PostTitleDiv>
         <Div $flex="h_end_center" $width="50%">
-          <Div $flex="h_center_center" $width="33.33%">
-            {nickname}
+          <Div $width="33.33%" $flex="h_center_center">
+            <MetaDataDiv>{nickname}</MetaDataDiv>
           </Div>
-          <Div $flex="h_center_center" $width="33.33%">
-            {view}
+          <Div $width="33.33%" $flex="h_center_center">
+            <MetaDataDiv>{view}</MetaDataDiv>
           </Div>
-          <Div $flex="h_center_center" $width="33.33%">
-            {timestampConversion(createdAt)}
+          <Div $width="33.33%" $flex="h_center_center">
+            <MetaDataDiv>{TimeStampUtil(createdAt)}</MetaDataDiv>
           </Div>
         </Div>
       </Div>

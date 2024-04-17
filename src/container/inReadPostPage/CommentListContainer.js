@@ -20,6 +20,7 @@ const CommentListContainer = (props) => {
     });
     setDeleteComment(!deleteComment);
     getCommentFetch();
+    window.location.reload();
   };
 
   return (
