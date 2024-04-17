@@ -76,7 +76,7 @@ const AdminNotificationListContainer = () => {
 
   useEffect(() => {
     if (status === 200 && data?.data) {
-      setAdminNotiListData([...adminNotiListData, ...data?.data]);
+      setAdminNotiListData([...adminNotiListData, ...data?.data.requestList]);
       setLastIdx(data?.lastIdx);
     }
     if (status === 400) {
