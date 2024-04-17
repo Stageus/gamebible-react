@@ -41,12 +41,12 @@ const SearchResultGameContainer = () => {
       console.log("게임 검색결과가 없습니다.");
     }
     if (status === 400) {
-      alert("유효하지 않은 요청입니다.");
+      return alert("두 글자 이상 입력하시면 더 좋은 검색결과를 얻으실 수 있습니다!😊");
     }
     if (status === 500) {
       console.log("서버 내부 에러입니다.");
     }
-  }, [data, status]); // status 달아줬어야 함 ( 204는 응답 body가 없어서 반응을 안함 )
+  }, [data, status]); // status 달아줘야함 ( 204는 응답 body가 없어서 반응을 안 하기 때문 )
 
   return (
     <Article $flex="v_center_start" $width={navToggle ? "90%" : "100%"} $margin="30px 0 30px 0">
