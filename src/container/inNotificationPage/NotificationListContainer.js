@@ -104,7 +104,7 @@ const NotificationListContainer = () => {
 
         {notiListData.length > 0 ? (
           // 알람 있을 때
-          <NotiListLayout $flex="v_start_center" $width="100%">
+          <NotiListLayout $flex="v_start_center" $width="100%" $margin="0 0 70px 0">
             {notiListData.map((elem) => {
               return <NotificationListItem key={elem.idx} data={elem} />;
             })}

@@ -102,7 +102,7 @@ const AdminNotificationListContainer = () => {
 
         {adminNotiListData.length > 0 ? (
           // 알람 있을 때
-          <NotiListLayout $flex="v_start_center">
+          <NotiListLayout $flex="v_start_center" $margin="0 0 70px 0">
             {adminNotiListData?.map((elem) => {
               return <AdminNotificationListItem key={elem.idx} data={elem} />;
             })}
