@@ -26,7 +26,7 @@ const SearchResultGameContainer = () => {
   // 게임 검색하기 GET
   const [searchGameData, setSearchGameData] = useState(null);
 
-  const { data, error, status, request } = useFetch();
+  const { data, status, request } = useFetch();
   useEffect(() => {
     request(`/game/search?title=${encodeURI(searchTerm)}`, "GET", null);
   }, [searchParams]);
@@ -41,7 +41,7 @@ const SearchResultGameContainer = () => {
       console.log("게임 검색결과가 없습니다.");
     }
     if (status === 400) {
-      return alert("두 글자 이상 입력하시면 더 좋은 검색결과를 얻으실 수 있습니다!😊");
+      alert("두 글자 이상 입력하시면 더 좋은 검색결과를 얻으실 수 있습니다!😊");
     }
     if (status === 500) {
       console.log("서버 내부 에러입니다.");

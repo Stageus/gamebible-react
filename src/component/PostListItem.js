@@ -18,6 +18,12 @@ const PostTitleDiv = styled(Div)`
   text-overflow: ellipsis;
 `;
 
+const MetaDataDiv = styled(Div)`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
 const PostListItem = (props) => {
   const { title, nickname, view, createdAt } = props.data;
 
@@ -30,18 +36,16 @@ const PostListItem = (props) => {
       $margin="0 0 20px 0"
     >
       <Div $flex="h_between_center" $width="100%">
-        <PostTitleDiv $flex="h_start_center" $width="50%">
-          {title}
-        </PostTitleDiv>
+        <PostTitleDiv $width="50%">{title}</PostTitleDiv>
         <Div $flex="h_end_center" $width="50%">
-          <Div $flex="h_center_center" $width="33.33%">
-            {nickname}
+          <Div $width="33.33%" $flex="h_center_center">
+            <MetaDataDiv>{nickname}</MetaDataDiv>
           </Div>
-          <Div $flex="h_center_center" $width="33.33%">
-            {view}
+          <Div $width="33.33%" $flex="h_center_center">
+            <MetaDataDiv>{view}</MetaDataDiv>
           </Div>
-          <Div $flex="h_center_center" $width="33.33%">
-            {TimeStampUtil(createdAt)}
+          <Div $width="33.33%" $flex="h_center_center">
+            <MetaDataDiv>{TimeStampUtil(createdAt)}</MetaDataDiv>
           </Div>
         </Div>
       </Div>
