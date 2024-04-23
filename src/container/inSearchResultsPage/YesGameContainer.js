@@ -11,6 +11,7 @@ const SearchGameLayout = styled(Section)`
 const MainSection = styled(Article)`
   display: flex;
   flex-wrap: wrap;
+  overflow: auto;
 `;
 
 const YesGameContainer = ({ searchGameData }) => {

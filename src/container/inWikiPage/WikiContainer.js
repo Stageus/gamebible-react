@@ -128,7 +128,7 @@ const WikiContainer = () => {
                 $width="100%"
                 $margin="20px 0 0 0"
                 dangerouslySetInnerHTML={{ __html: wikiContentData[0]?.content }}
-              />
+              ></MainContentLayout>
             </Article>
           </Section>
         </Article>

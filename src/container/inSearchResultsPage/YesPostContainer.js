@@ -1,7 +1,7 @@
 import React from "react";
 
 import { styled } from "styled-components";
-import { Section, Article, Div } from "../../style/LayoutStyle";
+import { Section, Div } from "../../style/LayoutStyle";
 import { Span } from "../../style/TextStyle";
 import { Link } from "react-router-dom";
 
@@ -12,6 +12,11 @@ const SearchGameLayout = styled(Section)`
 `;
 const MoveToReadPost = styled(Link)`
   width: 100%;
+`;
+const MainSection = styled(Section)`
+  display: flex;
+  flex-wrap: wrap;
+  overflow: auto;
 `;
 
 const YesPostContainer = ({ searchPostData }) => {
@@ -44,7 +49,7 @@ const YesPostContainer = ({ searchPostData }) => {
         </Div>
       </Div>
 
-      <Article $flex="v_center_center" $width="100%">
+      <MainSection $flex="v_center_center" $width="100%">
         {searchPostData?.map((elem) => {
           return (
             <MoveToReadPost
@@ -55,7 +60,7 @@ const YesPostContainer = ({ searchPostData }) => {
             </MoveToReadPost>
           );
         })}
-      </Article>
+      </MainSection>
     </SearchGameLayout>
   );
 };

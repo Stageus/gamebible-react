@@ -71,7 +71,6 @@ const WriterContainer = () => {
       navigate(`/game/${gameIdx}/community?page=1`);
     }
   }, [status]);
-  console.log(status);
 
   const nodeToString = (node) => {
     // div

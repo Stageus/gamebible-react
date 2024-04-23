@@ -30,7 +30,7 @@ const AddPhotoBtnContainer = (props) => {
         body: formData,
       });
       const result = await response.json();
-      setData(result);
+      setData(result.data);
     } catch (error) {
       console.log(error);
     }
@@ -38,11 +38,12 @@ const AddPhotoBtnContainer = (props) => {
 
   useEffect(() => {
     if (data) {
-      const imageURL = data.data;
+      console.log(data);
+      const imageURL = data;
       setPreview((previews) => [...previews, { imageURL, id: data.data }]);
     }
-    console.log(data);
-  }, [data]);
+  }, [data, setPreview]);
+
   return (
     <>
       <AddPhotoBtnItem {...{ setImage, addPhotoClickEvent, fileInput, fileChangeEvent }} />
