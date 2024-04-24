@@ -1,15 +1,20 @@
-import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { React } from "react";
+import { BrowserRouter } from "react-router-dom";
 
+import GlobalStyle from "./style/GlobalStyle";
+import PrivateRouter from "./routes/PrivateRouter";
+import PublicRouter from "./routes/PublicRouter";
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-          <Route path="/" />
-      </Routes>
-    </BrowserRouter>
-  )
-}
+    <>
+      <GlobalStyle />
+      <BrowserRouter>
+        <PublicRouter />
+        <PrivateRouter />
+      </BrowserRouter>
+    </>
+  );
+};
 
 export default App;
