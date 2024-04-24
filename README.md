@@ -1,7 +1,10 @@
 # 🎮 게임대장경 GameBible 📚
+![게임대장경logo_filled](https://github.com/Stageus/gamebible-react/assets/80874074/f309c058-fc96-40ca-97ae-90aecfcb3cfe) ![게임대장경logo_outlined](https://github.com/Stageus/gamebible-react/assets/80874074/008cccb5-3e18-4c1f-be9e-8d2de45d5071)
+
 
 ## 💁 프로젝트 소개 
 게임 관련 위키 및 커뮤니티 제공 서비스 웹
+
 
 
 ## ⏰ 프로젝트 진행 기간 
@@ -10,9 +13,12 @@
 
 
 ## 🤼‍♀️ 팀원 소개 Team Members
-|__조경은__|__방준연__|__김기주__|__박해주__|__정태은__|
-|---|---|---|---|---|
-|[@KyoungEun-creator](https://github.com/KyoungEun-creator)|[@hizz1008](https://github.com/hizz1008)|[@k1ju](https://github.com/k1ju)|[@gown0930](https://github.com/gown0930)|[@nundung](https://github.com/nundung)|
+
+|                                                   조경은                                                   |                                                   방준연                                                   |                                                   김기주                                                   |                                                   박해주                                                   |                                                   정태은                                                   |
+|:----------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------:|
+| ![조경은](https://github.com/Stageus/gamebible-react/assets/80874074/895a9dad-ec62-40d2-9b77-e5f18a91d187) | ![방준연](https://github.com/Stageus/gamebible-react/assets/80874074/ae6b4f01-3347-4fbc-a908-c40b7e8bf8ad) | ![김기주](https://github.com/Stageus/gamebible-react/assets/80874074/a1355769-476d-4a14-b04a-598beb2faf50) | ![박해주](https://github.com/Stageus/gamebible-react/assets/80874074/c1a7f77a-f68b-4ec2-9241-b0e370eef746) | ![정태은](https://github.com/Stageus/gamebible-react/assets/80874074/eb2cf0a9-d8a2-4d70-8806-4e95d51183a2) |
+|                         [@KyoungEun-creator](https://github.com/KyoungEun-creator)                         |                                  [@hizz1008](https://github.com/hizz1008)                                  |                                      [@k1ju](https://github.com/k1ju)                                      |                                  [@gown0930](https://github.com/gown0930)                                  |                                   [@nundung](https://github.com/nundung)                                   |
+
 
 * __조경은__: PM, 프론트엔드 개발, UX/UI 디자인
 * __방준연__: 프론트엔드 개발, UX/UI 디자인
@@ -39,9 +45,10 @@
 <img src="https://img.shields.io/badge/javascript-F6DC22?style=flat-square&logo=javascript&logoColor=white" /> <img src="https://img.shields.io/badge/react-59D4FA?style=flat-square&logo=react&logoColor=white" /> <img src="https://img.shields.io/badge/StyledComponent-CE6CBE?style=flat-square&logo=styled component&logoColor=white" /> <img src="https://img.shields.io/badge/Recoil-2A5FDE?style=flat-square&logo=recoil&logoColor=white" />
   
 #### BackEnd: 
-<img src="https://img.shields.io/badge/nodeJS-7DBF15?style=flat-square&logo=nodeJS&logoColor=white" /> 
+<img src="https://img.shields.io/badge/NodeJS-7DBF15?style=flat-square&logo=NodeJS&logoColor=white" /> <img src="https://img.shields.io/badge/Express-FFFFFF?style=flat-square&logo=Express&logoColor=black" /> <img src="https://img.shields.io/badge/Docker-1748E9?style=flat-square&logo=Docker&logoColor=white" /> <img src="https://img.shields.io/badge/EC2-F06226?style=flat-square&logo=EC2&logoColor=white" /> <img src="https://img.shields.io/badge/S3-D94139?style=flat-square&logo=S3&logoColor=white" /> 
 
 #### Database: 
+<img src="https://img.shields.io/badge/PosrgreSQL-2C5185?style=flat-square&logo=PosrgreSQL&logoColor=white" /> 
 
 
 
@@ -70,10 +77,11 @@
 * 각 사용자가 수정한 내용 확인 가능
   
 #### ✨ 게시글 작성 및 댓글 작성 기능
-* 
 
 #### ✨ 관리자 여부에 따른 알람 확인 기능
-* 
+* 관리자의 경우 요청받은 새로운 게임에 대한 수락 및 거절 가능
+* 일반 사용자의 경우 본인이 작성한 게시글에의 새로운 댓글 소식, 본인이 수정한 이력이 있는 위키의 새로운 수정 소식, 요청한 게임에 대한 거절 소식 확인 가능
+
 
 
 
