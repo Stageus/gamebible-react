@@ -28,9 +28,7 @@ const NotificationListItem = (props) => {
   };
 
   // (일반사용자) 알림 삭제하기 DELETE
-  const deleteAlarmEvent = async (event) => {
-    event.stopPropagation(); // 이벤트 버블링 방지 (url 이동 막기 위함)
-
+  const deleteAlarmEvent = async () => {
     const response = await fetch(`${process.env.REACT_APP_API_KEY}/account/notification/${idx}`, {
       method: "DELETE",
       headers: {
@@ -95,7 +93,6 @@ const NotificationListItem = (props) => {
           onClick={(event) => deleteAlarmEvent(event, idx)}
         />
       </BorderStyleArticle>
-      {/* </MoveLink> */}
     </Div>
   );
 };
