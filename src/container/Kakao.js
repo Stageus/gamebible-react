@@ -5,7 +5,7 @@ import useFetch from "../hook/useFetch";
 const Kakao = () => {
   const { data, status, request } = useFetch();
   const [code, setCode] = useState(null);
-  const [cookies, setCookies] = useCookies(["token"]);
+  const [, setCookies] = useCookies(["token"]);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);

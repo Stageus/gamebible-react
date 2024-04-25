@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import AddPhotoBtnItem from "../component/AddPhotoBtnItem";
-import useFetch from "../hook/useFetch";
 import { useCookies } from "react-cookie";
 
 const AddPhotoBtnContainer = (props) => {

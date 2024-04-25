@@ -14,7 +14,7 @@ import { H1, P, Span } from "../../style/TextStyle";
 import backImg from "../../img/backImg.svg";
 import ImgTextBtnItem from "../../component/ImgTextBtnItem";
 import BannerImgItem from "../../component/BannerImgItem";
-import TimeStampUtil from "../../util/TimeStampUtil";
+import TimeStampUtil from "../../util/TimestampUtil";
 
 import useFetch from "../../hook/useFetch";
 

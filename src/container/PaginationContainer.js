@@ -12,7 +12,7 @@ const PaginationContainer = (props) => {
   const { gameIdx } = useParams();
   const pageIdx = new URLSearchParams(location.search).get("page");
   const { totalPages } = props;
-  const [pageRange, setPageRange] = useState(10); // 기본 페이지 범위를 10으로 설정
+  const [pageRange] = useState(10); // 기본 페이지 범위를 10으로 설정
   const currentIdx = parseInt(pageIdx) || 1;
   const [start, setStart] = useState(1);
   //변수 noPrev가 start === 1 이라면 true

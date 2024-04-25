@@ -1,12 +1,12 @@
 import { React, useState, useEffect, useRef } from "react";
 
 import { styled } from "styled-components";
-import { H1, P } from "../style/TextStyle";
+import { H1 } from "../style/TextStyle";
 import { Aside, Div, Nav, Section } from "../style/LayoutStyle";
 
 import GameListItem from "../component/GameListItem";
 
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import navToggleAtom from "../recoil/navToggleAtom";
 
 import { Link, useLocation } from "react-router-dom";
