@@ -11,6 +11,7 @@ const BannerLayout = styled(Div)`
 `;
 const BannerImg = styled(Img)`
   width: 100%;
+  object-fit: cover;
   aspect-ratio: 1546 / 423;
 `;
 

@@ -18,7 +18,6 @@ const Kakao = () => {
       request(`/account/kakao/callback?code=${code}`, "GET");
     }
   }, [code]);
-
   useEffect(() => {
     if (status === 200) {
       setCookies("token", data.token, { path: "/" });
