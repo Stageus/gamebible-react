@@ -27,10 +27,11 @@ const ThumbnailImg = styled(Img)`
   width: 100%;
   height: auto;
   aspect-ratio: 4 / 3;
+  object-fit: cover;
 `;
 
 const ThumbnailItem = (props) => {
-  const { idx, title, postCount, imgPath } = props.data;
+  const { idx, title, imgPath } = props.data;
 
   return (
     <ThumbnailLayout>
