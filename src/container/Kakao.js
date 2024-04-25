@@ -18,19 +18,6 @@ const Kakao = () => {
       request(`/account/kakao/callback?code=${code}`, "GET");
     }
   }, [code]);
-
-  // useEffect(() => {
-  //   const requestLogin = async (code) => {
-  //     const response = await fetch(`http://192.168.0.228:3000/account/kakao/callback?code=${code}`);
-  //     const result = await response.json();
-  //     if (response.status === 200) {
-  //       setUserData(result);
-  //     }
-  //   };
-
-  //   if (code) requestLogin(code);
-  // }, [code]);
-
   useEffect(() => {
     if (status === 200) {
       setCookies("token", data.token, { path: "/" });

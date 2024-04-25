@@ -4,12 +4,15 @@ import { useCookies } from "react-cookie";
 import useFetch from "../../hook/useFetch";
 
 import styled from "styled-components";
+import { setColor } from "../../style/SetStyle";
 import { H1, P } from "../../style/TextStyle";
 import { Div } from "../../style/LayoutStyle";
 import { Section } from "../../style/LayoutStyle";
 
 import CommentContainer from "./CommentContainer";
 import DeletePostContainer from "./DeletePostContainer";
+
+import TimeStampUtil from "../../util/TimeStampUtil";
 
 const CommentSection = styled(Section)`
   border-radius: 10px;
@@ -20,15 +23,24 @@ const TitleDiv = styled(Div)`
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
+  border-bottom: 1px solid ${setColor("black")};
 `;
-const PostContentDiv = styled(Div)``;
+const PostContentDiv = styled(Div)`
+  border-radius: 10px;
+`;
+
+const ViewDiv = styled(Div)`
+  min-height: 500px;
+`;
 
 const PostDetailViewContainer = (props) => {
   const [cookies] = useCookies(["token"]);
+  const navigate = useNavigate();
+
   const { gameIdx, postIdx } = useParams();
+
   const { data, status, request } = useFetch();
   const [isAuthor, setIsAuthor] = useState(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     request(`/post/${postIdx}`, "GET", null, {
@@ -48,7 +60,8 @@ const PostDetailViewContainer = (props) => {
 
   return (
     <>
-      <TitleDiv $width="100%" $height="100px">
+      {/* 게시글 메타 데이터(제목, 작성자, 작성일) */}
+      <TitleDiv $width="100%" $height="100px" $padding="0 0 5% 0">
         <Div $flex="h_start_start" $margin="0 0 20px 0">
           <P $fontSize="large">제목:&nbsp;</P>
           <H1 $fontSize="large" $fontWeight="bold">
@@ -57,22 +70,29 @@ const PostDetailViewContainer = (props) => {
         </Div>
         <Div>
           <Div $flex="h_start_start">
-            <P $fontSize="small">작성자:&nbsp;</P>
-            <P $fontSize="small" $fontWeight="bold">
-              {data?.data.nickname} | {data?.data.created_at}
-            </P>
+            <P>작성자:&nbsp;</P>
+            <P $fontWeight="bold">{data?.data.nickname}</P>
+          </Div>
+          <Div $flex="h_start_start">
+            <P>작성일:&nbsp;</P>
+            <P $fontWeight="bold">{TimeStampUtil(data?.data.createdAt)}</P>
           </Div>
         </Div>
         {isAuthor ? <DeletePostContainer /> : null}
       </TitleDiv>
-      <PostContentDiv>
-        <Div
+
+      {/* 게시글 내용 */}
+      <PostContentDiv $width="100%" $margin="30px 0 30px 0" $padding="10px">
+        <ViewDiv
           $width="100%"
           $padding="5% 0"
           dangerouslySetInnerHTML={{ __html: data?.data.content }}
           contentEditable="false"
-        ></Div>
+          $flex="h_start_start"
+        />
       </PostContentDiv>
+
+      {/* 댓글 목록 */}
       <CommentSection
         $width="100%"
         $padding="5% 30px"

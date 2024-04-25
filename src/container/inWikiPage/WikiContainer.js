@@ -21,6 +21,7 @@ import useFetch from "../../hook/useFetch";
 const TabBtn = styled(Button)`
   border-right: 1px solid ${setColor("major")};
   border-left: 1px solid ${setColor("major")};
+  border-top: 1px solid ${setColor("major")};
 `;
 const SwitchTabLayout = styled(Div)``;
 const MainContentLayout = styled(Div)`
@@ -127,7 +128,7 @@ const WikiContainer = () => {
                 $width="100%"
                 $margin="20px 0 0 0"
                 dangerouslySetInnerHTML={{ __html: wikiContentData[0]?.content }}
-              />
+              ></MainContentLayout>
             </Article>
           </Section>
         </Article>

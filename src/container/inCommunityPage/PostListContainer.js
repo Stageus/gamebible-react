@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import useFetch from "../../hook/useFetch";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import PostListItem from "../../component/PostListItem";
 import PaginationContainer from "../PaginationContainer";
 
 import { Section, Div } from "../../style/LayoutStyle";
 
 const PostListContainer = (props) => {
-  const { gameIdx, pageIdx } = useParams();
+  const { gameIdx } = useParams();
+  const location = useLocation();
+  const pageIdx = new URLSearchParams(location.search).get("page");
   const { data, request } = useFetch();
   const [totalPages, setTotalPages] = useState(0);
 

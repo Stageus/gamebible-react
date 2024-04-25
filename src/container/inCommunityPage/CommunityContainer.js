@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import useFetch from "../../hook/useFetch";
+import React from "react";
 
 import { Link, useParams } from "react-router-dom";
 
@@ -18,6 +17,7 @@ import PostListContainer from "./PostListContainer";
 const TabBtn = styled(Button)`
   border-right: 1px solid ${setColor("major")};
   border-left: 1px solid ${setColor("major")};
+  border-top: 1px solid ${setColor("major")};
 `;
 const SwitchTabLayout = styled(Div)``;
 const CommunityTitleWrapper = styled(Div)`
@@ -33,15 +33,7 @@ const ButtonWrapper = styled(Div)``;
 const CommunityContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
 
-  const { gameIdx, pageIdx } = useParams();
-  const { request } = useFetch();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      await request(`/post/all?gameidx=${gameIdx}&page=${pageIdx}`, "GET", null);
-    };
-    fetchData();
-  }, [pageIdx]);
+  const { gameIdx } = useParams();
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
@@ -107,7 +99,7 @@ const CommunityContainer = () => {
                 </Div>
               </Div>
             </CommunityTitleWrapper>
-            <PostListContainer {...{ gameIdx, pageIdx }} />
+            <PostListContainer {...{ gameIdx }} />
             <ButtonWrapper $width="100%" $flex="h_end_center" $padding="0 30px">
               <Link to={`/game/${gameIdx}/writePost`}>
                 <Button

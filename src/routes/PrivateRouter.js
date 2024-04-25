@@ -3,7 +3,7 @@ import { React, useEffect } from "react";
 import { Route, Routes, useNavigate, useLocation, useParams } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import useFetch from "../hook/useFetch";
-import HeaderNavContainer from "../container/HeaerNavContainer";
+import HeaderNavContainer from "../container/HeaderNavContainer";
 
 import AccessDeniedPage from "../page/AccessDeniedPage";
 
@@ -37,6 +37,7 @@ const PrivateRouter = () => {
         nickname: data.data.nickname,
         is_admin: data.data.is_admin,
         user_idx: data.data.user_idx,
+        kakao_key: data.data.kakao_key,
       });
     }
   }, [data]);

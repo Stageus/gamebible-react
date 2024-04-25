@@ -9,21 +9,23 @@ import ImgTextBtnItem from "./ImgTextBtnItem";
 import DeleteIcon from "../img/deleteIcon.svg";
 
 import { useCookies } from "react-cookie";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import timestampConversion from "../util/TimestampUtil";
+import TimeStampUtil from "../util/TimeStampUtil";
 
 const BorderStyleArticle = styled(Article)`
   border-radius: 5px;
-`;
-const MoveLink = styled(Link)`
-  width: 100%;
 `;
 
 const NotificationListItem = (props) => {
   const { idx, user_idx, type, post_idx, game_idx, created_at, post_title, game_title } =
     props.data;
   const [cookies] = useCookies(["token"]);
+  const navigate = useNavigate();
+
+  const moveURLEvent = () => {
+    navigate(`${url}`);
+  };
 
   // (일반사용자) 알림 삭제하기 DELETE
   const deleteAlarmEvent = async () => {
@@ -39,13 +41,13 @@ const NotificationListItem = (props) => {
       window.location.reload();
     }
     if (response.status === 400) {
-      alert(response.message);
+      return alert("유효하지 않은 요청입니다.");
     }
     if (response.status === 401) {
-      alert(response.message);
+      return alert("권한이 없는 사용자입니다.");
     }
     if (response.status === 500) {
-      alert(response.message);
+      console.log("서버 내부 에러입니다.");
     }
   };
 
@@ -67,30 +69,30 @@ const NotificationListItem = (props) => {
   return (
     <Div $flex="v_start_start" $width="100%" $margin="70px 0 0 0">
       {/* 알람 시각 */}
-      <Span $margin="0 0 10px 0">{timestampConversion(created_at)}</Span>
+      <Span $margin="0 0 10px 0">{TimeStampUtil(created_at)}</Span>
 
       {/* 알람 내용, 알람 클릭 시 해당 url로 이동 */}
-      <MoveLink to={`${url}`}>
-        <BorderStyleArticle
-          $flex="h_between_center"
-          $width="100%"
-          $backgroundColor="lightGray"
-          $height="100px"
-          $padding="0 3%"
-        >
-          <Div>
-            <Span $fontWeight="bold">{content}</Span>
-          </Div>
+      {/* <MoveLink to={`${url}`}> */}
+      <BorderStyleArticle
+        $flex="h_between_center"
+        $width="100%"
+        $backgroundColor="lightGray"
+        $height="100px"
+        $padding="0 3%"
+        onClick={(e) => moveURLEvent(e)}
+      >
+        <Div>
+          <Span $fontWeight="bold">{content}</Span>
+        </Div>
 
-          <ImgTextBtnItem
-            img={DeleteIcon}
-            text="DELETE"
-            color="major"
-            backgroundColor="default"
-            onClick={() => deleteAlarmEvent(idx)}
-          />
-        </BorderStyleArticle>
-      </MoveLink>
+        <ImgTextBtnItem
+          img={DeleteIcon}
+          text="DELETE"
+          color="major"
+          backgroundColor="default"
+          onClick={(event) => deleteAlarmEvent(event, idx)}
+        />
+      </BorderStyleArticle>
     </Div>
   );
 };

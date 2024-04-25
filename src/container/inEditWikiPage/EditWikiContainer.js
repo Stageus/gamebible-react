@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 
 import { styled } from "styled-components";
 import { Div, Article, Section } from "../../style/LayoutStyle";
@@ -14,6 +14,8 @@ import { Link, useParams } from "react-router-dom";
 import BannerImgItem from "../../component/BannerImgItem";
 import EditingContainer from "./EditingContainer";
 
+import useFetch from "../../hook/useFetch";
+
 const GameContentLayout = styled(Section)`
   width: calc(100vw - 120px);
   transition: padding 0.1s ease;
@@ -21,6 +23,7 @@ const GameContentLayout = styled(Section)`
 const TabBtn = styled(Button)`
   border-right: 1px solid ${setColor("major")};
   border-left: 1px solid ${setColor("major")};
+  border-top: 1px solid ${setColor("major")};
 `;
 const SwitchTabLayout = styled(Div)``;
 
@@ -29,6 +32,27 @@ const EditWikiContainer = () => {
 
   // 탭이동을 위한 gameIdx 추출
   const { gameIdx } = useParams();
+
+  // 데이터(게임제목, 기존위키내용) 가져오기 GET
+  const [wikiContentData, setWikiContentData] = useState([]);
+
+  const { data, status, request } = useFetch();
+  useEffect(() => {
+    request(`/game/${gameIdx}/history`, "GET", null);
+  }, []);
+
+  useEffect(() => {
+    if (status === 200) {
+      setWikiContentData(data?.data);
+    }
+    if (status === 400) {
+      alert("유효하지 않은 요청입니다.");
+    }
+    if (status === 500) {
+      console.log("서버 내부 에러입니다.");
+    }
+  }, [data]);
+  // console.log("wikiContentData: ", wikiContentData);
 
   return (
     <GameContentLayout $flex="v_center_center" $padding={navToggle && "0 0 0 250px"}>
@@ -64,7 +88,7 @@ const EditWikiContainer = () => {
         </SwitchTabLayout>
 
         <Article $flex="h_center_center" $backgroundColor="major" $width="100%" $padding="50px">
-          <EditingContainer />
+          <EditingContainer {...{ wikiContentData }} />
         </Article>
       </Section>
     </GameContentLayout>

@@ -7,6 +7,7 @@ import { Div } from "../style/LayoutStyle";
 const BannerLayout = styled(Div)`
   width: 100%;
   background-size: cover;
+  border: 1px solid lightgray;
 `;
 const BannerImg = styled(Img)`
   width: 100%;

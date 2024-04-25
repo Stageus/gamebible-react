@@ -15,7 +15,7 @@ const DeleteBtn = styled(Button)`
 `;
 const DeletePostContainer = () => {
   const { data, status, request } = useFetch();
-  const { postIdx } = useParams();
+  const { gameIdx, postIdx } = useParams();
 
   const navigate = useNavigate();
   const [cookies] = useCookies(["token"]);
@@ -27,7 +27,7 @@ const DeletePostContainer = () => {
   useEffect(() => {
     if (status === 200) {
       alert("게시글이 삭제되었습니다");
-      navigate("/");
+      navigate(`/game/${gameIdx}/community?page=1`);
     }
   }, [data, status]);
 

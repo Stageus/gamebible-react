@@ -66,12 +66,11 @@ const WriterContainer = () => {
   };
 
   useEffect(() => {
-    if (status === 200) {
-      alert("게시글 작성 완료");
+    if (status === 201) {
+      alert("게시글 작성이 완료되었습니다.");
       navigate(`/game/${gameIdx}/community?page=1`);
     }
   }, [status]);
-  console.log(status);
 
   const nodeToString = (node) => {
     // div
@@ -84,6 +83,7 @@ const WriterContainer = () => {
     const tag = tmpNode.querySelector("div");
 
     tag.contentEditable = false;
+    tag.style.border = "none";
 
     // div안에있는 모든 HTML
     const str = tmpNode.innerHTML;
