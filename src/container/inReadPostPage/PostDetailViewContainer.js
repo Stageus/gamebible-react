@@ -12,7 +12,7 @@ import { Section } from "../../style/LayoutStyle";
 import CommentContainer from "./CommentContainer";
 import DeletePostContainer from "./DeletePostContainer";
 
-import TimeStampUtil from "../../util/TimeStampUtil";
+import TimeStampUtil from "../../util/TimestampUtil";
 
 const CommentSection = styled(Section)`
   border-radius: 10px;

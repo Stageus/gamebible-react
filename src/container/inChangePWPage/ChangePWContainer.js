@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useInput } from "../../hook/useInput";
 import InputItem from "../../component/InputItem";
 

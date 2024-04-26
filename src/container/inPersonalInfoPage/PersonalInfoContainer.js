@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import useFetch from "../../hook/useFetch";
 import LabelText from "../../component/LabelText";
 

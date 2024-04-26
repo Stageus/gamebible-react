@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useFetch from "../../hook/useFetch";
-import { cookies, useCookies } from "react-cookie";
+import { useCookies } from "react-cookie";
 
 import deleteImg from "../../img/deleteImg.svg";
 import styled from "styled-components";

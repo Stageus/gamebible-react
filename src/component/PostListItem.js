@@ -3,7 +3,7 @@ import React from "react";
 import { styled } from "styled-components";
 import { setColor } from "../style/SetStyle";
 import { Article, Div } from "../style/LayoutStyle";
-import TimeStampUtil from "../util/TimeStampUtil";
+import TimeStampUtil from "../util/TimestampUtil";
 
 const PostListItemLayout = styled(Article)`
   background-color: ${setColor("white")};

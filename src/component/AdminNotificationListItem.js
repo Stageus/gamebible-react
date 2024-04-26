@@ -14,7 +14,7 @@ import GameImgSettingContainer from "../container/inNotificationPage/GameImgSett
 
 import { useCookies } from "react-cookie";
 
-import TimeStampUtil from "../util/TimeStampUtil";
+import TimeStampUtil from "../util/TimestampUtil";
 
 const BorderStyleArticle = styled(Article)`
   border-radius: 5px;

@@ -23,14 +23,14 @@ const ArticleContentLayout = styled(Div)`
 const SearchResultPostContainer = () => {
   const navToggle = useRecoilValue(navToggleAtom);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const searchTerm = searchParams.get("title");
 
   // 게시글 검색하기 GET
   const [searchPostData, setSearchPostData] = useState(null);
   const [page, setPage] = useState(1);
 
-  const { data, error, status, request } = useFetch();
+  const { data, status, request } = useFetch();
   useEffect(() => {
     request(`/post/search?title=${searchTerm}&page=${page}`, "GET", null);
   }, [searchParams]);
@@ -57,7 +57,7 @@ const SearchResultPostContainer = () => {
         연관 게시글
       </ArticleLabel>
 
-      {searchPostData?.length != 0 ? (
+      {searchPostData?.length !== 0 ? (
         // 연관 게시글 있을 경우
         <ArticleContentLayout
           $width="100%"

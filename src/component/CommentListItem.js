@@ -7,7 +7,7 @@ import { Div, Article } from "../style/LayoutStyle";
 
 import deleteImg from "../img/deleteImg.svg";
 
-import TimeStampUtil from "../util/TimeStampUtil";
+import TimeStampUtil from "../util/TimestampUtil";
 
 const CommentListItemLayout = styled(Article)`
   background-color: ${setColor("white")};

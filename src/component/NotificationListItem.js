@@ -11,7 +11,7 @@ import DeleteIcon from "../img/deleteIcon.svg";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
-import TimeStampUtil from "../util/TimeStampUtil";
+import TimeStampUtil from "../util/TimestampUtil";
 
 const BorderStyleArticle = styled(Article)`
   border-radius: 5px;
