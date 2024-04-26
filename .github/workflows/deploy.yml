@@ -1,0 +1,33 @@
+name: Swagger Deploy
+on:
+    push:
+        branches:
+            - master
+jobs:
+    build:
+        runs-on: ubuntu-20.04
+
+        steps:
+            - name: Checkout source code.
+              uses: actions/checkout@v3
+            - name: Install dependencies
+              run: npm install
+              working-directory: ./
+            - name: Build
+              run: npm run build
+              working-directory: ./
+            - name: SHOW AWS CLI VERSION
+              env:
+                  AWS_ACCESS_KEY_ID: ${{ secrets.S3_ADMIN_ACCESS_KEY }}
+                  AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_ADMIN_SECRET_KEY }}
+                  AWS_EC2_METADATA_DISABLED: true
+              run: |
+                  aws --version
+            - name: Upload build to S3 bucket
+              env:
+                  AWS_ACCESS_KEY_ID: ${{ secrets.S3_ADMIN_ACCESS_KEY }}
+                  AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_ADMIN_SECRET_KEY }}
+                  AWS_EC2_METADATA_DISABLED: true
+              run: |
+                  aws s3 sync ./build/ s3://gamebible.site —acl public-read
+              working-directory: ./
