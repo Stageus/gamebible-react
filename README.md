@@ -1,15 +1,19 @@
-# 🎮 게임대장경 GameBible 📚
-![게임대장경logo_filled](https://github.com/Stageus/gamebible-react/assets/80874074/f309c058-fc96-40ca-97ae-90aecfcb3cfe) ![게임대장경logo_outlined](https://github.com/Stageus/gamebible-react/assets/80874074/008cccb5-3e18-4c1f-be9e-8d2de45d5071)
+# 🎮 게임대장경 [GameBible](http://gamebible.site/) 📚
+![게임대장경logo_outlined 2](https://github.com/Stageus/gamebible-react/assets/80874074/cfcb13db-a2ba-4ad5-8db2-86d4144b1b89) ![게임대장경logo_filled 2](https://github.com/Stageus/gamebible-react/assets/80874074/36cd030e-c020-44f5-9bef-8c1113ea050d)
+
 
 
 ## 💁 프로젝트 소개 
-게임 관련 위키 및 커뮤니티 제공 서비스 웹
+게임 관련 위키 및 커뮤니티 제공 서비스 웹입니다.
+수많은 게임의 종류에 대한 **사용자 중심의 정보 전달**과 
+사용자 개개인이 경험한 게임 전략 및 업데이트, 오류 등의 최신 소식 등을 **활발히 공유할 수 있는 소통 창구의 제공**을 목적으로 해당 서비스를 기획하였습니다. 
 
 
 
 ## ⏰ 프로젝트 진행 기간 
 * 기획 및 디자인: 2024.02.08 - 2024.02.29
 * 개발: 2024.02.29 - 2024.04.18
+
 
 
 ## 🤼‍♀️ 팀원 소개 Team Members
@@ -45,28 +49,12 @@
 <img src="https://img.shields.io/badge/javascript-F6DC22?style=flat-square&logo=javascript&logoColor=white" /> <img src="https://img.shields.io/badge/react-59D4FA?style=flat-square&logo=react&logoColor=white" /> <img src="https://img.shields.io/badge/StyledComponent-CE6CBE?style=flat-square&logo=styled component&logoColor=white" /> <img src="https://img.shields.io/badge/Recoil-2A5FDE?style=flat-square&logo=recoil&logoColor=white" />
   
 #### BackEnd: 
-<img src="https://img.shields.io/badge/NodeJS-7DBF15?style=flat-square&logo=NodeJS&logoColor=white" /> <img src="https://img.shields.io/badge/Express-FFFFFF?style=flat-square&logo=Express&logoColor=black" /> <img src="https://img.shields.io/badge/Docker-1748E9?style=flat-square&logo=Docker&logoColor=white" /> <img src="https://img.shields.io/badge/EC2-F06226?style=flat-square&logo=EC2&logoColor=white" /> <img src="https://img.shields.io/badge/S3-D94139?style=flat-square&logo=S3&logoColor=white" /> 
+<img src="https://img.shields.io/badge/NodeJS-7DBF15?style=flat-square&logo=NodeJS&logoColor=white" /> <img src="https://img.shields.io/badge/Express-FFFFFF?style=flat-square&logo=Express&logoColor=black" /> <img src="https://img.shields.io/badge/Docker-1748E9?style=flat-square&logo=Docker&logoColor=white" /> <img src="https://img.shields.io/badge/EC2-F06226?style=flat-square&logo=EC2&logoColor=white" /> <img src="https://img.shields.io/badge/S3-4D8F2C?style=flat-square&logo=S3&logoColor=white" /> 
 
 #### Database: 
 <img src="https://img.shields.io/badge/PosrgreSQL-2C5185?style=flat-square&logo=PosrgreSQL&logoColor=white" /> 
 
 
-
-## 🖼️ 화면 구성 Pages
-|__메인 페이지__|__위키 페이지__|
-|---|---|
-
-|__위키 히스토리 목록 페이지__|__위키 히스토리 상세보기 페이지__|
-|---|---|
-
-|__커뮤니티 페이지__|__게시글 상세보기 페이지__|
-|---|---|
-
-|__관리자 알람 페이지__|__일반사용자 알람 페이지__|
-|---|---|
-
-|__회원가입 페이지__|__로그인 페이지__|
-|---|---|
 
 ## 💡 주요 기능 Main Functions
 #### ✨ 아직 제공하지 않는 게임 생성 제안 기능
@@ -76,7 +64,8 @@
 * 하나의 위키에 대한 수정 내역 확인 가능
 * 각 사용자가 수정한 내용 확인 가능
   
-#### ✨ 게시글 작성 및 댓글 작성 기능
+#### ✨ 위키, 게시글, 댓글 작성 기능
+* 위키와 게시글의 경우 텍스트와 이미지를 혼합해서 작성 및 삽입 가능
 
 #### ✨ 관리자 여부에 따른 알람 확인 기능
 * 관리자의 경우 요청받은 새로운 게임에 대한 수락 및 거절 가능
@@ -84,163 +73,24 @@
 
 
 
-
-
 ## 🗂️ 폴더 구조 Architecture
 ```
 ├── App.js
 ├── component
-│   ├── AddPhotoBtnItem.js
-│   ├── AdminNotificationListItem.js
-│   ├── BannerImgItem.js
-│   ├── CommentListItem.js
-│   ├── FooterItem.js
-│   ├── GameListItem.js
-│   ├── HeaderItem.js
-│   ├── ImgTextBtnItem.js
-│   ├── InputItem.js
-│   ├── LabelText.js
-│   ├── NotificationListItem.js
-│   ├── PostListItem.js
-│   └── ThumbnailItem.js
 ├── container
-│   ├── AddPhotoBtnContainer.js
-│   ├── GameListNavContainer.js
-│   ├── HeaderNavContainer.js
-│   ├── Kakao.js
-│   ├── PaginationContainer.js
-│   ├── inChangePWPage
-│   │   └── ChangePWContainer.js
-│   ├── inCommunityPage
-│   │   ├── CommunityContainer.js
-│   │   └── PostListContainer.js
-│   ├── inEditPersonalInfoPage
-│   │   └── EditPersonalInfoContainer.js
-│   ├── inEditWikiPage
-│   │   ├── EditWikiContainer.js
-│   │   └── EditingContainer.js
-│   ├── inFindIDPage
-│   │   └── FindIDContainer.js
-│   ├── inMainPage
-│   │   └── PopularGameListContainer.js
-│   ├── inNotificationPage
-│   │   ├── AdminNotificationListContainer.js
-│   │   ├── GameImgSettingContainer.js
-│   │   └── NotificationListContainer.js
-│   ├── inPersonalInfoPage
-│   │   └── PersonalInfoContainer.js
-│   ├── inReadPostPage
-│   │   ├── CommentContainer.js
-│   │   ├── CommentListContainer.js
-│   │   ├── DeletePostContainer.js
-│   │   ├── PostCommentContainer.js
-│   │   ├── PostDetailViewContainer.js
-│   │   └── ReadPostContainer.js
-│   ├── inResetPWPage
-│   │   └── ResetPWContainer.js
-│   ├── inSearchResultsPage
-│   │   ├── NoResultNoGameContainer.js
-│   │   ├── SearchResultGameContainer.js
-│   │   ├── SearchResultPostContainer.js
-│   │   ├── SuggestGameContainer.js
-│   │   ├── YesGameContainer.js
-│   │   └── YesPostContainer.js
-│   ├── inSignInPage
-│   │   ├── SignInContainer.js
-│   │   └── SocialSignInBtnContainer.js
-│   ├── inSignUpPage
-│   │   ├── EmailAuthInputContainer.js
-│   │   ├── EmailInputContainer.js
-│   │   ├── IdInputContainer.js
-│   │   ├── NicknameInputContainer.js
-│   │   ├── PrivacyDetailViewContainer.js
-│   │   ├── SignUpContainer.js
-│   │   ├── TermsDetailViewContainer.js
-│   │   └── TermsServiceContainer.js
-│   ├── inWikiPage
-│   │   ├── WikiContainer.js
-│   │   ├── WikiHistoryContentContainer.js
-│   │   └── WikiHistoryListContainer.js
-│   └── inWritePostPage
-│       ├── WritePostContainer.js
-│       └── WriterContainer.js
 ├── hook
-│   ├── useClick.js
-│   ├── useFetch.js
-│   ├── useHover.js
-│   └── useInput.js
 ├── img
-│   ├── HeaderLogo.svg
-│   ├── addGameImg.svg
-│   ├── addPhotoImg.svg
-│   ├── approveIcon.svg
-│   ├── arrowLeft.svg
-│   ├── arrowRight.svg
-│   ├── backImg.svg
-│   ├── bannerImg.svg
-│   ├── deleteIcon.svg
-│   ├── deleteImg.svg
-│   ├── doneAll.svg
-│   ├── editImg.svg
-│   ├── emailImg.svg
-│   ├── finishImg.svg
-│   ├── footerLogoImg.svg
-│   ├── githubImg.svg
-│   ├── historyImg.svg
-│   ├── kakaoLoginMediumWide.svg
-│   ├── menuIcon.svg
-│   ├── noAlarmImg.svg
-│   ├── noGameImg.svg
-│   ├── noPostImg.svg
-│   ├── notiIcon.svg
-│   ├── notionImg.svg
-│   ├── putByUserImg.svg
-│   ├── radioBtnChecked.svg
-│   ├── radioBtnUnChecked.svg
-│   ├── rejectIcon.svg
-│   ├── searchIcon.svg
-│   ├── testPostImg.png
-│   ├── thumnailTextImg.svg
-│   ├── unVisibleIcon.svg
-│   ├── userIcon.svg
-│   └── visibleIcon.svg
 ├── index.js
 ├── page
-│   ├── AccessDeniedPage.js
-│   ├── ChangePWPage.js
-│   ├── CommunityPage.js
-│   ├── EditPersonalInfoPage.js
-│   ├── EditWikiPage.js
-│   ├── FindIDPage.js
-│   ├── MainPage.js
-│   ├── NotificationPage.js
-│   ├── PersonalInfoPage.js
-│   ├── ReadPostPage.js
-│   ├── ResetPWPage.js
-│   ├── SearchResultsPage.js
-│   ├── SignInPage.js
-│   ├── SignUpPage.js
-│   ├── WikiHistoryContentPage.js
-│   ├── WikiHistoryPage.js
-│   ├── WikiPage.js
-│   └── WritePostPage.js
 ├── recoil
-│   ├── navToggleAtom.js
-│   └── userInfoAtom.js
 ├── routes
-│   ├── PrivateRouter.js
-│   └── PublicRouter.js
 ├── style
-│   ├── ButtonStyle.js
-│   ├── GlobalStyle.js
-│   ├── ImgStyle.js
-│   ├── InputStyle.js
-│   ├── LayoutStyle.js
-│   ├── SetStyle.js
-│   └── TextStyle.js
 └── util
-    ├── TimeStampUtil.js
-    └── ValidationUtil.js
-
-25 directories, 130 files
 ```
+
+## 💭 프로젝트 후기 Reviews
+* __조경은__: 개발 뿐만 아니라 기획, 디자인, 그리고 PM으로서 프로젝트의 전과정에 관심을 가지며 진행했다는 점이 의미있었습니다. 마감 이후에도 팀원들과의 소통을 이어나가며 꾸준히 프로젝트를 업데이트 해나가고 싶습니다. 
+* __방준연__: 혼자가 아닌 함께 협력할 수 있는 프로젝트였어서 함께 일하는 방법에 대해 공부할 수 있었고 즐거웠습니다.
+* __김기주__: 프로젝트를 통해 실전 경험을 쌓고 새로운 관점을 배울 수 있었습니다.
+* __박해주__: 프로젝트를 진행하는 과정에서 팀원들과 함께 소통하고 협업하면서 문제를 해결해나가는 과정에서 다양한 새로운 기술과 지식을 배우고 성장할 수 있는 계기가 되었습니다.
+* __정태은__: 이번 프로젝트를 통해 많은 것을 배우고 성장했습니다. 팀원들의 책임감과 열정이 프로젝트 진행을 원활하게 만들었고, 깃허브를 통한 협업을 통해 소통과 협력의 중요성을 배웠습니다. 프로젝트 완성 후에도 계속해서 코드 리팩토링을 진행하여 품질을 향상시키고자 합니다.
