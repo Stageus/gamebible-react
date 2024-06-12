@@ -36,10 +36,10 @@ const GameImgSettingContainer = (props) => {
   const navigate = useNavigate();
 
   const thumbnailImg = useRef();
-  console.log("thumbnailImg: ", thumbnailImg.current);
-
   const bannerImg = useRef();
-  console.log("bannerImg: ", bannerImg.current);
+  const title = useRef();
+  const titleKor = useRef();
+  const titleEng = useRef();
 
   const approveGameEvent = async () => {
     // 이미지 파일 선택 하지 않고 확인 버튼 클릭 시
@@ -53,6 +53,9 @@ const GameImgSettingContainer = (props) => {
     formData.append("requestIdx", idx);
     formData.append("thumbnail", thumbnailImg.current);
     formData.append("banner", bannerImg.current);
+    formData.append("title", title.current);
+    formData.append("titleKor", titleKor.current);
+    formData.append("titleEng", titleEng.current);
 
     const response = await fetch(`${process.env.REACT_APP_API_KEY}/admin/game`, {
       method: "POST",
@@ -62,7 +65,7 @@ const GameImgSettingContainer = (props) => {
       body: formData,
     });
 
-    if (response.status === 200) {
+    if (response.status === 201) {
       alert("게임 승인이 완료되았습니다.");
       navigate("./");
     }
@@ -79,16 +82,23 @@ const GameImgSettingContainer = (props) => {
 
   const handleThumbnailImgChange = (event) => {
     thumbnailImg.current = event.target.files[0];
-    console.log("thumbnailImg.current: ", thumbnailImg.current);
   };
   const handleBannerImgChange = (event) => {
     bannerImg.current = event.target.files[0];
-    console.log("bannerImg.current: ", bannerImg.current);
+  };
+  const handleTitleChange = (event) => {
+    title.current = event.target.files[0];
+  };
+  const handleTitleKorChange = (event) => {
+    bannerImg.current = event.target.files[0];
+  };
+  const handleTitleEngChange = (event) => {
+    bannerImg.current = event.target.files[0];
   };
 
   return (
     <RelativeSection $flex="h_center_center" $width="100vw" $height="100vh">
-      <RelativeDiv $flex="v_start_center" $width="500px" $height="300px" $backgroundColor="white">
+      <RelativeDiv $flex="v_start_center" $width="500px" $backgroundColor="white">
         <RightButton
           $width="30px"
           $height="30px"
@@ -104,12 +114,40 @@ const GameImgSettingContainer = (props) => {
         </Div>
         <Section $flex="v_between_center" $margin="40px 0">
           <Div $margin="0 0 20px 0">
-            <Div $margin="0 0 40px 0">
-              <Div>게임 썸네일 이미지</Div>
-              <Input type="file" ref={thumbnailImg} onChange={handleThumbnailImgChange} />
-            </Div>
+            <Div>게임 썸네일 이미지</Div>
+            <Input
+              type="file"
+              ref={thumbnailImg}
+              onChange={handleThumbnailImgChange}
+              $margin="0 0 20px 0"
+            />
+
             <Div>게임 배너 이미지</Div>
-            <Input type="file" ref={bannerImg} onChange={handleBannerImgChange} />
+            <Input
+              type="file"
+              ref={bannerImg}
+              onChange={handleBannerImgChange}
+              $margin="0 0 20px 0"
+            />
+
+            <Div>게임명</Div>
+            <Input type="input" ref={title} onChange={handleTitleChange} $margin="0 0 20px 0" />
+
+            <Div>게임 한국어명</Div>
+            <Input
+              type="input"
+              ref={titleKor}
+              onChange={handleTitleKorChange}
+              $margin="0 0 20px 0"
+            />
+
+            <Div>게임 영문명</Div>
+            <Input
+              type="input"
+              ref={titleEng}
+              onChange={handleTitleEngChange}
+              $margin="0 0 20px 0"
+            />
           </Div>
 
           <Div $flex="h_between_center" $width="100%">
