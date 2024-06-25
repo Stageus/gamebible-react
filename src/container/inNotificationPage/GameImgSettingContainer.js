@@ -1,4 +1,4 @@
-import { React, useRef } from "react";
+import { React, useState } from "react";
 
 import MainLogo from "../../img/HeaderLogo.svg";
 
@@ -30,32 +30,36 @@ const RightButton = styled(Button)`
   top: 10px;
 `;
 
+const GameTextInput = styled(Input)`
+  padding: 5px;
+`;
+
 const GameImgSettingContainer = (props) => {
   const { setGameImgEvent, idx } = props;
   const [cookies] = useCookies(["token"]);
   const navigate = useNavigate();
 
-  const thumbnailImg = useRef();
-  const bannerImg = useRef();
-  const title = useRef();
-  const titleKor = useRef();
-  const titleEng = useRef();
+  const [thumbnailImg, setThumbnailImg] = useState(null);
+  const [bannerImg, setBannerImg] = useState(null);
+  const [title, setTitle] = useState("");
+  const [titleKor, setTitleKor] = useState("");
+  const [titleEng, setTitleEng] = useState("");
 
   const approveGameEvent = async () => {
     // 이미지 파일 선택 하지 않고 확인 버튼 클릭 시
-    if (!thumbnailImg.current || !bannerImg.current) {
-      alert("이미지를 선택하세요.");
+    if (!thumbnailImg || !bannerImg || !title || !titleKor || !titleEng) {
+      alert("입력을 완료해주세요");
       return;
     }
 
     // body 내 전달 데이터
     const formData = new FormData();
     formData.append("requestIdx", idx);
-    formData.append("thumbnail", thumbnailImg.current);
-    formData.append("banner", bannerImg.current);
-    formData.append("title", title.current);
-    formData.append("titleKor", titleKor.current);
-    formData.append("titleEng", titleEng.current);
+    formData.append("thumbnail", thumbnailImg);
+    formData.append("banner", bannerImg);
+    formData.append("title", title);
+    formData.append("titleKor", titleKor);
+    formData.append("titleEng", titleEng);
 
     const response = await fetch(`${process.env.REACT_APP_API_KEY}/admin/game`, {
       method: "POST",
@@ -67,33 +71,32 @@ const GameImgSettingContainer = (props) => {
 
     if (response.status === 201) {
       alert("게임 승인이 완료되았습니다.");
-      navigate("./");
+      navigate("./"); // 관리자 알림페이지로 이동
     }
     if (response.status === 400) {
-      alert(response.message);
+      console.log("Bad request");
     }
     if (response.status === 409) {
-      alert(response.message);
+      alert("☠️ 이미 존재하는 게임입니다 ☠️");
     }
     if (response.status === 500) {
-      alert(response.message);
+      console.log("Server Error");
     }
   };
-
   const handleThumbnailImgChange = (event) => {
-    thumbnailImg.current = event.target.files[0];
+    setThumbnailImg(event.target.files[0]);
   };
   const handleBannerImgChange = (event) => {
-    bannerImg.current = event.target.files[0];
+    setBannerImg(event.target.files[0]);
   };
   const handleTitleChange = (event) => {
-    title.current = event.target.files[0];
+    setTitle(event.target.value);
   };
   const handleTitleKorChange = (event) => {
-    bannerImg.current = event.target.files[0];
+    setTitleKor(event.target.value);
   };
   const handleTitleEngChange = (event) => {
-    bannerImg.current = event.target.files[0];
+    setTitleEng(event.target.value);
   };
 
   return (
@@ -115,36 +118,31 @@ const GameImgSettingContainer = (props) => {
         <Section $flex="v_between_center" $margin="40px 0">
           <Div $margin="0 0 20px 0">
             <Div>게임 썸네일 이미지</Div>
-            <Input
-              type="file"
-              ref={thumbnailImg}
-              onChange={handleThumbnailImgChange}
-              $margin="0 0 20px 0"
-            />
+            <Input type="file" onChange={handleThumbnailImgChange} $margin="0 0 20px 0" />
 
             <Div>게임 배너 이미지</Div>
-            <Input
-              type="file"
-              ref={bannerImg}
-              onChange={handleBannerImgChange}
+            <Input type="file" onChange={handleBannerImgChange} $margin="0 0 20px 0" />
+
+            <Div>게임명</Div>
+            <GameTextInput
+              type="input"
+              value={title}
+              onChange={handleTitleChange}
               $margin="0 0 20px 0"
             />
 
-            <Div>게임명</Div>
-            <Input type="input" ref={title} onChange={handleTitleChange} $margin="0 0 20px 0" />
-
             <Div>게임 한국어명</Div>
-            <Input
+            <GameTextInput
               type="input"
-              ref={titleKor}
+              value={titleKor}
               onChange={handleTitleKorChange}
               $margin="0 0 20px 0"
             />
 
             <Div>게임 영문명</Div>
-            <Input
+            <GameTextInput
               type="input"
-              ref={titleEng}
+              value={titleEng}
               onChange={handleTitleEngChange}
               $margin="0 0 20px 0"
             />

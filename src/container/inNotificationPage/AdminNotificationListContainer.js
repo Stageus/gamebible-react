@@ -44,7 +44,7 @@ const AdminNotificationListContainer = () => {
 
   // 관리자 승인요청 온 게임 목록보기 GET
   const [adminNotiListData, setAdminNotiListData] = useState([]);
-  const [lastIdx, setLastIdx] = useState(99999999);
+  const [lastIdx, setLastIdx] = useState(12);
 
   const { data, status, request } = useFetch();
   const getAdminNotiList = () => {
@@ -86,10 +86,9 @@ const AdminNotificationListContainer = () => {
       return alert("권한이 없는 사용자입니다.");
     }
     if (status === 500) {
-      console.log("서버 내부 에러입니다.");
+      console.log("Server Error");
     }
   }, [data]);
-  console.log("adminNotiListData: ", adminNotiListData.length);
 
   return (
     <OverFlowDiv $height="100%" $flex="v_start_center" $margin="100px 0 0 0" $width="100vw">
