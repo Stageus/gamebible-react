@@ -71,6 +71,7 @@ const GameImgSettingContainer = (props) => {
 
     if (response.status === 201) {
       alert("게임 승인이 완료되았습니다.");
+      setGameImgEvent(); // 현재 컨테이너 꺼짐
       navigate("./"); // 관리자 알림페이지로 이동
     }
     if (response.status === 400) {
