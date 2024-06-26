@@ -91,8 +91,6 @@ const NotificationListContainer = () => {
     }
   }, [data, lastIdx]);
 
-  console.log("notiListData 개수: ", notiListData.length);
-
   return (
     <OverFlowDiv $height="100%" $flex="v_start_center" $margin="100px 0 0 0" $width="100vw">
       <Div $flex="v_start_center" $width="1320px">
