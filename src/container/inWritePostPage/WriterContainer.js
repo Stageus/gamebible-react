@@ -69,6 +69,12 @@ const WriterContainer = () => {
     if (status === 201) {
       alert("게시글 작성이 완료되었습니다.");
       navigate(`/game/${gameIdx}/community?page=1`);
+    } else if (status === 400) {
+      alert("유효하지 않은 요청입니다.");
+    } else if (status === 401) {
+      alert("로그인 후에 이용해주세요");
+    } else if (status === 500) {
+      console.log("Server Error");
     }
   }, [status]);
 
