@@ -43,6 +43,11 @@ const WriterContainer = () => {
   const navigate = useNavigate();
 
   const regex = /^\s*$/;
+  const alertTitleMaxLengthEvent = (title, maxlength) => {
+    if (title.length > maxlength) {
+      alert("제목의 최대 글자수는 80자입니다.");
+    }
+  };
 
   const postClickEvent = async () => {
     if (regex.test(title)) {
@@ -111,7 +116,9 @@ const WriterContainer = () => {
           placeholder="제목"
           type="text"
           onChange={onChangeTitltEvent}
+          onInput={alertTitleMaxLengthEvent(title, 80)}
           value={title}
+          maxlength="80"
         />
         <Div $width="100%" $height="1px" $backgroundColor="black" $margin="2% 0" />
       </Div>
