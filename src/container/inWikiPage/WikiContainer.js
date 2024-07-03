@@ -100,7 +100,7 @@ const WikiContainer = () => {
             <Article $width="100%">
               <Div $flex="h_between_start" $width="100%" $margin="0 0 20px 0">
                 <GameTitleLayout $width="60%" $fontWeight="bold">
-                  {wikiContentData[0]?.title}
+                  {wikiContentData?.title}
                 </GameTitleLayout>
                 <Div $flex="h_between_start">
                   <Link to="./wiki/history">
@@ -127,7 +127,7 @@ const WikiContainer = () => {
                 $flex="v_start_start"
                 $width="100%"
                 $margin="20px 0 0 0"
-                dangerouslySetInnerHTML={{ __html: wikiContentData[0]?.content }}
+                dangerouslySetInnerHTML={{ __html: wikiContentData?.content }}
               ></MainContentLayout>
             </Article>
           </Section>
