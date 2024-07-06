@@ -46,6 +46,7 @@ const WikiContainer = () => {
   useEffect(() => {
     request(`/game/${gameIdx}/history`, "GET", null);
   }, []);
+  console.log(wikiContentData);
 
   useEffect(() => {
     if (status === 200) {
