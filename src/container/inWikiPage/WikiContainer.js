@@ -46,7 +46,7 @@ const WikiContainer = () => {
   useEffect(() => {
     request(`/game/${gameIdx}/history`, "GET", null);
   }, []);
-  console.log(wikiContentData);
+  // console.log(wikiContentData);
 
   useEffect(() => {
     if (status === 200) {
@@ -124,12 +124,16 @@ const WikiContainer = () => {
                   </Link>
                 </Div>
               </Div>
-              <MainContentLayout
-                $flex="v_start_start"
-                $width="100%"
-                $margin="20px 0 0 0"
-                dangerouslySetInnerHTML={{ __html: wikiContentData?.content }}
-              ></MainContentLayout>
+              {wikiContentData.content ? (
+                <MainContentLayout
+                  $flex="v_start_start"
+                  $width="100%"
+                  $margin="20px 0 0 0"
+                  dangerouslySetInnerHTML={{ __html: wikiContentData?.content }}
+                ></MainContentLayout>
+              ) : (
+                <div>EDIT 버튼을 눌러 당신만의 정보를 공유해주세요~!</div>
+              )}
             </Article>
           </Section>
         </Article>
