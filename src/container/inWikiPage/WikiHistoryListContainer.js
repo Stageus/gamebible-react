@@ -114,7 +114,7 @@ const WikiHistoryListContainer = () => {
                 </Link>
               </Div>
               <HistoryListLayout $flex="v_center_start" $width="100%">
-                {historyListData.historyList ? (
+                {historyListData.historyList > 0 ? (
                   historyListData?.historyList?.map((elem) => {
                     return (
                       <Link key={`${elem.idx}`} to={`./${elem.idx}`}>
@@ -125,7 +125,7 @@ const WikiHistoryListContainer = () => {
                     );
                   })
                 ) : (
-                  <P>수정 내역이 없습니다.</P>
+                  <P>수정 내역이 없습니다..😢</P>
                 )}
               </HistoryListLayout>
             </Article>
