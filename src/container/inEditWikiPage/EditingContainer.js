@@ -91,8 +91,6 @@ const EditingContainer = (props) => {
     }
   }, [status]);
 
-  console.log("상태코드임", status);
-
   // 사용자가 수정입력한 내용(node 형태)을 string화 하기
   const nodeToString = (node) => {
     // div 태그 만들기

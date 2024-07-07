@@ -46,6 +46,7 @@ const WikiContainer = () => {
   useEffect(() => {
     request(`/game/${gameIdx}/history`, "GET", null);
   }, []);
+  // console.log(wikiContentData);
 
   useEffect(() => {
     if (status === 200) {
@@ -55,7 +56,7 @@ const WikiContainer = () => {
       alert("유효하지 않은 요청입니다.");
     }
     if (status === 500) {
-      console.log("서버 내부 에러입니다.");
+      console.log("Server Error");
     }
   }, [data]);
 
@@ -100,7 +101,7 @@ const WikiContainer = () => {
             <Article $width="100%">
               <Div $flex="h_between_start" $width="100%" $margin="0 0 20px 0">
                 <GameTitleLayout $width="60%" $fontWeight="bold">
-                  {wikiContentData[0]?.title}
+                  {wikiContentData?.title}
                 </GameTitleLayout>
                 <Div $flex="h_between_start">
                   <Link to="./wiki/history">
@@ -123,12 +124,16 @@ const WikiContainer = () => {
                   </Link>
                 </Div>
               </Div>
-              <MainContentLayout
-                $flex="v_start_start"
-                $width="100%"
-                $margin="20px 0 0 0"
-                dangerouslySetInnerHTML={{ __html: wikiContentData[0]?.content }}
-              ></MainContentLayout>
+              {wikiContentData.content ? (
+                <MainContentLayout
+                  $flex="v_start_start"
+                  $width="100%"
+                  $margin="20px 0 0 0"
+                  dangerouslySetInnerHTML={{ __html: wikiContentData?.content }}
+                ></MainContentLayout>
+              ) : (
+                <div>EDIT 버튼을 눌러 당신만의 정보를 공유해주세요~!</div>
+              )}
             </Article>
           </Section>
         </Article>
