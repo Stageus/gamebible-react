@@ -92,8 +92,8 @@ const NotificationListContainer = () => {
   }, [data, lastIdx]);
 
   return (
-    <OverFlowDiv $height="100%" $flex="v_start_center" $margin="100px 0 0 0" $width="100vw">
-      <Div $flex="v_start_center" $width="1320px">
+    <OverFlowDiv $width="100vw" $height="100%" $flex="v_start_center" $margin="100px 0 0 0">
+      <Div $flex="v_start_center" $width="80%">
         <Div $flex="h_start_center" $width="100%">
           <H1 $fontSize="large" $fontWeight="bold">
             알림함
