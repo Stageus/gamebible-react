@@ -55,7 +55,6 @@ const AdminNotificationListContainer = () => {
     // lastIdx가 갱신 될 때 실행
     getAdminNotiList();
   }, [lastIdx]);
-  console.log(adminNotiListData);
 
   useEffect(() => {
     // 스크롤 위치에 따라 실행
