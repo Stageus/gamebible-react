@@ -18,8 +18,7 @@ const BorderStyleArticle = styled(Article)`
 `;
 
 const NotificationListItem = (props) => {
-  const { idx, user_idx, type, post_idx, game_idx, created_at, post_title, game_title } =
-    props.data;
+  const { idx, type, post_idx, game_idx, created_at, post_title, game_title } = props.data;
   const [cookies] = useCookies(["token"]);
   const navigate = useNavigate();
 
@@ -72,16 +71,14 @@ const NotificationListItem = (props) => {
       <Span $margin="0 0 10px 0">{TimeStampUtil(created_at)}</Span>
 
       {/* 알람 내용, 알람 클릭 시 해당 url로 이동 */}
-      {/* <MoveLink to={`${url}`}> */}
       <BorderStyleArticle
         $flex="h_between_center"
         $width="100%"
         $backgroundColor="lightGray"
-        $height="100px"
-        $padding="0 3%"
+        $padding="20px 30px"
         onClick={(e) => moveURLEvent(e)}
       >
-        <Div>
+        <Div $width="60%">
           <Span $fontWeight="bold">{content}</Span>
         </Div>
 

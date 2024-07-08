@@ -58,10 +58,9 @@ const AdminNotificationListItem = (props) => {
         $flex="h_between_center"
         $width="100%"
         $backgroundColor="lightGray"
-        $height="100px"
-        $padding="0 3%"
+        $padding="20px 30px"
       >
-        <Div>
+        <Div $width="60%">
           <Span $fontWeight="bold">새로운 게임 "{title}" 생성이 요청되었습니다.</Span>
         </Div>
         <Div $flex="h_between_center" $width="30%">
