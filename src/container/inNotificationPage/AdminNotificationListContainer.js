@@ -48,13 +48,14 @@ const AdminNotificationListContainer = () => {
 
   const { data, status, request } = useFetch();
   const getAdminNotiList = () => {
-    request(`/admin/game/request/all?lastidx=${lastIdx}`, "GET", null);
+    request(`/admin/game/request/all`, "GET", null);
   };
 
   useEffect(() => {
     // lastIdx가 갱신 될 때 실행
     getAdminNotiList();
   }, [lastIdx]);
+  console.log(adminNotiListData);
 
   useEffect(() => {
     // 스크롤 위치에 따라 실행
