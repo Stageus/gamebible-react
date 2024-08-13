@@ -21,7 +21,7 @@ const BorderStyleArticle = styled(Article)`
 `;
 
 const AdminNotificationListItem = (props) => {
-  const { idx, userIdx, title, isConfirmed, createdAt } = props.data;
+  const { idx, title, createdAt } = props.data;
   const [cookies] = useCookies("token");
 
   // 게임요청 승인 시 게임이미지 설정 모달창 열림
